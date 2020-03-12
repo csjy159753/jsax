@@ -21,7 +21,7 @@ public class LogController {
      * 查询用户列表
      * @return
      */
-    @ApiOperation(value="测试日志方法", notes="测试日志方法")
+    @ApiOperation(value="测试日志方法rls", notes="测试日志方法rls")
     @RequestMapping(value = "test", method = RequestMethod.GET)
     @SysLog(value = "测试注解日志切面")
     public String testLog (String param,int num){
