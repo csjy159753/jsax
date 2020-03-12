@@ -4,6 +4,7 @@ import com.jinhe.common.utils.PageUtils;
 import com.jinhe.modules.system.entity.SysUser;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,4 +17,5 @@ import java.util.Map;
  */
 public interface ISysUserService extends IService<SysUser> {
     PageUtils queryPage(Map<String, Object> params);
+    List<SysUser> listAllrls();
 }

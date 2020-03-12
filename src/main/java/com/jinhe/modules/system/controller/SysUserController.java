@@ -3,6 +3,7 @@ package com.jinhe.modules.system.controller;
 
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.utils.PageUtils;
+import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,7 +28,7 @@ import java.util.Map;
 @RequestMapping("/system/sys-user")
 public class SysUserController {
 
-    @Autowired
+    @Resource
     private ISysUserService sysUserService;
     /**
      * 查询用户列表
@@ -47,5 +50,15 @@ public class SysUserController {
     public PageUtils List (Map<String, Object> params){
          return sysUserService.queryPage(params);
 
+    }
+    /**
+     * 查询用户列表
+     * @return
+     */
+    @ApiOperation(value="查询用户列表listAll", notes="查询用户列表listAll")
+    @RequestMapping(value = "listAll", method = RequestMethod.GET)
+    @SysLog(value = "测试注解日志切面查询用户列表listAll")
+    public List<SysUser> listAll(){
+        return sysUserService.listAllrls();
     }
 }
