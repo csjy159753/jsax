@@ -41,9 +41,9 @@ public class SysUserController {
      * 查询用户列表
      * @return
      */
-    @ApiOperation(value="测试日志方法", notes="测试日志方法")
+    @ApiOperation(value="查询用户列表", notes="查询用户列表")
     @RequestMapping(value = "List", method = RequestMethod.GET)
-    @SysLog(value = "测试注解日志切面")
+    @SysLog(value = "测试注解日志切面查询用户列表")
     public PageUtils List (Map<String, Object> params){
          return sysUserService.queryPage(params);
 
