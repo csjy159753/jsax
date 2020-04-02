@@ -25,7 +25,16 @@ spring:
         max-file-size: 100MB
         max-request-size: 100MB
         enabled: true
-
+  application:
+    name: springboot-jwt
+config:
+  jwt:
+    # 加密密钥
+    secret: abcdefg1234567
+    # token有效时长
+    expire: 3600
+    # header 名称
+    header: token
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
