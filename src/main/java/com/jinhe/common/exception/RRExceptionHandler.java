@@ -1,10 +1,14 @@
 package com.jinhe.common.exception;
 
-import com.jinhe.common.utils.R;
+import com.jinhe.common.util.ResultEnum;
+import com.jinhe.common.util.ResultUtil;
+import com.jinhe.common.vo.Result;
+import io.jsonwebtoken.SignatureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -18,25 +22,28 @@ public class RRExceptionHandler {
 	 * 处理自定义异常
 	 */
 	@ExceptionHandler(RRException.class)
-	public R handleRRException(RRException e) {
-		R r = new R();
-		r.put("code", e.getCode());
-		r.put("msg", e.getMessage());
-
-		return r;
+	public Result handleRRException(RRException e) {
+		ResultUtil.error(e.getCode(),e.getMessage());
+		return ResultUtil.error(e.getCode(),e.getMessage());
 	}
 
 	@ExceptionHandler(DuplicateKeyException.class)
-	public R handleDuplicateKeyException(DuplicateKeyException e) {
+	public Result handleDuplicateKeyException(DuplicateKeyException e) {
 		logger.error(e.getMessage(), e);
-		return R.error("数据库中已存在该记录");
+		return ResultUtil.error(ResultEnum.DuplicateKeyException);
 	}
 
 
 
 	@ExceptionHandler(Exception.class)
-	public R handleException(Exception e) {
+	public Result handleException(Exception e) {
 		logger.error(e.getMessage(), e);
-		return R.error();
+		return ResultUtil.error();
+	}
+	@ExceptionHandler(value = { SignatureException.class })
+	@ResponseBody
+	public Result authorizationException(SignatureException e){
+
+		return ResultUtil.error(ResultEnum.UNKNOWN_ERROR);
 	}
 }

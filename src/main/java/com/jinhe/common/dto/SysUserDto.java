@@ -122,6 +122,9 @@ public class SysUserDto {
      * 更新时间
      */
     private Date updateTime;
+    /**
+     * token
+     */
     private String token;
 
 }

@@ -14,14 +14,28 @@ public class ResultUtil {
     }
     /**成功但不带数据**/
     public static Result success(){
-
         return success(null);
     }
+
     /**失败**/
     public static Result error(Integer code,String msg){
         Result result = new Result();
         result.setCode(code);
         result.setMsg(msg);
+        return result;
+    }
+    /**默认未知错误**/
+    public static Result error(){
+        Result result = new Result();
+        result.setCode(ResultEnum.UNKNOWN_ERROR.getCode());
+        result.setMsg(ResultEnum.UNKNOWN_ERROR.getMsg());
+        return result;
+    }
+    /**默认未知错误**/
+    public static Result error(ResultEnum resultEnum){
+        Result result = new Result();
+        result.setCode(resultEnum.getCode());
+        result.setMsg(resultEnum.getMsg());
         return result;
     }
 }

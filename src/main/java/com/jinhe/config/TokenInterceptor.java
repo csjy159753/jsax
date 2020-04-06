@@ -19,7 +19,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws SignatureException {
         /** 地址过滤 */
         String uri = request.getRequestURI() ;
-        if (uri.contains("/login")){
+        if (uri.contains("/login")||uri.contains("/swagger-ui.html")){
             return true ;
         }
         /** Token 验证 */
