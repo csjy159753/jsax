@@ -1,7 +1,7 @@
 # springboot-pay 
 
-#### 项目介绍
-springboot-pay 一个以拓展的支付系统雏形。
+#### 项目介绍 
+springboot-pay 一个以拓展的支付系统雏形。 11
 1.ssm整合完成MybatisPlus逆向 curd。
 2.ssm整合完成MybatisPlus多数据源及事务控制例子。
 3.ssm+RESTful API curd + swagger。
