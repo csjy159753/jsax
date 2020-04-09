@@ -45,7 +45,7 @@ public class TransationTestService {
 		try {
 			insert = sysLogService.insert(log);
 			System.out.println("--------------------------------------------"+insert);
-			sysLogService.insert(log);
+//			sysLogService.insert(log);
 		} catch (Exception e) {
 			insert = false;
 			e.printStackTrace();

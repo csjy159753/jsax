@@ -26,10 +26,7 @@ public class TransationTest {
         System.out.println(ToStringBuilder.reflectionToString(log1));
         System.out.println("----------------------------------------------------------");
         SysLog log = new SysLog();
-        log.setId("2L");
 
-//        boolean b1 = transationTestService.insertLog(log);
-//        System.out.println("---------------------------------------"+b1);
         boolean b2 = transationTestService.insertLog2(log);
         System.out.println("---------------------------------------"+b2);
 
