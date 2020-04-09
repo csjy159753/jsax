@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jinhe.common.utils.PageUtils;
 import com.jinhe.common.utils.Query;
-import com.jinhe.modules.sys.entity.SysLogEntity;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.dao.SysUserMapper;
 import com.jinhe.modules.system.service.ISysUserService;

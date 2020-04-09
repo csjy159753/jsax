@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CodeGenerator {
+public class CodeGeneratorTwo {
 
     /**
      * <p>
@@ -35,7 +35,6 @@ public class CodeGenerator {
     public static void main(String[] args) {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
-
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
@@ -47,7 +46,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://47.105.34.116:3306/mas_mg_stie?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://47.105.34.116:3306/mas_mg_site_test?useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
@@ -60,7 +59,6 @@ public class CodeGenerator {
         pc.setParent("com.jinhe.modules");
         pc.setMapper("dao");
         pc.setXml("mapper");
-
         pc.setController("controller");
         mpg.setPackageInfo(pc);
 

@@ -1,8 +1,6 @@
 package com.jinhe.testdemo;
 
-
-
-import com.jinhe.modules.sys.entity.SysLogEntity;
+import com.jinhe.modules.system.entity.SysLog;
 import com.jinhe.service.DataSourceTestService;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.junit.Test;
@@ -23,32 +21,32 @@ public class DynamicDataSourceTest {
     @Test
     public void test(){
         //数据源1
-        SysLogEntity log1 = dataSourceTestService.queryLog(1L);
+        SysLog log1 = dataSourceTestService.queryLog(1L);
         System.out.println("----------------------------------------------------------");
         System.out.println(ToStringBuilder.reflectionToString(log1));
         System.out.println("----------------------------------------------------------");
 
         //数据源2
-        SysLogEntity log2 = dataSourceTestService.queryLog2(1L);
+        SysLog log2 = dataSourceTestService.queryLog2(1L);
         System.out.println("==========================================================");
         System.out.println(ToStringBuilder.reflectionToString(log2));
         System.out.println("==========================================================");
         //数据源1
-        SysLogEntity log3 = dataSourceTestService.queryLog(1L);
+        SysLog log3 = dataSourceTestService.queryLog(1L);
         System.out.println(ToStringBuilder.reflectionToString(log3));
         System.out.println("----------------------------------------------------------");
 
 
-        SysLogEntity log = new SysLogEntity();
-        log.setId(1L);
-        log.setCreateDate(new Date());
-        log.setUsername("测试数据源事务");
-        log.setTime(System.currentTimeMillis());
+        SysLog log = new SysLog();
+        log.setApplication("测试");
+        log.setLevel("2");
+        log.setUserName("ces");
 
         boolean b1 = dataSourceTestService.insertLog1(log);
         System.out.println("---------------------------------------"+b1);
         boolean b2 = dataSourceTestService.insertLog2(log);
         System.out.println("---------------------------------------"+b2);
+        log.setId("11");
         boolean b3 = dataSourceTestService.insertLog3(log);
         System.out.println("---------------------------------------"+b3);
 

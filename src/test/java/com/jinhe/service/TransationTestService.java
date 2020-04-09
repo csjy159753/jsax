@@ -2,8 +2,8 @@ package com.jinhe.service;
 
 import com.jinhe.datasources.DataSourceNames;
 import com.jinhe.datasources.annotation.DataSource;
-import com.jinhe.modules.sys.entity.SysLogEntity;
-import com.jinhe.modules.sys.service.SysLogService;
+import com.jinhe.modules.system.entity.SysLog;
+import com.jinhe.modules.system.service.ISysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,14 +15,14 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 @Service
 public class TransationTestService {
 	@Autowired
-	private SysLogService sysLogService;
+	private ISysLogService sysLogService;
 
-	public SysLogEntity queryLog(Long LogId) {
+	public SysLog queryLog(Long LogId) {
 		return sysLogService.selectById(LogId);
 	}
 
 	@Transactional
-	public boolean insertLog(SysLogEntity log){
+	public boolean insertLog(SysLog log){
 		boolean insert = false;
 		try {
 			insert = sysLogService.insert(log);
@@ -40,7 +40,7 @@ public class TransationTestService {
 
 	@DataSource(name = DataSourceNames.SECOND)
 	@Transactional
-	public boolean insertLog2(SysLogEntity log){
+	public boolean insertLog2(SysLog log){
 		boolean insert = false;
 		try {
 			insert = sysLogService.insert(log);

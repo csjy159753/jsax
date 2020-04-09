@@ -41,7 +41,7 @@ public class SysLogAspect {
 		long time = System.currentTimeMillis() - beginTime;
 
 		// 保存日志
-//		saveSysLog(point, time);
+		saveSysLog(point, time);
 		logger.info("======================================================");
 		return result;
 	}

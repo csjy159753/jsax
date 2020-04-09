@@ -19,9 +19,11 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws SignatureException {
         /** 地址过滤 */
         String uri = request.getRequestURI() ;
-        if (uri.contains("/login")||uri.contains("/swagger-ui.html")){
+        if (uri.contains("/login")||!uri.contains("/api")){
             return true ;
         }
+
+
         /** Token 验证 */
         String token = request.getHeader(jwtConfig.getHeader());
         if(StringUtils.isEmpty(token)){
