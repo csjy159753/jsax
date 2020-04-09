@@ -25,14 +25,11 @@ public class DataSourceAspect implements Ordered {
 
 	@Pointcut("@annotation(com.jinhe.datasources.annotation.DataSource)")
 	public void dataSourcePointCut() {
-
 	}
-
 	@Around("dataSourcePointCut()")
 	public Object around(ProceedingJoinPoint point) throws Throwable {
 		MethodSignature signature = (MethodSignature) point.getSignature();
 		Method method = signature.getMethod();
-
 		DataSource ds = method.getAnnotation(DataSource.class);
 		if (ds == null) {
 			DynamicDataSource.setDataSource(DataSourceNames.FIRST);
