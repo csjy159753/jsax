@@ -1,4 +1,4 @@
-package com.jinhe.config;
+package com.jinhe.common.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

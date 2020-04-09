@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("Logaaa")
 public class LogController {
-
-
     /**
      * 查询用户列表bg
      * @return

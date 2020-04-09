@@ -4,7 +4,7 @@ package com.jinhe.modules.comm.controller;
 import com.jinhe.common.dto.SysUserDto;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.vo.Result;
-import com.jinhe.config.JwtConfig;
+import com.jinhe.common.config.JwtConfig;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 

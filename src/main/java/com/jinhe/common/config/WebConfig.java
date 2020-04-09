@@ -1,5 +1,6 @@
-package com.jinhe.config;
+package com.jinhe.common.config;
 
+import com.jinhe.common.config.TokenInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

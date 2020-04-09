@@ -1,4 +1,4 @@
-package com.jinhe.config;
+package com.jinhe.common.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.stereotype.Component;
