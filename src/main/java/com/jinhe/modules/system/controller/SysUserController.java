@@ -3,6 +3,7 @@ package com.jinhe.modules.system.controller;
 
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.utils.PageUtils;
+import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
@@ -61,4 +62,16 @@ public class SysUserController {
     public List<SysUser> listAll(){
         return sysUserService.listAllrls();
     }
+
+    /**
+     * 查询用户列表
+     * @return
+     */
+    @ApiOperation(value="查询用户列表listDemo", notes="查询用户列表listDemo")
+    @RequestMapping(value = "listDemo", method = RequestMethod.GET)
+    @SysLog(value = "测试注解日志切面查询用户列表listAll")
+    public List<SysUserDto> listDemo(){
+        return sysUserService.listDemo();
+    }
+
 }

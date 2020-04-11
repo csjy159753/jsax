@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jinhe.common.utils.PageUtils;
 import com.jinhe.common.utils.Query;
+import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.dao.SysUserMapper;
 import com.jinhe.modules.system.service.ISysUserService;
@@ -46,4 +47,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public List<SysUser> listAllrls() {
        return sysUserMapper.listAllrls();
     }
+
+    @Override
+    public List<SysUserDto> listDemo() {
+        return sysUserMapper.listDemo();
+    }
+
+
 }
