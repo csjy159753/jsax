@@ -3,7 +3,7 @@ package com.jinhe.common.util;
 /**
  * Created with IntelliJ IDEA.
  * Description:
- * User: Mr.Yangxiufeng
+ * User:
  * Date: 2018-12-07
  * Time: 14:02
  */
