@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019-08-18 20:00:36
  */
 @RestController
-@RequestMapping("Logaaa")
+@RequestMapping("Log")
 public class LogController {
     /**
      * 查询用户列表bg

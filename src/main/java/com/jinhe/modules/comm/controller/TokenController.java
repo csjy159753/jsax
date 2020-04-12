@@ -5,6 +5,8 @@ import com.jinhe.common.dto.SysUserDto;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.vo.Result;
 import com.jinhe.common.config.JwtConfig;
+import com.jinhe.modules.comm.dto.Login;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +23,13 @@ public class TokenController {
     /**
      * 用户登录接口
      *
-     * @param userName
-     * @param passWord
+     * @param Login
+     * @param
      * @return
      */
+    @ApiOperation(value="登录获取token", notes="登录获取token")
     @PostMapping("/login")
-    public Result login(@RequestParam("userName") String userName,
-                        @RequestParam("passWord") String passWord) {
+    public Result login(@RequestBody Login Login) {
         JSONObject json = new JSONObject();
         /** 验证userName，passWord和数据库中是否一致，如不一致，直接return ResultUtil.errer(); 【这里省略该步骤】*/
 
