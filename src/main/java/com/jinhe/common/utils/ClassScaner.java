@@ -20,7 +20,7 @@ import org.springframework.util.TypeUtils;
 
 /**
  * 类扫描器（获取指定包下的指定类型）
- * @author lisuo
+ * @author
  */
 @SuppressWarnings("unchecked")
 public class ClassScaner{
