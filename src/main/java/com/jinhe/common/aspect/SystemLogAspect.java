@@ -23,7 +23,7 @@ public class SystemLogAspect {
 	/**
    * Controller层切点 注解拦截 （"execution（方法返回值类型   包名.类名.方法名（参数类型））"）
    */
-	@Pointcut("execution(* com.jinhe.api..*Controller.*(..))")
+	@Pointcut("execution(* com.jinhe..*Controller.*(..))")
 	public void controllerAspect(){}
 
 	@Around("controllerAspect()")
