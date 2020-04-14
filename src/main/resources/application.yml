@@ -36,6 +36,13 @@ spring:
     port: 6379
     # Redis服务器连接密码（默认为空）
     password: Mas@12345
+  http:
+    multipart:
+     
+file:
+  root:
+    #存储路径
+    path: "C:\\mydata\\generator\\version06\\"
 config:
   jwt:
     # 加密密钥

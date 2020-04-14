@@ -4,10 +4,7 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,7 +35,20 @@ public class StringUtils {
         return str;
     }
 
-
+    /**
+     * 获取小写写的guid
+     * @return
+     */
+    public static String getGUID(){
+      return  UUID.randomUUID().toString().replace("-","");
+    }
+    /**
+     * 获取大写的guid
+     * @return
+     */
+    public static String getGUIDtoUpperCase(){
+        return  UUID.randomUUID().toString().replace("-","").toUpperCase();
+    }
     /**
      * 检验手机号
      * @param phone
@@ -83,7 +93,7 @@ public class StringUtils {
 
     /**
      * 检查身份证的格式，返回true表示是，反之为否
-     * @param email
+     * @param cardId
      * @return
      */
     public static boolean isCard(String cardId) {
