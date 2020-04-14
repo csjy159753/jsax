@@ -1,7 +1,7 @@
 package com.jinhe.modules.pay.controller;
 
 import com.google.common.collect.Maps;
-import com.jinhe.common.utils.ClassScaner;
+import com.jinhe.common.util.RedisUtil;
 import com.jinhe.modules.pay.annotation.PayType;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -19,7 +19,7 @@ public class PayStratey implements BeanFactoryPostProcessor {
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-        Set<Class<?>> scan = ClassScaner.scan("com.jinhe.modules.pay.service.impl", PayType.class);
+        Set<Class<?>> scan = RedisUtil.ClassScaner.scan("com.jinhe.modules.pay.service.impl", PayType.class);
         for (Class<?> c:scan) {
             PayType annotation = c.getAnnotation(PayType.class);
             payTypeHashMap.put(annotation.value(),c);

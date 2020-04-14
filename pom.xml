@@ -151,6 +151,12 @@
             <artifactId>thumbnailator</artifactId>
             <version>${thumbnailator.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.10</version>
+        </dependency>
     </dependencies>
 
     <!-- 阿里云maven仓库 -->

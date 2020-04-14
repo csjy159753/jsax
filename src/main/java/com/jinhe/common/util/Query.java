@@ -1,4 +1,4 @@
-package com.jinhe.common.utils;
+package com.jinhe.common.util;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jinhe.common.xss.SQLFilter;

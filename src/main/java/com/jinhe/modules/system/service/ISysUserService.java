@@ -1,6 +1,6 @@
 package com.jinhe.modules.system.service;
 
-import com.jinhe.common.utils.PageUtils;
+import com.jinhe.common.util.PageUtils;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.entity.SysUser;
 import com.baomidou.mybatisplus.service.IService;

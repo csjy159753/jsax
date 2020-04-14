@@ -1,4 +1,4 @@
-package com.jinhe.common.utils;
+package com.jinhe.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

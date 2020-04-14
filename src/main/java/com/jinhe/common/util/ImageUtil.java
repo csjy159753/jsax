@@ -1,4 +1,4 @@
-package com.jinhe.common.utils;
+package com.jinhe.common.util;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;

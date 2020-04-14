@@ -2,12 +2,11 @@ package com.jinhe.modules.system.controller;
 
 
 import com.jinhe.common.annotation.SysLog;
-import com.jinhe.common.utils.PageUtils;
+import com.jinhe.common.util.PageUtils;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;

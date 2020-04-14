@@ -2,15 +2,14 @@ package com.jinhe.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jinhe.common.utils.PageUtils;
-import com.jinhe.common.utils.Query;
+import com.jinhe.common.util.PageUtils;
+import com.jinhe.common.util.Query;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.dao.SysUserMapper;
 import com.jinhe.modules.system.service.ISysUserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

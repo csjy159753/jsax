@@ -1,6 +1,6 @@
 package com.jinhe.modules.pay.controller;
 
-import com.jinhe.common.utils.SpringContextUtils;
+import com.jinhe.common.util.SpringContextUtils;
 import com.jinhe.modules.pay.entity.UnifiedOrderRequest;
 import com.jinhe.modules.pay.service.PayService;
 import org.springframework.web.bind.annotation.PathVariable;
