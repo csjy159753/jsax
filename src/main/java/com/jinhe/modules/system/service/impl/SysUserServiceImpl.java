@@ -2,6 +2,7 @@ package com.jinhe.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.PageUtils;
 import com.jinhe.common.util.Query;
 import com.jinhe.modules.system.dto.SysUserDto;
@@ -34,10 +35,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Resource
     private  SysUserMapper sysUserMapper;
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
+    public PageUtils queryPage(PageFilter filter, Map<String, Object> params) {
         String key = (String) params.get("key");
-
-        Page<SysUser> page = this.selectPage(new Query<SysUser>(params).getPage(), new EntityWrapper<SysUser>().like(StringUtils.isNotBlank(key), "username", key));
+        Page<SysUser> page = this.selectPage(new Query<SysUser>(filter).getPage(), new EntityWrapper<SysUser>().like(StringUtils.isNotBlank(key), "username", key));
 
         return new PageUtils(page);
     }

@@ -2,7 +2,9 @@ package com.jinhe.modules.system.controller;
 
 
 import com.jinhe.common.annotation.SysLog;
+import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.PageUtils;
+import com.jinhe.common.util.Query;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysUserService;
@@ -37,7 +39,7 @@ public class SysUserController {
     @ApiOperation(value="测试日志方法", notes="测试日志方法")
     @RequestMapping(value = "testrls", method = RequestMethod.GET)
     @SysLog(value = "测试注解日志切面")
-    public String testLog (String param,int num){
+    public String testLog (SysUser aa,String param,int num){
         return param+num;
     }
     /**
@@ -47,8 +49,8 @@ public class SysUserController {
     @ApiOperation(value="查询用户列表", notes="查询用户列表")
     @RequestMapping(value = "List", method = RequestMethod.GET)
     @SysLog(value = "测试注解日志切面查询用户列表")
-    public PageUtils List (Map<String, Object> params){
-         return sysUserService.queryPage(params);
+    public PageUtils List (PageFilter filter, Map<String, Object> params){
+         return sysUserService.queryPage(filter,params);
 
     }
     /**
