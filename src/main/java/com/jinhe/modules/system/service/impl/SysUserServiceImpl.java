@@ -6,6 +6,7 @@ import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.PageUtils;
 import com.jinhe.common.util.Query;
 import com.jinhe.modules.system.dto.SysUserDto;
+import com.jinhe.modules.system.dto.SysUserVo;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.dao.SysUserMapper;
 import com.jinhe.modules.system.service.ISysUserService;
@@ -20,7 +21,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author rls
@@ -31,11 +32,12 @@ import java.util.Map;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
 
-
     @Resource
-    private  SysUserMapper sysUserMapper;
+    private SysUserMapper sysUserMapper;
+
     @Override
-    public PageUtils queryPage(PageFilter filter, Map<String, Object> params) {
+    public PageUtils queryPage(PageFilter filter, SysUser sysUser) {
+        Map<String, Object> params = null;
         String key = (String) params.get("key");
         Page<SysUser> page = this.selectPage(new Query<SysUser>(filter).getPage(), new EntityWrapper<SysUser>().like(StringUtils.isNotBlank(key), "username", key));
 
@@ -44,12 +46,22 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public List<SysUser> listAllrls() {
-       return sysUserMapper.listAllrls();
+//       return sysUserMapper.listAllrls();
+        return null;
     }
 
     @Override
     public List<SysUserDto> listDemo() {
-        return sysUserMapper.listDemo();
+//        return sysUserMapper.listDemo();
+        return null;
+    }
+
+    @Override
+    public PageUtils selectPageVo(PageFilter filter, SysUserVo sysUserVo) {
+        Page<SysUserVo> page = new Query<SysUserVo>(filter).getPage();
+//        Page<SysUserVo> page1 = sysUserMapper.selectPageVo(page, sysUserVo);
+        List<SysUserVo> page2=   sysUserMapper.selectPageVo(page, sysUserVo);
+        return new PageUtils(null);
     }
 
 

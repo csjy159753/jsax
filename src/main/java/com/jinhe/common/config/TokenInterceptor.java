@@ -19,26 +19,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws SignatureException {
         /** 地址过滤 */
         String uri = request.getRequestURI() ;
-        if (uri.contains("/login")
-                ||uri.contains("/swagger")
-                ||uri.contains("/webjars")
-                ||uri.contains("/v2/api-docs")
-                ||uri.contains("/csrf")
-                ||uri.equals("/pay/")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-                ||uri.contains("/swagger-ui.html")
-
+        if (uri.contains("/login") ||true
         ){
             return true ;
         }

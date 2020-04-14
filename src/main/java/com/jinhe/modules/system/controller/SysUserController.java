@@ -6,6 +6,7 @@ import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.PageUtils;
 import com.jinhe.common.util.Query;
 import com.jinhe.modules.system.dto.SysUserDto;
+import com.jinhe.modules.system.dto.SysUserVo;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
@@ -49,8 +50,8 @@ public class SysUserController {
     @ApiOperation(value="查询用户列表", notes="查询用户列表")
     @RequestMapping(value = "List", method = RequestMethod.GET)
     @SysLog(value = "测试注解日志切面查询用户列表")
-    public PageUtils List (PageFilter filter, Map<String, Object> params){
-         return sysUserService.queryPage(filter,params);
+    public PageUtils List (PageFilter filter, SysUser sysUser){
+         return sysUserService.queryPage(filter,sysUser);
 
     }
     /**
@@ -75,4 +76,14 @@ public class SysUserController {
         return sysUserService.listDemo();
     }
 
+    /**
+     * 查询用户列表
+     * @return
+     */
+    @ApiOperation(value="查询用户列表selectPageVo", notes="查询用户列表selectPageVo")
+    @RequestMapping(value = "selectPageVo", method = RequestMethod.GET)
+    @SysLog(value = "测试注解日志切面查询用户列表selectPageVo")
+    public PageUtils selectPageVo(PageFilter filter, SysUserVo sysUserVo){
+        return sysUserService.selectPageVo(filter,sysUserVo);
+    }
 }

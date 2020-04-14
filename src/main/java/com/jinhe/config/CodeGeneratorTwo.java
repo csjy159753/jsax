@@ -58,7 +58,7 @@ public class CodeGeneratorTwo {
         pc.setModuleName(scanner("模块名称"));
         pc.setParent("com.jinhe.modules");
         pc.setMapper("dao");
-        pc.setXml("mapper");
+        pc.setXml("system/mapper");
         pc.setController("controller");
         mpg.setPackageInfo(pc);
 
