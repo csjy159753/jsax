@@ -1,11 +1,13 @@
 package com.jinhe.modules.system.dao;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.dto.SysUserVo;
 import com.jinhe.modules.system.entity.SysUser;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import javafx.scene.control.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -27,5 +29,5 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 //    @Select({"select ID,NORMALIZED_USERNAME, 'aaa' as kk_aa  from sys_user"})
 //    List<SysUserDto> listDemo();
 
-    List<SysUserVo> selectPageVo(Pagination pagination, SysUserVo sysUserVo);
+    IPage<SysUserVo> selectPageVo(Page<SysUserVo> page, SysUserVo sysUserVo);
 }

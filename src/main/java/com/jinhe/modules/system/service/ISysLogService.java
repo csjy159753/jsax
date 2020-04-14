@@ -1,7 +1,8 @@
 package com.jinhe.modules.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.jinhe.modules.system.entity.SysLog;
-import com.baomidou.mybatisplus.service.IService;
+
 
 /**
  * <p>

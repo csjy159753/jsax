@@ -1,9 +1,9 @@
 package com.jinhe.modules.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinhe.modules.system.entity.SysLog;
 import com.jinhe.modules.system.dao.SysLogMapper;
 import com.jinhe.modules.system.service.ISysLogService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,13 +1,13 @@
 package com.jinhe.modules.system.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
+
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.PageUtils;
 import com.jinhe.common.util.Query;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.dto.SysUserVo;
 import com.jinhe.modules.system.entity.SysUser;
-import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;
 import java.util.Map;

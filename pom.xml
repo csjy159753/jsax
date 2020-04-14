@@ -19,8 +19,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--项目个性化配置-->
         <swagger.version>2.9.2</swagger.version>
-        <mybatisplus.version>2.1.9</mybatisplus.version>
-        <mybatisplus.spring.boot.version>1.0.5</mybatisplus.spring.boot.version>
+        <mybatisplus.version>3.3.1.tmp</mybatisplus.version>
+        <mybatisplus.spring.boot.version>3.3.1.tmp</mybatisplus.spring.boot.version>
         <druid.version>1.1.10</druid.version>
         <mysql.version>5.1.46</mysql.version>
         <commons.lang.version>2.6</commons.lang.version>
@@ -89,15 +89,25 @@
         </dependency>
 
         <!--mybatisplus-->
+        <!--<dependency>-->
+        <!--<groupId>com.baomidou</groupId>-->
+        <!--<artifactId>mybatis-plus</artifactId>-->
+        <!--<version>3.2.0</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-            <version>${mybatisplus.version}</version>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.2.0</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatisplus-spring-boot-starter</artifactId>
-            <version>${mybatisplus.spring.boot.version}</version>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.2</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -180,6 +190,13 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.vaadin.external.google</groupId>
+            <artifactId>android-json</artifactId>
+            <version>0.0.20131108.vaadin1</version>
+            <scope>compile</scope>
+        </dependency>
+
 
     </dependencies>
 

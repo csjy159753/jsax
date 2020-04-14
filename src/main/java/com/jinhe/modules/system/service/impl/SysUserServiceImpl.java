@@ -1,7 +1,9 @@
 package com.jinhe.modules.system.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.PageUtils;
 import com.jinhe.common.util.Query;
@@ -10,7 +12,6 @@ import com.jinhe.modules.system.dto.SysUserVo;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.dao.SysUserMapper;
 import com.jinhe.modules.system.service.ISysUserService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,10 +39,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public PageUtils queryPage(PageFilter filter, SysUser sysUser) {
         Map<String, Object> params = null;
-        String key = (String) params.get("key");
-        Page<SysUser> page = this.selectPage(new Query<SysUser>(filter).getPage(), new EntityWrapper<SysUser>().like(StringUtils.isNotBlank(key), "username", key));
 
-        return new PageUtils(page);
+        return null;
     }
 
     @Override
@@ -60,8 +59,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public PageUtils selectPageVo(PageFilter filter, SysUserVo sysUserVo) {
         Page<SysUserVo> page = new Query<SysUserVo>(filter).getPage();
 //        Page<SysUserVo> page1 = sysUserMapper.selectPageVo(page, sysUserVo);
-        List<SysUserVo> page2=   sysUserMapper.selectPageVo(page, sysUserVo);
-        return new PageUtils(null);
+
+       IPage<SysUserVo> li=sysUserMapper.selectPageVo(page, sysUserVo);
+        return null;
     }
 
 

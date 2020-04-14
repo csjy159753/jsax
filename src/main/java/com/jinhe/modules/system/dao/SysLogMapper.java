@@ -1,7 +1,8 @@
 package com.jinhe.modules.system.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jinhe.modules.system.entity.SysLog;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+
 
 /**
  * <p>

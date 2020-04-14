@@ -1,7 +1,6 @@
 package com.jinhe.modules.system.dto;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
+
 import lombok.Data;
 
 import java.util.Date;

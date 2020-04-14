@@ -1,6 +1,7 @@
 package com.jinhe.common.util;
 
-import com.baomidou.mybatisplus.plugins.Page;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.xss.SQLFilter;
 import org.apache.commons.lang.StringUtils;
 
@@ -43,8 +44,8 @@ public class Query<T> extends LinkedHashMap<String, Object> {
 
         // 排序
         if (StringUtils.isNotBlank(sidx) && StringUtils.isNotBlank(order)) {
-            this.page.setOrderByField(sidx);
-            this.page.setAsc("ASC".equalsIgnoreCase(order));
+
+
         }
 
     }
@@ -75,8 +76,7 @@ public class Query<T> extends LinkedHashMap<String, Object> {
 
         // 排序
         if (StringUtils.isNotBlank(sidx) && StringUtils.isNotBlank(order)) {
-            this.page.setOrderByField(sidx);
-            this.page.setAsc("ASC".equalsIgnoreCase(order));
+
         }
 
     }

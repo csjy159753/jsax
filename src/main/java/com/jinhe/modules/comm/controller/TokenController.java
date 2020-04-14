@@ -7,7 +7,9 @@ import com.jinhe.common.vo.Result;
 import com.jinhe.common.config.JwtConfig;
 import com.jinhe.modules.comm.dto.Login;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+
+
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
