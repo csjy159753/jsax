@@ -1,7 +1,10 @@
 package com.jinhe.testdemo;
 
+import com.jinhe.common.util.ExcelReader;
+import com.jinhe.common.util.ParseExcelRow;
 import com.jinhe.common.util.RedisUtil;
 import com.jinhe.modules.system.entity.SysLog;
+import org.apache.poi.ss.usermodel.Row;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +35,14 @@ public class RedisTest {
         redisUtil.set("testKey",list);
         List<SysLog> st= (List<SysLog>)redisUtil.get("testKey");
         logger.debug("这是debug日志...");
-
+        //添加excel的读取和解析
+        ExcelReader<SysLog> excelReader=new ExcelReader<>();
+        List<SysLog> li=excelReader.readExcel("", new ParseExcelRow<SysLog>() {
+            @Override
+            public SysLog execute(Row row) {
+                return null;
+            }
+        });
 
     }
 
