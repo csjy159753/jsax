@@ -1,7 +1,10 @@
 package com.jinhe.testdemo;
 
+import com.jinhe.common.util.ExcelReader;
+import com.jinhe.common.util.ParseExcelRow;
 import com.jinhe.common.util.RedisUtil;
 import com.jinhe.modules.system.entity.SysLog;
+import org.apache.poi.ss.usermodel.Row;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,15 +27,23 @@ public class RedisTest {
     Logger logger = LoggerFactory.getLogger(getClass());
     @Test
     public void testRedis(){
-        SysLog  sysLog=new SysLog();
-        sysLog.setId("111");
-        sysLog.setCallSite("111");
-        List<SysLog> list=new ArrayList<>();
-        list.add(sysLog);
-        redisUtil.set("testKey",list);
-        List<SysLog> st= (List<SysLog>)redisUtil.get("testKey");
-        logger.debug("这是debug日志...");
+//        SysLog  sysLog=new SysLog();
+//        sysLog.setId("111");
+//        sysLog.setCallSite("111");
+//        List<SysLog> list=new ArrayList<>();
+//        list.add(sysLog);
+//        redisUtil.set("testKey",list);
+//        List<SysLog> st= (List<SysLog>)redisUtil.get("testKey");
+//        logger.debug("这是debug日志...");
+        //添加excel的读取和解析
+        ExcelReader<SysLog> excelReader=new ExcelReader<>();
+        List<SysLog> li=excelReader.readExcel("C:\\Users\\Administrator\\Desktop\\aaa.xlsx", new ParseExcelRow<SysLog>() {
+            @Override
+            public SysLog execute(Row row) {
 
+                return null;
+            }
+        });
 
     }
 
