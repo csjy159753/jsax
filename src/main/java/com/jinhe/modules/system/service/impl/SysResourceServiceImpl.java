@@ -38,4 +38,12 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
         sysresdto = Sysresmapper.selectSysResourceOne(ID);
         return sysresdto;
     }
+
+    @Override
+    public Integer sysresourcesave(SysResourceDto sysresdto) {
+
+        Integer intr = null;
+
+        return intr;
+    }
 }

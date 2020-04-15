@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
-
+import io.swagger.models.auth.In;
 
 
 /**
@@ -21,4 +21,6 @@ public interface ISysResourceService extends IService<SysResource> {
   Page<SysResource> selectSysResourcepage(Page page);
 
   SysResourceDto Select_SysRespagebyid(String ID);
+
+  Integer sysresourcesave(SysResourceDto sysresdto);
 }

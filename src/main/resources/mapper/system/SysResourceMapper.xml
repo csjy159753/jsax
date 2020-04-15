@@ -8,4 +8,5 @@
     <select id="selectSysResourceOne"  resultType="com.jinhe.modules.system.dto.SysResourceDto">
         SELECT * from sys_resource where id = #{ID,jdbcType=VARCHAR}
     </select>
+
 </mapper>
