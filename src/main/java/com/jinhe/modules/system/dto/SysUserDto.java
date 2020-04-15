@@ -1,7 +1,6 @@
 package com.jinhe.modules.system.dto;
 
 
-import com.jinhe.modules.system.entity.SysUser;
 import lombok.Data;
 
 import java.io.Serializable;
