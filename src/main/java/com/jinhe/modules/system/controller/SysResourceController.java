@@ -8,10 +8,7 @@ import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.service.ISysResourceService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -63,8 +60,7 @@ public class SysResourceController {
      * **/
     @PostMapping("/addsys_resource")
     @ApiOperation(value = "查询所有菜单", notes = "查询所有菜单")
-
-    public Integer Select_SysResourcebyid(SysResourceDto sysres){
+    public Integer Select_SysResourcebyid(@RequestBody SysResourceDto sysres){
 
         Integer intr = ISysResService.sysresourcesave(sysres);
 
