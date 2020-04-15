@@ -1,21 +1,17 @@
 package com.jinhe.modules.system.service.impl;
 
-import com.alibaba.druid.sql.PagerUtils;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.jinhe.common.util.PageUtils;
 import com.jinhe.modules.system.dao.SysUserMapper;
-import com.jinhe.modules.system.dto.SysRole;
 import com.jinhe.modules.system.dto.SysUser;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.service.ISysUserService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * <p>
@@ -29,65 +25,61 @@ import java.util.Map;
 @Transactional
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
-
-
     @Resource
     private  SysUserMapper sysUserMapper;
 
-  /*  @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        String key = (String) params.get("key");
-
-        Page<SysUser> page = this.selectPage(new Query<SysUser>(params).getPage(), new EntityWrapper<SysUser>().like(StringUtils.isNotBlank(key), "username", key));
-
-        return new PageUtils(page);
-    }*/
-
-
-
-    public PageUtils queryPage() {
-
-        Page<SysUserDto> page =sysUserMapper.listAllrls();
-
-        return new PageUtils(page);
-    }
-
-   /* @Override
-    public List<SysUserDto> listAllrls() {
-      return sysUserMapper.listAllrls();
-    }*/
-
+    //查询所有用户列表
     @Override
-    public PageUtils queryPage(Map<String, Object> parms) {
-        return null;
+    public IPage<SysUserDto> userList(Page<SysUserDto> page, SysUserDto sysUserDto) {
+        return sysUserMapper.userList(page, sysUserDto);
     }
 
-    @Override
-    public List<SysUserDto> listDemo() {
-        return sysUserMapper.listDemo();
-
-    }
-
+   //新增用户
     @Override
     public void addUser(SysUserDto sysUserDto) {
           sysUserMapper.addUser(sysUserDto);
     }
 
+    //关键字查询
     @Override
-    public List<SysUserDto> selectByWords(String normalizedUserName,String organName,String roleName) {
-        return sysUserMapper.selectByWords(normalizedUserName, organName, roleName);
+    public IPage<SysUserDto> selectByWords(Page<SysUserDto> page, SysUserDto sysUserDto,String normalizedUserName,String organName,String roleName) {
+
+       if(normalizedUserName==null){
+          normalizedUserName="";
+       }
+        if(organName==null){
+            organName="";
+        }
+        if(roleName==null){
+            roleName="";
+        }
+
+        normalizedUserName="%"+normalizedUserName+"%";
+        organName="%"+organName+"%";
+        roleName="%"+roleName+"%";
+        System.out.println(normalizedUserName+""+organName);
+        return sysUserMapper.selectByWords(page, sysUserDto,normalizedUserName,organName,roleName);
     }
 
+    //查询被禁用户列表
+    @Override
+    public IPage<SysUserDto> disableUserList(Page<SysUserDto> page, SysUserDto sysUserDto) {
+        return sysUserMapper.disableUserList(page,sysUserDto);
+    }
+
+    //更新用户
     @Override
     public void updateUser(SysUserDto sysUserDto) {
         sysUserMapper.updateUser(sysUserDto);
     }
 
+    //重置密码
     @Override
     public void updatePassword(String oldPassword, String newPassword,String userId) {
         sysUserMapper.updatePassword(oldPassword,newPassword,userId);
     }
 
+    //禁用/恢复账户
     @Override
     public void ableUserById(String userId) {
         int x=sysUserMapper.selectStateById(userId);
@@ -100,6 +92,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUserMapper.ableUserById(userId,x);
     }
 
+    //删除用户
     @Override
     public void deleteUserById(String userId) {
         int x=sysUserMapper.selectStateById(userId);
@@ -108,8 +101,4 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
     }
 
-    @Override
-    public List<SysUserDto> disableUserList() {
-      return   sysUserMapper.disableUserList();
-    }
 }

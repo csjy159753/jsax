@@ -1,6 +1,7 @@
 package com.jinhe.modules.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.system.dto.SysUser;
 import com.jinhe.modules.system.dto.SysUserDto;
@@ -19,34 +20,32 @@ import java.util.List;
 @Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    @Select({"select sys_user.id, sys_user.NORMALIZED_USERNAME, sys_user.nick_Name,sys_organ.FULL_NAME as organ_name,sys_role.TAG as role_name,sys_user.CREATE_TIME from (sys_user left join sys_user_role on sys_user.id=sys_user_role.user_id LEFT JOIN sys_role on sys_user_role.ROLE_ID=sys_role.id)left join sys_user_organ on sys_user.id=sys_user_organ.user_id LEFT JOIN sys_organ on sys_user_organ.ORGAN_ID=sys_organ.id"})
-    Page<SysUserDto> listAllrls();
+    //查询所有用户列表
+    IPage<SysUserDto> userList(Page<SysUserDto> page, SysUserDto sysUserDto);
 
-    @Select({"select ID,NORMALIZED_USERNAME, 'aaa' as kk_aa  from sys_user"})
-    List<SysUserDto> listDemo();
+    //关键字查询
+    IPage<SysUserDto> selectByWords(Page<SysUserDto> page, SysUserDto sysUserDto,String normalizedUserName,String organName,String roleName);
 
-    @Insert({""})
-     void addUser(SysUserDto sysUserDto);
+    //查询被禁用户列表
+    IPage<SysUserDto> disableUserList(Page<SysUserDto> page, SysUserDto sysUserDto);
 
-    @Select({"select sys_user.NORMALIZED_USERNAME, sys_user.nick_Name,sys_organ.FULL_NAME as organ_name,sys_role.TAG as role_name,sys_user.CREATE_TIME from (sys_user left join sys_user_role on sys_user.id=sys_user_role.user_id LEFT JOIN sys_role on sys_user_role.ROLE_ID=sys_role.id)left join sys_user_organ on sys_user.id=sys_user_organ.user_id LEFT JOIN sys_organ on sys_user_organ.ORGAN_ID=sys_organ.id where sys_organ.FULL_NAME like #{organName} and sys_role.TAG like #{roleName} and sys_user.NORMALIZED_USERNAME like #{normalizedUserName}"})
-    List<SysUserDto> selectByWords(String normalizedUserName,String organName,String roleName);
+    //新增用户
+    void addUser(SysUserDto sysUserDto);
 
-    @Update({""})
+   //更新用户
     void updateUser(SysUserDto sysUserDto);
 
-    @Update({"update sys_user set passWord_hash=#{newPassword} where id=#{userId} and passWord_hash=#{oldPassword}"})
+    //重置密码
     void updatePassword(String oldPassword,String newPassword,String userId);
 
-    @Update({"update sys_user set state=#{x} where id=#{userId}"})
+    //禁用/恢复账户
     void ableUserById(String userId,int x);
 
-    @Select({"select state from sys_user where id=#{userId}"})
+    //查询用户状态
     int selectStateById(String userId);
 
-    @Update({"delete from sys_user where id=#{userId}"})
+    //删除用户
     void deleteUserById(String userId);
 
-    @Select({"select sys_user.id, sys_user.NORMALIZED_USERNAME, sys_user.nick_Name,sys_organ.FULL_NAME as organ_name,sys_role.TAG as role_name,sys_user.CREATE_TIME from (sys_user left join sys_user_role on sys_user.id=sys_user_role.user_id LEFT JOIN sys_role on sys_user_role.ROLE_ID=sys_role.id)left join sys_user_organ on sys_user.id=sys_user_organ.user_id LEFT JOIN sys_organ on sys_user_organ.ORGAN_ID=sys_organ.id where sys_user.state=1"})
-    List<SysUserDto> disableUserList();
 
 }

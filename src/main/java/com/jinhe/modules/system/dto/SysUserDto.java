@@ -3,6 +3,7 @@ package com.jinhe.modules.system.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class SysUserDto  {
@@ -14,7 +15,7 @@ public class SysUserDto  {
     /**
      * 登录名
      */
-    private String normalizedUsername;
+    private String normalizedUserName;
 
     /**
      * 用户密码
@@ -60,4 +61,15 @@ public class SysUserDto  {
      * 0正常1待审核2禁用3逻辑删除
      */
     private Integer state;
+
+    /**
+     * 角色ID
+     */
+    private List<String> roleIds;
+
+    /**
+     * 机构ID
+     */
+    private List<String> organIds;
+
 }

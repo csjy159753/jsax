@@ -1,15 +1,15 @@
 package com.jinhe.modules.system.service;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.jinhe.common.util.PageUtils;
-import com.jinhe.modules.system.dto.SysRole;
 import com.jinhe.modules.system.dto.SysUser;
 
 import com.jinhe.modules.system.dto.SysUserDto;
 
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * <p>
@@ -21,22 +21,17 @@ import java.util.Map;
  */
 public interface ISysUserService extends IService<SysUser> {
 
-    //分页
-    //PageUtils queryPage(Map<String, Object> params);
+    //分页查询所有用户列表
+     IPage<SysUserDto> userList(Page<SysUserDto> page, SysUserDto sysUserDto);
 
-     PageUtils queryPage(Map<String,Object> parms);
+    //关键字查询
+    IPage<SysUserDto> selectByWords(Page<SysUserDto> page, SysUserDto sysUserDto,String normalizedUserName,String organName,String roleName);
 
-    //查询所有用户列表
-  /*  List<SysUserDto>  listAllrls();*/
-
-    //Demo
-    List<SysUserDto> listDemo();
+    //查询被禁用户列表
+    IPage<SysUserDto> disableUserList(Page<SysUserDto> page, SysUserDto sysUserDto);
 
     //新增用户
     void addUser(SysUserDto sysUserDto);
-
-    //关键字查询
-    List<SysUserDto> selectByWords(String normalizedUserName,String organName,String roleName);
 
    //更新用户信息
     void updateUser(SysUserDto sysUserDto);
@@ -50,7 +45,6 @@ public interface ISysUserService extends IService<SysUser> {
     //删除用户
     void deleteUserById(String userId);
 
-    //查询被禁用户列表
-    List<SysUserDto> disableUserList();
+
 
 }

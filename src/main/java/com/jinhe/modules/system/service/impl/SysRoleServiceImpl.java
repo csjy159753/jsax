@@ -1,5 +1,7 @@
 package com.jinhe.modules.system.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinhe.common.util.PageUtils;
 import com.jinhe.modules.system.dao.SysRoleMapper;
@@ -30,26 +32,25 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Resource
     private SysRoleMapper sysRoleMapper;
 
+    //查询角色列表
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        return null;
+    public  IPage<SysRole> roleList(Page<SysRole> page, SysRole sysRole){
+        return sysRoleMapper.roleList(page,sysRole);
     }
 
-    @Override
-    public List<SysRole> roleList(){
-        return sysRoleMapper.roleList();
-    }
-
+    //新增角色
     @Override
     public void addRole(SysRole sysRole) {
         sysRoleMapper.insert(sysRole);
     }
 
+    //更新角色
     @Override
     public void updateRole(SysRole sysRole) {
         sysRoleMapper.updateById(sysRole);
     }
 
+    //删除角色
     @Override
     public void deleteRole(String userId) {
         sysRoleMapper.deleteById(userId);
