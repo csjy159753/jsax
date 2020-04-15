@@ -21,7 +21,7 @@
         <swagger.version>2.9.2</swagger.version>
         <mybatisplus.version>3.3.1.tmp</mybatisplus.version>
         <mybatisplus.spring.boot.version>3.3.1.tmp</mybatisplus.spring.boot.version>
-        <druid.version>1.1.10</druid.version>
+        <druid.version>1.1.22</druid.version>
         <mysql.version>5.1.46</mysql.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.io.version>2.6</commons.io.version>

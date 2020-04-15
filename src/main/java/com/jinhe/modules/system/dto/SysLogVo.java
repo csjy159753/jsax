@@ -2,6 +2,9 @@ package com.jinhe.modules.system.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -9,6 +12,7 @@ import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -64,9 +68,18 @@ public class SysLogVo implements Serializable {
 
 
     private String other;
-
-
-
+    /**
+     * 创建时间
+     */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonSerialize(using = LocalDateTimeSerializer.class)//显示
+    private LocalDateTime  createTime;
+    /**
+     * 更新时间
+     */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonSerialize(using = LocalDateTimeSerializer.class)//显示
+    private LocalDateTime updateTime;
 
     private String exception;
 
