@@ -17,7 +17,6 @@ import java.util.Date;
 public class DynamicDataSourceTest {
     @Autowired
     private DataSourceTestService dataSourceTestService;
-
     @Test
     public void test(){
         //数据源1
