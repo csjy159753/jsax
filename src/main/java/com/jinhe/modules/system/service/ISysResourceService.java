@@ -22,5 +22,5 @@ public interface ISysResourceService extends IService<SysResource> {
 
   SysResourceDto Select_SysRespagebyid(String ID);
 
-  Integer sysresourcesave(SysResourceDto sysresdto);
+  boolean sysresourcesave(SysResourceDto sysresdto);
 }

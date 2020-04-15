@@ -2,6 +2,8 @@ package com.jinhe.modules.system.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jinhe.common.util.EntityUtils;
+import com.jinhe.common.util.Mapper;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.vo.Result;
 import com.jinhe.modules.system.dto.SysResourceDto;
@@ -59,16 +61,17 @@ public class SysResourceController {
     }
 
     /**
-     * 根据ID查询所有菜单
+     * 新增菜单
      * **/
     @PostMapping("/addsys_resource")
-    @ApiOperation(value = "查询所有菜单", notes = "查询所有菜单")
+    @ApiOperation(value = "新增菜单", notes = "新增菜单")
 
-    public Integer Select_SysResourcebyid(SysResourceDto sysres){
+    public boolean Save_SysResource(SysResourceDto sysres){
 
-        Integer intr = ISysResService.sysresourcesave(sysres);
 
-        return intr;
+        boolean flags = ISysResService.sysresourcesave(sysres);
+
+        return flags;
     }
 
 
