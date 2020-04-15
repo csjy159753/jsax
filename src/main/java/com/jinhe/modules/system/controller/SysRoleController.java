@@ -2,7 +2,7 @@ package com.jinhe.modules.system.controller;
 
 
 import com.jinhe.common.annotation.SysLog;
-import com.jinhe.common.utils.PageUtils;
+import com.jinhe.common.util.PageUtils;
 import com.jinhe.modules.system.dto.SysRole;
 import com.jinhe.modules.system.service.ISysRoleService;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +37,7 @@ public class SysRoleController {
     @RequestMapping(value = "RoleList", method = RequestMethod.GET)
     @SysLog(value = "测试注解日志切面查询角色列表")
     public PageUtils roleList (Map<String, Object> params){
-        return sysRoleService.queryPage(params);
+        return null;
 
     }
 

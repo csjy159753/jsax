@@ -1,9 +1,8 @@
 package com.jinhe.modules.system.dao;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.jinhe.common.utils.PageUtils;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.system.dto.SysUser;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jinhe.modules.system.dto.SysUserDto;
 import org.apache.ibatis.annotations.*;
 

@@ -1,11 +1,9 @@
 package com.jinhe.modules.system.service.impl;
 
 import com.alibaba.druid.sql.PagerUtils;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.jinhe.common.utils.PageUtils;
-import com.jinhe.common.utils.Query;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jinhe.common.util.PageUtils;
 import com.jinhe.modules.system.dao.SysUserMapper;
 import com.jinhe.modules.system.dto.SysRole;
 import com.jinhe.modules.system.dto.SysUser;
@@ -46,7 +44,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }*/
 
 
-    @Override
+
     public PageUtils queryPage() {
 
         Page<SysUserDto> page =sysUserMapper.listAllrls();
@@ -58,6 +56,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public List<SysUserDto> listAllrls() {
       return sysUserMapper.listAllrls();
     }*/
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> parms) {
+        return null;
+    }
 
     @Override
     public List<SysUserDto> listDemo() {

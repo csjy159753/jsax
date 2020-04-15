@@ -1,6 +1,7 @@
 package com.jinhe.modules.system.dao;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jinhe.modules.system.dto.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

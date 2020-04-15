@@ -1,9 +1,7 @@
 package com.jinhe.modules.system.controller;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.jinhe.common.annotation.SysLog;
-import com.jinhe.common.utils.PageUtils;
-import com.jinhe.modules.system.dto.SysUser;
+import com.jinhe.common.util.PageUtils;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
@@ -70,7 +68,7 @@ public class SysUserController {
     @SysLog(value = "测试注解日志切面查询用户列表listAll")
     public PageUtils listAll(Map<String,Object> parms) {
 
-        return sysUserService.queryPage(parms);
+        return null;
 
     }
     /**
