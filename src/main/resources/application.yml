@@ -14,7 +14,6 @@ swagger:
   title: RESTful API 文档
   description:  RESTful API 文档
   version: 1.0.0-SNAPSHOT
-
 # mysql
 spring:
   # 环境 dev|test|prod
@@ -36,6 +35,10 @@ spring:
     port: 6379
     # Redis服务器连接密码（默认为空）
     password: Mas@12345
+file:
+  root:
+    #存储路径
+    path: "C:\\mydata\\generator\\version06\\"
 config:
   jwt:
     # 加密密钥
@@ -65,10 +68,6 @@ mybatis-plus:
     #逻辑删除配置
     logic-delete-value: -1
     logic-not-delete-value: 0
-    #自定义填充策略接口实现
-    #meta-object-handler: com.baomidou.springboot.xxx
-    #自定义SQL注入器
-    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false

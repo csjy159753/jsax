@@ -18,16 +18,16 @@ public class TransationTestService {
 	private ISysLogService sysLogService;
 
 	public SysLog queryLog(Long LogId) {
-		return sysLogService.selectById(LogId);
+		return sysLogService.getById(LogId);
 	}
 
 	@Transactional
 	public boolean insertLog(SysLog log){
 		boolean insert = false;
 		try {
-			insert = sysLogService.insert(log);
+			insert = sysLogService.save(log);
 			System.out.println("--------------------------------------------"+insert);
-			sysLogService.insert(log);
+			sysLogService.save(log);
 		} catch (Exception e) {
 			insert = false;
 			e.printStackTrace();
@@ -43,7 +43,7 @@ public class TransationTestService {
 	public boolean insertLog2(SysLog log){
 		boolean insert = false;
 		try {
-			insert = sysLogService.insert(log);
+			insert = sysLogService.save(log);
 			System.out.println("--------------------------------------------"+insert);
 //			sysLogService.insert(log);
 		} catch (Exception e) {

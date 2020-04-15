@@ -1,11 +1,11 @@
 package com.jinhe.config;
 
-import com.baomidou.mybatisplus.exceptions.MybatisPlusException;
+
+import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.baomidou.mybatisplus.toolkit.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class CodeGenerator {
         pc.setModuleName(scanner("模块名称"));
         pc.setParent("com.jinhe.modules");
         pc.setMapper("dao");
-        pc.setXml("mapper");
+        pc.setXml("system/mapper");
 
         pc.setController("controller");
         mpg.setPackageInfo(pc);
@@ -78,7 +78,7 @@ public class CodeGenerator {
         // String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
-        List<FileOutConfig> focList = new ArrayList<>();
+//        List<FileOutConfig> focList = new ArrayList<>();
 //        // 自定义配置会被优先输出
 //        focList.add(new FileOutConfig(templatePath) {
 //            @Override
@@ -128,7 +128,7 @@ public class CodeGenerator {
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+//        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
 

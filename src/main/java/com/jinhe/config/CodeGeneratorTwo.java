@@ -1,12 +1,11 @@
 package com.jinhe.config;
 
-import com.baomidou.mybatisplus.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.baomidou.mybatisplus.toolkit.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -58,7 +57,7 @@ public class CodeGeneratorTwo {
         pc.setModuleName(scanner("模块名称"));
         pc.setParent("com.jinhe.modules");
         pc.setMapper("dao");
-        pc.setXml("mapper");
+        pc.setXml("system/mapper");
         pc.setController("controller");
         mpg.setPackageInfo(pc);
 
