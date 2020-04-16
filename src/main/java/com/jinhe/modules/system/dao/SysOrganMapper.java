@@ -5,6 +5,8 @@ import com.jinhe.modules.system.dto.SysOrganDto;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.Map;
+
 /**
  * <p>
  *  Mapper 接口
@@ -15,4 +17,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysOrganMapper extends BaseMapper<SysOrgan> {
    Page<SysOrgan> selectPageOrgan(Page page);
+
+   SysOrganDto selectPageOrganByID(String ID);
 }

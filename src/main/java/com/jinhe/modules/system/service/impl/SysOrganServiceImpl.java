@@ -1,6 +1,7 @@
 package com.jinhe.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jinhe.modules.system.dto.SysOrganDto;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.system.dao.SysOrganMapper;
 import com.jinhe.modules.system.service.ISysOrganService;
@@ -8,7 +9,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -30,5 +33,15 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
 
 
         return sysorgls;
+    }
+
+    @Override
+    public SysOrganDto selectPageOrganByID(String ID) {
+
+        SysOrganDto sysorgdto = new SysOrganDto();
+
+        sysorgdto = sysorgmap.selectPageOrganByID(ID);
+
+        return sysorgdto;
     }
 }

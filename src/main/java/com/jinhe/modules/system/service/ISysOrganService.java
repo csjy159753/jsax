@@ -1,8 +1,10 @@
 package com.jinhe.modules.system.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jinhe.modules.system.dto.SysOrganDto;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jinhe.modules.system.entity.SysResource;
 
 /**
  * <p>
@@ -14,4 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysOrganService extends IService<SysOrgan> {
      Page<SysOrgan> selectPageOrgan(Page page);
+
+     SysOrganDto selectPageOrganByID(String ID);
 }

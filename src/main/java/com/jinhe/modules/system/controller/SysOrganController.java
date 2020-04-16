@@ -6,10 +6,10 @@ import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.common.vo.Result;
+import com.jinhe.modules.system.dto.SysOrganDto;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.system.service.ISysOrganService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -44,6 +44,21 @@ public class SysOrganController {
         return ResultUtil.success(pagedata);
     }
 
+    /**
+    * 根据ID查询机构
+    *
+    **/
+    @GetMapping("/SysOrganByID{id}")
+    @ApiOperation(value = "根据ID查询机构", notes = "根据ID查询机构")
+    @ApiImplicitParams(
+            @ApiImplicitParam(value="id",name="id",dataType="String")
+    )
+    public Result SelectSysOrganID(String id) {
+            SysOrganDto sysorg = new SysOrganDto();
 
+            sysorg = Isysorgan.selectPageOrganByID(id);
+
+            return ResultUtil.success(sysorg);
+    }
 }
 
