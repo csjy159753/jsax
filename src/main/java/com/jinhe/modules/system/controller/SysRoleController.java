@@ -11,6 +11,7 @@ import com.jinhe.modules.system.dto.SysRole;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.service.ISysRoleService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,7 +54,7 @@ public class SysRoleController {
     @ApiOperation(value="新增角色", notes="新增角色")
     @RequestMapping(value = "roleList", method = RequestMethod.PUT)
     @SysLog(value = "测试注解日志切面新增角色")
-    public void addRole(SysRole sysRole){
+    public void addRole(@RequestBody SysRole sysRole){
          sysRoleService.addRole(sysRole) ;
     }
 
@@ -64,7 +65,7 @@ public class SysRoleController {
     @ApiOperation(value="更新角色", notes="更新角色")
     @RequestMapping(value = "roleList", method = RequestMethod.POST)
     @SysLog(value = "测试注解日志切面更新角色")
-    public void updaRole(SysRole sysRole){
+    public void updaRole(@RequestBody  SysRole sysRole){
         sysRoleService.updateRole(sysRole) ;
     }
     /**
@@ -72,9 +73,9 @@ public class SysRoleController {
      * @return
      */
     @ApiOperation(value="删除角色", notes="删除角色")
-    @RequestMapping(value = "roleList", method = RequestMethod.DELETE)
+    @RequestMapping(value = "roleList/{id}", method = RequestMethod.DELETE)
     @SysLog(value = "测试注解日志切面删除角色")
-    public void deleteRole(String userId){
-        sysRoleService.deleteRole(userId);
+    public void deleteRole(String id){
+        sysRoleService.deleteRole(id);
     }
 }

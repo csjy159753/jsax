@@ -1,6 +1,8 @@
 package com.jinhe.modules.system.dto;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -16,10 +18,12 @@ import java.util.Date;
  * @since 2020-04-14
  */
 @Data
+@ApiModel(value="角色",description="角色")
 public class SysRole {
     /**
      * 主键id
      */
+    @ApiModelProperty(value="用户ID",name="id",example="123")
     private String id;
 
     /**
