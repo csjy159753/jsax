@@ -47,6 +47,4 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     //删除用户
     void deleteUserById(String userId);
 
-   //通过用户账号查询用户Id
-    String selectIdBynormalizedUserName(String normalizedUserName);
 }

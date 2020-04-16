@@ -2,9 +2,11 @@ package com.jinhe.modules.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.modules.system.dto.SysRole;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +21,7 @@ import java.util.Map;
 public interface ISysRoleService extends IService<SysRole> {
 
     //查询角色列表
-    IPage<SysRole> roleList(Page<SysRole> page, SysRole sysRole);
+    List<TreeNode> selectRoleList(HashMap map);
 
     //新增角色
     void addRole(SysRole sysRole);

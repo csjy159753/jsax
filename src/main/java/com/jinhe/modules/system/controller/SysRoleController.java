@@ -6,18 +6,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.annotation.SysLog;
 
 import com.jinhe.common.util.ResultUtil;
+import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.common.vo.Result;
 import com.jinhe.modules.system.dto.SysRole;
 import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.service.ISysRoleService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -38,14 +36,13 @@ public class SysRoleController {
      * 查询角色列表
      * @return
      */
-    @ApiOperation(value="查询角色列表", notes="查询角色列表")
-    @RequestMapping(value = "RoleList", method = RequestMethod.GET)
-    @SysLog(value = "测试注解日志切面查询角色列表")
-    public Result userList(Page page) {
-        SysRole sysRole=new SysRole();
-        IPage<SysRole> roleList =sysRoleService.roleList(page,sysRole);
+    @GetMapping("/roleListTree")
+    @ApiOperation(value = "查询角色列表", notes = "查询角色列表")
+    public Result roleListTree(Page page) {
+        List<TreeNode> roleList= sysRoleService.selectRoleList(null);
         return ResultUtil.success(roleList);
-    }
+
+}
 
     /**
      *新增角色

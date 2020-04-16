@@ -1,8 +1,9 @@
 package com.jinhe.modules.system.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jinhe.common.util.Tree.ITree;
+import com.jinhe.common.util.Tree.Tree;
+import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.modules.system.dao.SysRoleMapper;
 import com.jinhe.modules.system.dto.SysRole;
 import com.jinhe.modules.system.service.ISysRoleService;
@@ -10,6 +11,8 @@ import com.jinhe.modules.system.service.ISysRoleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -29,8 +32,23 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     //查询角色列表
     @Override
-    public  IPage<SysRole> roleList(Page<SysRole> page, SysRole sysRole){
-        return sysRoleMapper.roleList(page,sysRole);
+    public List<TreeNode> selectRoleList(HashMap map) {
+        if(map==null){
+            map=new HashMap();
+        }
+        List<SysRole> list=sysRoleMapper.selectRoleList(map);
+        List<TreeNode> l=  Tree.CreateTree(list, new ITree<SysRole>() {
+            @Override
+            public TreeNode modelTo(SysRole o) {
+                TreeNode treeNode=new TreeNode();
+                treeNode.setId(o.getId());
+                treeNode.setParentId(o.getParentId());
+                treeNode.setNodeValue(o);
+                return treeNode;
+            }
+        });
+        return l;
+
     }
 
     //新增角色
