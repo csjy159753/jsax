@@ -53,26 +53,30 @@ mybatis-plus:
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.jinhe.modules.*.entity
   global-config:
-    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
-    id-type: 2
-    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
-    field-strategy: 2
-    #驼峰下划线转换
-    db-column-underline: true
+    # 数据库相关配置
+    db-config:
+      #主键类型  NONE:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID", AUTO: MP自动决定;
+      id-type: UUID
+      #字段策略 IGNORED:"忽略判断", NOT_NULL:"非 NULL 判断", NOT_EMPTY:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #数据库大写下划线转换
+      capital-mode: true
+      #table-prefix: sys_
+      #逻辑删除配置
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      # 数据库类型
+      db-type: mysql
     #刷新mapper 调试神器
-    refresh-mapper: true
-    #数据库大写下划线转换
-    #capital-mode: true
-    # Sequence序列接口实现类配置
-    #key-generator: com.baomidou.mybatisplus.incrementer.OracleKeyGenerator
-    #逻辑删除配置
-    logic-delete-value: -1
-    logic-not-delete-value: 0
-  configuration:
-    map-underscore-to-camel-case: true
-    cache-enabled: false
-    call-setters-on-nulls: true
-
+    refresh: true
+    # 原生配置
+    configuration:
+      map-underscore-to-camel-case: true
+      cache-enabled: false
+      # 打印sql日志
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   level: info
   level.com.jinhe: info
