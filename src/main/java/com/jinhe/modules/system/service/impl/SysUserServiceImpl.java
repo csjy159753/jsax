@@ -124,7 +124,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setPhoneNumber(sysUserDto.getPhoneNumber());
         //更新用户属性
         sysUserMapper.updateById(sysUser);
-        String userId=sysUserMapper.selectIdBynormalizedUserName(sysUserDto.getNormalizedUserName());
+        String userId=sysUser.getId();
         //获取用户角色ID和机构ID
         List<String> roleIds=sysUserDto.getRoleIds();
         List<String> organIds=sysUserDto.getOrganIds();

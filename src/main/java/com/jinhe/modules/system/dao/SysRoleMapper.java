@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.system.dto.SysRole;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
-
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -22,5 +24,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     //查询角色列表
-    IPage<SysRole> roleList(Page<SysRole> page, SysRole sysRole);
+    @Select({"select * from sys_role"})
+    List<SysRole> selectRoleList(HashMap map);
 }
