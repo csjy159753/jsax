@@ -31,8 +31,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Resource
     private  SysUserMapper sysUserMapper;
-    private  SysUserRoleMapper sysUserRoleMapper;
     private SysUserOrganMapper sysUserOrganMapper;
+    private SysUserRoleMapper sysUserRoleMapper;
     //查询所有用户列表
     @Override
     public IPage<SysUserDto> userList(Page<SysUserDto> page, SysUserDto sysUserDto) {
@@ -44,10 +44,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public void addUser(SysUserDto sysUserDto) {
           //获取对象
            SysUser sysUser=new SysUser();
-           SysUserRole sysUserRole=new SysUserRole();
+          SysUserRole sysUserRole=new SysUserRole();
            SysUserOrgan sysUserOrgan=new SysUserOrgan();
            //设置User属性
-           sysUser.setId(sysUserDto.getId());
            sysUser.setNickName(sysUserDto.getNickName());
            sysUser.setNormalizedUsername(sysUserDto.getNormalizedUserName());
            sysUser.setPasswordHash(sysUserDto.getPasswordHash());
@@ -55,17 +54,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
            sysUser.setNormalizedEmail(sysUserDto.getNormalizedEmail());
            sysUser.setPhoneNumber(sysUserDto.getPhoneNumber());
            //新增用户属性
-           sysUserMapper.insert(sysUser);
-           String userId=sysUser.getId();
+        sysUserMapper.insert(sysUser);
+          String userId=sysUser.getId();
            //获取用户角色ID和机构ID
            List<String> roleIds=sysUserDto.getRoleIds();
            List<String> organIds=sysUserDto.getOrganIds();
            //添加用户角色
         for (String x:roleIds
              ) {
+
                sysUserRole.setRoleId(x);
                sysUserRole.setUserId(userId);
-               sysUserRoleMapper.insert(sysUserRole);
+            System.out.println(sysUserRole);
+              sysUserRoleMapper.insert(sysUserRole);
 
 
         }
@@ -123,7 +124,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setPhoneNumber(sysUserDto.getPhoneNumber());
         //更新用户属性
         sysUserMapper.updateById(sysUser);
-        String userId=sysUser.getId();
+        String userId=sysUserMapper.selectIdBynormalizedUserName(sysUserDto.getNormalizedUserName());
         //获取用户角色ID和机构ID
         List<String> roleIds=sysUserDto.getRoleIds();
         List<String> organIds=sysUserDto.getOrganIds();

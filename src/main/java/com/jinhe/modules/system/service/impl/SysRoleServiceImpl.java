@@ -3,19 +3,14 @@ package com.jinhe.modules.system.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.jinhe.common.util.PageUtils;
 import com.jinhe.modules.system.dao.SysRoleMapper;
 import com.jinhe.modules.system.dto.SysRole;
-import com.jinhe.modules.system.dto.SysUser;
 import com.jinhe.modules.system.service.ISysRoleService;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * <p>

@@ -93,7 +93,7 @@ public class SysUserController {
     @ApiOperation(value="更新用户信息", notes="更新用户信息")
     @RequestMapping(value = "updateUser", method =RequestMethod.POST)
     @SysLog(value = "测试注解日志切面更新用户信息updateUser")
-    public void updateUser(@RequestBody SysUserDto sysUserDto){
+    public void updateUser(SysUserDto sysUserDto){
         sysUserService.updateUser(sysUserDto);
     }
     /**
