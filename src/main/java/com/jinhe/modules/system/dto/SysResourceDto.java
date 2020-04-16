@@ -87,15 +87,13 @@ public class SysResourceDto implements Serializable {
          * 创建时间
          */
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-        @JsonSerialize(using = LocalDateTimeSerializer.class)//显示
-        private LocalDateTime createTime;
+         private LocalDateTime createTime;
 
         /**
          * 更新
          */
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-        @JsonSerialize(using = LocalDateTimeSerializer.class)//显示
-        private LocalDateTime updateTime;
+         private LocalDateTime updateTime;
 
         /**
          * 显示类型
