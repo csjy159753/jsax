@@ -81,11 +81,11 @@ public class SysResourceController {
     @GetMapping("/ParentResource")
     @ApiOperation(value = "菜单树状结构查询", notes = "菜单树状结构查询")
 
-    public Result ParentResourceTree(@RequestBody Page page){
+    public Result ParentResourceTree(Page page){
 
 
 
-        List<SysResourceDto> treelist = ISysResService.SysResourceTree(page);
+        List<TreeNode> treelist = ISysResService.SysResourceTree(page);
 
         return ResultUtil.success(treelist);
     }

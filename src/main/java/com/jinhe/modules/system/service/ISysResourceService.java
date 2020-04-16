@@ -27,5 +27,5 @@ public interface ISysResourceService extends IService<SysResource> {
 
   boolean sysresourcesave(SysResourceDto sysresdto);
 
-  List<SysResourceDto> SysResourceTree(Page page);
+  List<TreeNode> SysResourceTree(Page page);
 }

@@ -65,17 +65,17 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
     }
 
     @Override
-    public List<SysResourceDto> SysResourceTree(Page page) {
-        List<SysResourceDto> treelist = new ArrayList<>();
+    public List<TreeNode> SysResourceTree(Page page) {
+        List<TreeNode> treelist = new ArrayList<>();
 
         Map mapsys =new HashMap();
         mapsys = EntityUtils.entityToMap(page);
 
         List<SysResource>  listtree = Sysresmapper.selectsysresTree(mapsys);
 
-        List<TreeNode> l=  Tree.CreateTree(listtree, new ITree<SysRole>() {
+        treelist=  Tree.CreateTree(listtree, new ITree<SysResource>() {
             @Override
-            public TreeNode modelTo(SysRole o) {
+            public TreeNode<SysResource> modelTo(SysResource o) {
                 TreeNode treeNode=new TreeNode();
                 treeNode.setId(o.getId());
                 treeNode.setParentId(o.getParentId());
