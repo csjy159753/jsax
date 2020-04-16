@@ -51,9 +51,8 @@ public class SysLogController {
     @GetMapping("/ListTree")
     @ApiOperation(value = "ListTree分页测试", notes = "ListTree分页测试")
     public Result ListTree(Page page) {
-
-        List<TreeNode> as= iSysLogService.selectSysRoleVo(null);
-        return ResultUtil.success(as);
+        List<TreeNode> list= iSysLogService.selectSysRoleVo(null);
+        return ResultUtil.success(list);
     }
 }
 
