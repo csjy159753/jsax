@@ -4,4 +4,8 @@
     <select id="selectPageOrgan"  resultType="com.jinhe.modules.system.dto.SysOrganDto">
           SELECT * from sys_organ
     </select>
+
+    <select id="selectPageOrganByID" parameterType="java.lang.String"  resultType="com.jinhe.modules.system.dto.SysOrganDto">
+        SELECT * from sys_organ where ID = #{ID}
+    </select>
 </mapper>
