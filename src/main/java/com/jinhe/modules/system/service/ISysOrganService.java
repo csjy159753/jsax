@@ -13,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-04-16
  */
 public interface ISysOrganService extends IService<SysOrgan> {
-     Page<SysOrgan> selectSysOrganpage(Page page);
+     Page<SysOrgan> selectPageOrgan(Page page);
 }

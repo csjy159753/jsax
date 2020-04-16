@@ -39,7 +39,7 @@ public class SysOrganController {
     public Result Select_SysOrgpage(PageFilter filter) {
         SysOrgan sysorg = new SysOrgan();
         Page page = new Page(filter.getStart(), filter.getLength());
-        Page<SysOrgan> pagedata = Isysorgan.selectSysOrganpage(page);
+        Page<SysOrgan> pagedata = Isysorgan.selectPageOrgan(page);
 
         return ResultUtil.success(pagedata);
     }

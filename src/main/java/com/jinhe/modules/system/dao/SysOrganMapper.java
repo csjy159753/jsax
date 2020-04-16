@@ -14,5 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-04-16
  */
 public interface SysOrganMapper extends BaseMapper<SysOrgan> {
-   Page<SysOrgan> selectPage(Page page);
+   Page<SysOrgan> selectPageOrgan(Page page);
 }

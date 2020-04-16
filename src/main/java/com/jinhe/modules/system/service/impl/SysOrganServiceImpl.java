@@ -24,9 +24,9 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
     private  SysOrganMapper sysorgmap;
 
     @Override
-    public Page<SysOrgan> selectSysOrganpage(Page page) {
+    public Page<SysOrgan> selectPageOrgan(Page page) {
 
-       Page<SysOrgan> sysorgls =  sysorgmap.selectPage(page);
+       Page<SysOrgan> sysorgls =  sysorgmap.selectPageOrgan(page);
 
 
         return sysorgls;
