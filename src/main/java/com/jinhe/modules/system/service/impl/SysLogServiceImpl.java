@@ -41,8 +41,6 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
             map=new HashMap();
         }
         List<SysRole> list=sysLogMapper.selectSysRoleVo(map);
-
-
         List<TreeNode> l=  Tree.CreateTree(list, new ITree<SysRole>() {
             @Override
             public TreeNode modelTo(SysRole o) {
