@@ -115,7 +115,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public void updateUser(SysUserDto sysUserDto) {
 
         SysUser sysUser=new SysUser();
-        SysUser sysUsera= (SysUser) Mapper.populate(sysUser,sysUserDto);
         SysUserRole sysUserRole=new SysUserRole();
         SysUserOrgan sysUserOrgan=new SysUserOrgan();
         //设置User属性

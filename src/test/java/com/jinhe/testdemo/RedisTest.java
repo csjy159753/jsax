@@ -47,7 +47,7 @@ public class RedisTest {
         SysLog sysLog=new SysLog();
         sysLog.setId("111");
         sysLog.setCreateTime(LocalDateTime.now());
-        SysLogVo SS=  Mapper.populate(sysLog, SysLogVo.class);
+        SysLogVo SS=  Mapper.MapToModel(sysLog, SysLogVo.class);
 
         logger.debug("这是debug日志...",SS);
     }

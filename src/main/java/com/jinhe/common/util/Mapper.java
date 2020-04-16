@@ -11,7 +11,7 @@ public class Mapper {
      *
      * @param src
      */
-    public static <T,TT> TT populate(T src, Class<TT> clazz) throws IllegalAccessException, InstantiationException {
+    public static <T,TT> TT MapToModel(T src, Class<TT> clazz) throws IllegalAccessException, InstantiationException {
         TT target = clazz.newInstance();
         Method[] srcMethods = src.getClass().getMethods();
         Method[] targetMethods = target.getClass().getMethods();
@@ -41,7 +41,7 @@ public class Mapper {
      * @param src
      * @param target
      */
-    public static <T, TT> Object populate(T src, TT target) {
+    public static <T, TT> Object MapToModel(T src, TT target) {
         Method[] srcMethods = src.getClass().getMethods();
         Method[] targetMethods = target.getClass().getMethods();
         for (Method m : srcMethods) {
@@ -71,12 +71,12 @@ public class Mapper {
      * @param targetClass
      * @return
      */
-    public static <S, T> List<T> populateList(List<S> src, List<T> target, Class<?> targetClass) {
+    public static <S, T> List<T> MapToModelList(List<S> src, List<T> target, Class<?> targetClass) {
         for (int i = 0; i < src.size(); i++) {
             try {
                 Object object = targetClass.newInstance();
                 target.add((T) object);
-                populate(src.get(i), object);
+                MapToModel(src.get(i), object);
             } catch (Exception e) {
                 continue;//某个方法反射异常
             }
