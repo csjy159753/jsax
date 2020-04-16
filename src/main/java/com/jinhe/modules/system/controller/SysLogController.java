@@ -43,5 +43,15 @@ public class SysLogController {
         IPage<SysLog> pageData = iSysLogService.selectPageVo(page, sysLog);
         return ResultUtil.success(pageData);
     }
+    /**
+     * 需要 Token 验证的接口
+     */
+    @GetMapping("/ListTree")
+    @ApiOperation(value = "ListTree分页测试", notes = "ListTree分页测试")
+    public Result ListTree(Page page) {
+
+         iSysLogService.selectSysRoleVo(null);
+        return ResultUtil.success(null);
+    }
 }
 

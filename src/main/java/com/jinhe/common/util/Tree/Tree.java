@@ -2,34 +2,40 @@ package com.jinhe.common.util.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 树形结构工具类
- * @param <T>
+ *
+ * @param
  */
-public class Tree<T> {
-    public List<TreeNode> CreateTree(List<T> objs, ITree iTree) {
-        List<TreeNode> li = new ArrayList<>();
+public class Tree {
+    public static <T> List<TreeNode> CreateTree(List<T> objs, ITree iTree) {
         List<TreeNode> list = new ArrayList<>();
-        List<TreeNode> listData = new ArrayList<>();
+        List<TreeNode> listParent = new ArrayList<>();
         for (T item : objs) {
             TreeNode treeNode = iTree.modelTo(item);
             list.add(treeNode);
-            li.add(treeNode);
+
         }
         for (TreeNode nolde : list) {
-            li.removeIf(x -> x.equals(nolde.parentId));
+//            List<TreeNode> cf=  list.stream().filter(a -> a.getId().equals(nolde.getParentId())).collect(Collectors.toList());
+            boolean bool = list.stream().anyMatch(a -> a.getId().equals(nolde.getParentId()));
+            if (!bool) {
+                listParent.add(nolde);
+            }
         }
-        for (TreeNode t : li) {
-            t.setChildren(getChildren(list, t.id));
+        for (TreeNode t : listParent) {
+            t.setChildren(getChildren(list, t.getId()));
         }
-        return li;
+        return listParent;
     }
-    public List<TreeNode> getChildren(List<TreeNode> list, String id) {
+
+    public static <T> List<TreeNode> getChildren(List<TreeNode> list, String id) {
         List<TreeNode> listData = new ArrayList<>();
         for (TreeNode node : list) {
-            if (id.equals(node.parentId)) {
-                node.setChildren(getChildren(list, node.id));
+            if (id.equals(node.getParentId())) {
+                node.setChildren(getChildren(list, node.getId()));
                 listData.add(node);
             }
         }

@@ -6,11 +6,11 @@ import java.util.List;
 
 @Data
 public class TreeNode<T> {
-    public String id;
-    public String parentId;
-    public T nodeValue ;
-    public List<TreeNode<T>> children;
+    private String id;
+    private String parentId;
+    private T nodeValue ;
+    private List<TreeNode<T>> children;
     private List<String> path;
-    public int depth;
+    private int depth;
 
 }
