@@ -4,8 +4,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinhe.modules.system.dao.SysUserMapper;
+import com.jinhe.modules.system.dao.SysUserOrganMapper;
+import com.jinhe.modules.system.dao.SysUserRoleMapper;
 import com.jinhe.modules.system.dto.SysUser;
 import com.jinhe.modules.system.dto.SysUserDto;
+import com.jinhe.modules.system.dto.SysUserOrgan;
+import com.jinhe.modules.system.dto.SysUserRole;
 import com.jinhe.modules.system.service.ISysUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +31,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Resource
     private  SysUserMapper sysUserMapper;
-
+    private  SysUserRoleMapper sysUserRoleMapper;
+    private SysUserOrganMapper sysUserOrganMapper;
     //查询所有用户列表
     @Override
     public IPage<SysUserDto> userList(Page<SysUserDto> page, SysUserDto sysUserDto) {
@@ -37,7 +42,43 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
    //新增用户
     @Override
     public void addUser(SysUserDto sysUserDto) {
-          sysUserMapper.addUser(sysUserDto);
+          //获取对象
+           SysUser sysUser=new SysUser();
+           SysUserRole sysUserRole=new SysUserRole();
+           SysUserOrgan sysUserOrgan=new SysUserOrgan();
+           //设置User属性
+           sysUser.setId(sysUserDto.getId());
+           sysUser.setNickName(sysUserDto.getNickName());
+           sysUser.setNormalizedUsername(sysUserDto.getNormalizedUserName());
+           sysUser.setPasswordHash(sysUserDto.getPasswordHash());
+           sysUser.setRealName(sysUserDto.getRealName());
+           sysUser.setNormalizedEmail(sysUserDto.getNormalizedEmail());
+           sysUser.setPhoneNumber(sysUserDto.getPhoneNumber());
+           //新增用户属性
+           sysUserMapper.insert(sysUser);
+           String userId=sysUser.getId();
+           //获取用户角色ID和机构ID
+           List<String> roleIds=sysUserDto.getRoleIds();
+           List<String> organIds=sysUserDto.getOrganIds();
+           //添加用户角色
+        for (String x:roleIds
+             ) {
+               sysUserRole.setRoleId(x);
+               sysUserRole.setUserId(userId);
+               sysUserRoleMapper.insert(sysUserRole);
+
+
+        }
+           //添加用户机构
+        for (String x:organIds
+        ) {
+            sysUserOrgan.setOrganId(x);
+            sysUserOrgan.setUserId(userId);
+           sysUserOrganMapper.insert(sysUserOrgan);
+
+        }
+
+
     }
 
     //关键字查询
@@ -70,7 +111,37 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     //更新用户
     @Override
     public void updateUser(SysUserDto sysUserDto) {
-        sysUserMapper.updateUser(sysUserDto);
+        SysUser sysUser=new SysUser();
+        SysUserRole sysUserRole=new SysUserRole();
+        SysUserOrgan sysUserOrgan=new SysUserOrgan();
+        //设置User属性
+        sysUser.setId(sysUserDto.getId());
+        sysUser.setNickName(sysUserDto.getNickName());
+        sysUser.setNormalizedUsername(sysUserDto.getNormalizedUserName());
+        sysUser.setRealName(sysUserDto.getRealName());
+        sysUser.setNormalizedEmail(sysUserDto.getNormalizedEmail());
+        sysUser.setPhoneNumber(sysUserDto.getPhoneNumber());
+        //更新用户属性
+        sysUserMapper.updateById(sysUser);
+        String userId=sysUser.getId();
+        //获取用户角色ID和机构ID
+        List<String> roleIds=sysUserDto.getRoleIds();
+        List<String> organIds=sysUserDto.getOrganIds();
+        //更新用户角色
+        for (String x:roleIds
+        ) {
+            sysUserRole.setRoleId(x);
+            sysUserRole.setUserId(userId);
+            sysUserRoleMapper.updateById(sysUserRole);
+        }
+        //更新用户机构
+        for (String x:organIds
+        ) {
+            sysUserOrgan.setOrganId(x);
+            sysUserOrgan.setUserId(userId);
+            sysUserOrganMapper.updateById(sysUserOrgan);
+
+        }
     }
 
     //重置密码

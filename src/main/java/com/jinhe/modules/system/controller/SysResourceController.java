@@ -2,12 +2,15 @@ package com.jinhe.modules.system.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jinhe.common.util.EntityUtils;
+import com.jinhe.common.util.Mapper;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.vo.Result;
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.service.ISysResourceService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -47,7 +50,7 @@ public class SysResourceController {
     @GetMapping("/sys_resourc")
     @ApiOperation(value = "查询所有菜单", notes = "查询所有菜单")
 
-    public SysResourceDto Select_SysResourcebyid(String ID){
+    public SysResourceDto Select_SysResourcebyid(@ApiParam(name = "xiakun", value = "ID", required = true) String ID){
         SysResourceDto sysresDto = new SysResourceDto();
 
         sysresDto = ISysResService.Select_SysRespagebyid(ID);
@@ -56,15 +59,17 @@ public class SysResourceController {
     }
 
     /**
-     * 根据ID查询所有菜单
+     * 新增菜单
      * **/
     @PostMapping("/addsys_resource")
-    @ApiOperation(value = "查询所有菜单", notes = "查询所有菜单")
-    public Integer Select_SysResourcebyid(@RequestBody SysResourceDto sysres){
+    @ApiOperation(value = "新增菜单", notes = "新增菜单")
 
-        Integer intr = ISysResService.sysresourcesave(sysres);
+    public boolean Save_SysResource(@RequestBody SysResourceDto sysres){
 
-        return intr;
+
+        boolean flags = ISysResService.sysresourcesave(sysres);
+
+        return flags;
     }
 
 

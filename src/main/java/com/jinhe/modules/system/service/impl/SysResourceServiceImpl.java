@@ -3,6 +3,7 @@ package com.jinhe.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jinhe.common.util.Mapper;
 import com.jinhe.modules.system.dao.SysResourceMapper;
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
@@ -40,10 +41,16 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
     }
 
     @Override
-    public Integer sysresourcesave(SysResourceDto sysresdto) {
+    public boolean sysresourcesave(SysResourceDto sysresdto) {
 
-        Integer intr = null;
+        boolean flags = false;
 
-        return intr;
+        SysResource sysres1 = new SysResource();
+
+        Mapper.populate(sysresdto,sysres1);
+
+        flags = this.save(sysres1);
+
+        return flags;
     }
 }
