@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 
 
 import org.json.JSONObject;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -30,7 +31,7 @@ public class TokenController {
      * @return
      */
     @ApiOperation(value="登录获取token", notes="登录获取token")
-    @PostMapping("/login")
+    @PostMapping("/login/{id}")
     public Result login(@RequestBody Login Login) {
         JSONObject json = new JSONObject();
         /** 验证userName，passWord和数据库中是否一致，如不一致，直接return ResultUtil.errer(); 【这里省略该步骤】*/

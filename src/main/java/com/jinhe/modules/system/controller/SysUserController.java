@@ -56,9 +56,9 @@ public class SysUserController {
      * @return
      */
     @ApiOperation(value="关键字查询", notes="关键字查询")
-    @RequestMapping(value = "selectByWords", method =RequestMethod.GET)
+    @RequestMapping(value = "selectByWords/{normalizedUserName}&{organName}&{roleName}", method =RequestMethod.GET)
     @SysLog(value = "测试注解日志切面关键字查询selectByWords")
-    public  Result selectByWords(Page page, String normalizedUserName,String organName,String roleName ){
+    public  Result selectByWords(Page page, @PathVariable String normalizedUserName,String organName,String roleName){
         SysUserDto sysUserDto=new SysUserDto();
         IPage <SysUserDto> userList =sysUserService.selectByWords(page,sysUserDto,normalizedUserName,organName,roleName);
         return ResultUtil.success(userList);
@@ -82,7 +82,7 @@ public class SysUserController {
     @ApiOperation(value="新增用户", notes="新增用户")
     @RequestMapping(value = "addUser", method =RequestMethod.PUT)
     @SysLog(value = "测试注解日志切面新增用户addUser")
-    public void addUser(@RequestBody SysUserDto sysUserDto){
+    public void addUser(SysUserDto sysUserDto){
           sysUserService.addUser(sysUserDto);
     }
 
@@ -101,31 +101,31 @@ public class SysUserController {
      * @return
      */
     @ApiOperation(value="重置密码", notes="重置密码")
-    @RequestMapping(value = "updatePassword", method =RequestMethod.POST)
+    @RequestMapping(value = "updatePassword/{oldPassword}&{newPassword}&{id}", method =RequestMethod.POST)
     @SysLog(value = "测试注解日志切面重置密码updatePassword")
-    public void updatePassword(String oldPassword,String newPassword,String userId){
+    public void updatePassword(@PathVariable String oldPassword,String newPassword,String id){
         oldPassword=DigestUtils.md5DigestAsHex(oldPassword.getBytes());
         newPassword=DigestUtils.md5DigestAsHex(newPassword.getBytes());
-        sysUserService.updatePassword(oldPassword,newPassword,userId);
+        sysUserService.updatePassword(oldPassword,newPassword,id);
     }
     /**
      * 禁用/恢复账户
      * @return
      */
     @ApiOperation(value="禁用/恢复账户", notes="禁用/恢复账户")
-    @RequestMapping(value = "ableUserById", method =RequestMethod.POST)
+    @RequestMapping(value = "ableUserById/{id}", method =RequestMethod.POST)
     @SysLog(value = "测试注解日志切面禁用/恢复账户ableUserById")
-    public void ableUserById(String userId){
-        sysUserService.ableUserById(userId);
+    public void ableUserById(@PathVariable String id){
+        sysUserService.ableUserById(id);
     }
     /**
      * 删除用户
      * @return
      */
     @ApiOperation(value="删除用户", notes="删除账户")
-    @RequestMapping(value = "deleteUserById", method =RequestMethod.DELETE)
+    @RequestMapping(value = "deleteUserById/{id}", method =RequestMethod.DELETE)
     @SysLog(value = "测试注解日志切面删除账户deleteUserById")
-    public void deleteUserById( String userId){
-        sysUserService.deleteUserById(userId);
+    public void deleteUserById(@PathVariable String id){
+        sysUserService.deleteUserById(id);
     }
 }
