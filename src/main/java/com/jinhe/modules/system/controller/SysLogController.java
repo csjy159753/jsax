@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.PageUtils;
 import com.jinhe.common.util.ResultUtil;
+import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.common.vo.Result;
 import com.jinhe.modules.system.dto.SysUserVo;
 import com.jinhe.modules.system.entity.SysLog;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -49,9 +51,8 @@ public class SysLogController {
     @GetMapping("/ListTree")
     @ApiOperation(value = "ListTree分页测试", notes = "ListTree分页测试")
     public Result ListTree(Page page) {
-
-         iSysLogService.selectSysRoleVo(null);
-        return ResultUtil.success(null);
+        List<TreeNode> list= iSysLogService.selectSysRoleVo(null);
+        return ResultUtil.success(list);
     }
 }
 
