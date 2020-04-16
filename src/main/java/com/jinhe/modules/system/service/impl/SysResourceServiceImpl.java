@@ -57,7 +57,7 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
 
         SysResource sysres1 = new SysResource();
 
-        Mapper.populate(sysresdto,sysres1);
+        Mapper.MapToModel(sysresdto,sysres1);
 
         flags = this.save(sysres1);
 

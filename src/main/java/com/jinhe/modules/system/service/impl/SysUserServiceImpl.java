@@ -3,6 +3,7 @@ package com.jinhe.modules.system.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jinhe.common.util.Mapper;
 import com.jinhe.modules.system.dao.SysUserMapper;
 import com.jinhe.modules.system.dao.SysUserOrganMapper;
 import com.jinhe.modules.system.dao.SysUserRoleMapper;
@@ -112,6 +113,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     //更新用户
     @Override
     public void updateUser(SysUserDto sysUserDto) {
+
         SysUser sysUser=new SysUser();
         SysUserRole sysUserRole=new SysUserRole();
         SysUserOrgan sysUserOrgan=new SysUserOrgan();
