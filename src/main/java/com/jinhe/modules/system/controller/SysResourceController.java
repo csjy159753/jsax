@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.EntityUtils;
 import com.jinhe.common.util.Mapper;
 import com.jinhe.common.util.ResultUtil;
+import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.common.vo.Result;
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -72,5 +74,20 @@ public class SysResourceController {
         return flags;
     }
 
+    /**
+    *
+    *  菜单查询父子结构查询
+    **/
+    @GetMapping("/ParentResource")
+    @ApiOperation(value = "菜单树状结构查询", notes = "菜单树状结构查询")
+
+    public Result ParentResourceTree(@RequestBody Page page){
+
+
+
+        List<SysResourceDto> treelist = ISysResService.SysResourceTree(page);
+
+        return ResultUtil.success(treelist);
+    }
 
 }

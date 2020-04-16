@@ -3,9 +3,12 @@ package com.jinhe.modules.system.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
 import io.swagger.models.auth.In;
+
+import java.util.List;
 
 
 /**
@@ -23,4 +26,6 @@ public interface ISysResourceService extends IService<SysResource> {
   SysResourceDto Select_SysRespagebyid(String ID);
 
   boolean sysresourcesave(SysResourceDto sysresdto);
+
+  List<SysResourceDto> SysResourceTree(Page page);
 }
