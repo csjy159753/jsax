@@ -3,6 +3,7 @@ package com.jinhe.modules.system.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Maps;
 import com.jinhe.common.util.Mapper;
 import com.jinhe.modules.system.dao.SysUserMapper;
 import com.jinhe.modules.system.dao.SysUserOrganMapper;
@@ -12,10 +13,13 @@ import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.dto.SysUserOrgan;
 import com.jinhe.modules.system.dto.SysUserRole;
 import com.jinhe.modules.system.service.ISysUserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -32,8 +36,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Resource
     private  SysUserMapper sysUserMapper;
-    private SysUserOrganMapper sysUserOrganMapper;
-    private SysUserRoleMapper sysUserRoleMapper;
+    @Resource
+    private  SysUserOrganMapper sysUserOrganMapper;
+    @Resource
+    private  SysUserRoleMapper sysUserRoleMapper;
     //查询所有用户列表
     @Override
     public IPage<SysUserDto> userList(Page<SysUserDto> page, SysUserDto sysUserDto) {
@@ -44,34 +50,31 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public void addUser(SysUserDto sysUserDto) {
           //获取对象
-           SysUser sysUser=new SysUser();
-          SysUserRole sysUserRole=new SysUserRole();
+        SysUser sysUser=new SysUser();
+        try {
+            sysUser =Mapper.MapToModel(sysUserDto,SysUser.class);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+           SysUserRole sysUserRole=new SysUserRole();
            SysUserOrgan sysUserOrgan=new SysUserOrgan();
-           //设置User属性
-           sysUser.setNickName(sysUserDto.getNickName());
-           sysUser.setNormalizedUsername(sysUserDto.getNormalizedUserName());
-           sysUser.setPasswordHash(sysUserDto.getPasswordHash());
-           sysUser.setRealName(sysUserDto.getRealName());
-           sysUser.setNormalizedEmail(sysUserDto.getNormalizedEmail());
-           sysUser.setPhoneNumber(sysUserDto.getPhoneNumber());
            //新增用户属性
-        sysUserMapper.insert(sysUser);
-          String userId=sysUser.getId();
+           sysUserMapper.insert(sysUser);
+           String userId=sysUser.getId();
            //获取用户角色ID和机构ID
            List<String> roleIds=sysUserDto.getRoleIds();
            List<String> organIds=sysUserDto.getOrganIds();
-           //添加用户角色
-        for (String x:roleIds
+        //添加用户角色
+       for (String x:roleIds
              ) {
-
                sysUserRole.setRoleId(x);
                sysUserRole.setUserId(userId);
-            System.out.println(sysUserRole);
-              sysUserRoleMapper.insert(sysUserRole);
-
+               sysUserRoleMapper.insert(sysUserRole);
 
         }
-           //添加用户机构
+          //添加用户机构
         for (String x:organIds
         ) {
             sysUserOrgan.setOrganId(x);
@@ -79,7 +82,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
            sysUserOrganMapper.insert(sysUserOrgan);
 
         }
-
 
     }
 
@@ -113,36 +115,44 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     //更新用户
     @Override
     public void updateUser(SysUserDto sysUserDto) {
-
-        SysUser sysUser=new SysUser();
-        SysUserRole sysUserRole=new SysUserRole();
-        SysUserOrgan sysUserOrgan=new SysUserOrgan();
-        //设置User属性
-        sysUser.setId(sysUserDto.getId());
-        sysUser.setNickName(sysUserDto.getNickName());
-        sysUser.setNormalizedUsername(sysUserDto.getNormalizedUserName());
-        sysUser.setRealName(sysUserDto.getRealName());
-        sysUser.setNormalizedEmail(sysUserDto.getNormalizedEmail());
-        sysUser.setPhoneNumber(sysUserDto.getPhoneNumber());
+              SysUser sysUser=new SysUser();
+        try {
+            sysUser =Mapper.MapToModel(sysUserDto,SysUser.class);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+         SysUserRole sysUserRole=new SysUserRole();
+         SysUserOrgan sysUserOrgan=new SysUserOrgan();
         //更新用户属性
-        sysUserMapper.updateById(sysUser);
-        String userId=sysUser.getId();
+         sysUserMapper.updateById(sysUser);
+         String userId=sysUser.getId();
         //获取用户角色ID和机构ID
         List<String> roleIds=sysUserDto.getRoleIds();
         List<String> organIds=sysUserDto.getOrganIds();
-        //更新用户角色
+
+        //删除原有角色
+          Map<String, Object> roleMap = Maps.newHashMap();
+          roleMap.put("user_id", userId);
+           sysUserRoleMapper.deleteByMap(roleMap);
+       //重新添加角色
         for (String x:roleIds
         ) {
             sysUserRole.setRoleId(x);
             sysUserRole.setUserId(userId);
-            sysUserRoleMapper.updateById(sysUserRole);
+            sysUserRoleMapper.insert(sysUserRole);
         }
-        //更新用户机构
+
+        //删除原有机构
+        Map<String, Object> organMap = Maps.newHashMap();
+        organMap.put("user_id", userId);
+        sysUserOrganMapper.deleteByMap(organMap);
         for (String x:organIds
         ) {
             sysUserOrgan.setOrganId(x);
             sysUserOrgan.setUserId(userId);
-            sysUserOrganMapper.updateById(sysUserOrgan);
+            sysUserOrganMapper.insert(sysUserOrgan);
 
         }
     }

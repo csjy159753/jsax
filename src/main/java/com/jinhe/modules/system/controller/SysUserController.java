@@ -56,9 +56,9 @@ public class SysUserController {
      * @return
      */
     @ApiOperation(value="关键字查询", notes="关键字查询")
-    @RequestMapping(value = "selectByWords/{normalizedUserName}&{organName}&{roleName}", method =RequestMethod.GET)
+    @RequestMapping(value = "selectByWords", method =RequestMethod.GET)
     @SysLog(value = "测试注解日志切面关键字查询selectByWords")
-    public  Result selectByWords(Page page, @PathVariable String normalizedUserName,String organName,String roleName){
+    public  Result selectByWords(Page page, String normalizedUserName,String organName,String roleName){
         SysUserDto sysUserDto=new SysUserDto();
         IPage <SysUserDto> userList =sysUserService.selectByWords(page,sysUserDto,normalizedUserName,organName,roleName);
         return ResultUtil.success(userList);

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -20,6 +21,7 @@ import java.util.Date;
  * @since 2020-03-12
  */
 @Data
+@ApiModel(value="用户",description="用户")
 public class SysUser {
 
     /**

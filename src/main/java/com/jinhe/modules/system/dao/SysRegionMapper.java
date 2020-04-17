@@ -1,16 +1,12 @@
 package com.jinhe.modules.system.dao;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jinhe.modules.system.dto.SysRegion;
 import com.jinhe.modules.system.dto.SysRole;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.HashMap;
 import java.util.List;
-
 
 /**
  * <p>
@@ -18,10 +14,11 @@ import java.util.List;
  * </p>
  *
  * @author rls
- * @since 2020-04-14
+ * @since 2020-04-16
  */
 @Mapper
-public interface SysRoleMapper extends BaseMapper<SysRole> {
+public interface SysRegionMapper extends BaseMapper<SysRegion> {
 
-    List<SysRole> selectRoleList(HashMap map);
+    //查询行政区列表
+    List<SysRegion> selectRegionList(HashMap map);
 }

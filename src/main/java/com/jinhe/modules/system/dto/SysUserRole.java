@@ -17,7 +17,6 @@ import lombok.experimental.Accessors;
  * @since 2020-04-16
  */
 @Data
-
 public class SysUserRole {
 
     private String id;

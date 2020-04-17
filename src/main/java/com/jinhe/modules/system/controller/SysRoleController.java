@@ -51,7 +51,7 @@ public class SysRoleController {
     @ApiOperation(value="新增角色", notes="新增角色")
     @RequestMapping(value = "roleList", method = RequestMethod.PUT)
     @SysLog(value = "测试注解日志切面新增角色")
-    public void addRole(@RequestBody SysRole sysRole){
+    public void addRole( SysRole sysRole){
          sysRoleService.addRole(sysRole) ;
     }
 
@@ -62,7 +62,7 @@ public class SysRoleController {
     @ApiOperation(value="更新角色", notes="更新角色")
     @RequestMapping(value = "roleList", method = RequestMethod.POST)
     @SysLog(value = "测试注解日志切面更新角色")
-    public void updaRole(@RequestBody  SysRole sysRole){
+    public void updaRole(SysRole sysRole){
         sysRoleService.updateRole(sysRole) ;
     }
     /**
