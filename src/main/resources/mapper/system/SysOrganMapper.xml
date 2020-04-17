@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinhe.modules.system.dao.SysOrganMapper">
+    <select id="selectPageOrgan"  resultType="com.jinhe.modules.system.dto.SysOrganDto">
+          SELECT * from sys_organ
+    </select>
+
+    <select id="selectPageOrganByID" parameterType="java.lang.String"  resultType="com.jinhe.modules.system.dto.SysOrganDto">
+        SELECT * from sys_organ where ID = #{ID}
+    </select>
+</mapper>

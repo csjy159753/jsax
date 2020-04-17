@@ -6,6 +6,9 @@ import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * <p>
@@ -19,4 +22,6 @@ public interface SysResourceMapper extends BaseMapper<SysResource> {
    Page<SysResource> selectSysResourcepage(Page page);
 
    SysResourceDto selectSysResourceOne(String ID);
+
+   List<SysResource> selectsysresTree(Map map);
 }

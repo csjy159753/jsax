@@ -9,4 +9,14 @@
         SELECT * from sys_resource where id = #{ID,jdbcType=VARCHAR}
     </select>
 
+    <select id="selectsysresTree" parameterType="java.util.HashMap" resultType="com.jinhe.modules.system.entity.SysResource">
+        WITH recursive td AS (
+        SELECT * FROM sys_resource
+        WHERE
+        PARENT_ID IS NULL or PARENT_ID = '' UNION ALL SELECT d.* FROM sys_resource d,td WHERE d.PARENT_ID = td.id
+        ) SELECT
+        *
+        FROM
+        td;
+    </select>
 </mapper>

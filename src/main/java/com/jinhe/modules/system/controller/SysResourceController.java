@@ -5,15 +5,19 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.EntityUtils;
 import com.jinhe.common.util.Mapper;
 import com.jinhe.common.util.ResultUtil;
+import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.common.vo.Result;
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.service.ISysResourceService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -47,13 +51,15 @@ public class SysResourceController {
     /**
      * 根据ID查询所有菜单
      * **/
-    @GetMapping("/sys_resourc")
-    @ApiOperation(value = "查询所有菜单", notes = "查询所有菜单")
-
-    public SysResourceDto Select_SysResourcebyid(@ApiParam(name = "xiakun", value = "ID", required = true) String ID){
+    @GetMapping("/sysresourc{id}")
+    @ApiOperation(value = "根据ID查询菜单", notes = "根据ID查询菜单")
+    @ApiImplicitParams(
+            @ApiImplicitParam(value="id",name="id",dataType="String")
+    )
+    public SysResourceDto SelectSysResourcebyid(String id){
         SysResourceDto sysresDto = new SysResourceDto();
 
-        sysresDto = ISysResService.Select_SysRespagebyid(ID);
+        sysresDto = ISysResService.Select_SysRespagebyid(id);
 
         return sysresDto;
     }
@@ -72,5 +78,20 @@ public class SysResourceController {
         return flags;
     }
 
+    /**
+    *
+    *  菜单查询父子结构查询
+    **/
+    @GetMapping("/ParentResource")
+    @ApiOperation(value = "菜单树状结构查询", notes = "菜单树状结构查询")
+
+    public Result ParentResourceTree(Page page){
+
+
+
+        List<TreeNode> treelist = ISysResService.SysResourceTree(page);
+
+        return ResultUtil.success(treelist);
+    }
 
 }
