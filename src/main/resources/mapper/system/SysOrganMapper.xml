@@ -8,4 +8,22 @@
     <select id="selectPageOrganByID" parameterType="java.lang.String"  resultType="com.jinhe.modules.system.dto.SysOrganDto">
         SELECT * from sys_organ where ID = #{ID}
     </select>
+
+    <select id="selectlistparent" parameterType="java.util.HashMap" resultType="com.jinhe.modules.system.entity.SysOrgan">
+        WITH recursive td AS (
+        SELECT * FROM
+        <choose>
+          <when test="userId != null">
+              sys_organ
+            LEFT JOIN sys_permission ON sys_organ.ORGION_ID=sys_permission.ORGION_ID WHERE sys_permission.ORGION_ID =
+            #{userId} UNION ALL
+          </when>
+          <when test="roleId != null">
+            sys_role where id =#{roleId} UNION ALL
+          </when>
+          <otherwise>
+            sys_role where PARENT_ID is null UNION ALL
+          </otherwise>
+        </choose>
+    </select>
 </mapper>
