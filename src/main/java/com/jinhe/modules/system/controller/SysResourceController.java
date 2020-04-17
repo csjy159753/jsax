@@ -7,6 +7,7 @@ import com.jinhe.common.util.Mapper;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.common.vo.Result;
+import com.jinhe.modules.system.dto.SysOrganDto;
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.service.ISysResourceService;
@@ -82,7 +83,7 @@ public class SysResourceController {
     *
     *  菜单查询父子结构查询
     **/
-    @GetMapping("/ParentResource")
+    @GetMapping("/parentresource")
     @ApiOperation(value = "菜单树状结构查询", notes = "菜单树状结构查询")
 
     public Result ParentResourceTree(Page page){
@@ -94,4 +95,25 @@ public class SysResourceController {
         return ResultUtil.success(treelist);
     }
 
+    @DeleteMapping("/sysrecourcebyid{id}")
+    @ApiOperation(value = "根据ID删除菜单", notes = "根据ID删除菜单")
+    @ApiImplicitParams(
+            @ApiImplicitParam(value="id",name="id",dataType="String")
+    )
+    public Integer DeleteOrganByid(String id){
+
+        Integer flags = ISysResService.DeleteResourceByid(id);
+
+        return flags;
+
+    }
+    @PostMapping("/sysrecourcebyid")
+    @ApiOperation(value = "根据ID更新机构", notes = "根据ID更新机构")
+
+    public Integer UpdateOrganByid(@RequestBody SysResourceDto sysorgandto){
+
+        Integer flags = ISysResService.UpdateOranByid(sysorgandto);
+
+        return flags;
+    }
 }

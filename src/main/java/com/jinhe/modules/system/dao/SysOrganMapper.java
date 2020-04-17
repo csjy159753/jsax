@@ -5,6 +5,7 @@ import com.jinhe.modules.system.dto.SysOrganDto;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,4 +20,7 @@ public interface SysOrganMapper extends BaseMapper<SysOrgan> {
    Page<SysOrgan> selectPageOrgan(Page page);
 
    SysOrganDto selectPageOrganByID(String ID);
+
+   List<SysOrganDto> selectlistparent(Map map);
+
 }

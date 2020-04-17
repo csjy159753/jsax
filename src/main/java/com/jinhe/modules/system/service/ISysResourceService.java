@@ -28,4 +28,8 @@ public interface ISysResourceService extends IService<SysResource> {
   boolean sysresourcesave(SysResourceDto sysresdto);
 
   List<TreeNode> SysResourceTree(Page page);
+
+  Integer DeleteResourceByid(String id);
+
+  Integer UpdateOranByid(SysResourceDto dto);
 }
