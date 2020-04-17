@@ -10,6 +10,7 @@ import com.jinhe.common.util.Tree.Tree;
 import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.modules.system.dao.SysResourceMapper;
 import com.jinhe.modules.system.dto.SysResourceDto;
+import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.service.ISysResourceService;
@@ -85,5 +86,24 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
         });
 
         return treelist;
+    }
+
+    @Override
+    public Integer DeleteResourceByid(String id) {
+        Integer flags = Sysresmapper.deleteById(id);
+
+        return flags;
+    }
+
+    @Override
+    public Integer UpdateOranByid(SysResourceDto dto) {
+
+        SysResource sysresource = new SysResource();
+
+        Mapper.MapToModel(dto,sysresource);
+
+        Integer flags = Sysresmapper.updateById(sysresource);
+
+        return flags;
     }
 }
