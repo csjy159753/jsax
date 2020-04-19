@@ -49,6 +49,7 @@ config:
     header: token
 #mybatis
 mybatis-plus:
+
   mapper-locations: classpath*:mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.jinhe.modules.*.entity
@@ -72,11 +73,11 @@ mybatis-plus:
     #刷新mapper 调试神器
     refresh: true
     # 原生配置
-    configuration:
-      map-underscore-to-camel-case: true
-      cache-enabled: false
-      # 打印sql日志
-      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-logging:
-  level: info
-  level.com.jinhe: info
+  configuration:
+    # 打印sql日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  logging:
+    level: info
+    level.com.jinhe: info
