@@ -36,7 +36,7 @@ public class SysUserDto  {
     /**
      * 头像地址
      */
-    @ApiModelProperty(value="头像地址",name="avatarUrl",example="")
+    @ApiModelProperty(value="头像地址",name="avatarUrl",example="1")
     private String avatarUrl;
 
     /**
@@ -46,7 +46,7 @@ public class SysUserDto  {
     private String realName;
 
     /**
-     * opend
+     * opendi
      */
     @ApiModelProperty(value="opend",name="openId",example="12")
     private String openId;
@@ -66,7 +66,7 @@ public class SysUserDto  {
     /**
      * 手机号码
      */
-    @ApiModelProperty(value="手机号码",name="phoneNumber",example="")
+    @ApiModelProperty(value="手机号码",name="phoneNumber",example="1")
     private String phoneNumber;
 
     /**
@@ -90,13 +90,13 @@ public class SysUserDto  {
     /**
      * 锁定时间
      */
-    @ApiModelProperty(value="锁定时间",name="lockOutTime",example="")
+    @ApiModelProperty(value="锁定时间",name="lockOutTime",example="1")
     private Date lockOutTime;
 
     /**
      * 是否启用锁定0不启用1启用
      */
-    @ApiModelProperty(value="是否启用锁定0不启用1启用",name="lockOutEnabled",example="")
+    @ApiModelProperty(value="是否启用锁定0不启用1启用",name="lockOutEnabled",example="1")
     private Integer lockOutEnabled;
 
     /**
@@ -114,24 +114,24 @@ public class SysUserDto  {
     /**
      * 创建时间
      */
-    @ApiModelProperty(value="创建时间",name="createTime",example="")
+    @ApiModelProperty(value="创建时间",name="createTime",example="1")
     private Date createTime;
 
     /**
      * 更新时间
-     */@ApiModelProperty(value="更新时间",name="updateTime",example="")
+     */@ApiModelProperty(value="更新时间",name="updateTime",example="1")
     private Date updateTime;
 
     /**
      * 角色ID
      */
-    @ApiModelProperty(value="角色ID",name="roleIds",example="")
+    @ApiModelProperty(value="角色ID",name="roleIds",example="1")
     private List<String> roleIds;
 
     /**
      * 机构ID
      */
-    @ApiModelProperty(value="机构ID",name="organIds",example="")
+    @ApiModelProperty(value="机构ID",name="organIds",example="1")
     private List<String> organIds;
 
 }

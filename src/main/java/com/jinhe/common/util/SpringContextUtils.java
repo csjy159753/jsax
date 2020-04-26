@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * @author hongsir 2017-11-03 19:36
+ * @author
  * @apiNote spring上下文工具类，用于普通类调用springIOC中的对象
  */
 

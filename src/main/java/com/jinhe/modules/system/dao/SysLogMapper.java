@@ -6,6 +6,7 @@ import com.jinhe.modules.system.dto.SysUserVo;
 import com.jinhe.modules.system.entity.SysLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jinhe.modules.system.entity.SysRole;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.HashMap;
@@ -23,6 +24,6 @@ public interface SysLogMapper extends BaseMapper<SysLog> {
 
     IPage<SysLog> selectPageVo(Page<SysLog> page, SysLog sysUserVo);
 
-    @Select({"select * from sys_role"})
-    List<SysRole> selectSysRoleVo(HashMap map);
+//    @Select({"select * from sys_role"})
+    List<SysRole> selectSysRoleVo(IPage page,@Param("params") HashMap map);
 }

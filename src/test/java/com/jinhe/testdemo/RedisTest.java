@@ -1,12 +1,9 @@
 package com.jinhe.testdemo;
 
-import com.jinhe.common.util.ExcelReader;
 import com.jinhe.common.util.Mapper;
-import com.jinhe.common.util.ParseExcelRow;
 import com.jinhe.common.util.RedisUtil;
 import com.jinhe.modules.system.dto.SysLogVo;
 import com.jinhe.modules.system.entity.SysLog;
-import org.apache.poi.ss.usermodel.Row;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -16,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -46,7 +42,7 @@ public class RedisTest {
 //        });
         SysLog sysLog=new SysLog();
         sysLog.setId("111");
-        sysLog.setCreateTime(LocalDateTime.now());
+//        sysLog.setCreateTime(LocalDateTime.now());
         SysLogVo SS=  Mapper.MapToModel(sysLog, SysLogVo.class);
 
         logger.debug("这是debug日志...",SS);

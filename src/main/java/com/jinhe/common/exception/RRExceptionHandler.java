@@ -30,10 +30,8 @@ public class RRExceptionHandler {
 	@ExceptionHandler(DuplicateKeyException.class)
 	public Result handleDuplicateKeyException(DuplicateKeyException e) {
 		logger.error(e.getMessage(), e);
-		return ResultUtil.error(ResultEnum.DuplicateKeyException);
+		return ResultUtil.error(ResultEnum.UNKNOWN_ERROR);
 	}
-
-
 
 	@ExceptionHandler(Exception.class)
 	public Result handleException(Exception e) {

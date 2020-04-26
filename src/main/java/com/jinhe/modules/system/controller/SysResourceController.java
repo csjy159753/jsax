@@ -11,10 +11,7 @@ import com.jinhe.modules.system.dto.SysOrganDto;
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.service.ISysResourceService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -30,7 +27,9 @@ import java.util.List;
  * @since 2020-04-13
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/system/sys-resource")
+@Api(description = "菜单管理",tags = {"sysresource-ontroller"})
 public class SysResourceController {
     @Resource
     private ISysResourceService ISysResService;
@@ -52,12 +51,12 @@ public class SysResourceController {
     /**
      * 根据ID查询所有菜单
      * **/
-    @GetMapping("/sysresourc{id}")
+    @GetMapping("/sysresourc/{id}")
     @ApiOperation(value = "根据ID查询菜单", notes = "根据ID查询菜单")
     @ApiImplicitParams(
             @ApiImplicitParam(value="id",name="id",dataType="String")
     )
-    public SysResourceDto SelectSysResourcebyid(String id){
+    public SysResourceDto SelectSysResourcebyid(@PathVariable String id){
         SysResourceDto sysresDto = new SysResourceDto();
 
         sysresDto = ISysResService.Select_SysRespagebyid(id);
@@ -95,12 +94,12 @@ public class SysResourceController {
         return ResultUtil.success(treelist);
     }
 
-    @DeleteMapping("/sysrecourcebyid{id}")
+    @DeleteMapping("/sysrecourcebyid/{id}")
     @ApiOperation(value = "根据ID删除菜单", notes = "根据ID删除菜单")
     @ApiImplicitParams(
             @ApiImplicitParam(value="id",name="id",dataType="String")
     )
-    public Integer DeleteOrganByid(String id){
+    public Integer DeleteOrganByid(@PathVariable String id){
 
         Integer flags = ISysResService.DeleteResourceByid(id);
 

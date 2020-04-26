@@ -4,11 +4,11 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
-  port: 8083
+  port: 8006
   servlet:
-    context-path: /pay
+    context-path: /cApi
 
-#http://localhost:8083/pay/swagger-ui.html
+#http://localhost:8005/cApi/swagger-ui.html
 swagger:
   basePackage: com.jinhe
   title: RESTful API 文档
@@ -52,6 +52,7 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.jinhe.modules.*.entity
+  configuration.jdbc-type-for-null: null
   global-config:
     # 数据库相关配置
     db-config:
@@ -72,11 +73,17 @@ mybatis-plus:
     #刷新mapper 调试神器
     refresh: true
     # 原生配置
-    configuration:
-      map-underscore-to-camel-case: true
-      cache-enabled: false
-      # 打印sql日志
-      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    # 打印sql日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   level: info
   level.com.jinhe: info
+com:
+  gaoice:
+    easyexcel:
+      enable-excel-file: true
+      enable-sheet-info: true
+      enable-response-excel: true

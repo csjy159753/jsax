@@ -453,6 +453,21 @@ public class DateUtils {
         return weekOfDays[num];
     }
 
+
+    /**
+     * getDayOfWeeknumber(获取当前日期是星期几)
+     *
+     * @param dateStr 日期
+     * @return 星期几
+     */
+    public static String getDayOfWeeknumber(String dateStr) {
+        String[] weekOfDays = {"7", "1", "2", "3", "4", "5", "6"};
+        Date date = parseDate(dateStr);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int num = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        return weekOfDays[num];
+    }
     /**
      * sns 格式 如几秒前，几分钟前，几小时前，几天前，几个月前，几年后， ... 精细，类如某个明星几秒钟之前发表了一篇微博
      *

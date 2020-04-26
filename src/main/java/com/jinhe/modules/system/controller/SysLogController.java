@@ -12,14 +12,12 @@ import com.jinhe.modules.system.entity.SysLog;
 import com.jinhe.modules.system.service.ISysLogService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -30,6 +28,7 @@ import java.util.List;
  * @since 2020-04-15
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/system/sys-log")
 public class SysLogController {
     @Autowired
@@ -50,8 +49,13 @@ public class SysLogController {
      */
     @GetMapping("/ListTree")
     @ApiOperation(value = "ListTree分页测试", notes = "ListTree分页测试")
-    public Result ListTree(Page page) {
-        List<TreeNode> list= iSysLogService.selectSysRoleVo(null);
+    public Result ListTree(HashMap map ) {
+        if(map==null){
+            map=new HashMap();
+        }
+        map.put("userId","superAdmin");
+
+        List<TreeNode> list= iSysLogService.selectSysRoleVo(map);
         return ResultUtil.success(list);
     }
 }

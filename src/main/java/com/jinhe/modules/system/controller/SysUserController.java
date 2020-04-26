@@ -21,23 +21,12 @@ import java.util.List;
  * @since 2020-03-12
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/system/sys-user")
 public class SysUserController {
 
     @Resource
     private ISysUserService sysUserService;
-
-    /**
-     * 测试日志
-     * @return
-     */
-    @ApiOperation(value="测试日志方法", notes="测试日志方法")
-    @RequestMapping(value = "testrls", method = RequestMethod.GET)
-    @SysLog(value = "测试注解日志切面")
-    public String testLog (String param,int num){
-        return param+num;
-    }
-
 
     /**
      * 查询用户列表
@@ -52,7 +41,7 @@ public class SysUserController {
         return ResultUtil.success(userListAll);
     }
     /**
-     * 关键字查询
+     * 查询用户列表
      * @return
      */
     @ApiOperation(value="关键字查询", notes="关键字查询")

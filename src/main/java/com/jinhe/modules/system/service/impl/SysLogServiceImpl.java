@@ -41,7 +41,8 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
         if(map==null){
             map=new HashMap();
         }
-        List<SysRole> list=sysLogMapper.selectSysRoleVo(map);
+        IPage<SysRole> page=new Page<>(0,1000);
+        List<SysRole> list=sysLogMapper.selectSysRoleVo(page,map);
         List<TreeNode> l=  Tree.CreateTree(list, new ITree<SysRole>() {
             @Override
             public TreeNode modelTo(SysRole o) {

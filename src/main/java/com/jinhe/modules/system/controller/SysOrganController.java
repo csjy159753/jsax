@@ -24,7 +24,9 @@ import java.util.List;
  * @since 2020-04-16
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/system/sys-organ")
+@Api(description = "机构管理",tags = {"sysorgan-ontroller"})
 public class SysOrganController {
 
     @Resource
@@ -48,12 +50,12 @@ public class SysOrganController {
     * 根据ID查询机构
     *
     **/
-    @GetMapping("/sysorganbyid{id}")
+    @GetMapping("/sysorganbyid/{id}")
     @ApiOperation(value = "根据ID查询机构", notes = "根据ID查询机构")
     @ApiImplicitParams(
             @ApiImplicitParam(value="id",name="id",dataType="String")
     )
-    public Result SelectSysOrganID(String id) {
+    public Result SelectSysOrganID(@PathVariable String id) {
             SysOrganDto sysorg = new SysOrganDto();
 
             sysorg = Isysorgan.selectPageOrganByID(id);
@@ -92,12 +94,12 @@ public class SysOrganController {
 
     }
 
-    @DeleteMapping("/sysorganbyid{id}")
+    @DeleteMapping("/sysorganbyid/{id}")
     @ApiOperation(value = "根据ID删除机构", notes = "根据ID删除机构")
     @ApiImplicitParams(
             @ApiImplicitParam(value="id",name="id",dataType="String")
     )
-    public Integer DeleteOrganByid(String id){
+    public Integer DeleteOrganByid(@PathVariable String id){
 
         Integer flags = Isysorgan.DeleteOrganByid(id);
 

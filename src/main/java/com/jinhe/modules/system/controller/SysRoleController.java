@@ -26,6 +26,7 @@ import java.util.List;
  * @since 2020-04-14
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/system/sys-role")
 public class SysRoleController {
 

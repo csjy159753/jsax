@@ -1,9 +1,22 @@
 package com.jinhe.common.util;
 
 import com.jinhe.common.vo.Result;
+import lombok.Data;
+
+import java.util.List;
 
 public class ResultUtil {
-
+    /**成功且带数据**/
+    public static<T> Result success(List<T> list,Long total){
+        Result result = new Result();
+        result.setCode(ResultEnum.SUCCESS.getCode());
+        result.setMsg(ResultEnum.SUCCESS.getMsg());
+        ListSub<T> listSub=new ListSub<>();
+        listSub.setList(list);
+        listSub.setTotal(total);
+        result.setData(listSub);
+        return result;
+    }
     /**成功且带数据**/
     public static Result success(Object object){
         Result result = new Result();

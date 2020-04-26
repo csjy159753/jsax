@@ -8,11 +8,13 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.HashMap;
 import java.util.Set;
 
 @Component
+@CrossOrigin
 @Lazy(true)
 public class PayStratey implements BeanFactoryPostProcessor {
    static HashMap<String, Class> payTypeHashMap = Maps.newHashMapWithExpectedSize(2);

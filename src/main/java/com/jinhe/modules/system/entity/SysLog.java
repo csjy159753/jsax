@@ -35,11 +35,11 @@ public class SysLog implements Serializable {
     @TableField("APPLICATION")
     private String application;
 
-    /**
-     * 等级
-     */
-    @TableField("LEVEL")
-    private String level;
+//    /**
+//     * 等级
+//     */
+//    @TableField("LEVEL")
+//    private String level;
 
     @TableField("LOGGER")
     private String logger;
@@ -50,8 +50,8 @@ public class SysLog implements Serializable {
     @TableField("SERVER_NAME")
     private String serverName;
 
-    @TableField("URL")
-    private String url;
+//    @TableField("URL")
+//    private String url;
 
     @TableField("REMOTE_ADDRESS")
     private String remoteAddress;
@@ -65,17 +65,17 @@ public class SysLog implements Serializable {
     @TableField("OTHER")
     private String other;
 
-    /**
-     * 创建时间
-     */
-    @TableField("CREATE_TIME")
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    @TableField("UPDATE_TIME")
-    private LocalDateTime updateTime;
+//    /**
+//     * 创建时间
+//     */
+//    @TableField("CREATE_TIME")
+//    private LocalDateTime createTime;
+//
+//    /**
+//     * 更新时间
+//     */
+//    @TableField("UPDATE_TIME")
+//    private LocalDateTime updateTime;
 
     @TableField("EXCEPTION")
     private String exception;

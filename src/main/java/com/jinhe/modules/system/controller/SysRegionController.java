@@ -25,6 +25,7 @@ import java.util.List;
  * @since 2020-04-16
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/system/sys-region")
 public class SysRegionController {
 

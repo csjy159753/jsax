@@ -126,31 +126,31 @@ public class SysRegion {
     /**
      * 为调查设立的虚拟区域
      */
-    @ApiModelProperty(value="为调查设立的虚拟区域",name="isVirtual",example="")
+    @ApiModelProperty(value="为调查设立的虚拟区域",name="isVirtual",example="1")
     private Boolean isVirtual;
 
     /**
      * 创建时间
      */
-    @ApiModelProperty(value="创建时间",name="createTime",example="")
+    @ApiModelProperty(value="创建时间",name="createTime",example="1")
     private LocalDateTime createTime;
 
     /**
      * 经度
      */
-    @ApiModelProperty(value="经度",name="lng",example="")
+    @ApiModelProperty(value="经度",name="lng",example="1")
     private Double lng;
 
     /**
      * 维度
      */
-    @ApiModelProperty(value="维度",name="lat",example="")
+    @ApiModelProperty(value="维度",name="lat",example="1")
     private Double lat;
 
     /**
      * 更新时间
      */
-    @ApiModelProperty(value="更新时间",name="updateTime",example="")
+    @ApiModelProperty(value="更新时间",name="updateTime",example="1")
     private LocalDateTime updateTime;
 
 

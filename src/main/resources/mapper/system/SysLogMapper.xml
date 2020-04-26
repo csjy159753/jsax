@@ -10,13 +10,13 @@
         sys_role.*
         FROM
         <choose>
-            <when test="userId != null">
+            <when test="params.userId != null">
                 sys_role
-                LEFT JOIN sys_user_role ON sys_role.ROLE_ID=sys_user_role.ROLE_ID WHERE sys_user_role.USER_ID =
-                #{userId} UNION ALL
+                LEFT JOIN sys_user_role ON sys_role.ID=sys_user_role.ROLE_ID WHERE sys_user_role.USER_ID =
+                #{params.userId} UNION ALL
             </when>
-            <when test="roleId != null">
-                sys_role where id =#{roleId} UNION ALL
+            <when test="params.roleId != null">
+                sys_role where id =#{params.roleId} UNION ALL
             </when>
             <otherwise>
                 sys_role where PARENT_ID is null UNION ALL

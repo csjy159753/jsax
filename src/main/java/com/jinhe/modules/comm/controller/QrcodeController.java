@@ -2,6 +2,7 @@ package com.jinhe.modules.comm.controller;
 
 import com.google.zxing.Result;
 import com.jinhe.common.util.QRCodeUtil;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/Qrcode")
 @RestController
+@CrossOrigin
 public class QrcodeController {
 
     /**

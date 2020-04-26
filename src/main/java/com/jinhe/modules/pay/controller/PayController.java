@@ -3,11 +3,13 @@ package com.jinhe.modules.pay.controller;
 import com.jinhe.common.util.SpringContextUtils;
 import com.jinhe.modules.pay.entity.UnifiedOrderRequest;
 import com.jinhe.modules.pay.service.PayService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/pay")
 public class PayController {
 

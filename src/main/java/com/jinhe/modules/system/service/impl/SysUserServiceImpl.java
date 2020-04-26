@@ -137,15 +137,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
           roleMap.put("user_id", userId);
            sysUserRoleMapper.deleteByMap(roleMap);
        //重新添加角色
-        int y=2;
         for (String x:roleIds
         ) {
-            sysUserRole.setRoleId(y+"");
-            y++;
+            sysUserRole.setRoleId(x);
             sysUserRole.setUserId(userId);
             sysUserRoleMapper.insert(sysUserRole);
         }
-      /*  //删除原有机构
+
+        //删除原有机构
         Map<String, Object> organMap = Maps.newHashMap();
         organMap.put("user_id", userId);
         sysUserOrganMapper.deleteByMap(organMap);
@@ -155,7 +154,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             sysUserOrgan.setUserId(userId);
             sysUserOrganMapper.insert(sysUserOrgan);
 
-        }*/
+        }
     }
 
     //重置密码

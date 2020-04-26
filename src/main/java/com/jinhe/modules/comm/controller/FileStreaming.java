@@ -4,10 +4,7 @@ import com.jinhe.common.util.ResultUtil;
 import io.swagger.annotations.ApiOperation;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FileUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -17,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 @RestController
+@CrossOrigin
 @RequestMapping("FileStreaming")
 public class FileStreaming {
 

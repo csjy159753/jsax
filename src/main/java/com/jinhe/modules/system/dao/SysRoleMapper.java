@@ -2,12 +2,8 @@ package com.jinhe.modules.system.dao;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.system.dto.SysRole;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,5 +19,5 @@ import java.util.List;
 @Mapper
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 
-    List<SysRole> selectRoleList(HashMap map);
+       List<SysRole> selectRoleList(HashMap map);
 }

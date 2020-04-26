@@ -24,8 +24,8 @@ public interface ISysUserService extends IService<SysUser> {
     //分页查询所有用户列表
      IPage<SysUserDto> userList(Page<SysUserDto> page, SysUserDto sysUserDto);
 
-    //关键字查询
-    IPage<SysUserDto> selectByWords(Page<SysUserDto> page, SysUserDto sysUserDto,String normalizedUserName,String organName,String roleName);
+    //查询用户列表
+    IPage<SysUserDto>selectByWords(Page<SysUserDto> page, SysUserDto sysUserDto,String normalizedUserName,String organName,String roleName);
 
     //查询被禁用户列表
     IPage<SysUserDto> disableUserList(Page<SysUserDto> page, SysUserDto sysUserDto);

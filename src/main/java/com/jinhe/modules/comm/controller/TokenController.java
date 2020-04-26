@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@CrossOrigin
 @RequestMapping("Token")
 public class TokenController {
 

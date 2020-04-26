@@ -35,15 +35,15 @@ public class DynamicDataSourceTest {
         System.out.println(ToStringBuilder.reflectionToString(log3));
         System.out.println("----------------------------------------------------------");
 
-
-        SysLog log = new SysLog();
-//        log.setId("aaaa");
-        log.setApplication("测试");
-        log.setLevel("2");
-        log.setUserName("ces");
-
-        boolean b1 = dataSourceTestService.insertLog1(log);
-        System.out.println("---------------------------------------"+b1);
+//
+//        SysLog log = new SysLog();
+////        log.setId("aaaa");
+////        log.setApplication("测试");
+////        log.setLevel("2");
+////        log.setUserName("ces");
+//
+//        boolean b1 = dataSourceTestService.insertLog1(log);
+//        System.out.println("---------------------------------------"+b1);
 //        boolean b2 = dataSourceTestService.insertLog2(log);
 //        System.out.println("---------------------------------------"+b2);
 //        log.setId("11");
