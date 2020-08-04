@@ -1,19 +1,20 @@
 package com.jinhe.modules.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-
+import com.jinhe.common.util.ListSub;
 import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
-import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author rls
@@ -21,15 +22,17 @@ import java.util.List;
  */
 public interface ISysResourceService extends IService<SysResource> {
 
-  Page<SysResource> selectSysResourcepage(Page page);
+    ListSub selectSysResourcepage(String userid);
 
-  SysResourceDto Select_SysRespagebyid(String ID);
+    SysResourceDto Select_SysRespagebyid(String ID);
 
-  boolean sysresourcesave(SysResourceDto sysresdto);
+    boolean sysresourcesave(SysResourceDto sysresdto);
 
-  List<TreeNode> SysResourceTree(Page page);
+    List<TreeNode> SysResourceTree(Page page);
 
-  Integer DeleteResourceByid(String id);
+    Integer DeleteResourceByid(String id);
 
-  Integer UpdateOranByid(SysResourceDto dto);
+    Integer UpdateOranByid(SysResourceDto dto);
+
+    Integer modify(SysResource sysRes, String id);
 }

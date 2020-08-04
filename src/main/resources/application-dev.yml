@@ -3,15 +3,15 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       first:  #数据源1
-        url: jdbc:mysql://47.105.34.116:3306/hehai_passageway?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        url: jdbc:mysql://124.70.212.38:3306/electronic_construction_archives?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
-        password: Mas@12345
+        password: "000000"
         driverClassName: com.mysql.jdbc.Driver
       second:  #数据源2
-        url: jdbc:oracle:thin:@192.168.0.103:1521:water
-        username: demo
-        password: demo
-        driverClassName: oracle.jdbc.driver.OracleDriver
+        url: jdbc:mysql://124.70.212.38:3306/electronic_construction_archives?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: "000000"
+        driverClassName: com.mysql.jdbc.Driver
       initial-size: 10
       max-active: 100
       min-idle: 10
@@ -37,3 +37,17 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+file:
+  root:
+    #水印
+    watermark:
+      path: uploadFile/watermark/sytp.png
+      enabled: true
+    #图片压缩
+    img-compression:
+      modified: 800
+      lowFile: 300
+      thumb: 100
+    #存储路径
+    upload: upload
+    uploadFile: uploadFile

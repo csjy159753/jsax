@@ -1,22 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.system.dao.SysResourceMapper">
-    <select id="selectSysResourcepage"  resultType="com.jinhe.modules.system.dto.SysResourceDto">
-          SELECT * from sys_resource
-    </select>
 
-    <select id="selectSysResourceOne"  resultType="com.jinhe.modules.system.dto.SysResourceDto">
-        SELECT * from sys_resource where id = #{ID,jdbcType=VARCHAR}
-    </select>
+    <resultMap id="userMap" type="com.jinhe.modules.system.dto.SysResourceDto">
+        <id property="id" column="ID"/>
+        <result property="parentId" column="PARENT_ID"/>
+        <result property="name" column="NAME"/>
+        <result property="displayName" column="DISPLAY_NAME"/>
+        <result property="note" column="NOTE"/>
+        <result property="state" column="REAL_NAME"/>
+        <result property="type" column="TYPE"/>
+        <result property="sort" column="SORT"/>
+        <result property="state" column="STATE"/>
+        <result property="path" column="PATH"/>
+        <result property="icon" column="ICON"/>
+        <result property="createUserId" column="CREATE_USER_ID"/>
+        <result property="displayType" column="DISPLAY_TYPE"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
 
-    <select id="selectsysresTree" parameterType="java.util.HashMap" resultType="com.jinhe.modules.system.entity.SysResource">
-        WITH recursive td AS (
-        SELECT * FROM sys_resource
-        WHERE
-        PARENT_ID IS NULL or PARENT_ID = '' UNION ALL SELECT d.* FROM sys_resource d,td WHERE d.PARENT_ID = td.id
-        ) SELECT
-        *
+        <collection property="sysResourceItem" javaType="list" ofType="com.jinhe.modules.system.entity.SysResourceItem">
+            <id property="id" column="ITEM_ID"/>
+            <result property="resourceId" column="RESOURCE_ID"/>
+            <result property="displayName" column="ITEM_DISPLAY_NAME"/>
+            <result property="state" column="ITEM_STATE"/>
+            <result property="note" column="ITEM_NOTE"/>
+            <result property="type" column="ITEM_TYPE"/>
+            <result property="sort" column="ITEM_SORT"/>
+            <result property="name" column="ITEM_NAME"/>
+            <result property="createTime" column="ITEM_CREATE_TIME"/>
+            <result property="updateTime" column="ITEM_UPDATE_TIME"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectSysResourcepage" resultType="com.jinhe.modules.system.dto.SysResourceDto">
+        SELECT
+            r.*,
+            i.id AS item_id,
+            i.resource_id,
+            i.display_name AS item_display_name,
+            i.state AS item_state,
+            i.note AS item_note,
+            i.type AS item_type,
+            i.sort AS item_sort,
+            i.name AS item_name,
+            i.create_time AS item_create_time,
+            i.update_time AS item_update_time
         FROM
-        td;
+            SYS_RESOURCE r
+        LEFT JOIN sys_resource_item i ON r.id = i.resource_id
+        INNER JOIN SYS_PERMISSION p ON r.id = p.resource_id
+        INNER JOIN SYS_USERROLE ur ON p.role_id = ur.role_id
+        where ur.user_id = #{userid}
     </select>
+
+    <select id="selectSysResourceOne" resultType="com.jinhe.modules.system.dto.SysResourceDto">
+        SELECT * from sys_resource
+        where
+            id = #{ID,jdbcType=VARCHAR}
+
+    </select>
+
+    <select id="selectsysresTree" parameterType="java.util.HashMap"
+            resultType="com.jinhe.modules.system.entity.SysResource">
+
+        SELECT * FROM sys_resource
+        WHERE  PARENT_ID is null
+                AND prior ID =  PARENT_ID
+    </select>
+    <select id="selectPageAll" resultMap="userMap">
+        select r.*, i.id as item_id,i.resource_id,i.display_name as item_display_name,i.state as item_state,i.note as item_note
+            ,i.type as item_type ,i.sort as item_sort ,i.name as item_name ,i.create_time as item_create_time ,i.update_time as item_update_time
+        from sys_resource r left join sys_resource_item i on r.id = i.resource_id
+    </select>
+
+
 </mapper>

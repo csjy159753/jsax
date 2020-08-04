@@ -3,28 +3,30 @@ package com.jinhe.modules.system.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.collect.Maps;
 import com.jinhe.common.util.Mapper;
-import com.jinhe.modules.system.dao.SysUserMapper;
-import com.jinhe.modules.system.dao.SysUserOrganMapper;
-import com.jinhe.modules.system.dao.SysUserRoleMapper;
-import com.jinhe.modules.system.dto.SysUser;
-import com.jinhe.modules.system.dto.SysUserDto;
-import com.jinhe.modules.system.dto.SysUserOrgan;
-import com.jinhe.modules.system.dto.SysUserRole;
+import com.jinhe.common.util.ResultEnum;
+import com.jinhe.common.util.StringUtils;
+import com.jinhe.modules.system.dao.*;
+import com.jinhe.modules.system.dto.*;
+import com.jinhe.modules.system.entity.*;
+import com.jinhe.modules.system.entity.SysUser;
+import com.jinhe.modules.system.entity.SysUserOrgan;
+import com.jinhe.modules.system.entity.SysUserRole;
+import com.jinhe.modules.system.service.ISysUSerRoleService;
+import com.jinhe.modules.system.service.ISysUserOrganService;
 import com.jinhe.modules.system.service.ISysUserService;
-import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author rls
@@ -34,155 +36,151 @@ import java.util.Map;
 @Transactional
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
+    //记录器
+    Logger logger = LoggerFactory.getLogger(getClass());
+
     @Resource
-    private  SysUserMapper sysUserMapper;
+    private SysUserMapper sysUserMapper;
     @Resource
-    private  SysUserOrganMapper sysUserOrganMapper;
+    private SysUserOrganMapper sysUserOrganMapper;
     @Resource
-    private  SysUserRoleMapper sysUserRoleMapper;
-    //查询所有用户列表
+    private ISysUserOrganService iSysUserOrganService;
+    @Resource
+    private SysUserRoleMapper sysUserRoleMapper;
+    @Resource
+    private ISysUSerRoleService iSysUSerRoleService;
+    @Resource
+    private SysRoleMapper sysRoleMapper;
+    @Resource
+    private SysOrganMapper sysOrganMapper;
+    @Resource
+    private SysUserHisMapper sysUserHisMapper;
+
+    //查询用户列表
     @Override
-    public IPage<SysUserDto> userList(Page<SysUserDto> page, SysUserDto sysUserDto) {
-        return sysUserMapper.userList(page, sysUserDto);
+    public IPage<SysUserDto> selectUserList(Page<SysUserDto> page, String normalizedUserName, String organId, String roleId, Integer state, String userId) {
+        SysUser sysUser = sysUserMapper.selectById(userId);
+        if (sysUser == null) {
+            return null;
+        }
+        if (state == null) {
+            state = 0;
+        }
+        if (sysUser.getType() != 99 && StringUtils.isEmpty(organId) && StringUtils.isEmpty(roleId)) {
+            return null;
+        }
+        IPage<SysUserDto> iPage = sysUserMapper.selectUserByOrganIdRole(page, organId, roleId, state, normalizedUserName);
+        return iPage;
+
     }
 
-   //新增用户
+    //新增用户
     @Override
-    public void addUser(SysUserDto sysUserDto) {
-          //获取对象
-        SysUser sysUser=new SysUser();
+    public int addUser(SysUserDtoNew sysUserDto) {
+        //获取对象
+        SysUser sysUser = new SysUser();
         try {
-            sysUser =Mapper.MapToModel(sysUserDto,SysUser.class);
+            sysUser = Mapper.ModelToModel(sysUserDto, SysUser.class);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
-           SysUserRole sysUserRole=new SysUserRole();
-           SysUserOrgan sysUserOrgan=new SysUserOrgan();
-           //新增用户属性
-           sysUserMapper.insert(sysUser);
-           String userId=sysUser.getId();
-           //获取用户角色ID和机构ID
-           List<String> roleIds=sysUserDto.getRoleIds();
-           List<String> organIds=sysUserDto.getOrganIds();
-        //添加用户角色
-       for (String x:roleIds
-             ) {
-               sysUserRole.setRoleId(x);
-               sysUserRole.setUserId(userId);
-               sysUserRoleMapper.insert(sysUserRole);
+        List<SysUserOrgan> organList = new ArrayList<SysUserOrgan>();
+        List<SysUserRole> roleList = new ArrayList<SysUserRole>();
 
-        }
-          //添加用户机构
-        for (String x:organIds
-        ) {
-            sysUserOrgan.setOrganId(x);
-            sysUserOrgan.setUserId(userId);
-           sysUserOrganMapper.insert(sysUserOrgan);
-
-        }
-
-    }
-
-    //关键字查询
-    @Override
-    public IPage<SysUserDto> selectByWords(Page<SysUserDto> page, SysUserDto sysUserDto,String normalizedUserName,String organName,String roleName) {
-
-       if(normalizedUserName==null){
-          normalizedUserName="";
-       }
-        if(organName==null){
-            organName="";
-        }
-        if(roleName==null){
-            roleName="";
-        }
-
-        normalizedUserName="%"+normalizedUserName+"%";
-        organName="%"+organName+"%";
-        roleName="%"+roleName+"%";
-        System.out.println(normalizedUserName+""+organName);
-        return sysUserMapper.selectByWords(page, sysUserDto,normalizedUserName,organName,roleName);
-    }
-
-    //查询被禁用户列表
-    @Override
-    public IPage<SysUserDto> disableUserList(Page<SysUserDto> page, SysUserDto sysUserDto) {
-        return sysUserMapper.disableUserList(page,sysUserDto);
-    }
-
-    //更新用户
-    @Override
-    public void updateUser(SysUserDto sysUserDto) {
-              SysUser sysUser=new SysUser();
-        try {
-            sysUser =Mapper.MapToModel(sysUserDto,SysUser.class);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-         SysUserRole sysUserRole=new SysUserRole();
-         SysUserOrgan sysUserOrgan=new SysUserOrgan();
-        //更新用户属性
-         sysUserMapper.updateById(sysUser);
-         String userId=sysUser.getId();
+        String userId = sysUser.getId();
         //获取用户角色ID和机构ID
-        List<String> roleIds=sysUserDto.getRoleIds();
-        List<String> organIds=sysUserDto.getOrganIds();
+        List<String> roleIds = sysUserDto.getRoleIds();
+        List<String> organIds = sysUserDto.getOrganIds();
 
-        //删除原有角色
-          Map<String, Object> roleMap = Maps.newHashMap();
-          roleMap.put("user_id", userId);
-           sysUserRoleMapper.deleteByMap(roleMap);
-       //重新添加角色
-        for (String x:roleIds
-        ) {
-            sysUserRole.setRoleId(x);
-            sysUserRole.setUserId(userId);
-            sysUserRoleMapper.insert(sysUserRole);
-        }
 
-        //删除原有机构
-        Map<String, Object> organMap = Maps.newHashMap();
-        organMap.put("user_id", userId);
-        sysUserOrganMapper.deleteByMap(organMap);
-        for (String x:organIds
-        ) {
-            sysUserOrgan.setOrganId(x);
-            sysUserOrgan.setUserId(userId);
-            sysUserOrganMapper.insert(sysUserOrgan);
-
+        //新增用户属性
+        sysUser.setState(0);
+        sysUser.setType(0);
+        int insert = sysUserMapper.insert(sysUser);
+        if (insert < 0) {
+            return 1;
+        } else {
+            //添加用户角色
+            for (String roleId : roleIds) {
+                SysUserRole sysUserRole = new SysUserRole();
+                sysUserRole.setRoleId(roleId);
+                sysUserRole.setUserId(userId);
+                String uuid = StringUtils.getGUID();
+                sysUserRole.setId(uuid);
+                roleList.add(sysUserRole);
+            }
+            boolean i2 = iSysUSerRoleService.saveBatch(roleList);
+            if (!i2) {
+                return 2;
+            } else {
+                //添加用户机构
+                for (String organId : organIds) {
+                    SysUserOrgan sysUserOrgan = new SysUserOrgan();
+                    sysUserOrgan.setOrganId(organId);
+                    sysUserOrgan.setUserId(userId);
+                    String uuid = StringUtils.getGUID();
+                    sysUserOrgan.setId(uuid);
+                    organList.add(sysUserOrgan);
+                }
+                boolean i = iSysUserOrganService.saveBatch(organList);
+                if (!i) {
+                    return 3;
+                } else {
+                    return 4;
+                }
+            }
         }
     }
 
-    //重置密码
-    @Override
-    public void updatePassword(String oldPassword, String newPassword,String userId) {
-        sysUserMapper.updatePassword(oldPassword,newPassword,userId);
-    }
-
-    //禁用/恢复账户
-    @Override
-    public void ableUserById(String userId) {
-        int x=sysUserMapper.selectStateById(userId);
-        if(x==0) {
-            x = 1;
-        }
-        else{
-            x=0;
-      }
-        sysUserMapper.ableUserById(userId,x);
-    }
 
     //删除用户
     @Override
-    public void deleteUserById(String userId) {
-        int x=sysUserMapper.selectStateById(userId);
-        if(x==1){
-            sysUserMapper.deleteUserById(userId);
+    public ResultEnum deleteUserById(String userId) throws InstantiationException, IllegalAccessException {
+        SysUser sysUser = sysUserMapper.selectById(userId);
+        if (sysUser == null) {
+            return ResultEnum.USER_NOT_FOUND;
         }
+        SysUserHis sysUserHis = Mapper.ModelToModel(sysUser, SysUserHis.class);
+        sysUserOrganMapper.deleteByUserId(userId);
+        sysUserRoleMapper.deleteByUserId(userId);
+        this.removeById(userId);
+        sysUserHisMapper.insert(sysUserHis);
+        return ResultEnum.SUCCESS;
     }
 
+    //根据id查询
+    public SysUser selectById(String id) {
+        return sysUserMapper.selectById(id);
+    }
+
+
+    @Override
+    public boolean updateAvatarById(String userId, String avatarUrl) {
+        return sysUserMapper.updateAvatarById(userId, avatarUrl);
+    }
+
+    @Override
+    public int SaveOrUpdateRole(String userId, String roleId) {
+        sysUserRoleMapper.deleteByUserIdAndRoleId(userId, roleId);
+        com.jinhe.modules.system.entity.SysUserRole sysUserOrgan = new com.jinhe.modules.system.entity.SysUserRole();
+        sysUserOrgan.setUserId(userId);
+        sysUserOrgan.setRoleId(roleId);
+        return sysUserRoleMapper.insert(sysUserOrgan);
+    }
+
+    @Override
+    public int SaveOrUpdateOrgan(String userId, String organId) {
+        sysUserOrganMapper.deleteByUserIdAndOrganId(userId, organId);
+        com.jinhe.modules.system.entity.SysUserOrgan sysUserOrgan = new com.jinhe.modules.system.entity.SysUserOrgan();
+        sysUserOrgan.setUserId(userId);
+        sysUserOrgan.setOrganId(organId);
+
+//        QueryWrapper<SysUserOrgan> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("USER_ID", userId);
+//        List<SysUserOrgan> list = sysUserOrganMapper.selectList(queryWrapper);
+        return sysUserOrganMapper.insert(sysUserOrgan);
+
+    }
 }

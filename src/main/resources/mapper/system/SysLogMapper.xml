@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.system.dao.SysLogMapper">
-    <select id="selectPageVo" parameterType="SysLog" resultType="com.jinhe.modules.system.dto.SysLogVo">
+    <select id="selectPageVo"  resultType="com.jinhe.modules.system.entity.SysLog">
           SELECT * from sys_log
     </select>
     <select id="selectSysRoleVo" parameterType="java.util.HashMap" resultType="com.jinhe.modules.system.entity.SysRole">
-        WITH RECURSIVE td AS (
+
         SELECT
         sys_role.*
-        FROM
+        FROM sys_role
         <choose>
             <when test="params.userId != null">
-                sys_role
+               WHERE  PARENT_ID  = (SELECT sys_role.parent_id
+                FROM sys_role
                 LEFT JOIN sys_user_role ON sys_role.ID=sys_user_role.ROLE_ID WHERE sys_user_role.USER_ID =
-                #{params.userId} UNION ALL
+                #{params.userId} )
+                AND ID =  PARENT_ID
             </when>
             <when test="params.roleId != null">
-                sys_role where id =#{params.roleId} UNION ALL
+--                 sys_role where id =#{params.roleId} UNION ALL
+                WHERE PARENT_ID  = (SELECT sys_role.parent_id
+                FROM sys_role where sys_role.id = #{params.roleId})
+                AND ID =  PARENT_ID
             </when>
             <otherwise>
-                sys_role where PARENT_ID is null UNION ALL
+                WHERE  PARENT_ID  is null
+                AND ID =  PARENT_ID
             </otherwise>
         </choose>
-        SELECT
-        c.*
-        FROM
-        sys_role c,
-        td
-        WHERE
-        c.PARENT_ID = td.id
-        ) SELECT
-        *
-        FROM
-        td
+
     </select>
 </mapper>

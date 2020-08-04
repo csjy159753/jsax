@@ -20,11 +20,16 @@ public class QRcodeTest {
     @Autowired
     QRCodeProperties qrCodeProperties;
 
+    /**
+     * 提供一个接口，可以根据list生成二维码，并提供打包下载
+     */
+
+
     @Test
     public void testQRcode() {
-        String logopath = qrCodeProperties.getLogopath();
+        String logopath = qrCodeProperties.getLogoPath();
         String path = qrCodeProperties.getPath();
-        String temppath = qrCodeProperties.getTemppath();
+        String temppath = qrCodeProperties.getTempPath();
         String content = "testQRCode";
         System.out.println(path);
         /*

@@ -3,13 +3,18 @@ package com.jinhe.modules.system.dto;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.jinhe.common.util.Tree.TreeNode;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -22,7 +27,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysOrganDto implements Serializable {
+public class SysOrganDto<T> implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -111,13 +116,21 @@ public class SysOrganDto implements Serializable {
      * 创建时间
      */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-    private LocalDateTime updateTime;
+    private Date updateTime;
+
+    @ApiModelProperty(value = "机构id和名称",name = "combination",example = "1")
+    private String combination;
+
+//    @ApiModelProperty(value = "机构id和名称",name = "combination",example = "1")
+    private SysOrganIdAndName organIdAndName ;
+
+    private boolean tree;
 
 
 }

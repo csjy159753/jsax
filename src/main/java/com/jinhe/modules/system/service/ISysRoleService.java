@@ -1,18 +1,22 @@
 package com.jinhe.modules.system.service;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jinhe.common.util.ResultEnum;
 import com.jinhe.common.util.Tree.TreeNode;
-import com.jinhe.modules.system.dto.SysRole;
+import com.jinhe.modules.system.dto.SysRoleDto;
+import com.jinhe.modules.system.entity.IRoleTreeNode;
+import com.jinhe.modules.system.entity.SysRole;
 
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author rls
@@ -20,15 +24,17 @@ import java.util.Map;
  */
 public interface ISysRoleService extends IService<SysRole> {
 
-    //查询角色列表
-    List<TreeNode> selectRoleList(HashMap map);
+    //查询父角色列表
+    IPage<HashMap<String,Object>> selectRoleList(Page<SysRoleDto> page, String id,String roleId);
 
     //新增角色
-    void addRole(SysRole sysRole);
-
-    //更新角色
-    void updateRole(SysRole sysRole);
+    boolean addRole(SysRole sysRole);
 
     //删除角色
-    void deleteRole(String userId);
+    ResultEnum deleteRole(String id, String userId);
+
+    //根据UserID查询
+    List<SysRole> selectRolesByUserId(Page page, String userId);
+
+
 }

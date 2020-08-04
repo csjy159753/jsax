@@ -1,15 +1,13 @@
 package com.jinhe.modules.system.entity;
 
-import java.util.Date;
-import java.io.Serializable;
-
-
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,97 +15,53 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author rls
- * @since 2020-04-14
+ * @since 2020-07-08
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("sys_role")
-public class SysRole extends Model<SysRole> {
+@ApiModel(value="SysRole对象", description="")
+public class SysRole implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
-    /**
-     * 主键id
-     */
-    @TableId("ID")
     private String id;
 
-    /**
-     * 父级id
-     */
-    @TableField("PARENT_ID")
+    @ApiModelProperty(value = "父级ID")
     private String parentId;
 
-    /**
-     * 名称
-     */
-    @TableField("NAME")
+    @ApiModelProperty(value = "名称")
     private String name;
 
-    /**
-     * 标签
-     */
-    @TableField("TAG")
+    @ApiModelProperty(value = "标签")
     private String tag;
 
-    /**
-     * 类型
-     */
-    @TableField("TYPE")
-    private Integer type;
-
-    /**
-     * 排序
-     */
-    @TableField("SORT")
-    private Integer sort;
-
-    /**
-     * 是否锁定
-     */
-    @TableField("LOCK_OUT_ENABLED")
-    private Integer lockOutEnabled;
-
-    /**
-     * 锁定时间
-     */
-    @TableField("LOCK_OUT_TIME")
-    private Date lockOutTime;
-
-    /**
-     * 创建人id
-     */
-    @TableField("OPERATOR_ID")
-    private String operatorId;
-
-    /**
-     * 创建时间
-     */
-    @TableField("CREATE_TIME")
-    private Date createTime;
-
-    /**
-     * 描述
-     */
-    @TableField("DESCRIPTION")
+    @ApiModelProperty(value = "描述")
     private String description;
 
-    /**
-     * 状态
-     */
-    @TableField("STATE")
+    @ApiModelProperty(value = "类型")
+    private Integer type;
+
+    @ApiModelProperty(value = "状态")
     private Integer state;
 
-    /**
-     * 更新时间
-     */
-    @TableField("UPDATE_TIME")
-    private Date updateTime;
+    @ApiModelProperty(value = "排序")
+    private Integer sort;
 
+    @ApiModelProperty(value = "是否锁定")
+    private Integer lockOutEnabled;
 
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
+    @ApiModelProperty(value = "锁定时间")
+    private LocalDateTime lockOutTime;
+
+    @ApiModelProperty(value = "创建人id")
+    private String operatorId;
+
+    @ApiModelProperty(value = "创建时间")
+    private LocalDateTime createTime;
+
+    @ApiModelProperty(value = "更新")
+    private LocalDateTime updateTime;
+
 
 }

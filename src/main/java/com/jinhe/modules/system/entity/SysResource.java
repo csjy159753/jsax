@@ -1,5 +1,6 @@
 package com.jinhe.modules.system.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import lombok.experimental.Accessors;
@@ -98,13 +100,15 @@ public class SysResource extends Model<SysResource> {
      * 创建时间
      */
     @TableField("CREATE_TIME")
-    private LocalDateTime createTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    private Date createTime;
 
     /**
      * 更新
      */
     @TableField("UPDATE_TIME")
-    private LocalDateTime updateTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    private Date updateTime;
 
     /**
      * 显示类型

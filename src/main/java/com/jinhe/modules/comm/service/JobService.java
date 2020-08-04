@@ -12,8 +12,17 @@ import java.util.Date;
 public class JobService {
     //cron = "0/3 40 11 * * ?" 每天11:40触发，没三秒执行一次
     @Scheduled(cron = "0/3 * * * * ?")
-    public void printTime() {
+    public void updateRecords() {
+       Date date=new Date();
 
-        System.out.println("current time :"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+
+
+
+
+
+
+
+
     }
 }

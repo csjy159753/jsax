@@ -51,12 +51,21 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl("jdbc:oracle:thin:@192.168.0.103:1521:water");
+        // dsc.setSchemaName("public");
+        dsc.setDriverName("oracle.jdbc.driver.OracleDriver");
+        dsc.setUsername("NTSLZB");
+        dsc.setPassword("NTSLZB");
+        mpg.setDataSource(dsc);
+
+        /*// 数据源配置
+        DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://47.105.34.116:3306/hehai_passageway?useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("Mas@12345");
-        mpg.setDataSource(dsc);
+        mpg.setDataSource(dsc);*/
 
         // 包配置
         PackageConfig pc = new PackageConfig();

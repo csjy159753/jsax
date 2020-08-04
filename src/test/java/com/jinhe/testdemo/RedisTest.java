@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RedisTest {
@@ -43,7 +41,7 @@ public class RedisTest {
         SysLog sysLog=new SysLog();
         sysLog.setId("111");
 //        sysLog.setCreateTime(LocalDateTime.now());
-        SysLogVo SS=  Mapper.MapToModel(sysLog, SysLogVo.class);
+        SysLogVo SS=  Mapper.ModelToModel(sysLog, SysLogVo.class);
 
         logger.debug("这是debug日志...",SS);
     }

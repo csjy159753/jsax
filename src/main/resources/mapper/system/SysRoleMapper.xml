@@ -1,10 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.system.dao.SysRoleMapper">
+    <!--查询父角色列表-->
+    <select id="selectPreantRoleList" resultType="java.util.HashMap">
+                    SELECT
+                r1.id,
+                r1.parent_id,
+                r1.`name`,
+                r1.tag,
+                r1.description,
+                r1.type,
+                r1.state,
+                r1.sort,
+                r1.lock_out_enabled,
+                r1.lock_out_time,
+                r1.create_time,
+                r1.update_time,
+                count(r2.id) as childrenNum
+            FROM
+                sys_role r1
+                LEFT JOIN sys_role r2 ON r2.parent_id = r1.id
+        <if test="code != null and code != ''">
+            WHERE r1.parent_id  =#{code}
+        </if>
+        <if test="code == null or code == ''">
+            WHERE r1.parent_id  ='000000000000' or r1.parent_id is null or r1.parent_id=''
+        </if>
+            GROUP BY
+                r1.id,
+                r1.parent_id,
+                r1.`name`,
+                r1.tag,
+                r1.description,
+                r1.type,
+                r1.state,
+                r1.sort,
+                r1.lock_out_enabled,
+                r1.lock_out_time,
+                r1.create_time,
+                r1.update_time
+    </select>
+    <!-- 查询角色列表-->
+    <select id="selectRoleList" resultType="com.jinhe.modules.system.dto.SysRoleDto">
+        select * from sys_role where sys_role.PARENT_ID = #{roleId}
+    </select>
+
+    <!-- 删除角色-->
+    <delete id="deleteByRoleId">
+
+                delete from sys_role where id=#{id}
+
+    </delete>
+
+    <!--  根据userId查询-->
+    <select id="selectRolesByUserId" resultType="com.jinhe.modules.system.dto.SysRoleDto">
 
 
-    <!-- 查询用户列表-->
-<select id="selectRoleList" resultType="com.jinhe.modules.system.dto.SysRole">
-    select * from sys_role
-</select>
+                select sys_role.* from sys_role inner join sys_user_role on sys_role.id = sys_user_role.role_id
+                where sys_user_role.user_id = #{userId}
+
+
+
+    </select>
+
+    <!--查询该角色下是否有子角色-->
+    <select id="selectRoleByParentId" resultType="com.jinhe.modules.system.entity.SysRole">
+
+                select * from sys_role where parent_id = #{id}
+
+    </select>
+
+    <!--根据userIDS查询-->
+    <select id="selectByUserIds" resultType="com.jinhe.modules.system.entity.SysUserRole">
+        select r.id, r.parent_id, r.name, u.user_id from sys_role r inner join sys_user_role u on
+        r.id = u.role_id where u.user_id in
+        <foreach collection="list" item="ids" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+    </select>
 </mapper>

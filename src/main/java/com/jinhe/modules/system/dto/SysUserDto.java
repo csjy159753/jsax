@@ -1,14 +1,20 @@
 package com.jinhe.modules.system.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.jinhe.modules.system.entity.SysOrgan;
+import com.jinhe.modules.system.entity.SysOrganNew;
+import com.jinhe.modules.system.entity.SysRole;
+import com.jinhe.modules.system.entity.SysRoleNew;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-
 @Data
-public class SysUserDto  {
+public class SysUserDto  implements Serializable {
     /**
      * 用户id
      */
@@ -46,9 +52,9 @@ public class SysUserDto  {
     private String realName;
 
     /**
-     * opendi
+     * openId
      */
-    @ApiModelProperty(value="opend",name="openId",example="12")
+    @ApiModelProperty(value="openId",name="openId",example="12")
     private String openId;
 
     /**
@@ -91,6 +97,7 @@ public class SysUserDto  {
      * 锁定时间
      */
     @ApiModelProperty(value="锁定时间",name="lockOutTime",example="1")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
     private Date lockOutTime;
 
     /**
@@ -115,23 +122,42 @@ public class SysUserDto  {
      * 创建时间
      */
     @ApiModelProperty(value="创建时间",name="createTime",example="1")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
     private Date createTime;
 
     /**
      * 更新时间
-     */@ApiModelProperty(value="更新时间",name="updateTime",example="1")
+     */
+    @ApiModelProperty(value="更新时间",name="updateTime",example="1")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
     private Date updateTime;
 
     /**
      * 角色ID
      */
-    @ApiModelProperty(value="角色ID",name="roleIds",example="1")
-    private List<String> roleIds;
+    @ApiModelProperty(value="机构信息",name="organ",example="string")
+    private String organ;
 
     /**
-     * 机构ID
+     * 角色名称
      */
-    @ApiModelProperty(value="机构ID",name="organIds",example="1")
-    private List<String> organIds;
+    @ApiModelProperty(value="角色信息",name="organ",example="string")
+    private String role;
+
+
+    /**
+     * 角色集合
+     */
+    @ApiModelProperty(value="角色列表",name="roles",example="[string]")
+    private List<SysRoleNew> roles;
+
+    /**
+     * 机构集合
+     */
+    @ApiModelProperty(value="机构列表",name="organs",example="[string]")
+    private List<SysOrganNew> organs;
+
+
+
 
 }

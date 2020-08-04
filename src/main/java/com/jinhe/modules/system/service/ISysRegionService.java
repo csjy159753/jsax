@@ -2,16 +2,14 @@ package com.jinhe.modules.system.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.jinhe.common.util.Tree.TreeNode;
-import com.jinhe.modules.system.dto.SysRegion;
-import com.jinhe.modules.system.dto.SysRole;
+import com.jinhe.modules.system.dto.SysRegionDto;
+import com.jinhe.modules.system.entity.SysRegion;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author rls
@@ -20,15 +18,15 @@ import java.util.List;
 public interface ISysRegionService extends IService<SysRegion> {
 
     //查询行政区列表
-    List<TreeNode> selectRegionList(HashMap map);
+    List<SysRegionDto> selectRegionList(String code);
 
     //新增行政区
-    void addRegion(SysRegion sysRegion);
+    Boolean addRegion(SysRegion sysRegion);
 
     //更新行政区
-    void updateRegion(SysRegion sysRegion);
+    Integer updateRegion(SysRegion sysRegion, String id);
 
     //删除行政区
-    void deleteRegion(String regionId);
+    Integer delRegion(String id);
 
 }

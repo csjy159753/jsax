@@ -1,6 +1,4 @@
 package com.jinhe;
-
-
 import com.jinhe.datasources.DynamicDataSourceConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -17,14 +15,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @MapperScan(basePackages = { "com.jinhe.modules.*.dao"})
 //开启事务注解
+
 @EnableTransactionManagement
 //@EnableScheduling
 public class Application extends SpringBootServletInitializer {
-
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
-
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(Application.class);

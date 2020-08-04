@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -73,13 +74,13 @@ public class SysLogVo implements Serializable {
      */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
     @JsonSerialize(using = LocalDateTimeSerializer.class)//显示
-    private LocalDateTime  createTime;
+    private Date createTime;
     /**
      * 更新时间
      */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
     @JsonSerialize(using = LocalDateTimeSerializer.class)//显示
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     private String exception;
 

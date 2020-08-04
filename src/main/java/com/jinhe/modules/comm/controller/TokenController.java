@@ -2,15 +2,11 @@ package com.jinhe.modules.comm.controller;
 
 
 import com.jinhe.common.dto.SysUserDto;
+import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultUtil;
-import com.jinhe.common.vo.Result;
 import com.jinhe.common.config.JwtConfig;
 import com.jinhe.modules.comm.dto.Login;
 import io.swagger.annotations.ApiOperation;
-
-
-import org.json.JSONObject;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,7 +30,6 @@ public class TokenController {
     @ApiOperation(value="登录获取token", notes="登录获取token")
     @PostMapping("/login/{id}")
     public Result login(@RequestBody Login Login) {
-        JSONObject json = new JSONObject();
         /** 验证userName，passWord和数据库中是否一致，如不一致，直接return ResultUtil.errer(); 【这里省略该步骤】*/
 
         // 这里模拟通过用户名和密码，从数据库查询userId
@@ -51,7 +46,7 @@ public class TokenController {
      * 需要 Token 验证的接口
      */
     @PostMapping("/info")
-    public Result<?> info() {
+    public Result info() {
         return ResultUtil.success("info");
     }
 
@@ -62,7 +57,7 @@ public class TokenController {
      * @return
      */
     @GetMapping("/getUserInfo")
-    public Result<?> getUserInfo(HttpServletRequest request) {
+    public Result getUserInfo(HttpServletRequest request) {
         String usernameFromToken = jwtConfig.getUsernameFromToken(request.getHeader("token"));
         return ResultUtil.success(usernameFromToken);
     }

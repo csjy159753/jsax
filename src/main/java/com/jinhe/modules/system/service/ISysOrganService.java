@@ -1,32 +1,38 @@
 package com.jinhe.modules.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.modules.system.dto.SysOrganDto;
-import com.jinhe.modules.system.entity.SysOrgan;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.jinhe.modules.system.entity.SysResource;
+import com.jinhe.modules.system.entity.SysOrgan;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author rls
  * @since 2020-04-16
  */
 public interface ISysOrganService extends IService<SysOrgan> {
-     Page<SysOrgan> selectPageOrgan(Page page);
 
-     SysOrganDto selectPageOrganByID(String ID);
 
-     boolean addsysorgan(SysOrganDto sysorg);
+    boolean addsysorgan(SysOrganDto sysorg);
 
-     List<TreeNode> SelectOrganParent(Page page);
+    IPage<HashMap<String, Object>> SelectOrgan(Page<SysOrganDto> page, String userId, String organId);
 
-     Integer DeleteOrganByid(String id);
+    Integer DeleteOrganByOrganId(String userId, String organId);
 
-     Integer UpdateOranByid(SysOrganDto dto);
+    Integer UpdateOranByid(SysOrganDto dto);
+
+    Integer insert(SysOrgan organ);
+
+    //根据userID查询
+    List<SysOrgan> SelectOrgansByUserId(String userId, Page page);
+
+    List<SysOrgan> GetOrganSubset(List<String> organIds);
 }

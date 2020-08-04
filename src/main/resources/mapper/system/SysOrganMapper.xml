@@ -1,29 +1,210 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.system.dao.SysOrganMapper">
-    <select id="selectPageOrgan"  resultType="com.jinhe.modules.system.dto.SysOrganDto">
-          SELECT * from sys_organ
+
+    <select id="selectPageOrgan" resultType="com.jinhe.modules.system.entity.SysOrgan">
+            SELECT
+        id,
+        parent_id,
+        type,
+        CODE,
+        NAME,
+        full_name,
+        region_code,
+        region_name,
+        description,
+        state,
+        sort,
+        path,
+        depth,
+        create_user ,
+        group_concat( concat( id, '_', NAME )  ) as combination
+    FROM
+        sys_organ
+        GROUP BY 	id,
+        parent_id,
+        type,
+        CODE,
+        NAME,
+        full_name,
+        region_code,
+        region_name,
+        description,
+        state,
+        sort,
+        path,
+        depth,
+        create_user
     </select>
 
-    <select id="selectPageOrganByID" parameterType="java.lang.String"  resultType="com.jinhe.modules.system.dto.SysOrganDto">
-        SELECT * from sys_organ where ID = #{ID}
-    </select>
 
-    <select id="selectlistparent" parameterType="java.util.HashMap" resultType="com.jinhe.modules.system.entity.SysOrgan">
-        WITH recursive td AS (
-        SELECT * FROM
+    <delete id="deleteByPer">
+        <if test="organId!=null and organId!=''">
+            DELETE
+            FROM
+            sys_permission
+            WHERE
+            orgion_id = #{organId}
+        </if>
+    </delete>
+    <delete id="deleteByUser">
+        <if test="organId!=null and organId!=''">
+            DELETE
+            FROM
+            SYS_USER_ORGAN
+            WHERE
+            organ_id = #{organId}
+        </if>
+    </delete>
+    <!--    根据userId查询-->
+    <select id="SelectOrgansByUserId" resultType="com.jinhe.modules.system.entity.SysOrgan">
         <choose>
-          <when test="userId != null">
-              sys_organ
-            LEFT JOIN sys_permission ON sys_organ.ORGION_ID=sys_permission.ORGION_ID WHERE sys_permission.ORGION_ID =
-            #{userId} UNION ALL
-          </when>
-          <when test="roleId != null">
-            sys_role where id =#{roleId} UNION ALL
-          </when>
-          <otherwise>
-            sys_role where PARENT_ID is null UNION ALL
-          </otherwise>
+            <when test="userId != null">
+                SELECT DISTINCT
+                sys_organ.*
+                FROM
+                sys_organ
+                LEFT JOIN sys_user_organ ON sys_user_organ.organ_id = sys_organ.id
+                WHERE
+                sys_user_organ.user_id = #{userId}
+            </when>
         </choose>
     </select>
+    <update id="updateCustom">
+        UPDATE
+            SYS_ORGAN
+        SET
+            NAME = #{sysOrgan.name} , DESCRIPTION = #{sysOrgan.description} , STATE = #{param1.state}
+            , SORT = #{sysOrgan.sort}
+        WHERE
+            ID = #{sysOrgan.id}
+    </update>
+    <select id="selectOrganIdsByIds" resultType="com.jinhe.modules.system.entity.SysOrganNew">
+        select distinct id as organId from
+        sys_organ
+        start with id in
+        <foreach collection="organIds" index="organIds" item="organIds" open="(" close=")" separator=",">
+            #{organIds}
+        </foreach>
+        connect by prior ID = PARENT_ID
+
+    </select>
+    <select id="selectOrgan" resultType="java.util.HashMap">
+        SELECT
+        o1.id,
+        o1.parent_id as parentId,
+        o1.type,
+        o1.`code`,
+        o1.`name`,
+        o1.region_code as regionCode,
+        o1.region_name as regionName,
+        o1.description,
+        o1.state,
+        o1.sort,
+        o1.path,
+        o1.depth,
+        o1.create_user as createUser,
+        o1.create_time as createTime,
+        o1.update_time as updateTime,
+        count(o2.id) as childrenNum
+        FROM
+        sys_organ o1
+        LEFT JOIN sys_organ o2 ON o2.parent_id = o1.id
+        <if test="code != null and code != ''">
+            WHERE o1.parent_id =#{code}
+        </if>
+        <if test="code == null or code == ''">
+            WHERE o1.parent_id ='000000000000' or o1.parent_id is null or o1.parent_id=''
+        </if>
+        GROUP BY
+        o1.id,
+        o1.parent_id,
+        o1.type,
+        o1.`code`,
+        o1.`name`,
+        o1.region_code,
+        o1.region_name,
+        o1.description,
+        o1.state,
+        o1.sort,
+        o1.path,
+        o1.depth,
+        o1.create_user,
+        o1.create_time,
+        o1.update_time
+    </select>
+    <select id="selectOrganByUserId" resultType="com.jinhe.modules.system.dto.SysOrganDto">
+        SELECT
+            o.*
+        FROM
+            sys_organ o
+            LEFT JOIN sys_user_organ u ON o.id = u.organ_id
+        WHERE
+            u.user_id = #{userId}
+    </select>
+    <select id="selectOrganByUserIdAndorganId" resultType="com.jinhe.modules.system.dto.SysOrganDto">
+        SELECT
+            o.*
+        FROM
+            sys_organ o
+            LEFT JOIN sys_user_organ u ON o.id = u.organ_id
+        WHERE
+            o.PARENT_ID = #{organId}
+    </select>
+    <select id="selectOrganByorganId" resultType="com.jinhe.modules.system.dto.SysOrganDto">
+        SELECT
+            o.*
+        FROM
+            sys_organ o
+        WHERE
+            o.PARENT_ID = #{organId}
+    </select>
+    <select id="selectCountByPreantId" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        sys_organ o
+        LEFT JOIN sys_user_organ u ON o.id = u.organ_id
+        WHERE
+        o.PARENT_ID = #{organId}
+        <if test="userId != null and userId != ''">
+            AND u.user_id = #{userId}
+        </if>
+    </select>
+
+    <select id="GetOrganSubset" resultType="com.jinhe.modules.system.entity.SysOrgan">
+
+        WITH RECURSIVE td AS (
+        SELECT
+        *
+        FROM
+        sys_organ
+        WHERE
+        <choose>
+            <when test="organIds != null and organIds.size > 0 ">
+                id in (SELECT id from sys_organ WHERE id in
+                <foreach collection="organIds" item="organId" open="(" close=")" separator=",">
+                    #{organId}
+                </foreach>
+                )
+            </when>
+            <otherwise>
+                PARENT_ID is null
+            </otherwise>
+        </choose>
+
+         UNION ALL
+        SELECT
+        c.*
+        FROM
+        sys_organ c,
+        td
+        WHERE
+        c.PARENT_ID = td.id
+        ) SELECT
+        *
+        FROM
+        td
+    </select>
+
 </mapper>
