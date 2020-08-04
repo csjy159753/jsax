@@ -4,7 +4,7 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
-  port: 9006
+  port: 9007
   servlet:
     context-path: /cApi
 #http://localhost:9006/cApi/swagger-ui.html

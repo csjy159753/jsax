@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinhe.modules.system.dao.SysPermissionMapper">
+    <resultMap id="userMap" type="com.jinhe.modules.system.dto.SysResourceDto">
+        <id property="id" column="ID"/>
+        <result property="parentId" column="PARENT_ID"/>
+        <result property="name" column="NAME"/>
+        <result property="displayName" column="DISPLAY_NAME"/>
+        <result property="note" column="NOTE"/>
+        <result property="state" column="REAL_NAME"/>
+        <result property="type" column="TYPE"/>
+        <result property="sort" column="SORT"/>
+        <result property="state" column="STATE"/>
+        <result property="path" column="PATH"/>
+        <result property="icon" column="ICON"/>
+        <result property="createUserId" column="CREATE_USER_ID"/>
+        <result property="displayType" column="DISPLAY_TYPE"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+
+        <collection property="sysResourceItem" javaType="list" ofType="com.jinhe.modules.system.entity.SysResourceItem">
+            <id property="id" column="ITEM_ID"/>
+            <result property="resourceId" column="RESOURCE_ID"/>
+            <result property="displayName" column="ITEM_DISPLAY_NAME"/>
+            <result property="state" column="ITEM_STATE"/>
+            <result property="note" column="ITEM_NOTE"/>
+            <result property="type" column="ITEM_TYPE"/>
+            <result property="sort" column="ITEM_SORT"/>
+            <result property="name" column="ITEM_NAME"/>
+            <result property="createTime" column="ITEM_CREATE_TIME"/>
+            <result property="updateTime" column="ITEM_UPDATE_TIME"/>
+        </collection>
+    </resultMap>
+
+    <insert id="addByUserId">
+        insert into sys_permission (id, user_id, resource_id)
+        <foreach collection="list" item="sysPer" separator="UNION">
+            select
+            #{sysPer.id},#{sysPer.userId}, #{sysPer.resourceId}
+            from dual
+        </foreach>
+    </insert>
+    <insert id="addByOrganId">
+        insert into sys_permission (id, orgion_id, resource_id, ITEM_IDS)
+        <foreach collection="list" item="sysPer" separator="UNION">
+            select
+            #{sysPer.id},#{sysPer.orgionId}, #{sysPer.resourceId}, #{sysPer.itemIds}
+            from dual
+        </foreach>
+    </insert>
+    <insert id="addByRoleId">
+        insert into sys_permission (id, role_id, resource_id, ITEM_IDS)
+        <foreach collection="list" item="sysPer" separator="UNION ALL">
+            select
+            #{sysPer.id}, #{sysPer.roleId}, #{sysPer.resourceId}, #{sysPer.itemIds}
+            from dual
+        </foreach>
+    </insert>
+    <insert id="add">
+        insert into sys_permission (
+            id, PARENT_ID, CREATE_USER_ID, STATE, ORGION_ID, ROLE_ID, USER_ID, RESOURCE_ID
+            , CREATE_TIME, UPDATE_TIME, ITEM_IDS, TYPE
+        ) VALUES (#{sysPer.id},#{sysPer.parentId},#{sysPer.createUserId},#{sysPer.state},#{sysPer.orgionId}
+            ,#{sysPer.roleId},#{sysPer.userId},#{sysPer.resourceId},#{sysPer.createTime},#{sysPer.updateTime}
+            ,#{sysPer.itemIds},#{sysPer.type})
+    </insert>
+    <select id="resourceIdByOrganId" resultType="java.lang.String">
+        SELECT distinct r.ID FROM
+            sys_resource r LEFT JOIN SYS_PERMISSION p
+        ON r.ID = p.RESOURCE_ID WHERE p.ORGION_ID = #{orgionId}
+    </select>
+    <select id="listByRoleId" resultMap="userMap">
+        <foreach collection="list" item="item" separator="UNION ALL">
+            select distinct
+                r.*, i.id as item_id,i.resource_id,i.display_name as item_display_name,i.state as
+                item_state,i.note as item_note ,i.type as item_type ,i.sort as item_sort
+                ,i.name as item_name ,i.create_time as item_create_time ,i.update_time as item_update_time
+            from
+                sys_resource r
+            left join
+                sys_resource_item i on r.id = i.resource_id
+            WHERE
+                r.ID = #{item}
+        </foreach>
+    </select>
+    <select id="resourceIdByRoleId" resultType="java.lang.String">
+        SELECT distinct r.ID FROM sys_resource r LEFT JOIN SYS_PERMISSION p
+        ON r.ID = p.RESOURCE_ID WHERE p.ROLE_ID = #{roleId}
+    </select>
+    <select id="getById" resultType="com.jinhe.modules.system.entity.SysPermission">
+        SELECT * FROM SYS_PERMISSION WHERE id = #{id}
+    </select>
+    <delete id="deleteByRoleId">
+        DELETE FROM
+            SYS_PERMISSION
+        WHERE
+            ROLE_ID = #{roleId}
+    </delete>
+    <delete id="deleteByOrganId">
+        DELETE FROM
+            SYS_PERMISSION
+        WHERE
+            ORGION_ID = #{organId}
+    </delete>
+
+</mapper>
