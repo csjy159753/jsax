@@ -58,17 +58,16 @@
     </delete>
     <!--    根据userId查询-->
     <select id="SelectOrgansByUserId" resultType="com.jinhe.modules.system.entity.SysOrgan">
-        <choose>
-            <when test="userId != null">
-                SELECT DISTINCT
-                sys_organ.*
-                FROM
-                sys_organ
-                LEFT JOIN sys_user_organ ON sys_user_organ.organ_id = sys_organ.id
-                WHERE
+        SELECT DISTINCT
+        sys_organ.*
+        FROM
+        sys_organ
+        LEFT JOIN sys_user_organ ON sys_user_organ.organ_id = sys_organ.id
+        <where>
+            <if test="userId != null or userId != ''">
                 sys_user_organ.user_id = #{userId}
-            </when>
-        </choose>
+            </if>
+        </where>
     </select>
     <update id="updateCustom">
         UPDATE
@@ -89,7 +88,7 @@
         connect by prior ID = PARENT_ID
 
     </select>
-    <select id="selectOrgan" resultType="java.util.HashMap">
+    <select id="selectOrgan" resultType="com.jinhe.modules.system.dto.SysOrganDto">
         SELECT
         o1.id,
         o1.parent_id as parentId,
@@ -173,38 +172,19 @@
     </select>
 
     <select id="GetOrganSubset" resultType="com.jinhe.modules.system.entity.SysOrgan">
+        select a.* from Sys_Organ a
+        <where>
+            <if test="startDepth != null and startDepth != ''">
+                b.DEPTH <![CDATA[ >= ]]>  #{startDepth}
+            </if>
+            <if test="endDepth != null and endDepth != ''">
+                and b.DEPTH <![CDATA[ <= ]]>  #{endDepth}
+            </if>
 
-        WITH RECURSIVE td AS (
-        SELECT
-        *
-        FROM
-        sys_organ
-        WHERE
-        <choose>
-            <when test="organIds != null and organIds.size > 0 ">
-                id in (SELECT id from sys_organ WHERE id in
-                <foreach collection="organIds" item="organId" open="(" close=")" separator=",">
-                    #{organId}
-                </foreach>
-                )
-            </when>
-            <otherwise>
-                PARENT_ID is null
-            </otherwise>
-        </choose>
-
-         UNION ALL
-        SELECT
-        c.*
-        FROM
-        sys_organ c,
-        td
-        WHERE
-        c.PARENT_ID = td.id
-        ) SELECT
-        *
-        FROM
-        td
+            <foreach collection="organIds" item="organId" open=" and  (" close=")" separator=" or ">
+                (b.Path like '%'||#{organId}||',%' or b.Path=#{organId})
+            </foreach>
+        </where>
     </select>
 
 </mapper>

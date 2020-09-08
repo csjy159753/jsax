@@ -2,7 +2,6 @@ package com.jinhe.testdemo;
 
 import com.jinhe.common.util.Mapper;
 import com.jinhe.common.util.RedisUtil;
-import com.jinhe.modules.system.dto.SysLogVo;
 import com.jinhe.modules.system.entity.SysLog;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,9 +40,7 @@ public class RedisTest {
         SysLog sysLog=new SysLog();
         sysLog.setId("111");
 //        sysLog.setCreateTime(LocalDateTime.now());
-        SysLogVo SS=  Mapper.ModelToModel(sysLog, SysLogVo.class);
 
-        logger.debug("这是debug日志...",SS);
     }
 
 }

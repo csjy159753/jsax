@@ -70,7 +70,8 @@ public enum ResultEnum {
     /**
      * 权限模块
      */
-    PERMISSION_NOT_FOUND(1601,"未查询到权限"),
+    PERMISSION_NOT_FOUND(1601,"未查询到权限信息"),
+    PERMISSION_EXIST_SUBSET_UNABLE_DEL(1602,"权限存在子机构无法删除"),
 
     /**
      * 资源模块
@@ -86,23 +87,9 @@ public enum ResultEnum {
     RESOURCE_INSERT_ERROR(1801,"新增菜单失败"),
     RESOURCE_DELETE_ERROR(1802,"删除菜单失败"),
     RESOURCE_UPDATE_ERROR(1803,"更新菜单失败"),
-    RESOURCE_SELECT_NOT_FOUND(1803,"未查询到菜单信息"),
+    RESOURCE_SELECT_NOT_FOUND(1804,"未查询到菜单信息"),
+    RESOURCE_EXIST_SUBSET_UNABLE_DEL(1805,"菜单存在子机构无法删除"),
 
-
-    /**
-     * 10000以后是业务的
-     */
-    /**
-     * 档案
-     */
-    TB_TABLE_LIST_IS_EMPTY(100101, "接收数组为空"),
-    TB_TABLE_FIELD_REPEAT(100102, "和原有数据字段重复"),
-    TB_FILE_REPETITION(100103, "表名称或者字段名称重复"),
-
-    /**
-     * 目录
-     */
-    CATALOGUE_DIRECTORY_NOT_FOUND(100201,"未查询到该目录下的文件信息"),
     ;
     private Integer code;
     private Object msg;
