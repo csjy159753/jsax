@@ -32,6 +32,7 @@ public class MyConfig implements WebMvcConfigurer {
     //前端跨域
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/upload/**");
         registry.addMapping("/**")//设置允许跨域的路径
                 .allowedOrigins("*")//设置允许跨域请求的域名
                 .allowCredentials(true)//是否允许证书 不再默认开启

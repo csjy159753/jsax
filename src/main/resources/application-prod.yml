@@ -37,6 +37,7 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+      aop-patterns: com.jinhe.*
 file:
   root:
     #水印

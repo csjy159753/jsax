@@ -6,7 +6,7 @@ server:
     min-spare-threads: 30
   port: 9007
   servlet:
-    context-path: /cApi
+    context-path:
 #http://localhost:9006/cApi/swagger-ui.html
 swagger:
   basePackage: com.jinhe

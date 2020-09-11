@@ -33,10 +33,11 @@ spring:
         stat:
           log-slow-sql: true
           slow-sql-millis: 1000
-          merge-sql: false
+          merge-sql: true
         wall:
           config:
             multi-statement-allow: true
+      aop-patterns: com.jinhe.*
 file:
   root:
     #水印
