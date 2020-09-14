@@ -6,7 +6,7 @@ server:
     min-spare-threads: 30
   port: 28123
   servlet:
-        context-path:
+    context-path:
 #   context-path: /cApi
 #http://localhost:28123/cApi/swagger-ui.html
 swagger:
@@ -16,6 +16,9 @@ swagger:
   version: 1.0.0-SNAPSHOT
 # mysql
 spring:
+  mvc:
+    favicon:
+      enabled: false
   resources:
     #当前启动目录下相对路径
     static-locations: file:./static/,file:./public/
