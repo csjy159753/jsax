@@ -96,6 +96,15 @@ public class ResultUtil {
     /**
      * 默认未知错误
      **/
+    public static Result error(Exception ex) {
+        Result result = new Result();
+        result.setCode(ResultEnum.UNKNOWN_ERROR.getCode());
+        result.setMsg(ex.getMessage());
+        return result;
+    }
+    /**
+     * 默认未知错误
+     **/
     public static Result error() {
         Result result = new Result();
         result.setCode(ResultEnum.UNKNOWN_ERROR.getCode());

@@ -24,6 +24,9 @@ public class ConfigProperty {
     @Value("${file.root.img-compression.thumb}")
     private double imgCompressionThumb;
 
+    @Value("${file.root.pksFile}")
+    private String pksFile;
+
     public String GetAbsolutelyUpload() {
         return System.getProperty("user.dir") + File.separator + upload;
     }

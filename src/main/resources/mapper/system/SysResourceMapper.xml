@@ -50,7 +50,7 @@
             SYS_RESOURCE r
         LEFT JOIN sys_resource_item i ON r.id = i.resource_id
         INNER JOIN SYS_PERMISSION p ON r.id = p.resource_id
-        INNER JOIN SYS_USERROLE ur ON p.role_id = ur.role_id
+        INNER JOIN SYS_USER_ROLE ur ON p.role_id = ur.role_id
         where ur.user_id = #{userid}
     </select>
 

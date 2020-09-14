@@ -175,14 +175,14 @@
         select a.* from Sys_Organ a
         <where>
             <if test="startDepth != null and startDepth != ''">
-                b.DEPTH <![CDATA[ >= ]]>  #{startDepth}
+                a.DEPTH <![CDATA[ >= ]]>  #{startDepth}
             </if>
             <if test="endDepth != null and endDepth != ''">
-                and b.DEPTH <![CDATA[ <= ]]>  #{endDepth}
+                and a.DEPTH <![CDATA[ <= ]]>  #{endDepth}
             </if>
 
             <foreach collection="organIds" item="organId" open=" and  (" close=")" separator=" or ">
-                (b.Path like '%'||#{organId}||',%' or b.Path=#{organId})
+                (a.Path like '%'||#{organId}||',%' or a.Path=#{organId})
             </foreach>
         </where>
     </select>

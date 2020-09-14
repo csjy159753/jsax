@@ -3,13 +3,10 @@ package com.jinhe.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 public class MyConfig implements WebMvcConfigurer {
-
 
     @Autowired
     private ConfigProperty configProperty;
@@ -27,12 +24,13 @@ public class MyConfig implements WebMvcConfigurer {
         String upload = configProperty.GetAbsolutelyUpload();
         registry.addResourceHandler("/uploadFile/**").addResourceLocations("file:" + uploadFile + "/");
         registry.addResourceHandler("/upload/**").addResourceLocations("file:" + upload + "/");
+        registry.addResourceHandler("/pksFile/**").addResourceLocations("file:" + configProperty.getPksFile() + "/")
+                .setCachePeriod(31556926);
     }
 
     //前端跨域
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/upload/**");
         registry.addMapping("/**")//设置允许跨域的路径
                 .allowedOrigins("*")//设置允许跨域请求的域名
                 .allowCredentials(true)//是否允许证书 不再默认开启

@@ -4,10 +4,11 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
-  port: 9007
+  port: 28123
   servlet:
-    context-path: cApi
-#http://localhost:9007/cApi/swagger-ui.html
+        context-path:
+#   context-path: /cApi
+#http://localhost:28123/cApi/swagger-ui.html
 swagger:
   basePackage: com.jinhe
   title: RESTful API 文档
@@ -20,7 +21,7 @@ spring:
     static-locations: file:./static/,file:./public/
   # 环境 dev|test|prod
   profiles:
-    active: prod
+    active: dev
   servlet:
     multipart:
       max-file-size: 100MB

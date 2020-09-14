@@ -3,12 +3,12 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       first:  #数据源1
-        url: jdbc:mysql://124.70.212.38:3306/electronic_construction_archives?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        url: jdbc:mysql://124.70.212.38:3306/wzz_project?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
         password: "000000"
         driverClassName: com.mysql.jdbc.Driver
       second:  #数据源2
-        url: jdbc:mysql://124.70.212.38:3306/electronic_construction_archives?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        url: jdbc:mysql://124.70.212.38:3306/wzz_project?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
         password: "000000"
         driverClassName: com.mysql.jdbc.Driver
@@ -33,11 +33,10 @@ spring:
         stat:
           log-slow-sql: true
           slow-sql-millis: 1000
-          merge-sql: true
+          merge-sql: false
         wall:
           config:
             multi-statement-allow: true
-      aop-patterns: com.jinhe.*
 file:
   root:
     #水印
@@ -52,3 +51,4 @@ file:
     #存储路径
     upload: upload
     uploadFile: uploadFile
+    pksFile: "E:\\gs\\zl"

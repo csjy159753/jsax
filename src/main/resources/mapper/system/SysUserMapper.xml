@@ -5,8 +5,8 @@
     <select id="selectUserByOrganIdRole" resultType="com.jinhe.modules.system.dto.SysUserDto">
     SELECT
         u.*,
-        group_concat( distinct CASE WHEN o.id IS NOT NULL THEN ( concat( o.id, '_', o.NAME ) ) ELSE '' END ) AS ORGAN,
-        group_concat( distinct CASE WHEN r.id IS NOT NULL THEN ( concat( r.id, '_', r.NAME ) ) ELSE '' END ) AS ROLE
+        group_concat( DISTINCT CASE WHEN o.id IS NOT NULL THEN ( concat( o.id, '_', o.NAME ) ) ELSE '' END ) AS ORGAN,
+        group_concat( DISTINCT CASE WHEN r.id IS NOT NULL THEN ( concat( r.id, '_', r.NAME ) ) ELSE '' END ) AS ROLE
     FROM
         sys_user u
         LEFT JOIN sys_user_organ uo ON uo.user_id = u.ID
@@ -37,4 +37,7 @@
         delete from sys_user_role where user_id=#{userId};
         delete from sys_user_organ where user_id=#{userId};
     </delete>
+
+
+
 </mapper>

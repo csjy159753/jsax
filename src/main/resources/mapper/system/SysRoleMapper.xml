@@ -56,7 +56,7 @@
     <select id="selectRolesByUserId" resultType="com.jinhe.modules.system.dto.SysRoleDto">
 
 
-                select sys_role.* from sys_role inner join sys_user_role on sys_role.id = sys_user_role.role_id
+                select DISTINCT sys_role.* from sys_role inner join sys_user_role on sys_role.id = sys_user_role.role_id
                 where sys_user_role.user_id = #{userId}
 
 
