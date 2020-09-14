@@ -16,6 +16,8 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.*;
 
 /**
@@ -46,6 +48,8 @@ public class SysUserController {
     @Resource
     private ISysOrganService sysOrganService;
 
+    public static final String PATTEN = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{10,}$";
+
     /**
      * 查询用户列表
      *
@@ -75,6 +79,29 @@ public class SysUserController {
     @RequestMapping(value = "AddUser", method = RequestMethod.POST)
     @SysLog(value = "测试注解日志切面新增用户addUser")
     public Result addUser(@RequestBody SysUserDtoNew sysUserDto) {
+
+        // 密码复杂度 10位4选3
+        String passwordHash = sysUserDto.getPasswordHash();
+        boolean f = passwordHash.contains("012")
+                || passwordHash.contains("123")
+                || passwordHash.contains("234")
+                || passwordHash.contains("345")
+                || passwordHash.contains("456")
+                || passwordHash.contains("567")
+                || passwordHash.contains("678")
+                || passwordHash.contains("789")
+                || passwordHash.contains("987")
+                || passwordHash.contains("876")
+                || passwordHash.contains("765")
+                || passwordHash.contains("654")
+                || passwordHash.contains("543")
+                || passwordHash.contains("432")
+                || passwordHash.contains("321")
+                || passwordHash.contains("210");
+        if (f || !passwordHash.matches(PATTEN)) {
+            return ResultUtil.error(ResultEnum.USER_UPDATE_PASSWORD_ERROR);
+        }
+
         if ((sysUserDto.getNormalizedUsername() == null || "".equals(sysUserDto.getNormalizedUsername()))
                 || (sysUserDto.getPasswordHash() == null || "".equals(sysUserDto.getPasswordHash()))) {
             return ResultUtil.error(ResultEnum.USER_ACCOUNT_OR_PASSWORD_ISNULL);
@@ -85,7 +112,8 @@ public class SysUserController {
         if (sysUser != null) {
             return ResultUtil.error(ResultEnum.USER_NAME_ALREADY_EXISTS);
         }
-        sysUserDto.setPasswordHash(DigestUtils.md5DigestAsHex(sysUserDto.getPasswordHash().getBytes()));
+//        sysUserDto.setPasswordHash(DigestUtils.md5DigestAsHex(sysUserDto.getPasswordHash().getBytes()));
+        sysUserDto.setPasswordHash(EncryptUtil.getInstance().MD5_32(sysUserDto.getPasswordHash()));
         String s = UUID.randomUUID().toString();
         sysUserDto.setId(s.replace("-", ""));
         int flag = sysUserService.addUser(sysUserDto);
@@ -109,10 +137,32 @@ public class SysUserController {
     @ApiOperation(value = "重置密码", notes = "重置密码")
     @RequestMapping(value = "ModifyByOrganRole/{userId}", method = RequestMethod.PUT)
     @SysLog(value = "测试注解日志切面重置密码updatePassword")
-    public Result updatePassword(@RequestBody String passwordHash, @PathVariable String userId) {
+    public Result updatePassword(@RequestBody SysUser user, @PathVariable String userId) {
+        String passwordHash = user.getPasswordHash();
+        // 密码复杂度 10位4选3
+        boolean flag = passwordHash.contains("012")
+                || passwordHash.contains("123")
+                || passwordHash.contains("234")
+                || passwordHash.contains("345")
+                || passwordHash.contains("456")
+                || passwordHash.contains("567")
+                || passwordHash.contains("678")
+                || passwordHash.contains("789")
+                || passwordHash.contains("987")
+                || passwordHash.contains("876")
+                || passwordHash.contains("765")
+                || passwordHash.contains("654")
+                || passwordHash.contains("543")
+                || passwordHash.contains("432")
+                || passwordHash.contains("321")
+                || passwordHash.contains("210");
+        if (flag || !passwordHash.matches(PATTEN)) {
+            return ResultUtil.error(ResultEnum.USER_UPDATE_PASSWORD_ERROR);
+        }
         try {
             SysUser sysUser = sysUserService.selectById(userId);
             if (sysUser != null) {
+
                 sysUser.setPasswordHash(EncryptUtil.getInstance().MD5_32(passwordHash));
                 sysUserService.updateById(sysUser);
                 return ResultUtil.success();
@@ -234,7 +284,7 @@ public class SysUserController {
     @SysLog(value = "测试注解日志切面删除账户deleteUserById")
     public Result deleteUserById(@PathVariable String id) {
         try {
-             sysUserService.deleteUserById(id);
+            sysUserService.deleteUserById(id);
         } catch (Exception e) {
             logger.error("Delete", e.getMessage());
             return ResultUtil.error(ResultEnum.USER_DELETE_ERROR);

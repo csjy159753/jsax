@@ -95,7 +95,7 @@ public class SysUser {
     /**
      * 锁定时间
      */
-    private Timestamp lockOutTime;
+    private Date lockOutTime;
 
     /**
      * 是否启用锁定0不启用1启用

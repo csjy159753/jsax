@@ -60,16 +60,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public IPage<SysUserDto> selectUserList(Page<SysUserDto> page, String normalizedUserName, String organId, String roleId, Integer state, String userId) {
         SysUser sysUser = sysUserMapper.selectById(userId);
+        IPage<SysUserDto> iPage= new Page<SysUserDto>(0,0);
         if (sysUser == null) {
-            return null;
+            return iPage;
         }
         if (state == null) {
             state = 0;
         }
         if (sysUser.getType() != 99 && StringUtils.isEmpty(organId) && StringUtils.isEmpty(roleId)) {
-            return null;
+            return iPage;
         }
-        IPage<SysUserDto> iPage = sysUserMapper.selectUserByOrganIdRole(page, organId, roleId, state, normalizedUserName);
+        iPage = sysUserMapper.selectUserByOrganIdRole(page, organId, roleId, state, normalizedUserName);
         return iPage;
 
     }
@@ -146,7 +147,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUserOrganMapper.deleteByUserId(userId);
         sysUserRoleMapper.deleteByUserId(userId);
         this.removeById(userId);
-        sysUserHisMapper.insert(sysUserHis);
+//        sysUserHisMapper.insert(sysUserHis);
         return ResultEnum.SUCCESS;
     }
 

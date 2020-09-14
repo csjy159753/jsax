@@ -8,6 +8,7 @@ import com.jinhe.modules.system.dto.SysUserDto;
 import com.jinhe.modules.system.entity.SysUser;
 import org.apache.ibatis.annotations.*;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -24,4 +25,5 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     IPage<SysUserDto> selectUserByOrganIdRole(Page<SysUserDto> page, @Param("organId") String organIds, @Param("roleId") String roleId, @Param("state") Integer state, @Param("normalizedUserName") String normalizedUserName);
 
- }
+
+}

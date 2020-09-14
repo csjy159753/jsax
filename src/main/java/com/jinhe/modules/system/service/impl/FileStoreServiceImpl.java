@@ -82,8 +82,13 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String datePath = sdf.format(date);
+            FileStoreType fileStoreType = null;
+            if (file.getContentType().equals("multipart/form-data")) {
+                fileStoreType = listFileStoreTypefilter.stream().filter(d -> d.getExt().equals("." + fileSuffix)).findFirst().get();
+            } else {
+                fileStoreType = listFileStoreTypefilter.stream().filter(d -> d.getExt().equals("." + fileSuffix) && d.getType().equals(file.getContentType())).findFirst().get();
+            }
 
-            FileStoreType fileStoreType = listFileStoreTypefilter.stream().filter(d -> d.getExt().equals("." + fileSuffix) && d.getType().equals(file.getContentType())).findFirst().get();
 
             //原文件路径
             String ogiginalPath = File.separator + datePath + File.separator + fileStoreType.getId();

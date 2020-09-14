@@ -16,6 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.xml.crypto.Data;
+import java.net.URLDecoder;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -36,16 +42,44 @@ public class SysLoginController {
     @RequestMapping(value = "Login", method = RequestMethod.POST)
     @SysLog(value = "Login")
     public Result login(@RequestBody SysLogin login) throws InstantiationException, IllegalAccessException {
+        String password = "";
+        password = login.getPassWord().replaceAll("[\\s*\t\n\r]", "");
+        password = EncryptUtil.getInstance().Base64Decode(password);
 
-        login.setPassWord(EncryptUtil.getInstance().MD5_32(login.getPassWord()));
+//        login.setPassWord(EncryptUtil.sgetInstance().MD5_32(login.getPassWord()));
         QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper
-                .eq("NORMALIZED_USERNAME", login.getUserName())
-                .eq("PASSWORD_HASH", login.getPassWord());
+        userQueryWrapper.eq("NORMALIZED_USERNAME", login.getUserName());
+//        userQueryWrapper.and(wrapper -> wrapper.lt("LOCK_OUT_TIME", new Date()).or().isNull("LOCK_OUT_TIME"));
         SysUser SysUser = iSysUserService.getBaseMapper().selectOne(userQueryWrapper);
         if (null == SysUser) {
             return ResultUtil.error(ResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
         }
+        if (SysUser.getLockOutTime() != null) {
+            if (SysUser.getLockOutTime().getTime() > new Date().getTime()) {
+                return ResultUtil.error(-1, "登录失败次数过多，请稍后重试");
+            }
+        }
+        if (!SysUser.getPasswordHash().equals(password)) {
+            int accessFailedCount = 0;
+            if (SysUser.getAccessFailedCount() != null) {
+                accessFailedCount = SysUser.getAccessFailedCount();
+            }
+            accessFailedCount += 1;
+            SysUser.setAccessFailedCount(accessFailedCount);
+            if (accessFailedCount > 5) {
+                Date now = new Date();
+                //增加5分钟
+                Date afterDate = new Date(now.getTime() + 300000);
+                SysUser.setLockOutTime(afterDate);
+            }
+            iSysUserService.updateById(SysUser);
+            return ResultUtil.error(ResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
+        } else {
+            SysUser.setAccessFailedCount(0);
+            SysUser.setLockOutTime(null);
+            iSysUserService.updateById(SysUser);
+        }
+
         SysLoginDto sysLogin = Mapper.ModelToModel(SysUser, SysLoginDto.class);
         if (sysLogin.getState() == 3 || sysLogin.getState() == 2) {
             return ResultUtil.error(ResultEnum.OBSOLETE);

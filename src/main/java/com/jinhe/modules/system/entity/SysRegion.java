@@ -70,7 +70,7 @@ public class SysRegion implements Serializable {
     private Boolean isForestryArea;
 
     @ApiModelProperty(value = "是否是一个苏木（县）")
-    private Boolean isSum;
+    private Boolean isSumu;
 
     @ApiModelProperty(value = "是否是自然村")
     private Boolean isNaturalVillage;

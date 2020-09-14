@@ -69,7 +69,7 @@ public class FileStoreController {
             List<FileStoreType> listFileStoreType = iFileStoreTypeService.GetAllFileStoreType();
             FileStoreType fileStoreType = listFileStoreType.stream().filter(d -> d.getIsUse() != null
                     && d.getIsUse() == 1
-                    && d.getExt().equals(fileSuffix) && d.getType().equals(f.getContentType())).findFirst().get();
+                    && d.getExt().equals(fileSuffix)).findFirst().get();
             if (fileStoreType == null) {
                 return ResultUtil.error(ResultEnum.FILE_NOT_FOUND);
             }
@@ -81,7 +81,6 @@ public class FileStoreController {
         } else {
             return ResultUtil.success(fileStoreDtos);
         }
-
     }
 
     @ApiOperation(value = "文件下载", notes = "文件下载")

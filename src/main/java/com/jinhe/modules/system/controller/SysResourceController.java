@@ -53,6 +53,7 @@ public class SysResourceController {
         try {
             sysResource = ISysResService.selectSysResourcepage(userid);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             logger.error("NormalList", e.getMessage());
             return ResultUtil.error(ResultEnum.RESOURCE_SELECT_NOT_FOUND);
         }
