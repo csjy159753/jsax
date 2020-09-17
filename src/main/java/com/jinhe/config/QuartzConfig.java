@@ -26,5 +26,4 @@ public class QuartzConfig {
 //                .withSchedule(cronScheduleBuilder)
 //                .build();
 //    }
-
 }

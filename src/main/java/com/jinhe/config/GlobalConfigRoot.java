@@ -21,7 +21,7 @@ public class GlobalConfigRoot {
          return (factory) -> {
             factory.addContextCustomizers((context) -> {
                         //模块中webapp相对路径
-                        String relativePath = "Api/src/main/resources/static";
+                        String relativePath = System.getProperty("user.dir")+"/src/main/webapp";
                         File docBaseFile = new File(relativePath);
                         // 如果路径不存在，则把这个路径加入进去
                         if (docBaseFile.exists()) {
