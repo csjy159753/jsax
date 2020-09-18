@@ -51,7 +51,6 @@ public class DynamicDataSourceConfig {
 //
 //        MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
 //        sqlSessionFactory.setDataSource(dataSource(firstDataSource(), secondDataSource()));
-//
 //        MybatisConfiguration configuration = new MybatisConfiguration();
 //        configuration.setJdbcTypeForNull(JdbcType.NULL);
 //        configuration.setMapUnderscoreToCamelCase(true);
@@ -63,9 +62,9 @@ public class DynamicDataSourceConfig {
 ////        sqlSessionFactory.setGlobalConfig(globalConfiguration());
 //        return sqlSessionFactory.getObject();
 //    }
-//    @Bean(name = "firstDataSourceManager")
-//    public DataSourceTransactionManager master2TransactionManager(@Qualifier("firstDataSource") DataSource dataSource) {
-//        return new DataSourceTransactionManager(dataSource);
-//    }
+    @Bean(name = "firstDataSourceManager")
+    public DataSourceTransactionManager master2TransactionManager(@Qualifier("firstDataSource") DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
 
 }

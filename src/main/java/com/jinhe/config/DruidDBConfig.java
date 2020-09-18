@@ -17,15 +17,15 @@ import java.util.Map;
 @Configuration
 public class DruidDBConfig {
 
-    @Bean
-    public ServletRegistrationBean druidServlet() {
-        ServletRegistrationBean reg = new ServletRegistrationBean();
-        reg.setServlet(new StatViewServlet());
-        reg.addUrlMappings("/druid/*");
-        //reg.addInitParameter("allow", "127.0.0.1"); //白名单
-        reg.addInitParameter("resetEnable", "false");
-        return reg;
-    }
+//    @Bean
+//    public ServletRegistrationBean druidServlet() {
+////        ServletRegistrationBean reg = new ServletRegistrationBean();
+////        reg.setServlet(new StatViewServlet());
+////        reg.addUrlMappings("/druid/*");
+//        //reg.addInitParameter("allow", "127.0.0.1"); //白名单
+////        reg.addInitParameter("resetEnable", "false");
+//        return reg;
+//    }
 
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
@@ -33,12 +33,12 @@ public class DruidDBConfig {
         filterRegistrationBean.setFilter(new WebStatFilter());
         Map<String, String> initParams = new HashMap<String, String>();
         //设置忽略请求
-        initParams.put("exclusions", "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*");
+        initParams.put("exclusions", "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*,/swagger");
         filterRegistrationBean.setInitParameters(initParams);
-        filterRegistrationBean.addInitParameter("profileEnable", "true");
-        filterRegistrationBean.addInitParameter("principalCookieName", "USER_COOKIE");
-        filterRegistrationBean.addInitParameter("principalSessionName", "");
-        filterRegistrationBean.addInitParameter("aopPatterns", "com.example.demo.service");
+//        filterRegistrationBean.addInitParameter("profileEnable", "true");
+//        filterRegistrationBean.addInitParameter("principalCookieName", "USER_COOKIE");
+//        filterRegistrationBean.addInitParameter("principalSessionName", "");
+        filterRegistrationBean.addInitParameter("aopPatterns", "com.jinhe.modules.*service");
         filterRegistrationBean.addUrlPatterns("/*");
         return filterRegistrationBean;
     }

@@ -26,7 +26,7 @@ spring:
       test-on-borrow: true
       test-on-return: true
       stat-view-servlet:
-        url-pattern: /*
+        url-pattern: /druid/*
         enabled: true
         login-username: admin
         login-password: admin
@@ -38,7 +38,7 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-      filters: 'stat,wall,slf4j'
+      filters: stat,wall,logback
       use-global-data-source-stat: true
       web-stat-filter:
         enabled: true

@@ -23,8 +23,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableTransactionManagement
 //@EnableWebMvc
 //@EnableScheduling
-//sso单点登录
-@ServletComponentScan(basePackages = {"com.jinhe.config.SSOFilter"})
 public class Application  { //extends SpringBootServletInitializer
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
