@@ -57,7 +57,7 @@ public class SysUserController {
      */
     @ApiOperation(value = "查询用户列表", notes = "查询用户列表")
     @RequestMapping(value = "/List/{userId}", method = RequestMethod.GET)
-    @SysLog(value = "测试注解日志切面关键字查询selectUserList")
+//    @SysLog(value = "测试注解日志切面关键字查询selectUserList")
     public Result selectUserList(PageFilter filter, String keywords, String organIds, String roleIds, Integer state, @PathVariable String userId) {
         IPage<SysUserDto> userList;
         try {

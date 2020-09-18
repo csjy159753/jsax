@@ -8,7 +8,7 @@ spring:
         password: "000000"
         driverClassName: com.mysql.jdbc.Driver
       second:  #数据源2
-        url: jdbc:mysql://124.70.212.38:3306/wzz_project?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        url: jdbc:mysql://124.70.212.38:3306/wzz_project_bak?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
         password: "000000"
         driverClassName: com.mysql.jdbc.Driver
@@ -18,25 +18,31 @@ spring:
       max-wait: 60000
       pool-prepared-statements: true
       max-pool-prepared-statement-per-connection-size: 20
+      useGlobalDataSourceStat: true
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
       #validation-query: SELECT 1 FROM DUAL
       test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
+      test-on-borrow: true
+      test-on-return: true
       stat-view-servlet:
+        url-pattern: /*
         enabled: true
-        url-pattern: /druid/*
         login-username: admin
         login-password: admin
       filter:
         stat:
           log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: false
+          slow-sql-millis: 100000
+          merge-sql: true
         wall:
           config:
             multi-statement-allow: true
+      filters: 'stat,wall,slf4j'
+      use-global-data-source-stat: true
+      web-stat-filter:
+        enabled: true
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
 file:
   root:
     #水印
