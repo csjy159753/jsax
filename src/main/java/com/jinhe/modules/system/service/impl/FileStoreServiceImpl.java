@@ -1,7 +1,6 @@
 package com.jinhe.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
 import com.jinhe.common.util.ImageUtil;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.config.ConfigProperty;
@@ -11,6 +10,7 @@ import com.jinhe.modules.system.entity.FileStore;
 import com.jinhe.modules.system.entity.FileStoreType;
 import com.jinhe.modules.system.service.IFileStoreService;
 import com.jinhe.modules.system.service.IFileStoreTypeService;
+import org.apache.commons.compress.utils.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -144,7 +144,12 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
 
 
                 //校验图片格式，如为图片类型则根据图片大小判断是否压缩
-                List<String> imageType = Lists.newArrayList("jpg", "jpeg", "png", "bmp", "gif");
+                List<String> imageType = new ArrayList<>();
+                imageType.add("jpg");
+                imageType.add("jpeg");
+                imageType.add("png");
+                imageType.add("bmp");
+                imageType.add("gif");
                 if (imageType.contains(fileSuffix)) {
                     try {
                         imageCompress(newFileName, dirPath, ogiginalPath, modifiedPath, lowPath, thumbPath, ogiginalFile, fileStore, fileStoreDto);

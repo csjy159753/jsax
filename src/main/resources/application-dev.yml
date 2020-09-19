@@ -20,6 +20,7 @@ spring:
       pool-prepared-statements: true
       max-pool-prepared-statement-per-connection-size: 20
       useGlobalDataSourceStat: true
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=10000
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
       #validation-query: SELECT 1 FROM DUAL
@@ -27,6 +28,10 @@ spring:
       test-on-borrow: true
       test-on-return: true
       stat-view-servlet:
+        #白名单IP
+        allow: 127.0.0.1
+        #黑名单IP
+        deny: 192.168.70.30
         url-pattern: /druid/*
         enabled: true
         login-username: admin

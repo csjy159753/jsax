@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 
 
+@EnableOpenApi
 @Import(DynamicDataSourceConfig.class )
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @MapperScan(basePackages = { "com.jinhe.modules.*.dao"})
@@ -27,8 +29,4 @@ public class Application  { //extends SpringBootServletInitializer
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
-//	@Override
-//	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//		return application.sources(Application.class);
-//	}
 }
