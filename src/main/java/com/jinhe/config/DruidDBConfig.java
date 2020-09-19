@@ -27,21 +27,21 @@ public class DruidDBConfig {
 //        return reg;
 //    }
 
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-        filterRegistrationBean.setFilter(new WebStatFilter());
-        Map<String, String> initParams = new HashMap<String, String>();
-        //设置忽略请求
-        initParams.put("exclusions", "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*,/swagger");
-        filterRegistrationBean.setInitParameters(initParams);
-//        filterRegistrationBean.addInitParameter("profileEnable", "true");
-//        filterRegistrationBean.addInitParameter("principalCookieName", "USER_COOKIE");
-//        filterRegistrationBean.addInitParameter("principalSessionName", "");
-        filterRegistrationBean.addInitParameter("aopPatterns", "com.jinhe.modules.*service");
-        filterRegistrationBean.addUrlPatterns("/*");
-        return filterRegistrationBean;
-    }
+//    @Bean
+//    public FilterRegistrationBean filterRegistrationBean() {
+//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+//        filterRegistrationBean.setFilter(new WebStatFilter());
+//        Map<String, String> initParams = new HashMap<String, String>();
+//        //设置忽略请求
+////        initParams.put("exclusions", "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*,/swagger");
+////        filterRegistrationBean.setInitParameters(initParams);
+////        filterRegistrationBean.addInitParameter("profileEnable", "true");
+////        filterRegistrationBean.addInitParameter("principalCookieName", "USER_COOKIE");
+////        filterRegistrationBean.addInitParameter("principalSessionName", "");
+//        filterRegistrationBean.addInitParameter("aopPatterns", "com.jinhe.modules.*service");
+//        filterRegistrationBean.addUrlPatterns("/*");
+//        return filterRegistrationBean;
+//    }
 
 //    @Bean(name = "dataSource")
 //    @ConfigurationProperties(prefix = "spring.datasource")

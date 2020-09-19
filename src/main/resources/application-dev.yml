@@ -7,6 +7,7 @@ spring:
         username: root
         password: "000000"
         driverClassName: com.mysql.jdbc.Driver
+        filters: stat,slf4j
       second:  #数据源2
         url: jdbc:mysql://124.70.212.38:3306/wzz_project_bak?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
@@ -38,11 +39,11 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-      filters: stat,wall,logback
+      filters: stat,slf4j
       use-global-data-source-stat: true
       web-stat-filter:
         enabled: true
-        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+        exclusions: "/error*,*.html,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/v2/api-docs,/swagger*"
 file:
   root:
     #水印
