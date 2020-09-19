@@ -44,7 +44,7 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-      filters: stat,slf4j
+      filters: stat,slf4j,wall,config
       use-global-data-source-stat: true
       web-stat-filter:
         enabled: true
