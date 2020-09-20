@@ -1,9 +1,8 @@
 package com.jinhe.common.util.contraction;
 
 
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.apache.http.util.TextUtils;
+import org.apache.xmlbeans.impl.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,14 +47,14 @@ public class GzipUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Base64.encode(out.toByteArray());
+        return new String(Base64.encode(out.toByteArray()));
     }
 
-    public static String uncompress(String data) throws Base64DecodingException {
+    public static String uncompress(String data) {
         if (TextUtils.isEmpty(data)) {
             return null;
         }
-        byte[] decode = Base64.decode(data);
+        byte[] decode = Base64.decode(data.getBytes());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream(decode);
         GZIPInputStream gzipStream = null;

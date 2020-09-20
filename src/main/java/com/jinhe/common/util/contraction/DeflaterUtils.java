@@ -1,8 +1,6 @@
 package com.jinhe.common.util.contraction;
 
-
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import org.apache.xmlbeans.impl.util.Base64;
 import org.springframework.lang.Nullable;
 
 import java.io.ByteArrayOutputStream;
@@ -50,15 +48,15 @@ public class DeflaterUtils {
         }
         //关闭压缩器并丢弃任何未处理的输入。
         deflater.end();
-        return Base64.encode(outputStream.toByteArray());
+        return new String(Base64.encode(outputStream.toByteArray()));
     }
 
     /**
      * 解压缩
      */
     @Nullable
-    public static String unzipString(String zipString) throws Base64DecodingException {
-        byte[] decode = Base64.decode(zipString);
+    public static String unzipString(String zipString)   {
+        byte[] decode = Base64.decode(zipString.getBytes());
         //创建一个新的解压缩器  https://www.yiibai.com/javazip/javazip_inflater.html
 
         Inflater inflater = new Inflater();

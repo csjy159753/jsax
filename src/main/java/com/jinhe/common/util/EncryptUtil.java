@@ -1,7 +1,7 @@
 package com.jinhe.common.util;
 
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.xmlbeans.impl.util.Base64;
 import org.springframework.util.DigestUtils;
 
 import javax.crypto.Cipher;
@@ -137,7 +137,7 @@ public class EncryptUtil {
     }
 
     private String base64(byte[] res) {
-        return Base64.encode(res);
+        return new String(Base64.encode(res));
     }
 
     /**
@@ -314,7 +314,7 @@ public class EncryptUtil {
      * @return
      */
     public String Base64Encode(String res) {
-        return Base64.encode(res.getBytes());
+        return new String(Base64.encode(res.getBytes()));
     }
 
     /**
@@ -324,7 +324,7 @@ public class EncryptUtil {
      * @return
      */
     public String Base64Decode(String res) {
-        return new String(Base64.decode(res));
+        return new String(Base64.decode(res.getBytes()));
     }
 
     public static void main(String[] args) {

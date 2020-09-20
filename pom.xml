@@ -354,6 +354,13 @@
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
+        <!--base64-->
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
+        </dependency>
     </dependencies>
 
     <!-- 阿里云maven仓库 -->
@@ -426,7 +433,7 @@
                         <option>all-open:annotation=javax.persistence.Embeddable</option>
                         <option>all-open:annotation=javax.persistence.MappedSuperclass</option>
                     </pluginOptions>
-                    <jvmTarget>1.8</jvmTarget>
+                    <jvmTarget>11</jvmTarget>
                 </configuration>
                 <dependencies>
                     <dependency>
