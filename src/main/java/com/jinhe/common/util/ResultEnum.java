@@ -6,6 +6,7 @@ public enum ResultEnum {
      * 0-1000系统模块
      */
     UNKNOWN_ERROR(-1, "未知错误"),
+    TOKRN_ERROR(10,"Token验证失败"),
     SUCCESS(200, "成功"),
     ERROR(500, "程序异常错误"),
     NOT_FOUND(404, "未发现"),

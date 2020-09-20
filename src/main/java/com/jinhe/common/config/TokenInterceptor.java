@@ -28,7 +28,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
         if (!property.getSpringProfilesActive().equals("prod")) {
-            if (uri.contains("/swagger")||true
+            if (uri.contains("/swagger")
                     || uri.contains("/resources/")
                     || uri.contains("/download/")
                     || uri.contains("/update/")
@@ -45,17 +45,14 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         }
         /** Token 验证 */
         String token = request.getHeader(jwtConfig.getHeader());
+        if (StringUtils.isEmpty(token)) {
+            throw new SignatureException(jwtConfig.getHeader() + "不能为空");
+        }
         if (token == null) {
             return false;
         }
         if (token.startsWith("Bearer ")) {
             token = token.replace("Bearer ", "");
-        }
-        if (StringUtils.isEmpty(token)) {
-            token = request.getParameter(jwtConfig.getHeader());
-        }
-        if (StringUtils.isEmpty(token)) {
-            throw new SignatureException(jwtConfig.getHeader() + "不能为空");
         }
 
         Claims claims = null;

@@ -43,6 +43,6 @@ public class RRExceptionHandler {
     @ResponseBody
     public Result authorizationException(SignatureException e) {
 
-        return ResultUtil.Info(ResultEnum.UNKNOWN_ERROR);
+        return ResultUtil.Info(ResultEnum.TOKRN_ERROR);
     }
 }
