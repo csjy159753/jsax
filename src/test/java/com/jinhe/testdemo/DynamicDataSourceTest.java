@@ -55,13 +55,13 @@ public class DynamicDataSourceTest {
     }
 
     @Test
+    @Transactional
     public void test2() throws Exception {
 //        //数据源1
 //        SysLog log1 = dataSourceTestService.queryLog(1L);
 //        System.out.println("----------------------------------------------------------");
 //        System.out.println(ToStringBuilder.reflectionToString(log1));
 //        System.out.println("----------------------------------------------------------");
-//
 //        //数据源2
 //        SysLog log2 = dataSourceTestService.queryLog2(1L);
 //        System.out.println("==========================================================");
@@ -78,11 +78,11 @@ public class DynamicDataSourceTest {
         log.setApplication("测试");
         log.setLevel("2");
         log.setUserName("ces");
-
+        
         boolean b1 = dataSourceTestService.insertLog1(log);
         System.out.println("---------------------------------------" + b1);
         boolean b2 = dataSourceTestService.insertLog2(log);
-        System.out.println("---------------------------------------"+b2);
+        System.out.println("---------------------------------------" + b2);
         log.setId("aaaa22222");
         boolean b3 = dataSourceTestService.insertLog3(log);
         System.out.println("---------------------------------------" + b3);
