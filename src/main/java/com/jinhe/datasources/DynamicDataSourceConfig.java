@@ -62,9 +62,13 @@ public class DynamicDataSourceConfig {
 ////        sqlSessionFactory.setGlobalConfig(globalConfiguration());
 //        return sqlSessionFactory.getObject();
 //    }
-    @Bean(name = "firstDataSourceManager")
-    public DataSourceTransactionManager master2TransactionManager(@Qualifier("firstDataSource") DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
+//    @Bean(name = "firstDataSourceManager")
+//    public DataSourceTransactionManager master2TransactionManager(@Qualifier("firstDataSource") DataSource dataSource) {
+//        return new DataSourceTransactionManager(dataSource);
+//    }
+//    @Bean(name = "secondDataSourceManager")
+//    public DataSourceTransactionManager master2TransactionManager(@Qualifier(DataSourceNames.SECOND) DataSource secondDataSource) {
+//        return new DataSourceTransactionManager(secondDataSource);
+//    }
 
 }

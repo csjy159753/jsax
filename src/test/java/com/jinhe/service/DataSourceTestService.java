@@ -6,10 +6,13 @@ import com.jinhe.modules.system.entity.SysLog;
 import com.jinhe.modules.system.service.ISysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * 测试多数据源
  */
 @Service
+@Transactional
 public class DataSourceTestService {
 	@Autowired
 	private ISysLogService sysLogService;
@@ -23,15 +26,21 @@ public class DataSourceTestService {
 		return sysLogService.getById(LogId);
 	}
 
-
+//	@Transactional
 	public boolean insertLog1(SysLog log){
 		return sysLogService.save(log);
 	}
+//	@Transactional
 	@DataSource(name = DataSourceNames.SECOND)
 	public boolean insertLog2(SysLog log){
-		return sysLogService.save(log);
+		sysLogService.save(log);
+//		double gg=2/0;
+		return true;
 	}
-	public boolean insertLog3(SysLog log){
-		return sysLogService.save(log);
+//	@Transactional
+	public boolean insertLog3(SysLog log) throws Exception {
+		sysLogService.save(log);
+		double gg=2/0;
+		return true;
 	}
 }
