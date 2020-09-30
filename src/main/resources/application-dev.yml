@@ -3,13 +3,13 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       first:  #数据源1
-        url: jdbc:mysql://124.70.212.38:3306/wzz_project?serverTimezone=UTC&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        url: jdbc:mysql://124.70.212.38:3306/wzz_project?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
         password: "000000"
         driverClassName: com.mysql.cj.jdbc.Driver
         filters: stat,slf4j
       second:  #数据源2
-        url: jdbc:mysql://124.70.212.38:3306/wzz_project_bak?serverTimezone=UTC&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        url: jdbc:mysql://124.70.212.38:3306/wzz_project_bak?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
         password: "000000"
         driverClassName: com.mysql.cj.jdbc.Driver
