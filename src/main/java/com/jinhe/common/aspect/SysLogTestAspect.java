@@ -1,6 +1,7 @@
 package com.jinhe.common.aspect;
+
 import com.alibaba.fastjson.JSON;
-import com.jinhe.common.annotation.SysLog;
+import com.jinhe.common.annotation.SysLogTest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -9,9 +10,9 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -21,8 +22,8 @@ import java.lang.reflect.Method;
  */
 @Aspect
 @Component
-@Order(20000)
-public class SysLogAspect {
+@Order(30000)
+public class SysLogTestAspect {
 	//记录器
 	Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -30,7 +31,7 @@ public class SysLogAspect {
 	@Autowired(required=false)
 	HttpServletRequest request;
 
-	@Pointcut("@annotation(com.jinhe.common.annotation.SysLog)")
+	@Pointcut("@annotation(com.jinhe.common.annotation.SysLogTest)")
 	public void logPointCut() {
 
 	}
@@ -41,15 +42,7 @@ public class SysLogAspect {
 		long beginTime = System.currentTimeMillis();
 		// 执行方法
 		Object objs= point.getArgs();
-
-		Object result = null;
-		try {
-			result = point.proceed();
-		} catch (Throwable throwable) {
-			throwable.printStackTrace();
-		}
-
-
+		Object result = point.proceed();
 		// 执行时长(毫秒)
 		long time = System.currentTimeMillis() - beginTime;
 
@@ -78,11 +71,11 @@ public class SysLogAspect {
 				System.out.println("参数名："+ parameterNames[i] + " = " +args[i]);
 			}
 			System.out.println("---------------参数列表结束-------------------------");
-			SysLog sysLog=(SysLog)method.getAnnotation(SysLog.class);
+			SysLogTest sysLog=(SysLogTest)method.getAnnotation(SysLogTest.class);
 			System.out.println("自定义注解 key:" + sysLog.value());
 			Class cla=method.getClass();
-			if(cla.isAnnotationPresent(SysLog.class)){
-				SysLog redisHandel =(SysLog)cla.getAnnotation(SysLog.class);
+			if(cla.isAnnotationPresent(SysLogTest.class)){
+				SysLogTest redisHandel =(SysLogTest)cla.getAnnotation(SysLogTest.class);
 				String key=redisHandel.value();
 				System.out.println("key = " + key);
 			}

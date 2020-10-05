@@ -2,6 +2,7 @@ package com.jinhe.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
+import com.jinhe.common.annotation.SysLogTest;
 import com.jinhe.common.config.JwtConfig;
 
 import com.jinhe.common.util.*;
@@ -13,6 +14,7 @@ import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -40,8 +42,15 @@ public class SysLoginController {
 
     @ApiOperation(value = "登录获取token", notes = "登录获取token")
     @RequestMapping(value = "Login", method = RequestMethod.POST)
-    @SysLog(value = "Login")
+    @SysLog(value = "Login1111")
+    @SysLogTest(value = "Login222")
+    @Transactional
     public Result login(@RequestBody SysLogin login) throws InstantiationException, IllegalAccessException {
+        try {
+            int jj=1/0;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
         String password = "";
         password = login.getPassWord().replaceAll("[\\s*\t\n\r]", "");
         password = EncryptUtil.getInstance().Base64Decode(password);
@@ -51,6 +60,8 @@ public class SysLoginController {
         userQueryWrapper.eq("NORMALIZED_USERNAME", login.getUserName());
 //        userQueryWrapper.and(wrapper -> wrapper.lt("LOCK_OUT_TIME", new Date()).or().isNull("LOCK_OUT_TIME"));
         SysUser SysUser = iSysUserService.getBaseMapper().selectOne(userQueryWrapper);
+        SysUser.setRealName("超级管理员1111");
+        iSysUserService.saveOrUpdate(SysUser);
         if (null == SysUser) {
             return ResultUtil.error(ResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
         }
