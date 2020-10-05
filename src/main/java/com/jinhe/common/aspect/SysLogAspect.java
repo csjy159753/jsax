@@ -18,12 +18,15 @@ import java.lang.reflect.Method;
 
 /**
  * 系统日志，切面处理类
+ * @author Administrator
  */
 @Aspect
 @Component
 @Order(20000)
 public class SysLogAspect {
-	//记录器
+	/**
+	 *
+	 */
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 
@@ -99,9 +102,11 @@ public class SysLogAspect {
 		logger.info(className + "." + methodName + "()");
 
 		//请求地址
-		String remoteAddr=request.getRemoteAddr();//请求的IP
+		String remoteAddr=request.getRemoteAddr();
+		//请求的IP
 		logger.info(remoteAddr);
-		String method=request.getMethod();        //请求的方法类型(post/get)
+		String method=request.getMethod();
+		//请求的方法类型(post/get)
 		logger.info(method);
 
 		// 请求的参数
