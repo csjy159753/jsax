@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -55,7 +56,6 @@ public class DynamicDataSourceTest {
     }
 
     @Test
-    @Transactional
     public void test2() throws Exception {
 //        //数据源1
 //        SysLog log1 = dataSourceTestService.queryLog(1L);
@@ -74,18 +74,23 @@ public class DynamicDataSourceTest {
 
 
         SysLog log = new SysLog();
-        log.setId("aaaa111");
+        log.setId("111");
         log.setApplication("测试");
         log.setLevel("2");
         log.setUserName("ces");
-        
-        boolean b1 = dataSourceTestService.insertLog1(log);
-        System.out.println("---------------------------------------" + b1);
-        boolean b2 = dataSourceTestService.insertLog2(log);
-        System.out.println("---------------------------------------" + b2);
-        log.setId("aaaa22222");
-        boolean b3 = dataSourceTestService.insertLog3(log);
-        System.out.println("---------------------------------------" + b3);
+        log.setCreateTime(LocalDateTime.now());
+
+//        boolean b1 = dataSourceTestService.insertLog1(log);
+//        System.out.println("---------------------------------------" + b1);
+//        SysLog sysLog11= dataSourceTestService.queryLog(111L);
+//        System.out.println(ToStringBuilder.reflectionToString(sysLog11));
+//        boolean b2 = dataSourceTestService.insertLog2(log);
+//        System.out.println("---------------------------------------" + b2);
+//        log.setId("aaaa22222");
+//        boolean b3 = dataSourceTestService.insertLog3(log);
+//        System.out.println("---------------------------------------" + b3);
+        boolean b4 = dataSourceTestService.insertLog4(log);
+        System.out.println("---------------------------------------" + b4);
 
     }
 }

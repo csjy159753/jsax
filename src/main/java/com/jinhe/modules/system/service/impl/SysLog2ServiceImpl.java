@@ -1,17 +1,16 @@
 package com.jinhe.modules.system.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinhe.common.util.Tree.ITree;
 import com.jinhe.common.util.Tree.Tree;
 import com.jinhe.common.util.Tree.TreeNode;
-import com.jinhe.modules.system.dto.SysUserVo;
-import com.jinhe.modules.system.entity.SysLog;
 import com.jinhe.modules.system.dao.SysLogMapper;
+import com.jinhe.modules.system.entity.SysLog;
 import com.jinhe.modules.system.entity.SysRole;
+import com.jinhe.modules.system.service.ISysLog2Service;
 import com.jinhe.modules.system.service.ISysLogService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -29,7 +28,7 @@ import java.util.List;
  * @since 2020-04-15
  */
 @Service
-public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements ISysLogService {
+public class SysLog2ServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements ISysLog2Service {
     @Autowired
     private SysLogMapper sysLogMapper;
 
