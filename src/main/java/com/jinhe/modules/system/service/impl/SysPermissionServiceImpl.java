@@ -104,18 +104,14 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     @Override
     public List<TreeNode> listByRoleId(String roleId) {
         List<TreeNode> treenodelist = new ArrayList<>();
-        List<String> resourceIds = sysPerMap.resourceIdByRoleId(roleId);
+        List<SysResourceDto> resourceIds = sysPerMap.resourceIdByRoleId(roleId);
         if (!resourceIds.isEmpty()) {
-            List<SysResourceDto> pagelist = sysPerMap.listByRoleId(resourceIds);
-            treenodelist = Tree.CreateTree(pagelist, new ITree<SysResourceDto>() {
-                @Override
-                public TreeNode<SysResourceDto> modelTo(SysResourceDto o) {
-                    TreeNode treeNode = new TreeNode();
-                    treeNode.setId(o.getId());
-                    treeNode.setParentId(o.getParentId());
-                    treeNode.setNodeValue(o);
-                    return treeNode;
-                }
+            treenodelist = Tree.CreateTree(resourceIds, (ITree<SysResourceDto>) o -> {
+                TreeNode treeNode = new TreeNode();
+                treeNode.setId(o.getId());
+                treeNode.setParentId(o.getParentId());
+                treeNode.setNodeValue(o);
+                return treeNode;
             });
         }
         return treenodelist;

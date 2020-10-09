@@ -29,7 +29,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
     SysPermission getById(String id);
 
-    List<String> resourceIdByRoleId(String roleId);
+    List<SysResourceDto> resourceIdByRoleId(String roleId);
 
     List<String> resourceIdByOrganId(String orgionId);
 

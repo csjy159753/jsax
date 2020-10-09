@@ -56,6 +56,19 @@ public class SysRegionController {
     }
 
     /**
+     * 行政区编码获取详情
+     *
+     * @return
+     */
+    @ApiOperation(value = "行政区编码获取详情", notes = "行政区编码获取详情")
+    @RequestMapping(value = "RegionForCode", method = RequestMethod.GET)
+    @SysLog(value = "RegionForCode")
+    public Result RegionForCode(@RequestParam(required = false) String code) {
+        SysRegion sysRegion = sysRegionService.regionForCode(code);
+        return ResultUtil.success(sysRegion);
+    }
+
+    /**
      * 新增行政区
      *
      * @return

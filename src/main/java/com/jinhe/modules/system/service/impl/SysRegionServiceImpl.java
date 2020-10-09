@@ -75,4 +75,12 @@ public class SysRegionServiceImpl extends ServiceImpl<SysRegionMapper, SysRegion
         }
         return flags;
     }
+
+    @Override
+    public SysRegion regionForCode(String code) {
+
+        SysRegion sysRegion = sysRegionMapper.regionForCode(code);
+
+        return sysRegion;
+    }
 }

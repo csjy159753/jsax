@@ -35,4 +35,7 @@ public interface ISysOrganService extends IService<SysOrgan> {
     List<SysOrgan> SelectOrgansByUserId(String userId, Page page);
 
     List<SysOrgan> GetOrganSubset(List<String> organIds);
+
+    // 刷新机构表 (Sys_Organ表数据初始化使用，只执行一次) 慎用
+    void initSysOrganTable();
 }

@@ -38,6 +38,4 @@
         delete from sys_user_organ where user_id=#{userId};
     </delete>
 
-
-
 </mapper>

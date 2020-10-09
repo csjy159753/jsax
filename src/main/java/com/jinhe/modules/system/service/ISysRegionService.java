@@ -29,4 +29,5 @@ public interface ISysRegionService extends IService<SysRegion> {
     //删除行政区
     Integer delRegion(String id);
 
+    SysRegion regionForCode(String code);
 }

@@ -13,7 +13,6 @@ import com.jinhe.common.util.Tree.MapTree;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.system.service.ISysOrganService;
 import io.swagger.annotations.*;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +46,6 @@ public class SysOrganController {
     @RequestMapping(value = "sys_organ", method = RequestMethod.GET)
     @ApiOperation(value = "查询所有机构（分页）", notes = "查询所有机构")
     @SysLog(value = "sys_organ")
-
     public Result pageSysOrgan(PageFilter filter) {
         IPage<SysOrgan> sysOrganIPage;
         try {

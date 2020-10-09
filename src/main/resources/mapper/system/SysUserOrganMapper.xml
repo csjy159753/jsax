@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.system.dao.SysUserOrganMapper">
 
+
     <insert id="insertList">
         insert into sys_user_organ (id, user_id, organ_id)
         <foreach collection="list" item="organ" separator="UNION">
@@ -11,6 +12,7 @@
         </foreach>
 
     </insert>
+
     <!--根据userId删除-->
     <delete id="deleteByUserId">
         delete from sys_user_organ where user_id = #{userId}

@@ -24,12 +24,5 @@ public interface SysLogMapper extends BaseMapper<SysLog> {
     IPage<SysLog> selectPageVo(Page<SysLog> page, SysLog sysUserVo);
 
 //    @Select({"select * from sys_role"})
-
-    /**
-     * aaa
-     * @param page
-     * @param params
-     * @return
-     */
     List<SysRole> selectSysRoleVo(IPage page,@Param("params") HashMap params);
 }

@@ -1,59 +1,83 @@
 package com.jinhe.modules.system.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 'mashz.act_id_user' is not BASE TABLE
+ * 
  * </p>
  *
  * @author rls
- * @since 2020-09-21
+ * @since 2020-04-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="SysLog对象", description="'mashz.act_id_user' is not BASE TABLE")
+@Accessors(chain = true)
 public class SysLog implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    /**
+     * 主键id
+     */
+    @TableId("ID")
     private String id;
 
-    @ApiModelProperty(value = "程序登录类型 ")
+    /**
+     * 程序登录类型
+     */
+    @TableField("APPLICATION")
     private String application;
 
-    @ApiModelProperty(value = "等级")
-    private String level;
+//    /**
+//     * 等级
+//     */
+//    @TableField("LEVEL")
+//    private String level;
 
+    @TableField("LOGGER")
     private String logger;
 
+    @TableField("USER_NAME")
     private String userName;
 
+    @TableField("SERVER_NAME")
     private String serverName;
 
-    private String url;
+//    @TableField("URL")
+//    private String url;
 
+    @TableField("REMOTE_ADDRESS")
     private String remoteAddress;
 
-    private String callsite;
+    @TableField("CALL_SITE")
+    private String callSite;
 
+    @TableField("MESSAGE")
     private String message;
 
-    private String exception;
-
+    @TableField("OTHER")
     private String other;
 
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+//    /**
+//     * 创建时间
+//     */
+//    @TableField("CREATE_TIME")
+//    private LocalDateTime createTime;
+//
+//    /**
+//     * 更新时间
+//     */
+//    @TableField("UPDATE_TIME")
+//    private LocalDateTime updateTime;
 
-    @ApiModelProperty(value = "更新")
-    private LocalDateTime updateTime;
+    @TableField("EXCEPTION")
+    private String exception;
 
 
 }

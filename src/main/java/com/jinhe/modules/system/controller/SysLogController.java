@@ -6,12 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.util.Tree.TreeNode;
+import com.jinhe.modules.system.entity.SysLog;
 import com.jinhe.modules.system.service.ISysLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.jinhe.common.annotation.SysLog;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,9 +37,9 @@ public class SysLogController {
      */
     @ApiOperation(value = "List分页测试", notes = "List分页测试")
     @RequestMapping(value = "list",method = RequestMethod.GET)
-    @SysLog(value = "list")
+    @com.jinhe.common.annotation.SysLog(value = "list")
     public Result List(Page page) {
-        com.jinhe.modules.system.entity.SysLog sysLog = new com.jinhe.modules.system.entity.SysLog();
+        SysLog sysLog = new SysLog();
         IPage<SysLog> pageData = iSysLogService.selectPageVo(page, sysLog);
         return ResultUtil.success(pageData);
     }

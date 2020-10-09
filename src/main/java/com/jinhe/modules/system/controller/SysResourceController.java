@@ -9,7 +9,7 @@ import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.util.Tree.TreeNode;
-import  com.jinhe.common.util.Result;
+import com.jinhe.common.util.Result;
 //import com.jinhe.common.vo.Result;
 import com.jinhe.modules.system.dto.SysResourceDto;
 import com.jinhe.modules.system.entity.SysResource;
@@ -49,13 +49,9 @@ public class SysResourceController {
     @SysLog(value = "NormalList/{userid}")
     public Result Select_SysRespage(@PathVariable String userid, Page page) {
         ListSub<SysResource> sysResource;
-        try {
-            sysResource = ISysResService.selectSysResourcepage(userid);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            logger.error("NormalList", e.getMessage());
-            return ResultUtil.error(ResultEnum.RESOURCE_SELECT_NOT_FOUND);
-        }
+
+        sysResource = ISysResService.selectSysResourcepage(userid);
+
         return ResultUtil.success(sysResource);
     }
 

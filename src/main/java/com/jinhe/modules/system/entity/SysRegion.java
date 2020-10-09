@@ -90,5 +90,6 @@ public class SysRegion implements Serializable {
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 
-
+    @ApiModelProperty(value = "路径")
+    private String path;
 }

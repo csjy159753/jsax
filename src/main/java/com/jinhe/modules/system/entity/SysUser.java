@@ -122,5 +122,18 @@ public class SysUser {
      * 更新时间
      */
     private Date updateTime;
+    /**
+     *工作单位
+     */
+    private String workUnit;
+    /**
+     * 工作职务
+     */
+    private String  jobName;
+    /**
+     * 工作部门
+     */
+    private String departmentName;
 
+    private  String note;
 }

@@ -114,8 +114,5 @@ public class SysResourceDto implements Serializable {
     @TableField("DISPLAY_TYPE")
     private Integer displayType;
 
-    @JSONField
-    private List<SysResourceItem> sysResourceItem = new ArrayList<>(1);
-
-
+    private String item;
 }

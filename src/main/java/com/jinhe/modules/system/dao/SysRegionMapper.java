@@ -33,4 +33,6 @@ public interface SysRegionMapper extends BaseMapper<SysRegion> {
     Integer updateParentCodeBycode(@Param("code") String code, @Param("newCode") String newCode);
 
     String selectParentCode(String id);
+
+    SysRegion regionForCode(String code);
 }

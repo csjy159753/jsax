@@ -84,5 +84,14 @@
             id = #{id}
     </select>
 
+    <select id="regionForCode" resultType="com.jinhe.modules.system.entity.SysRegion">
+        SELECT
+            *
+        FROM
+            sys_region
+         WHERE
+            code = #{code}
+    </select>
+
 
 </mapper>

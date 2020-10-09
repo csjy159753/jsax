@@ -18,4 +18,6 @@ import java.util.List;
  */
 public interface IFileStoreService extends IService<FileStore> {
     List<FileStoreDto> upLoadFiles(MultipartFile[] files, List<FileStoreType> listFileStoreTypefilter);
+
+    FileStore ListById(String id);
 }

@@ -167,6 +167,13 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
         return list;
     }
 
+    public FileStore ListById(String id) {
+
+        FileStore fileStoreList = fileStoreMapper.ListById(id);
+
+        return fileStoreList;
+    }
+
     /**
      * 图片压缩处理方法
      *
