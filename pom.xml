@@ -55,6 +55,10 @@
                     <artifactId>asm</artifactId>
                     <groupId>org.ow2.asm</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>junit-jupiter</artifactId>
+                    <groupId>org.junit.jupiter</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -70,22 +74,6 @@
                 <exclusion>
                     <artifactId>commons-logging</artifactId>
                     <groupId>commons-logging</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--视频接口-->
-        <dependency>
-            <groupId>com.hikvision.ga</groupId>
-            <artifactId>artemis-http-client</artifactId>
-            <version>1.1.2</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>httpclient</artifactId>
-                    <groupId>org.apache.httpcomponents</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -158,6 +146,12 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.10</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -185,6 +179,12 @@
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
             <version>3.4.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -251,6 +251,12 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>4.1.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -305,6 +311,12 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>4.1.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
