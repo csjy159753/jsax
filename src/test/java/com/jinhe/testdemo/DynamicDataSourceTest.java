@@ -42,7 +42,6 @@ public class DynamicDataSourceTest {
         SysLog log = new SysLog();
         log.setId("aaaa");
         log.setApplication("测试");
-        log.setLevel("2");
         log.setUserName("ces");
 
         boolean b1 = dataSourceTestService.insertLog1(log);
@@ -76,10 +75,7 @@ public class DynamicDataSourceTest {
         SysLog log = new SysLog();
         log.setId("111");
         log.setApplication("测试");
-        log.setLevel("2");
         log.setUserName("ces");
-        log.setCreateTime(LocalDateTime.now());
-
 //        boolean b1 = dataSourceTestService.insertLog1(log);
 //        System.out.println("---------------------------------------" + b1);
 //        SysLog sysLog11= dataSourceTestService.queryLog(111L);
