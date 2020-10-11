@@ -1,14 +1,19 @@
 package com.jinhe.modules.demo.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jinhe.modules.demo.dto.DStudentDto;
 import com.jinhe.modules.demo.entity.DStudent;
 import com.jinhe.modules.demo.dao.DStudentMapper;
 import com.jinhe.modules.demo.service.IDStudentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jinhe.modules.system.entity.SysLog;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author rls
@@ -17,4 +22,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class DStudentServiceImpl extends ServiceImpl<DStudentMapper, DStudent> implements IDStudentService {
 
+    @Autowired
+    private DStudentMapper dStudentMapper;
+
+    @Override
+    public IPage<DStudent> getListbyName(Page page, String name) {
+        return dStudentMapper.getListbyName(page,name);
+    }
+
+    @Override
+    public IPage<DStudentDto> ListDly(Page page, String name) {
+        return dStudentMapper.ListDly(page,name);
+    }
 }
