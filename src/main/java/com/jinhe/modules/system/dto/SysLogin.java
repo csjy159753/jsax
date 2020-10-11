@@ -16,7 +16,7 @@ public class SysLogin {
     /**
      * 密码
      */
-    @ApiModelProperty(value="密码",name="passWord",example="123")
+    @ApiModelProperty(value="密码",name="passWord",example="MmViNjNlMmQ2MmZjMGU2NGRiNWIxMjA4ODViODI2MjE=")
     private String passWord;
 
 
