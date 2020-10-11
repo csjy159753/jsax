@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author rls
@@ -19,5 +19,29 @@ import java.util.List;
  */
 public interface ISysLog2Service extends IService<SysLog> {
     IPage<SysLog> selectPageVo(Page<SysLog> page, SysLog sysLog);
+
     List<TreeNode> selectSysRoleVo(HashMap map);
+
+    /**
+     * 查询所有用户
+     *
+     * @return
+     */
+    List<SysLog> listAll();
+
+    /**
+     * 查询单个用户
+     *
+     * @param id
+     * @return
+     */
+    SysLog getOneC(String id);
+
+    /**
+     * 根据id进行删
+     *
+     * @param id
+     * @return
+     */
+    Boolean DelById(String id);
 }
