@@ -11,6 +11,7 @@ import com.jinhe.modules.demo.dto.DStudentDto;
 import com.jinhe.modules.demo.entity.DStudent;
 import com.jinhe.modules.demo.service.IDStudentService;
 import com.jinhe.modules.system.entity.SysLog;
+import com.jinhe.modules.system.service.ISysLog2Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class DStudentController {
 
     @Autowired
     private IDStudentService idStudentService;
+    @Autowired
+    private ISysLog2Service iSysLog2Service;
 
     /**
      * 插叙列表
@@ -62,6 +65,17 @@ public class DStudentController {
         IPage<DStudent> pageData = idStudentService.getListbyName(page, name);
         return ResultUtil.success(pageData);
     }
+
+    /**
+     * 插叙列表
+     */
+    @ApiOperation(value = "List分页测试")
+    @RequestMapping(value = "ListDlyCa", method = RequestMethod.GET)
+    @com.jinhe.common.annotation.SysLog(value = "list")
+    public Result ListDly() {
+        return ResultUtil.success(iSysLog2Service.listAll());
+    }
+
     /**
      * 插叙列表
      */
