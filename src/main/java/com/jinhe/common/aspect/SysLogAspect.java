@@ -28,7 +28,6 @@ import java.util.List;
  */
 @Aspect
 @Component
-@Order(20000)
 public class SysLogAspect {
     /**
      *

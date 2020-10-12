@@ -57,7 +57,7 @@ public class DStudentController {
      */
     @ApiOperation(value = "List分页测试")
     @RequestMapping(value = "ListC", method = RequestMethod.GET)
-    @com.jinhe.common.annotation.SysLog(value = "list")
+    @com.jinhe.common.annotation.SysLog(value = "ListC")
     public Result ListC(PageFilter filter, String name) {
 
         Page page = new Page(filter.getStart(), filter.getLength());
@@ -71,7 +71,7 @@ public class DStudentController {
      */
     @ApiOperation(value = "List分页测试")
     @RequestMapping(value = "ListDlyCa", method = RequestMethod.GET)
-    @com.jinhe.common.annotation.SysLog(value = "list")
+    @com.jinhe.common.annotation.SysLog(value = "ListDlyCa")
     public Result ListDly() {
         return ResultUtil.success(iSysLog2Service.listAll());
     }
@@ -81,7 +81,7 @@ public class DStudentController {
      */
     @ApiOperation(value = "List分页测试")
     @RequestMapping(value = "ListDly", method = RequestMethod.GET)
-    @com.jinhe.common.annotation.SysLog(value = "list")
+    @com.jinhe.common.annotation.SysLog(value = "ListDly")
     public Result ListDly(PageFilter filter, String name) {
 
         Page page = new Page(filter.getStart(), filter.getLength());
