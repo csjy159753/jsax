@@ -56,7 +56,7 @@ public class SysLoginController {
         }
         if(SysUser.getLockOutTime()!=null)
         {
-            if(SysUser.getLockOutTime().getTime()>new Date().getTime())
+            if(SysUser.getLockOutTime().getTime()>System.currentTimeMillis())
             {
                 return ResultUtil.error(-1,"登录失败次数过多，请稍后重试");
             }
