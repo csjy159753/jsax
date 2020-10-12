@@ -39,6 +39,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                     || uri.equals(property.getContextPath() + "/")
                     || uri.equals(property.getContextPath() + "/error")
                     || uri.equals(property.getContextPath() + "/csrf")
+                    || uri.equals(property.getContextPath() + "/index.html")
+                    || uri.equals(property.getContextPath() + "/#/")
             ) {
                 return true;
             }

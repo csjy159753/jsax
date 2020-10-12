@@ -42,4 +42,9 @@ public class DStudentServiceImpl extends ServiceImpl<DStudentMapper, DStudent> i
     public IPage<DStudentDto> getListDly2(Page page, List<String> ids) {
         return dStudentMapper.getListDly2(page,ids);
     }
+
+    @Override
+    public IPage<DStudentDto> getListScore(Page page, int score) {
+        return dStudentMapper.getListScore(page,score);
+    }
 }

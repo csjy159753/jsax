@@ -109,5 +109,17 @@ public class DStudentController {
         IPage<DStudentDto> pageData = idStudentService.getListDly2(page, ids);
         return ResultUtil.success(pageData);
     }
+    /**
+     * 插叙列表
+     */
+    @ApiOperation(value = "List分页测试")
+    @RequestMapping(value = "getListScore", method = RequestMethod.GET)
+    @com.jinhe.common.annotation.SysLog(value = "getListScore")
+    public Result getListScore(PageFilter filter,int score) {
+
+        Page page = new Page(filter.getStart(), filter.getLength());
+        IPage<DStudentDto> pageData = idStudentService.getListScore(page, score);
+        return ResultUtil.success(pageData);
+    }
 }
 

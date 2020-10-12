@@ -39,4 +39,6 @@ public interface DStudentMapper extends BaseMapper<DStudent> {
      * @return
      */
     IPage<DStudentDto> getListDly2(Page page, List<String> ids);
+
+    IPage<DStudentDto> getListScore(Page page, int score);
 }

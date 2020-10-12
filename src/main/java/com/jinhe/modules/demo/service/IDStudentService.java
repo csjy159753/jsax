@@ -24,4 +24,6 @@ public interface IDStudentService extends IService<DStudent> {
     IPage<DStudentDto> listDly(Page page, String name);
 
     IPage<DStudentDto> getListDly2(Page page, List<String> ids);
+
+    IPage<DStudentDto> getListScore(Page page, int score);
 }

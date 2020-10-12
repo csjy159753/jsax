@@ -34,8 +34,11 @@
         FROM
         d_student
         <where>
+            <!--            <if test="name !=null and name!=''">-->
+            <!--                and NAME = #{name}-->
+            <!--            </if>-->
             <if test="name !=null and name!=''">
-                and NAME = #{name}
+                and NAME like CONCAT('%',#{name},'%')
             </if>
         </where>
         GROUP BY
@@ -58,6 +61,25 @@
                 <foreach collection="ids" item="id" open="(" close=")" separator=",">
                     #{id}
                 </foreach>
+            </if>
+        </where>
+        GROUP BY
+        d_student.`name`
+    </select>
+    <select id="getListScore" resultType="com.jinhe.modules.demo.dto.DStudentDto">
+        SELECT NAME ,
+        group_concat(
+        DISTINCT
+        CASE
+        WHEN d_student.id IS NOT NULL THEN
+        ( concat( d_student.id, '_', d_student.`subject`, '_', d_student.score ) ) ELSE ''
+        END
+        ) AS item
+        FROM
+        d_student
+        <where>
+            <if test="ids !=null and ids.size>0">
+                and score <![CDATA[ >= ]]> #{score}
             </if>
         </where>
         GROUP BY
