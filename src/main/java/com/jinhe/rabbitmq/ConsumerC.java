@@ -12,6 +12,6 @@ public class ConsumerC {
     //@RabbitListener(queues = "cord", containerFactory="myFactory")
     public void processMessage(String msg) {
         System.out.format("Receiving Messages: -----[%s]----- \n.", msg);
-        logger.info("Receiving messages: -----[%s]----- \n.", msg);
+        logger.info(String.format("Receiving messages: -----[%s]----- \n.", msg));
     }
 }
