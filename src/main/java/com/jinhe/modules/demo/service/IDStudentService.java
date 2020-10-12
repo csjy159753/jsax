@@ -7,6 +7,8 @@ import com.jinhe.modules.demo.entity.DStudent;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jinhe.modules.system.entity.SysLog;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -17,7 +19,9 @@ import com.jinhe.modules.system.entity.SysLog;
  */
 public interface IDStudentService extends IService<DStudent> {
 
-    IPage<DStudent> getListbyName(Page page, String name);
+    IPage<DStudent> getlistbyName(Page page, String name);
 
-    IPage<DStudentDto> ListDly(Page page, String name);
+    IPage<DStudentDto> listDly(Page page, String name);
+
+    IPage<DStudentDto> getListDly2(Page page, List<String> ids);
 }

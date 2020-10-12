@@ -8,8 +8,11 @@ import com.jinhe.modules.demo.dao.DStudentMapper;
 import com.jinhe.modules.demo.service.IDStudentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinhe.modules.system.entity.SysLog;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -26,12 +29,17 @@ public class DStudentServiceImpl extends ServiceImpl<DStudentMapper, DStudent> i
     private DStudentMapper dStudentMapper;
 
     @Override
-    public IPage<DStudent> getListbyName(Page page, String name) {
+    public IPage<DStudent> getlistbyName(Page page, String name) {
         return dStudentMapper.getListbyName(page,name);
     }
 
     @Override
-    public IPage<DStudentDto> ListDly(Page page, String name) {
-        return dStudentMapper.ListDly(page,name);
+    public IPage<DStudentDto> listDly(Page page, String name) {
+        return dStudentMapper.getListDly1(page,name);
+    }
+
+    @Override
+    public IPage<DStudentDto> getListDly2(Page page, List<String> ids) {
+        return dStudentMapper.getListDly2(page,ids);
     }
 }

@@ -5,7 +5,7 @@
     <select id="getListbyName" resultType="com.jinhe.modules.demo.entity.DStudent">
         SELECT * from d_student where name=#{name}
     </select>
-    <select id="ListDly" resultType="com.jinhe.modules.demo.dto.DStudentDto">
+    <select id="listDly" resultType="com.jinhe.modules.demo.dto.DStudentDto">
         SELECT NAME ,
             group_concat(
             DISTINCT
@@ -21,5 +21,46 @@
                 NAME = #{name}
         GROUP BY
             d_student.`name`
+    </select>
+    <select id="getListDly1" resultType="com.jinhe.modules.demo.dto.DStudentDto">
+        SELECT NAME ,
+        group_concat(
+        DISTINCT
+        CASE
+        WHEN d_student.id IS NOT NULL THEN
+        ( concat( d_student.id, '_', d_student.`subject`, '_', d_student.score ) ) ELSE ''
+        END
+        ) AS item
+        FROM
+        d_student
+        <where>
+            <if test="name !=null and name!=''">
+                and NAME = #{name}
+            </if>
+        </where>
+        GROUP BY
+        d_student.`name`
+    </select>
+    <select id="getListDly2" resultType="com.jinhe.modules.demo.dto.DStudentDto">
+        SELECT NAME ,
+        group_concat(
+        DISTINCT
+        CASE
+        WHEN d_student.id IS NOT NULL THEN
+        ( concat( d_student.id, '_', d_student.`subject`, '_', d_student.score ) ) ELSE ''
+        END
+        ) AS item
+        FROM
+        d_student
+        <where>
+            <if test="ids !=null and ids.size>0">
+                and id in
+                <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        GROUP BY
+        d_student.`name`
     </select>
 </mapper>
