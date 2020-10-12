@@ -45,7 +45,8 @@ public class SystemLogAspect {
 		Object result = jp.proceed();
 		// 执行时长(毫秒)
 		long time = System.currentTimeMillis() - beginTime;
-
+		// 保存日志
+		saveSysLog(jp, time);
 		logger.info("方法耗时:"+time);
 		logger.info("----------------------------------------------------------");
 		return result;
@@ -69,8 +70,6 @@ public class SystemLogAspect {
 				liststr.add("参数名：" + parameterNames[i] + " = " + args[i]);
 			}
 			System.out.println("---------------参数列表结束-------------------------");
-			SysLogTest sysLog = (SysLogTest) method.getAnnotation(SysLogTest.class);
-			System.out.println("自定义注解 key:" + sysLog.value());
 			Class cla = method.getClass();
 			this.rabbitTemplate.convertAndSend("exchange", "topic.messages", StringUtils.join(liststr, ","));
 
