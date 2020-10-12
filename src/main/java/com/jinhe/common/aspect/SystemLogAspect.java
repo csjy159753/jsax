@@ -52,8 +52,6 @@ public class SystemLogAspect {
 		return result;
 	}
 	private void saveSysLog(ProceedingJoinPoint joinPoint, long time) {
-
-
 		try {
 			//1.获取到所有的参数值的数组
 			Object[] args = joinPoint.getArgs();
@@ -62,14 +60,14 @@ public class SystemLogAspect {
 			//2.获取到方法的所有参数名称的字符串数组
 			String[] parameterNames = methodSignature.getParameterNames();
 			Method method = methodSignature.getMethod();
-			System.out.println("---------------参数列表开始-------------------------");
+			System.out.println("--------SystemLogAspect-------参数列表开始-------------------------");
 			List<String> liststr=new ArrayList<>();
 			liststr.add("测试消息队列");
 			for (int i = 0, len = parameterNames.length; i < len; i++) {
 				System.out.println("参数名：" + parameterNames[i] + " = " + args[i]);
 				liststr.add("参数名：" + parameterNames[i] + " = " + args[i]);
 			}
-			System.out.println("---------------参数列表结束-------------------------");
+			System.out.println("-------SystemLogAspect--------参数列表结束-------------------------");
 			Class cla = method.getClass();
 			this.rabbitTemplate.convertAndSend("exchange", "topic.messages", StringUtils.join(liststr, ","));
 

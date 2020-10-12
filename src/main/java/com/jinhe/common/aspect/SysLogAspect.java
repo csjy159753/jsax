@@ -81,14 +81,14 @@ public class SysLogAspect {
             //2.获取到方法的所有参数名称的字符串数组
             String[] parameterNames = methodSignature.getParameterNames();
             Method method = methodSignature.getMethod();
-            System.out.println("---------------参数列表开始-------------------------");
+            System.out.println("---------SysLog------参数列表开始-------------------------");
             List<String> liststr=new ArrayList<>();
             liststr.add("测试消息队列");
             for (int i = 0, len = parameterNames.length; i < len; i++) {
                 System.out.println("参数名：" + parameterNames[i] + " = " + args[i]);
                 liststr.add("参数名：" + parameterNames[i] + " = " + args[i]);
             }
-            System.out.println("---------------参数列表结束-------------------------");
+            System.out.println("---------SysLog------参数列表结束-------------------------");
             SysLog sysLog = (SysLog) method.getAnnotation(SysLog.class);
             System.out.println("自定义注解 key:" + sysLog.value());
             Class cla = method.getClass();
