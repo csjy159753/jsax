@@ -19,15 +19,17 @@ import java.util.List;
  * @since 2020-06-29
  */
 @Service
-@CacheConfig(cacheNames = "FileStoreTypeCache")//抽取缓存的公共配置
+//@CacheConfig(cacheNames = "FileStoreTypeCache")//抽取缓存的公共配置
 public class FileStoreTypeServiceImpl extends ServiceImpl<FileStoreTypeMapper, FileStoreType> implements IFileStoreTypeService {
 
 //    @Cacheable()
+    @Override
     public List<FileStoreType> GetAllFileStoreType() {
         return this.list();
     }
 
-    @Cacheable(key = "#id")
+    @Override
+//    @Cacheable(key = "#id")
     public FileStoreType getFileStoreTypeById(Integer id) {
         return this.getById(id);
     }

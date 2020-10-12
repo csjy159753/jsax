@@ -16,6 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("forward:/views/default");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor).addPathPatterns("/**").excludePathPatterns("/resources/**",
                 "/main/uscc/**", "/lang/**", "/**/js/**", "/**/css/**", "/**/*.xml", "/**/bootstrap/**", "/**/plugins/**",
