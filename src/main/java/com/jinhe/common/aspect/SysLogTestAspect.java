@@ -26,7 +26,6 @@ import java.util.List;
  */
 @Aspect
 @Component
-@Order(30000)
 public class SysLogTestAspect {
     //记录器
     Logger logger = LoggerFactory.getLogger(getClass());
