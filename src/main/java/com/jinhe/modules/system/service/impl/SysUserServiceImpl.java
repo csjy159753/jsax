@@ -152,6 +152,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     //根据id查询
+    @Override
     public SysUser selectById(String id) {
         return sysUserMapper.selectById(id);
     }
