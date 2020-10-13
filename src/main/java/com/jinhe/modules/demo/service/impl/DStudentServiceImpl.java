@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,26 +26,32 @@ import java.util.List;
 @Service
 public class DStudentServiceImpl extends ServiceImpl<DStudentMapper, DStudent> implements IDStudentService {
 
-    @Autowired
+    @Resource
     private DStudentMapper dStudentMapper;
 
+
     @Override
-    public IPage<DStudent> getlistbyName(Page page, String name) {
-        return dStudentMapper.getListbyName(page,name);
+    public IPage<DStudent> getListbyName(Page page, String name) {
+        return dStudentMapper.getListbyName(page, name);
     }
 
     @Override
     public IPage<DStudentDto> listDly(Page page, String name) {
-        return dStudentMapper.getListDly1(page,name);
+        return dStudentMapper.getListDly1(page, name);
+    }
+
+    @Override
+    public IPage<DStudentDto> getListDly1(Page page, String name) {
+        return null;
     }
 
     @Override
     public IPage<DStudentDto> getListDly2(Page page, List<String> ids) {
-        return dStudentMapper.getListDly2(page,ids);
+        return dStudentMapper.getListDly2(page, ids);
     }
 
     @Override
     public IPage<DStudentDto> getListScore(Page page, int score) {
-        return dStudentMapper.getListScore(page,score);
+        return dStudentMapper.getListScore(page, score);
     }
 }

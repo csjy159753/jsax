@@ -19,10 +19,24 @@ import java.util.List;
  */
 public interface IDStudentService extends IService<DStudent> {
 
-    IPage<DStudent> getlistbyName(Page page, String name);
+    IPage<DStudent> getListbyName(Page page, String name);
+
 
     IPage<DStudentDto> listDly(Page page, String name);
 
+    /**
+     * @param page
+     * @param name
+     * @return
+     */
+    IPage<DStudentDto> getListDly1(Page page, String name);
+
+    /**
+     * 测试使用方式
+     * @param page
+     * @param ids
+     * @return
+     */
     IPage<DStudentDto> getListDly2(Page page, List<String> ids);
 
     IPage<DStudentDto> getListScore(Page page, int score);

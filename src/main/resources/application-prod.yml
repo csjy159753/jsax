@@ -49,6 +49,12 @@ spring:
       web-stat-filter:
         enabled: true
         exclusions: "/error*,*.html,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/v2/api-docs,/swagger*"
+  rabbitmq:
+    #http://124.70.222.76:15672/#/
+    host: 124.70.222.76
+    port: 5672
+    username: admin
+    password: Mas@12345
 file:
   root:
     #水印
