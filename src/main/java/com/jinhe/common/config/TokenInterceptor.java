@@ -24,23 +24,26 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws SignatureException {
         /** 地址过滤 */
         String uri = request.getRequestURI();
-        if (uri.contains("/allowApi/SysLogin/Login")) {
+        if (uri.contains("/allowApi/SysLogin/Login")
+                || uri.contains("/resources/")
+                || uri.contains("/download/")
+                || uri.contains("/update/")
+                || uri.contains("/upload/")
+                || uri.equals(property.getContextPath() + "/index.html")
+                || uri.equals(property.getContextPath() + "/#/")
+                || uri.equals(property.getContextPath() + "/#")
+        ) {
             return true;
         }
         if (!property.getSpringProfilesActive().equals("prod")) {
             if (uri.contains("/swagger") || true
-                    || uri.contains("/resources/")
-                    || uri.contains("/download/")
-                    || uri.contains("/update/")
-                    || uri.contains("/upload/")
                     || uri.contains("/webjars/")
                     || uri.contains("/swagger-resources/")
                     || uri.contains("/v2/")
                     || uri.equals(property.getContextPath() + "/")
                     || uri.equals(property.getContextPath() + "/error")
                     || uri.equals(property.getContextPath() + "/csrf")
-                    || uri.equals(property.getContextPath() + "/index.html")
-                    || uri.equals(property.getContextPath() + "/#/")
+
             ) {
                 return true;
             }
