@@ -14,15 +14,5 @@ public class JobService {
     @Scheduled(cron = "0/3 * * * * ?")
     public void updateRecords() {
        Date date=new Date();
-
-
-
-
-
-
-
-
-
-
     }
 }
