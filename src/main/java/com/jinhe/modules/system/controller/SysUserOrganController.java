@@ -35,35 +35,35 @@ public class SysUserOrganController {
      * @return
      */
     @ApiOperation(value = "添加列表", notes = "添加列表")
-    @RequestMapping(value = "/AddList", method = RequestMethod.POST)
-    @SysLog(value = "AddList")
-    public Result AddList(@RequestBody List<SysUserOrgan> organs) {
+    @RequestMapping(value = "/addList", method = RequestMethod.POST)
+    @SysLog(value = "addList")
+    public Result addList(@RequestBody List<SysUserOrgan> organs) {
         try {
             sysUserOrganService.insertUserOrgan(organs);
         } catch (Exception e) {
-            logger.error("AddList", e.getMessage());
+            logger.error("addList", e.getMessage());
             return ResultUtil.error(ResultEnum.PARAMETER_ERROR);
         }
         return ResultUtil.success();
     }
 
     @ApiOperation(value = "添加机构", notes = "添加机构")
-    @RequestMapping(value = "/AddOrgan", method = RequestMethod.POST)
-    @SysLog(value = "AddOrgan")
-    public Result AddOrgan(@RequestBody SysOrgan organ) {
+    @RequestMapping(value = "/addOrgan", method = RequestMethod.POST)
+    @SysLog(value = "addOrgan")
+    public Result addOrgan(@RequestBody SysOrgan organ) {
         try {
             sysOrganService.getBaseMapper().insert(organ);
         } catch (Exception e) {
-            logger.error("AddOrgan", e.getMessage());
+            logger.error("addOrgan", e.getMessage());
             return ResultUtil.error(ResultEnum.PARAMETER_ERROR);
         }
         return ResultUtil.success();
     }
 
     @ApiOperation(value = "新增中间表", notes = "新增中间表")
-    @RequestMapping(value = "/Add", method = RequestMethod.POST)
-    @SysLog(value = "Add")
-    public Result Add(@RequestBody SysUserOrgan organ) {
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @SysLog(value = "add")
+    public Result add(@RequestBody SysUserOrgan organ) {
         try {
             sysUserOrganService.getBaseMapper().insert(organ);
         } catch (Exception e) {
@@ -74,9 +74,9 @@ public class SysUserOrganController {
     }
 
     @ApiOperation(value = "删除", notes = "删除")
-    @RequestMapping(value = "/Delete/{id}", method = RequestMethod.DELETE)
-    @SysLog(value = "Delete/{id}")
-    public Result Delete(@PathVariable String id) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @SysLog(value = "delete/{id}")
+    public Result delete(@PathVariable String id) {
         try {
             sysUserOrganService.removeById(id);
         } catch (Exception e) {
@@ -87,14 +87,14 @@ public class SysUserOrganController {
     }
 
     @ApiOperation(value = "查找", notes = "查找")
-    @RequestMapping(value = "/Get/{id}", method = RequestMethod.GET)
-    @SysLog(value = "Get/{id}")
-    public Result Get(@PathVariable String id) {
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @SysLog(value = "get/{id}")
+    public Result get(@PathVariable String id) {
         SysUserOrgan userOrgan;
         try {
             userOrgan = sysUserOrganService.getBaseMapper().selectById(id);
         } catch (Exception e) {
-            logger.error("Get", e.getMessage());
+            logger.error("get", e.getMessage());
             return ResultUtil.error(ResultEnum.PARAMETER_ERROR);
         }
         return ResultUtil.success(userOrgan);

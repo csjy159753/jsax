@@ -34,7 +34,9 @@ import javax.annotation.Resource;
 @Api(description = "角色操作", tags = "system-SysRole")
 public class SysRoleController {
 
-    //记录器
+    /**
+     * 记录器
+     */
     Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private ISysRoleService sysRoleService;
@@ -45,8 +47,8 @@ public class SysRoleController {
      * @return
      */
     @ApiOperation(value = "查询角色列表", notes = "查询角色列表")
-    @RequestMapping(value = "List/{id}", method = RequestMethod.GET)
-    public Result List(@PathVariable String id, PageFilter filter, @RequestParam(required = false) String roleId) {
+    @RequestMapping(value = "list/{id}", method = RequestMethod.GET)
+    public Result list(@PathVariable String id, PageFilter filter, @RequestParam(required = false) String roleId) {
         IPage<SysRole> sysRole;
         try {
             Page page = new Page(filter.getStart(), filter.getLength());
@@ -77,30 +79,12 @@ public class SysRoleController {
     }
 
     /**
-     * 更新角色
-     *
-     * @return
-     */
-    /*@ApiOperation(value = "更新角色", notes = "更新角色")
-    @RequestMapping(value = "/UpdateRole", method = RequestMethod.PUT)
-    @SysLog(value = "测试注解日志切面更新角色")
-    public Result updaRole(@RequestBody SysRole sysRole) {
-        try {
-            sysRoleService.getBaseMapper().updateById(sysRole);
-        } catch (Exception e) {
-            logger.error("UpdateRole", e.getMessage());
-            return ResultUtil.error(ResultEnum.OBSOLETE);
-        }
-        return ResultUtil.success();
-    }*/
-
-    /**
      * 删除角色
      *
      * @return
      */
     @ApiOperation(value = "删除角色", notes = "删除角色")
-    @RequestMapping(value = "/DeleteRole/{userId}/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteRole/{userId}/{id}", method = RequestMethod.DELETE)
     @SysLog(value = "测试注解日志切面删除角色")
     public Result deleteRole(@PathVariable String userId, @PathVariable String id) {
         SysRole sysRole;

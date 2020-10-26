@@ -28,7 +28,8 @@ public class JwtConfig {
     public String createToken(String subject) {
 
         Date nowDate = new Date();
-        Date expireDate = new Date(nowDate.getTime() + expire * 3000);//过期时间
+        //过期时间
+        Date expireDate = new Date(nowDate.getTime() + expire * 3000);
 
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
@@ -48,7 +49,8 @@ public class JwtConfig {
     public String createToken(String subject, Integer expireTime) {
 
         Date nowDate = new Date();
-        Date expireDate = new Date(nowDate.getTime() + expire * expireTime);//过期时间
+        //过期时间
+        Date expireDate = new Date(nowDate.getTime() + expire * expireTime);
 
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")

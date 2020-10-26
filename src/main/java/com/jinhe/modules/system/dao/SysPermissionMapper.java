@@ -17,7 +17,6 @@ import java.util.List;
  */
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
-    boolean addByUserId(List<SysPermission> sysPers);
 
     boolean addByOrganId(List<SysPermission> sysPer);
 
@@ -35,5 +34,4 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
     void deleteByRoleId(String roleId);
 
-    void deleteByOrganId(String organId);
 }

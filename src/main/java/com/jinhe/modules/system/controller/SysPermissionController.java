@@ -9,6 +9,7 @@ import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.modules.system.entity.PermissionItem;
 import com.jinhe.modules.system.entity.SysPermission;
 import com.jinhe.modules.system.service.ISysPermissionService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,62 +33,31 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api/SysPermission")
 @Api(description = "权限", tags = "system-SysPermission")
-public class
-SysPermissionController {
+@Slf4j
+public class SysPermissionController {
 
-    //记录器
-    Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private ISysPermissionService iSysPer;
 
-    /**
-     * 用户新增权限
-     **/
-    @ApiOperation(value = "用户新增权限", notes = "用户新增权限")
-    @RequestMapping(value = "AddByUser/{userId}", method = RequestMethod.POST)
-    @SysLog(value = "AddByUser/{userId}")
-    public Result addByUserId(@PathVariable String userId, @RequestParam List<String> resourceIds) {
-        try {
-            iSysPer.addByUserId(userId, resourceIds);
-        } catch (Exception e) {
-            logger.error("AddByUser", e.getMessage());
-            return ResultUtil.error(ResultEnum.USER_INSERT_PERMISSION_ERROR);
-        }
-        return ResultUtil.success();
-    }
-
-    /**
-     * 机构新增权限
-     **/
-    @ApiOperation(value = "机构新增权限", notes = "机构新增权限")
-    @RequestMapping(value = "AddByOrgan/{organId}", method = RequestMethod.POST)
-    @SysLog(value = "AddByOrgan/{organId}")
-    public Result addByOrganId(@PathVariable String organId, @RequestBody List<PermissionItem> permissionItem) {
-
-        boolean flags = false;
-        iSysPer.deleteByOrganId(organId);
-        if (permissionItem != null && permissionItem.size() != 0 && !permissionItem.isEmpty())
-            flags = iSysPer.addByOrganId(organId, permissionItem);
-        else flags = true;
-        if (flags == false) return ResultUtil.error(ResultEnum.ORGAN_INSERT_PERMISSIONS);
-        return ResultUtil.success(flags);
-    }
 
     /**
      * 角色新增权限
      **/
     @ApiOperation(value = "角色新增权限", notes = "角色新增权限")
-    @RequestMapping(value = "AddByRoleId/{roleId}", method = RequestMethod.POST)
-    @SysLog(value = "AddByRoleId/{roleId}")
-    @Transactional
+    @RequestMapping(value = "addByRoleId/{roleId}", method = RequestMethod.POST)
+    @SysLog(value = "addByRoleId/{roleId}")
     public Result addByRoleId(@PathVariable String roleId, @RequestBody List<PermissionItem> permissionItem) {
         boolean flags = false;
         iSysPer.deleteByRoleId(roleId);
-        if (permissionItem != null && permissionItem.size() != 0 && !permissionItem.isEmpty())
+        if (permissionItem != null && permissionItem.size() != 0 && !permissionItem.isEmpty()) {
             flags = iSysPer.addByRoleId(roleId, permissionItem);
-        else flags = true;
-        if (flags == false) return ResultUtil.error(ResultEnum.ROLE_INSERT_PERMISSIONS);
-        return ResultUtil.success(flags);
+        } else {
+            flags = true;
+        }
+        if (flags == false) {
+            return ResultUtil.error(ResultEnum.ROLE_INSERT_PERMISSIONS);
+        }
+        return ResultUtil.success(true);
     }
 
     /**
@@ -128,7 +98,7 @@ SysPermissionController {
         try {
             iSysPer.saveOrUpdate(sysPer);
         } catch (Exception e) {
-            logger.error("saveOrUpdate", e.getMessage());
+            log.error("saveOrUpdate", e.getMessage());
             return ResultUtil.error(ResultEnum.NETWORK_ERROR);
         }
         return ResultUtil.success();
@@ -145,7 +115,7 @@ SysPermissionController {
         try {
             sysPermission = iSysPer.getBaseMapper().selectById(id);
         } catch (Exception e) {
-            logger.error("Get", e.getMessage());
+            log.error("Get", e.getMessage());
             return ResultUtil.error(ResultEnum.PERMISSION_NOT_FOUND);
         }
         return ResultUtil.success(sysPermission);
@@ -155,8 +125,8 @@ SysPermissionController {
      * 根据Id删除权限
      **/
     @ApiOperation(value = "根据Id删除权限", notes = "根据Id删除权限")
-    @RequestMapping(value = "Delete/{id}", method = RequestMethod.DELETE)
-    @SysLog(value = "Delete/{id}")
+    @RequestMapping(value = "deleteById/{id}", method = RequestMethod.DELETE)
+    @SysLog(value = "deleteById/{id}")
     public Result deleteById(@PathVariable String id) {
         SysPermission sysPermission;
         QueryWrapper<SysPermission> sysPermissionQueryWrapper = new QueryWrapper<>();
@@ -174,7 +144,7 @@ SysPermissionController {
 
             iSysPer.removeById(id);
         } catch (Exception e) {
-            logger.error("Delete", e.getMessage());
+            log.error("Delete", e.getMessage());
             return ResultUtil.error(ResultEnum.PARAMETER_ERROR);
         }
         return ResultUtil.success();

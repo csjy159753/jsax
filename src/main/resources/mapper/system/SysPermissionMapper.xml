@@ -3,14 +3,6 @@
 <mapper namespace="com.jinhe.modules.system.dao.SysPermissionMapper">
 
 
-    <insert id="addByUserId">
-        insert into sys_permission (id, user_id, resource_id)
-        <foreach collection="list" item="sysPer" separator="UNION">
-            select
-            #{sysPer.id},#{sysPer.userId}, #{sysPer.resourceId}
-            from dual
-        </foreach>
-    </insert>
     <insert id="addByOrganId">
         insert into sys_permission (id, orgion_id, resource_id, ITEM_IDS)
         <foreach collection="list" item="sysPer" separator="UNION">
@@ -74,11 +66,6 @@
         WHERE
             ROLE_ID = #{roleId}
     </delete>
-    <delete id="deleteByOrganId">
-        DELETE FROM
-            SYS_PERMISSION
-        WHERE
-            ORGION_ID = #{organId}
-    </delete>
+
 
 </mapper>

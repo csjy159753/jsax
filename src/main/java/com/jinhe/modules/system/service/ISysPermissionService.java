@@ -17,10 +17,6 @@ import java.util.List;
  */
 public interface ISysPermissionService extends IService<SysPermission> {
 
-    boolean addByUserId(String userId, List<String> resourceIds);
-
-    boolean addByOrganId(String orgionId, List<PermissionItem> PermissionItem);
-
     boolean addByRoleId(String roleId, List<PermissionItem> permissionItem);
 
     List<TreeNode> listByOrganId(String orgionId);
@@ -31,9 +27,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
 
     SysPermission getById(String id);
 
-    Integer deleteById(String id);
 
     void deleteByRoleId(String roleId);
 
-    void deleteByOrganId(String organId);
 }

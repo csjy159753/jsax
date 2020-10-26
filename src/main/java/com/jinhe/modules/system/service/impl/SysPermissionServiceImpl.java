@@ -24,47 +24,14 @@ import java.util.*;
  * @since 2020-05-19
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements ISysPermissionService {
     @Autowired
     private SysPermissionMapper sysPerMap;
 
-    @Override
-    public boolean addByUserId(String userId, List<String> resourceIds) {
-        SysPermission sysPer = new SysPermission();
-        List<SysPermission> sysPers = new ArrayList<>();
-        resourceIds.forEach(x -> {
-            String s = UUID.randomUUID().toString().replace("-", "");
-            sysPer.setId(s);
-            sysPer.setUserId(userId);
-            sysPer.setResourceId(x);
-            sysPers.add(sysPer);
-        });
-        boolean flag = sysPerMap.addByUserId(sysPers);
-        return flag;
-    }
 
     @Override
-    @Transactional
-    public boolean addByOrganId(String orgionId, List<PermissionItem> PermissionItem) {
-        sysPerMap.deleteByOrganId(orgionId);
-        List<SysPermission> sysPers = new ArrayList<>();
-        PermissionItem.forEach(x -> {
-            SysPermission sysPer = new SysPermission();
-            String s = UUID.randomUUID().toString().replace("-", "");
-            sysPer.setId(s);
-            sysPer.setOrgionId(orgionId);
-            sysPer.setResourceId(x.getSysPermissionId());
-            sysPer.setItemIds(x.getItemId());
-            sysPer.setUpdateTime(new Date());
-            sysPer.setCreateTime(new Date());
-            sysPers.add(sysPer);
-        });
-        boolean flag = this.saveBatch(sysPers);
-        return flag;
-    }
 
-    @Override
-    @Transactional
     public boolean addByRoleId(String roleId, List<PermissionItem> permissionItem) {
         sysPerMap.deleteByRoleId(roleId);
         List<SysPermission> sysPers = new ArrayList<>();
@@ -130,18 +97,8 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     }
 
     @Override
-    public Integer deleteById(String id) {
-        Integer flags = sysPerMap.deleteById(id);
-        return flags;
-    }
-
-    @Override
     public void deleteByRoleId(String roleId) {
         sysPerMap.deleteByRoleId(roleId);
     }
 
-    @Override
-    public void deleteByOrganId(String organId) {
-        sysPerMap.deleteByOrganId(organId);
-    }
 }
