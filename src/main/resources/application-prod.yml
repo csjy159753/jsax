@@ -3,16 +3,17 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       first:  #数据源1
-        url: jdbc:mysql://124.70.212.38:3306/wzz_project?serverTimezone=UTC&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        url: jdbc:mysql://124.70.212.38:4576/template?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
-        password: "000000"
+        password: "aSj)3j71gTI&"
         driverClassName: com.mysql.cj.jdbc.Driver
-        filters: stat,slf4j
+        filters: stat,slf4j,wall,config
       second:  #数据源2
-        url: jdbc:mysql://124.70.212.38:3306/wzz_project_bak?serverTimezone=UTC&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        url: jdbc:mysql://124.70.212.38:4576/template?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
-        password: "000000"
+        password: "aSj)3j71gTI&"
         driverClassName: com.mysql.cj.jdbc.Driver
+        filters: stat,slf4j,wall,config
       initial-size: 10
       max-active: 100
       min-idle: 10
@@ -35,7 +36,7 @@ spring:
         url-pattern: /druid/*
         enabled: true
         login-username: admin
-        login-password: admin
+        login-password: Mas@12345
       filter:
         stat:
           log-slow-sql: true
@@ -55,6 +56,8 @@ spring:
     port: 5672
     username: admin
     password: Mas@12345
+jinhe:
+  filter: /demo/,/Log/,/api/,/sys/,/system/
 file:
   root:
     #水印
