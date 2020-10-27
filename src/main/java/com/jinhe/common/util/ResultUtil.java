@@ -11,7 +11,7 @@ public class ResultUtil {
      **/
     public static <T> Result success(IPage<T> page) {
         if (page == null) {
-            success();
+            return success();
         }
         Result result = new Result();
         result.setCode(ResultEnum.SUCCESS.getCode());

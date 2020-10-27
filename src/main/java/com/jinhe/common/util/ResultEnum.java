@@ -18,6 +18,7 @@ public enum ResultEnum {
     DATA_FORMAT_ERROR(106, "参数格式不正确"),
     ID_NOT_FIND_INFO(105, "107"),
     ACCOUNT_OR_PASSWORD_ERROR(108, "用户名或密码错误"),
+    DUPLICATE_SUBMIT(109, "表单重复提交"),
     NETWORK_ERROR(19, "新增失败,请检查网络是否正常"),
 
 

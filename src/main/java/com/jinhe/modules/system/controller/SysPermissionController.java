@@ -64,8 +64,8 @@ public class SysPermissionController {
      * 分页查询机构权限(父子级)
      **/
     @ApiOperation(value = "分页查询机构权限（树形结构）", notes = "分页查询机构权限（树形结构）")
-    @RequestMapping(value = "ListByOrganId/{organId}", method = RequestMethod.GET)
-    @SysLog(value = "ListByOrganId/{organId}")
+    @RequestMapping(value = "listByOrganId/{organId}", method = RequestMethod.GET)
+    @SysLog(value = "listByOrganId/{organId}")
     public Result listByOrganId(@PathVariable String organId, PageFilter pagefilter) {
         Page page = new Page(pagefilter.getStart(), pagefilter.getLength());
         List<TreeNode> pagelist = iSysPer.listByOrganId(organId);
@@ -79,8 +79,8 @@ public class SysPermissionController {
      * 分页查询机构权限(父子级)
      **/
     @ApiOperation(value = "分页查询角色权限（树形结构）", notes = "分页查询角色权限（树形结构）")
-    @RequestMapping(value = "ListByRoleId/{roleId}", method = RequestMethod.GET)
-    @SysLog(value = "ListByOrganId/{roleId}")
+    @RequestMapping(value = "listByRoleId/{roleId}", method = RequestMethod.GET)
+    @SysLog(value = "listByRoleId/{roleId}")
     public Result listByRoleId(@PathVariable String roleId, PageFilter pagefilter) {
         Page page = new Page(pagefilter.getStart(), pagefilter.getLength());
         List<TreeNode> pagelist = iSysPer.listByRoleId(roleId);
