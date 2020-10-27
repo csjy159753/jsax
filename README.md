@@ -1,7 +1,7 @@
-# springboot-pay 
+# springboot-Application 
 
 #### 项目介绍 
-####springboot-pay 一个以模版系统demo。 
+####springboot-Application 一个以模版系统demo。 
 
 1. ssm整合完成MybatisPlus逆向 curd。
 2. ssm整合完成MybatisPlus多数据源及事务控制例子。
@@ -25,8 +25,9 @@ springboot2.0、mybatis plus 、mysql redis缓存 rabbitMq druid
 #### 使用说明
 
 1. run Application 应用程序
-2. http://localhost:8098/swagger-ui.html 查看接口说明
+2. http://localhost:8098/swagger-ui/# 查看接口说明
 3. 查看system系统模块功能介绍
+
 
 
 
