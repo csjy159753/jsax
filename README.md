@@ -28,6 +28,15 @@ springboot2.0、mybatis plus 、mysql redis缓存 rabbitMq druid
 2. http://localhost:8098/swagger-ui/# 查看接口说明
 3. 查看system系统模块功能介绍
 
+## 0.0.1版本
+###初始化一个mysql版本
+添加表单重复提交aop验证
+DuplicateSubmitToken
+## 0.0.2版本
+### 修改用户组织机构关系
+采用用户绑定机构 机构绑定菜单权限方式
+
+
 
 
 
