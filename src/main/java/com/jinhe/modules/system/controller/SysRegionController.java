@@ -89,24 +89,6 @@ public class SysRegionController {
     }
 
     /**
-     * 更新行政区
-     *
-     * @return
-     */
-   /* @ApiOperation(value = "更新行政区", notes = "更新行政区")
-    @SysLog(value = "测试注解日志切面更新行政区")
-    @RequestMapping(value = "updateRegion", method = RequestMethod.PUT)
-    public Result updateRegion(@RequestBody SysRegion sysregion) {
-        try {
-            sysRegionService.getBaseMapper().updateById(sysregion);
-        } catch (Exception e) {
-            logger.error("updateRegion", e.getMessage());
-            return ResultUtil.error(ResultEnum.REGION_UPDATE_ERROR);
-        }
-        return ResultUtil.success();
-    }*/
-
-    /**
      * 删除行政区
      *
      * @return

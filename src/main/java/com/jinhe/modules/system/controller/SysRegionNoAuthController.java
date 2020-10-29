@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,9 @@ import java.util.List;
 @Api(description = "行政区(不用授权api)", tags = "noAuthApi-SysRegion")
 public class SysRegionNoAuthController {
 
-    //记录器
+    /**
+     * 记录器
+     */
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
@@ -45,7 +48,7 @@ public class SysRegionNoAuthController {
     @RequestMapping(value = "ListRegion", method = RequestMethod.GET)
     @SysLog(value = "ListRegion")
     public Result regionListTree(@RequestParam(required = false) String code) {
-        List<SysRegionDto> sysRegion;
+        List<SysRegionDto> sysRegion = new ArrayList<>();
         try {
             sysRegion = sysRegionService.selectRegionList(code);
         } catch (Exception e) {

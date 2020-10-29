@@ -34,29 +34,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequestMapping("/api/SysOrgan")
 @Api(description = "机构管理", tags = {"system-SysOrgan"})
 public class SysOrganController {
-    //记录器
+    /**
+     * 记录器
+     */
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
     private ISysOrganService iSysOrganService;
 
-    /**
-     * 查询所有机构（分页）
-     **/
-    @RequestMapping(value = "sys_organ", method = RequestMethod.GET)
-    @ApiOperation(value = "查询所有机构（分页）", notes = "查询所有机构")
-    @SysLog(value = "sys_organ")
-    public Result pageSysOrgan(PageFilter filter) {
-        IPage<SysOrgan> sysOrganIPage;
-        try {
-            Page page = new Page(filter.getStart(), filter.getLength());
-            sysOrganIPage = iSysOrganService.page(page);
-        } catch (Exception e) {
-            logger.error("sys_organ", e.getMessage());
-            return ResultUtil.error(ResultEnum.ORGAN_NOT_FOUND);
-        }
-        return ResultUtil.success(sysOrganIPage);
-    }
+
 
     /**
      * 根据ID查询机构
@@ -82,6 +68,9 @@ public class SysOrganController {
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     @SysLog(value = "saveOrUpdate")
     public Result saveOrUpdate(@RequestBody SysOrgan sysOrgan) {
+        if(sysOrgan.getRegionCode()!=null){
+
+        }
         try {
             iSysOrganService.saveOrUpdate(sysOrgan);
         } catch (Exception e) {
