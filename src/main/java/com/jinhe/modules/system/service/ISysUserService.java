@@ -7,13 +7,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.jinhe.common.util.ResultEnum;
 import com.jinhe.modules.system.entity.SysUser;
 
-import com.jinhe.modules.system.dto.SysUserDto;
+import com.jinhe.modules.system.dto.SysUserDTO;
 import com.jinhe.modules.system.dto.SysUserDtoNew;
-import com.jinhe.modules.system.entity.SysUserOrgan;
-import com.jinhe.modules.system.entity.SysUserRole;
-
-import java.util.HashMap;
-import java.util.List;
 
 
 /**
@@ -27,7 +22,7 @@ import java.util.List;
 public interface ISysUserService extends IService<SysUser> {
 
     //查询用户列表
-    IPage<SysUserDto> selectUserList(Page<SysUserDto> page, String normalizedUserName, String organId, String roleId, Integer state, String userId);
+    IPage<SysUserDTO> selectUserList(Page<SysUserDTO> page, String normalizedUserName, String organId, String roleId, Integer state, String userId);
 
     //新增用户
     int addUser(SysUserDtoNew sysUserDto);

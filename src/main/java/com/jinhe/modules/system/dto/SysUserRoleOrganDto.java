@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class SysUserRoleOrganDto implements Serializable {
-    private SysUserDto sysUser;
+    private SysUserDTO sysUser;
 
     private List<SysOrgan> organ;
 

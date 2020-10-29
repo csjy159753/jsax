@@ -58,9 +58,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     //查询用户列表
     @Override
-    public IPage<SysUserDto> selectUserList(Page<SysUserDto> page, String normalizedUserName, String organId, String roleId, Integer state, String userId) {
+    public IPage<SysUserDTO> selectUserList(Page<SysUserDTO> page, String normalizedUserName, String organId, String roleId, Integer state, String userId) {
         SysUser sysUser = sysUserMapper.selectById(userId);
-        IPage<SysUserDto> iPage= new Page<SysUserDto>(0,0);
+        IPage<SysUserDTO> iPage= new Page<SysUserDTO>(0,0);
         if (sysUser == null) {
             return iPage;
         }

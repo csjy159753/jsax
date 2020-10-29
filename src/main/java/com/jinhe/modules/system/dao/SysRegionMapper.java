@@ -1,7 +1,7 @@
 package com.jinhe.modules.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jinhe.modules.system.dto.SysRegionDto;
+import com.jinhe.modules.system.dto.SysRegionDTO;
 import com.jinhe.modules.system.entity.SysRegion;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,7 +20,7 @@ import java.util.List;
 public interface SysRegionMapper extends BaseMapper<SysRegion> {
 
     //查询行政区列表
-    List<SysRegionDto> selectRegionList(@Param("code") String code);
+    List<SysRegionDTO> selectRegionList(@Param("code") String code);
 
     Integer selectLevelInfo(@Param("parentCode") String parentCode);
 

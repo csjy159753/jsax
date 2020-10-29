@@ -29,7 +29,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("SYS_RESOURCE_ITEM")
 @ApiModel(value="SysResourceItem对象", description="")
-public class SysResourceItemDto implements Serializable {
+public class SysResourceItemDTO implements Serializable {
 
     private static final long serialVersionUID=1L;
 

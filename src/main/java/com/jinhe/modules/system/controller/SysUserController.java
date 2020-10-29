@@ -12,12 +12,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.util.*;
 
 /**
@@ -34,7 +31,10 @@ import java.util.*;
 @Api(description = "用户管理", tags = "system-SysUser")
 public class SysUserController {
 
-    //记录器
+
+    /**
+     * 记录器
+     */
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
@@ -59,7 +59,7 @@ public class SysUserController {
     @RequestMapping(value = "/List/{userId}", method = RequestMethod.GET)
     @SysLog(value = "测试注解日志切面关键字查询selectUserList")
     public Result selectUserList(PageFilter filter, String keywords, String organIds, String roleIds, Integer state, @PathVariable String userId) {
-        IPage<SysUserDto> userList;
+        IPage<SysUserDTO> userList;
         try {
             Page page = new Page(filter.getStart(), filter.getLength());
             userList = sysUserService.selectUserList(page, keywords, organIds, roleIds, state, userId);
@@ -302,9 +302,9 @@ public class SysUserController {
         if (sysUser == null) {
             return ResultUtil.error(ResultEnum.NOT_FOUND);
         } else {
-            SysUserDto sysUserDto = null;
+            SysUserDTO sysUserDto = null;
             try {
-                sysUserDto = Mapper.ModelToModel(sysUser, SysUserDto.class);
+                sysUserDto = Mapper.ModelToModel(sysUser, SysUserDTO.class);
             } catch (IllegalAccessException e) {
                 logger.error("UserInfo", e.getMessage());
                 e.printStackTrace();

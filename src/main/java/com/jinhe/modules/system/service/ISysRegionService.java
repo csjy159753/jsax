@@ -2,7 +2,7 @@ package com.jinhe.modules.system.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.jinhe.modules.system.dto.SysRegionDto;
+import com.jinhe.modules.system.dto.SysRegionDTO;
 import com.jinhe.modules.system.entity.SysRegion;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public interface ISysRegionService extends IService<SysRegion> {
 
     //查询行政区列表
-    List<SysRegionDto> selectRegionList(String code);
+    List<SysRegionDTO> selectRegionList(String code);
 
     //新增行政区
     Boolean addRegion(SysRegion sysRegion);

@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Data
 @ApiModel(value="行政区",description="行政区")
-public class SysRegionDto<T> implements Serializable{
+public class SysRegionDTO<T> implements Serializable{
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "id")
     @TableField("ID")
@@ -87,11 +87,11 @@ public class SysRegionDto<T> implements Serializable{
     private Integer lat;
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATE_TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     @ApiModelProperty(value = "更新时间")
     @TableField("UPADTE_TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
     private Integer depth;

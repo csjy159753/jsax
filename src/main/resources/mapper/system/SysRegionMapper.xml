@@ -4,7 +4,7 @@
 
 
     <!-- 查询行政区列表-->
-    <select id="selectRegionList" resultType="com.jinhe.modules.system.dto.SysRegionDto">
+    <select id="selectRegionList" resultType="com.jinhe.modules.system.dto.SysRegionDTO">
         SELECT
         r1.id,
         r1.`code`,

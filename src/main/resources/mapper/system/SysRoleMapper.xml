@@ -41,7 +41,7 @@
                 r1.update_time
     </select>
     <!-- 查询角色列表-->
-    <select id="selectRoleList" resultType="com.jinhe.modules.system.dto.SysRoleDto">
+    <select id="selectRoleList" resultType="com.jinhe.modules.system.dto.SysRoleDTO">
         select * from sys_role where sys_role.PARENT_ID = #{roleId}
     </select>
 
@@ -53,7 +53,7 @@
     </delete>
 
     <!--  根据userId查询-->
-    <select id="selectRolesByUserId" resultType="com.jinhe.modules.system.dto.SysRoleDto">
+    <select id="selectRolesByUserId" resultType="com.jinhe.modules.system.dto.SysRoleDTO">
 
 
                 select DISTINCT sys_role.* from sys_role inner join sys_user_role on sys_role.id = sys_user_role.role_id

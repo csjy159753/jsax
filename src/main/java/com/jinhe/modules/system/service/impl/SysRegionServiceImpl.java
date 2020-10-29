@@ -2,7 +2,7 @@ package com.jinhe.modules.system.service.impl;
 
 
 import com.jinhe.modules.system.dao.SysRegionMapper;
-import com.jinhe.modules.system.dto.SysRegionDto;
+import com.jinhe.modules.system.dto.SysRegionDTO;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.jinhe.modules.system.service.ISysRegionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,8 +29,8 @@ public class SysRegionServiceImpl extends ServiceImpl<SysRegionMapper, SysRegion
 
     //查询行政区列表
     @Override
-    public List<SysRegionDto> selectRegionList(String code) {
-        List<SysRegionDto> list = sysRegionMapper.selectRegionList(code);
+    public List<SysRegionDTO> selectRegionList(String code) {
+        List<SysRegionDTO> list = sysRegionMapper.selectRegionList(code);
         return list;
     }
 

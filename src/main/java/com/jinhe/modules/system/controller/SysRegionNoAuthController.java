@@ -4,8 +4,7 @@ import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
-import com.jinhe.modules.system.dto.SysRegionDto;
-import com.jinhe.modules.system.entity.SysRegion;
+import com.jinhe.modules.system.dto.SysRegionDTO;
 import com.jinhe.modules.system.service.ISysRegionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,7 +47,7 @@ public class SysRegionNoAuthController {
     @RequestMapping(value = "ListRegion", method = RequestMethod.GET)
     @SysLog(value = "ListRegion")
     public Result regionListTree(@RequestParam(required = false) String code) {
-        List<SysRegionDto> sysRegion = new ArrayList<>();
+        List<SysRegionDTO> sysRegion = new ArrayList<>();
         try {
             sysRegion = sysRegionService.selectRegionList(code);
         } catch (Exception e) {

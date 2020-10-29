@@ -27,7 +27,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="SysPermission对象", description="")
-public class SysPermissionDto implements Serializable {
+public class SysPermissionDTO implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -65,11 +65,11 @@ public class SysPermissionDto implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATE_TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField("UPDATE_TIME")
     private Date updateTime;
 

@@ -8,7 +8,7 @@ import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
-import com.jinhe.modules.system.dto.SysResourceItemDto;
+import com.jinhe.modules.system.dto.SysResourceItemDTO;
 import com.jinhe.modules.system.entity.SysResourceItem;
 import com.jinhe.modules.system.service.ISysResourceItemService;
 import io.swagger.annotations.Api;
@@ -44,7 +44,7 @@ public class SysResourceItemController {
     @RequestMapping(value = "List/{id}", method = RequestMethod.GET)
     @SysLog(value = "List/{id}")
     public Result getListById(@PathVariable String id, PageFilter pagefilter) {
-        IPage<SysResourceItemDto> sysResource ;
+        IPage<SysResourceItemDTO> sysResource ;
         try {
             Page page = new Page(pagefilter.getStart(), pagefilter.getLength());
           sysResource = iSysRes.getListById(page, id);

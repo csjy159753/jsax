@@ -2,7 +2,7 @@ package com.jinhe.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinhe.modules.system.dto.SysResourceItemDto;
+import com.jinhe.modules.system.dto.SysResourceItemDTO;
 import com.jinhe.modules.system.entity.SysResourceItem;
 import com.jinhe.modules.system.dao.SysResourceItemMapper;
 import com.jinhe.modules.system.service.ISysResourceItemService;
@@ -30,8 +30,8 @@ public class SysResourceItemServiceImpl extends ServiceImpl<SysResourceItemMappe
     private SysResourceItemMapper sysResMap;
 
     @Override
-    public IPage<SysResourceItemDto> getListById(Page page, String id) {
-        IPage<SysResourceItemDto> listById = sysResMap.getListById(page, id);
+    public IPage<SysResourceItemDTO> getListById(Page page, String id) {
+        IPage<SysResourceItemDTO> listById = sysResMap.getListById(page, id);
         return listById;
     }
 

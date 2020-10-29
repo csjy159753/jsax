@@ -95,7 +95,7 @@ public class SysUserDtoNew implements Serializable {
      * 锁定时间
      */
     @ApiModelProperty(value="锁定时间",name="lockOutTime",example="1")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date lockOutTime;
 
     /**
@@ -120,14 +120,14 @@ public class SysUserDtoNew implements Serializable {
      * 创建时间
      */
     @ApiModelProperty(value="创建时间",name="createTime",example="1")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     /**
      * 更新时间
      */
     @ApiModelProperty(value="更新时间",name="updateTime",example="1")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
     /**
@@ -154,19 +154,6 @@ public class SysUserDtoNew implements Serializable {
     @ApiModelProperty(value="角色ID",name="roleIds",example="1")
     private List<String> organsName;
 
-//    /**
-//     * 角色集合
-//     */
-//    @ApiModelProperty(value="角色列表",name="roles",example="[string]")
-//    private List<SysRoleNew> roles;
-//
-//
-//
-//    /**
-//     * 机构集合
-//     */
-//    @ApiModelProperty(value="机构列表",name="organs",example="[string]")
-//    private List<SysOrganNew> organs;
     /**
      * 机构名称
      */

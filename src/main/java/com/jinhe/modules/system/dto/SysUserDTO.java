@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 @Data
-public class SysUserDto  implements Serializable {
+public class SysUserDTO implements Serializable {
     /**
      * 用户id
      */

@@ -18,7 +18,7 @@
             I.ID = #{id}
     </update>
 
-    <select id="getListById" resultType="com.jinhe.modules.system.dto.SysResourceItemDto">
+    <select id="getListById" resultType="com.jinhe.modules.system.dto.SysResourceItemDTO">
         SELECT * FROM
             SYS_RESOURCE_ITEM
          WHERE RESOURCE_ID = #{id}

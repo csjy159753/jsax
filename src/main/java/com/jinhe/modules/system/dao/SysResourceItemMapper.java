@@ -2,7 +2,7 @@ package com.jinhe.modules.system.dao;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinhe.modules.system.dto.SysResourceItemDto;
+import com.jinhe.modules.system.dto.SysResourceItemDTO;
 import com.jinhe.modules.system.entity.SysResourceItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,7 +17,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface SysResourceItemMapper extends BaseMapper<SysResourceItem> {
 
-    IPage<SysResourceItemDto> getListById(Page<SysResourceItemDto> page, @Param("id") String id);
+    IPage<SysResourceItemDTO> getListById(Page<SysResourceItemDTO> page, @Param("id") String id);
 
     Integer add(@Param("sysRes") SysResourceItem sysRes);
 

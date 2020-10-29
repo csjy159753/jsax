@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel(value = "角色", description = "角色")
-public class SysRoleUserDto {
+public class SysRoleDTO {
     /**
      * 主键id
      */
@@ -65,7 +66,7 @@ public class SysRoleUserDto {
      * 锁定时间
      */
     @ApiModelProperty(value = "锁定时间", name = "lockOutTime", example = "1")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
     private Date lockOutTime;
 
     /**
@@ -100,8 +101,9 @@ public class SysRoleUserDto {
     @ApiModelProperty(value = "更新时间", name = "updateTime", example = "1")
     private Date updateTime;
 
-    //角色绑定的userId
-    private String userId;
+    //是否有子角色
+    @ApiModelProperty(value = "是否有子角色", name = "", example = "false")
+    private boolean tree = true;
 
 
 }
