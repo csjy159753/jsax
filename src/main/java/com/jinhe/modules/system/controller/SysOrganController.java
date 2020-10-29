@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.annotation.SysLog;
-import com.jinhe.common.util.PageFilter;
-import com.jinhe.common.util.Result;
-import com.jinhe.common.util.ResultEnum;
-import com.jinhe.common.util.ResultUtil;
+import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.MapTree;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.system.service.ISysOrganService;
@@ -43,7 +40,6 @@ public class SysOrganController {
     private ISysOrganService iSysOrganService;
 
 
-
     /**
      * 根据ID查询机构
      **/
@@ -68,8 +64,8 @@ public class SysOrganController {
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     @SysLog(value = "saveOrUpdate")
     public Result saveOrUpdate(@RequestBody SysOrgan sysOrgan) {
-        if(sysOrgan.getRegionCode()!=null){
-
+        if (sysOrgan.getRegionCode() != null) {
+            sysOrgan.setDepth(RegionUtil.maxLevel(sysOrgan.getRegionCode()));
         }
         try {
             iSysOrganService.saveOrUpdate(sysOrgan);

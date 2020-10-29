@@ -1,129 +1,77 @@
 package com.jinhe.modules.system.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ * 'mashz.act_id_user' is not BASE TABLE
  * </p>
  *
  * @author rls
- * @since 2020-04-16
+ * @since 2020-10-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+@ApiModel(value="SysOrgan对象", description="'mashz.act_id_user' is not BASE TABLE")
 public class SysOrgan implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 主键id
-     */
-    @TableId("ID")
     private String id;
 
-    /**
-     * 父类ID
-     */
-    @TableField("PARENT_ID")
+    @ApiModelProperty(value = "父id")
     private String parentId;
 
-    /**
-     * 类型
-     */
-    @TableField("TYPE")
+    @ApiModelProperty(value = "类型0代码部门或者行政区划1代码具体职务")
     private Integer type;
 
-    /**
-     * 编码
-     */
-    @TableField("CODE")
+    @ApiModelProperty(value = "编码")
     private String code;
 
-    /**
-     * 名称
-     */
-    @TableField("NAME")
+    @ApiModelProperty(value = "类型对一个以后具体业务时候的字典表使用")
+    private String tag;
+
+    @ApiModelProperty(value = "名称")
     private String name;
 
-    /**
-     * 全名
-     */
-    @TableField("FULL_NAME")
+    @ApiModelProperty(value = "全名")
     private String fullName;
 
-    /**
-     * 行政区编码
-     */
-    @TableField("REGION_CODE")
+    @ApiModelProperty(value = "行政区编码")
     private String regionCode;
 
-    /**
-     * 行政区名称
-     */
-    @TableField("REGION_NAME")
+    @ApiModelProperty(value = "行政区名称")
     private String regionName;
 
-    /**
-     * 描述
-     */
-    @TableField("DESCRIPTION")
+    @ApiModelProperty(value = "描述")
     private String description;
 
-    /**
-     * 状态
-     */
-    @TableField("STATE")
+    @ApiModelProperty(value = "状态0正常1禁用")
     private Integer state;
 
-    /**
-     * 排序
-     */
-    @TableField("SORT")
+    @ApiModelProperty(value = "排序")
     private Integer sort;
 
-    @TableField("PATH")
+    @ApiModelProperty(value = "径路id集合保留字段暂时不用")
     private String path;
 
-    /**
-     * 深度
-     */
-    @TableField("DEPTH")
+    @ApiModelProperty(value = "深度")
     private Integer depth;
 
-    /**
-     * 创建人
-     */
-    @TableField("CREATE_USER")
+    @ApiModelProperty(value = "创建人")
     private String createUser;
 
-    /**
-     * 创建时间
-     */
-    @TableField("CREATE_TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-    private Date createTime;
+    @ApiModelProperty(value = "创建时间")
+    private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
-    @TableField("UPDATE_TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-    private Date updateTime;
-
+    @ApiModelProperty(value = "更新")
+    private LocalDateTime updateTime;
 
 
 }

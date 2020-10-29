@@ -1,5 +1,8 @@
 package com.jinhe.common.util;
 
+/**
+ * @author Administrator
+ */
 public class RegionUtil {
     public static String GetShortRegionCode(String regionCode) {
         if (StringUtils.isEmpty(regionCode)) {

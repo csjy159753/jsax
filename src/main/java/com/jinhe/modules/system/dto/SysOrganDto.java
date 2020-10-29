@@ -31,106 +31,57 @@ public class SysOrganDto<T> implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 主键id
-     */
-    @ApiModelProperty(value="ID",name="id",example="123")
     private String id;
 
-    /**
-     * 父类ID
-     */
-    @ApiModelProperty(value="parentId",name="parentId",example="123")
+    @ApiModelProperty(value = "父id")
     private String parentId;
 
-    /**
-     * 类型
-     */
-    @ApiModelProperty(value="type",name="type",example="1")
+    @ApiModelProperty(value = "类型0代码部门或者行政区划1代码具体职务")
     private Integer type;
 
-    /**
-     * 编码
-     */
-    @ApiModelProperty(value="code",name="code",example="123")
+    @ApiModelProperty(value = "编码")
     private String code;
 
-    /**
-     * 名称
-     */
-    @ApiModelProperty(value="name",name="name",example="123")
+    @ApiModelProperty(value = "类型对一个以后具体业务时候的字典表使用")
+    private String tag;
+
+    @ApiModelProperty(value = "名称")
     private String name;
 
-    /**
-     * 全名
-     */
-    @ApiModelProperty(value="fullName",name="fullName",example="123")
+    @ApiModelProperty(value = "全名")
     private String fullName;
 
-    /**
-     * 行政区编码
-     */
-    @ApiModelProperty(value="regionCode",name="regionCode",example="123")
+    @ApiModelProperty(value = "行政区编码")
     private String regionCode;
 
-    /**
-     * 行政区名称
-     */
-    @ApiModelProperty(value="regionName",name="regionName",example="123")
+    @ApiModelProperty(value = "行政区名称")
     private String regionName;
 
-    /**
-     * 描述
-     */
-    @ApiModelProperty(value="description",name="description",example="123")
+    @ApiModelProperty(value = "描述")
     private String description;
 
-    /**
-     * 状态
-     */
-    @ApiModelProperty(value="state",name="state",example="123")
+    @ApiModelProperty(value = "状态0正常1禁用")
     private Integer state;
 
-    /**
-     * 排序
-     */
-    @ApiModelProperty(value="sort",name="sort",example="123")
+    @ApiModelProperty(value = "排序")
     private Integer sort;
 
-    @ApiModelProperty(value="path",name="path",example="123")
+    @ApiModelProperty(value = "径路id集合保留字段暂时不用")
     private String path;
 
-    /**
-     * 深度
-     */
-    @ApiModelProperty(value="depth",name="depth",example="123")
+    @ApiModelProperty(value = "深度")
     private Integer depth;
 
-    /**
-     * 创建人
-     */
-    @ApiModelProperty(value="createUser",name="createUser",example="123")
+    @ApiModelProperty(value = "创建人")
     private String createUser;
 
-    /**
-     * 创建时间
-     */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-    private Date createTime;
+    @ApiModelProperty(value = "创建时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-    private Date updateTime;
-
-    @ApiModelProperty(value = "机构id和名称",name = "combination",example = "1")
-    private String combination;
-
-//    @ApiModelProperty(value = "机构id和名称",name = "combination",example = "1")
-    private SysOrganIdAndName organIdAndName ;
-
-    private boolean tree;
+    @ApiModelProperty(value = "更新")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime updateTime;
 
     /**
      * 包含子的元素有多少
