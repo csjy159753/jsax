@@ -1,51 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.system.dao.SysResourceMapper">
-    <select id="selectSysResourcepage" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
-        SELECT
-            r.*,
-            group_concat(
-            DISTINCT
-            CASE  WHEN i.id IS NOT NULL and p.item_ids IS NOT  NULL and   p.item_ids != ''   THEN
-                    ( concat( i.id, '_', i.NAME, '_', i.display_name, '_', i.state ) ) ELSE ''
-                END
-                ) AS item
-            FROM
-                SYS_RESOURCE r
-                LEFT JOIN sys_resource_item i ON r.id = i.resource_id
-                INNER JOIN SYS_PERMISSION p ON r.id = p.resource_id
-                INNER JOIN SYS_USER_ROLE ur ON p.role_id = ur.role_id
-            WHERE
-                ur.user_id =  #{userid}
-                 and if((p.item_ids is null or p.item_ids=''),true,p.item_ids like concat("%",i.id,"%"))
-        GROUP BY
-            r.id
-    </select>
-
-    <select id="selectSysResourceOne" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
-        SELECT * from sys_resource
-        where
-            id = #{ID,jdbcType=VARCHAR}
-
-    </select>
-
-    <select id="selectsysresTree" parameterType="java.util.HashMap"
-            resultType="com.jinhe.modules.system.entity.SysResource">
-
-        SELECT * FROM sys_resource
-        WHERE  PARENT_ID is null
-                AND prior ID =  PARENT_ID
-    </select>
-
-    <select id="selectPageAll" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
-       SELECT
-        r.*,
-        group_concat( DISTINCT CASE WHEN i.id IS NOT NULL THEN ( concat(i.id, '_', i.NAME, '_', i.display_name, '_', i.state ) ) ELSE '' END ) AS item
-    FROM
-        sys_resource r
-        LEFT JOIN sys_resource_item i ON r.id = i.resource_id
-        GROUP BY  r.id
-    </select>
-
 
 </mapper>
