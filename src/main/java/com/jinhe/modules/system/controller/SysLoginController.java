@@ -42,8 +42,8 @@ public class SysLoginController {
     @RequestMapping(value = "Login", method = RequestMethod.POST)
     @SysLog(value = "Login")
     public Result login(@RequestBody SysLogin login) throws InstantiationException, IllegalAccessException {
-        String password = "";
-        password = EncryptUtil.getInstance().Base64Decode(login.getPassWord());
+
+        String password = EncryptUtil.getInstance().Base64Decode(login.getPassWord());
         QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("NORMALIZED_USERNAME", login.getUserName());
         SysUser SysUser = iSysUserService.getBaseMapper().selectOne(userQueryWrapper);
@@ -87,4 +87,52 @@ public class SysLoginController {
         return ResultUtil.success(sysLogin);
     }
 
+    @ApiOperation(value = "手机app登录", notes = "手机app登录")
+    @RequestMapping(value = "loginApp", method = RequestMethod.POST)
+    @SysLog(value = "loginApp")
+    public Result loginApp(@RequestBody SysLogin login) throws InstantiationException, IllegalAccessException {
+
+        String password = EncryptUtil.getInstance().Base64Decode(login.getPassWord());
+        QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("NORMALIZED_USERNAME", login.getUserName());
+        SysUser SysUser = iSysUserService.getBaseMapper().selectOne(userQueryWrapper);
+        if (null == SysUser) {
+            return ResultUtil.error(ResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
+        }
+        if (SysUser.getLockOutTime() != null) {
+            if (SysUser.getLockOutTime().getTime() > System.currentTimeMillis()) {
+                return ResultUtil.error(-1, "登录失败次数过多，请稍后重试");
+            }
+        }
+        if (!SysUser.getPasswordHash().equals(password)) {
+            int accessFailedCount = 0;
+            if (SysUser.getAccessFailedCount() != null) {
+                accessFailedCount = SysUser.getAccessFailedCount();
+            }
+            accessFailedCount += 1;
+            SysUser.setAccessFailedCount(accessFailedCount);
+            if (accessFailedCount > 5) {
+                Date now = new Date();
+                //增加5分钟
+                Date afterDate = new Date(now.getTime() + 300000);
+                SysUser.setLockOutTime(afterDate);
+            }
+            iSysUserService.updateById(SysUser);
+            return ResultUtil.error(ResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
+        } else {
+            SysUser.setAccessFailedCount(0);
+            SysUser.setLockOutTime(null);
+            iSysUserService.updateById(SysUser);
+        }
+
+        SysLoginDto sysLogin = Mapper.ModelToModel(SysUser, SysLoginDto.class);
+        if (sysLogin.getState() == 3 || sysLogin.getState() == 2) {
+            return ResultUtil.error(ResultEnum.OBSOLETE);
+        }
+        String token = jwtConfig.createToken(sysLogin.getId(), 1000 * 30000);
+        sysLogin.setToken(token);
+        sysLogin.setTokenExpireTime(1000 * 30000);
+        sysLogin.setRefreshToken(UUID.randomUUID().toString().replace("-", ""));
+        return ResultUtil.success(sysLogin);
+    }
 }

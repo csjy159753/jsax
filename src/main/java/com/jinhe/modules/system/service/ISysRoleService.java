@@ -27,9 +27,6 @@ public interface ISysRoleService extends IService<SysRole> {
     //查询父角色列表
     IPage<HashMap<String,Object>> selectRoleList(Page<SysRoleDto> page, String id,String roleId);
 
-    //新增角色
-    boolean addRole(SysRole sysRole);
-
     //删除角色
     ResultEnum deleteRole(String id, String userId);
 

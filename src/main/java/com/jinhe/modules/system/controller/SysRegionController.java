@@ -30,7 +30,9 @@ import java.util.List;
 @Api(description = "行政区", tags = "system-SysRegion")
 public class SysRegionController {
 
-    //记录器
+    /**
+     * 记录器
+     */
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource

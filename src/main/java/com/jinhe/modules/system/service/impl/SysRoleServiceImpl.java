@@ -73,12 +73,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Resource
     private SysUserRoleMapper sysUserRoleMapper;
 
-    @Autowired
-    private ISysPermissionService iSysPer;
-
-    @Resource
-    private SysPermissionMapper sysPerMap;
-
     //查询角色列表
     @Override
     public IPage<HashMap<String,Object>> selectRoleList(Page page, String id,String roleId) {
@@ -90,17 +84,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         IPage<HashMap<String,Object>>  list = sysRoleMapper.selectPreantRoleList(page, roleId, type);
         return  list;
     }
-    //新增角色
-    @Override
-    public boolean addRole(SysRole sysRole) {
-        int insert = sysRoleMapper.insert(sysRole);
-        if (insert < 0) {
-            return false;
-        } else {
-            return true;
-        }
 
-    }
     //删除角色
     @Override
     public ResultEnum deleteRole(String id, String userId) {
@@ -129,6 +113,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return SUCCESS;
     }
 
+    @Override
     public List<SysRole> selectRolesByUserId(Page page, String userId) {
         SysUser sysUser = sysUserMapper.selectById(userId);
         Integer type = sysUser.getType();
