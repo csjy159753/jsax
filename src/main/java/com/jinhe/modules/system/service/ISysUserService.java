@@ -8,7 +8,6 @@ import com.jinhe.common.util.ResultEnum;
 import com.jinhe.modules.system.entity.SysUser;
 
 import com.jinhe.modules.system.dto.SysUserDTO;
-import com.jinhe.modules.system.dto.SysUserDtoNew;
 
 
 /**
@@ -25,7 +24,7 @@ public interface ISysUserService extends IService<SysUser> {
     IPage<SysUserDTO> selectUserList(Page<SysUserDTO> page, String normalizedUserName, String organId, String roleId, Integer state, String userId);
 
     //新增用户
-    int addUser(SysUserDtoNew sysUserDto);
+    int addUser(SysUserDTO sysUserDto);
 
     //删除用户
     ResultEnum deleteUserById(String userId) throws InstantiationException, IllegalAccessException;

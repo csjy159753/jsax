@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -78,7 +79,7 @@ public class SysUserController {
     @ApiOperation(value = "新增用户", notes = "新增用户")
     @RequestMapping(value = "AddUser", method = RequestMethod.POST)
     @SysLog(value = "测试注解日志切面新增用户addUser")
-    public Result addUser(@RequestBody SysUserDtoNew sysUserDto) {
+    public Result addUser(@RequestBody SysUserDTO sysUserDto) {
 
         // 密码复杂度 10位4选3
         String passwordHash = sysUserDto.getPasswordHash();
@@ -209,7 +210,7 @@ public class SysUserController {
     @ApiOperation(value = "更新信息", notes = "更新信息")
     @RequestMapping(value = "UpdateInfo", method = RequestMethod.PUT)
     @SysLog(value = "UpdateInfo")
-    public Result UpdateInfo(@RequestBody SysUserDtoNew sysUserDto) {
+    public Result UpdateInfo(@RequestBody SysUserDTO sysUserDto) {
 
 
         if (sysUserDto.getAvatarUrl() != null) {
@@ -230,7 +231,7 @@ public class SysUserController {
 
         //更新机构
         List<SysUserOrgan> organList = new ArrayList<SysUserOrgan>();
-        List<String> organIds = sysUserDto.getOrganIds();
+        List<String> organIds = sysUserDto.getOrgans().stream().map(d -> d.getOrganId()).collect(Collectors.toList());
         for (String organId : organIds) {
 
             SysUserOrgan sysUserOrgan = new SysUserOrgan();
@@ -248,7 +249,7 @@ public class SysUserController {
             return ResultUtil.error(ResultEnum.ORGAN_UPDATE_ERROR);
         } else {
             List<SysUserRole> roleList = new ArrayList<SysUserRole>();
-            List<String> roleIds = sysUserDto.getRoleIds();
+            List<String> roleIds = sysUserDto.getRoles().stream().map(d -> d.getRoleId()).collect(Collectors.toList());
             for (String roleId : roleIds) {
                 SysUserRole sysUserRole = new SysUserRole();
                 String s = UUID.randomUUID().toString();
@@ -317,7 +318,7 @@ public class SysUserController {
             List<SysRole> sysRoles = sysRoleService.selectRolesByUserId(page, userId);
             List<SysOrgan> sysOrgans = sysOrganService.SelectOrgansByUserId(userId, page);
 
-            SysUserRoleOrganDto sysUserRoleOrganDto = new SysUserRoleOrganDto();
+            SysUserRoleOrganDTO sysUserRoleOrganDto = new SysUserRoleOrganDTO();
             sysUserRoleOrganDto.setSysUser(sysUserDto);
             sysUserRoleOrganDto.setRole(sysRoles);
             sysUserRoleOrganDto.setOrgan(sysOrgans);

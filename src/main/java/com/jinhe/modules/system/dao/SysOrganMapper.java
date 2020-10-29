@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.system.dto.SysOrganDTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jinhe.modules.system.entity.SysOrgan;
-import com.jinhe.modules.system.entity.SysOrganNew;
+import com.jinhe.modules.system.dto.SysOrganBaseDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public interface SysOrganMapper extends BaseMapper<SysOrgan> {
 
     Integer deleteByUser(@Param("userId") String userId, @Param("organId") String organId);
 
-    List<SysOrganNew> selectOrganIdsByIds(@Param("organIds") List<String> organIds);
+    List<SysOrganBaseDTO> selectOrganIdsByIds(@Param("organIds") List<String> organIds);
 
     IPage<SysOrganDTO> selectOrgan(Page<SysOrganDTO> page, String code);
 

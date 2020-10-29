@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class SysUserHisDto implements Serializable {
+public class SysUserHisDTO implements Serializable {
 
     private static final long serialVersionUID=1L;
 

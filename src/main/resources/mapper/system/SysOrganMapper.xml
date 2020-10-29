@@ -78,7 +78,7 @@
         WHERE
             ID = #{sysOrgan.id}
     </update>
-    <select id="selectOrganIdsByIds" resultType="com.jinhe.modules.system.entity.SysOrganNew">
+    <select id="selectOrganIdsByIds" resultType="com.jinhe.modules.system.dto.SysOrganBaseDTO">
         select distinct id as organId from
         sys_organ
         start with id in

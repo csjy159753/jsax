@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -60,7 +61,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public IPage<SysUserDTO> selectUserList(Page<SysUserDTO> page, String normalizedUserName, String organId, String roleId, Integer state, String userId) {
         SysUser sysUser = sysUserMapper.selectById(userId);
-        IPage<SysUserDTO> iPage= new Page<SysUserDTO>(0,0);
+        IPage<SysUserDTO> iPage = new Page<SysUserDTO>(0, 0);
         if (sysUser == null) {
             return iPage;
         }
@@ -77,7 +78,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     //新增用户
     @Override
-    public int addUser(SysUserDtoNew sysUserDto) {
+    public int addUser(SysUserDTO sysUserDto) {
         //获取对象
         SysUser sysUser = new SysUser();
         try {
@@ -92,8 +93,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         String userId = sysUser.getId();
         //获取用户角色ID和机构ID
-        List<String> roleIds = sysUserDto.getRoleIds();
-        List<String> organIds = sysUserDto.getOrganIds();
+        List<String> roleIds = sysUserDto.getRoles().stream().map(d -> d.getRoleId()).collect(Collectors.toList());
+        List<String> organIds = sysUserDto.getRoles().stream().map(d -> d.getRoleId()).collect(Collectors.toList());
 
 
         //新增用户属性

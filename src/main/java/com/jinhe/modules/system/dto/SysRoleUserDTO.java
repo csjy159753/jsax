@@ -100,7 +100,9 @@ public class SysRoleUserDTO {
     @ApiModelProperty(value = "更新时间", name = "updateTime", example = "1")
     private Date updateTime;
 
-    //角色绑定的userId
+    /**
+     * 角色绑定的userId
+     */
     private String userId;
 
 

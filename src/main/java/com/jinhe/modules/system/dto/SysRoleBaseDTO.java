@@ -1,10 +1,13 @@
-package com.jinhe.modules.system.entity;
+package com.jinhe.modules.system.dto;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
+/**
+ * @author Administrator
+ */
 @Data
-public class SysRoleNew {
+public class SysRoleBaseDTO {
 
     private String roleId;
 
