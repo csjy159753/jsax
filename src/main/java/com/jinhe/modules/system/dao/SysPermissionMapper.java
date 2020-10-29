@@ -1,9 +1,8 @@
 package com.jinhe.modules.system.dao;
 
-import com.jinhe.modules.system.dto.SysResourceDto;
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysPermission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,21 +16,11 @@ import java.util.List;
  */
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
-
-    boolean addByOrganId(List<SysPermission> sysPer);
-
-    boolean addByRoleId(List<SysPermission> sysPer);
-
-    List<SysResourceDto> listByRoleId(List<String> item);
-
-    boolean add(@Param("sysPer") SysPermission sysPer);
-
-    SysPermission getById(String id);
-
-    List<SysResourceDto> resourceIdByRoleId(String roleId);
-
-    List<String> resourceIdByOrganId(String orgionId);
-
-    void deleteByRoleId(String roleId);
-
+    /**
+     * 根据用户角色id查询资源菜单信息
+     *
+     * @param roleId 角色id
+     * @return
+     */
+    List<SysResourceDTO> resourceIdByRoleId(String roleId);
 }

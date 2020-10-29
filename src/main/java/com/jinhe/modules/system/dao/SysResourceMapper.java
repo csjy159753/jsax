@@ -1,9 +1,7 @@
 package com.jinhe.modules.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinhe.modules.system.dto.SysResourceDto;
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysResource;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,12 +19,12 @@ import java.util.Map;
  */
 public interface SysResourceMapper extends BaseMapper<SysResource> {
 
-    List<SysResourceDto> selectSysResourcepage(@Param("userid") String userid);
+    List<SysResourceDTO> selectSysResourcepage(@Param("userid") String userid);
 
-    SysResourceDto selectSysResourceOne(String ID);
+    SysResourceDTO selectSysResourceOne(String ID);
 
     List<SysResource> selectsysresTree(Map map);
 
-    List<SysResourceDto> selectPageAll();
+    List<SysResourceDTO> selectPageAll();
 
 }

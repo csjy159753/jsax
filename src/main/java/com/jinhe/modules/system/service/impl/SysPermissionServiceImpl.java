@@ -1,12 +1,16 @@
 package com.jinhe.modules.system.service.impl;
 
+import com.jinhe.common.util.StringUtils;
 import com.jinhe.common.util.Tree.ITree;
+import com.jinhe.common.util.Tree.MapTree;
 import com.jinhe.common.util.Tree.Tree;
 import com.jinhe.common.util.Tree.TreeNode;
-import com.jinhe.modules.system.dto.SysResourceDto;
-import com.jinhe.modules.system.entity.PermissionItem;
+import com.jinhe.modules.system.dto.SysResourceDTO;
+import com.jinhe.modules.system.dto.PermissionItemDTO;
 import com.jinhe.modules.system.entity.SysPermission;
 import com.jinhe.modules.system.dao.SysPermissionMapper;
+import com.jinhe.modules.system.entity.SysPermissionItem;
+import com.jinhe.modules.system.service.ISysPermissionItemService;
 import com.jinhe.modules.system.service.ISysPermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -28,77 +34,44 @@ import java.util.*;
 public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements ISysPermissionService {
     @Autowired
     private SysPermissionMapper sysPerMap;
-
+    @Autowired
+    private ISysPermissionItemService iSysPermissionItemService;
 
     @Override
-
-    public boolean addByRoleId(String roleId, List<PermissionItem> permissionItem) {
-        sysPerMap.deleteByRoleId(roleId);
+    public boolean saveByRoleId(String roleId, List<PermissionItemDTO> permissionItem) {
+        //----开始前先删除改角色菜单使用下面新的菜单设置了主外键级联删除 删除菜单授权item自定删除-----
+        this.removeByIds(permissionItem.stream().map(d -> d.getSysPermissionId()).collect(Collectors.toList()));
+        //----保存新菜单信息--------------------------
         List<SysPermission> sysPers = new ArrayList<>();
+        List<SysPermissionItem> sysPermissionItemList = new ArrayList<>();
         permissionItem.forEach(x -> {
             SysPermission sysPer = new SysPermission();
-            String s = UUID.randomUUID().toString().replace("-", "");
-            sysPer.setId(s);
+            String guid = StringUtils.getGUID();
+            sysPer.setId(guid);
             sysPer.setRoleId(roleId);
             sysPer.setResourceId(x.getSysPermissionId());
-            sysPer.setItemIds(x.getItemId());
+            if (x.getItemIds() != null && x.getItemIds().size() > 0) {
+                x.getItemIds().forEach(d -> {
+                    SysPermissionItem sysPermissionItem = new SysPermissionItem();
+                    sysPermissionItem.setPermissionId(sysPer.getId());
+                    sysPermissionItem.setId(StringUtils.getGUID());
+                    sysPermissionItem.setResourceItemId(d);
+                    sysPermissionItemList.add(sysPermissionItem);
+                });
+            }
             sysPers.add(sysPer);
         });
-        boolean flag = sysPerMap.addByRoleId(sysPers);
-        return flag;
+
+        this.saveOrUpdateBatch(sysPers);
+        iSysPermissionItemService.saveBatch(sysPermissionItemList);
+        return true;
     }
 
     @Override
-    public List<TreeNode> listByOrganId(String orgionId) {
-        List<TreeNode> treenodelist = new ArrayList<>();
-        List<String> resourceIds = sysPerMap.resourceIdByOrganId(orgionId);
-        if (!resourceIds.isEmpty()) {
-            List<SysResourceDto> pagelist = sysPerMap.listByRoleId(resourceIds);
-            treenodelist = Tree.CreateTree(pagelist, new ITree<SysResourceDto>() {
-                @Override
-                public TreeNode<SysResourceDto> modelTo(SysResourceDto o) {
-                    TreeNode treeNode = new TreeNode();
-                    treeNode.setId(o.getId());
-                    treeNode.setParentId(o.getParentId());
-                    treeNode.setNodeValue(o);
-                    return treeNode;
-                }
-            });
-        }
-        return treenodelist;
-    }
+    public List<ConcurrentHashMap<String, Object>> listByRoleId(String roleId) {
 
-    @Override
-    public List<TreeNode> listByRoleId(String roleId) {
-        List<TreeNode> treenodelist = new ArrayList<>();
-        List<SysResourceDto> resourceIds = sysPerMap.resourceIdByRoleId(roleId);
-        if (!resourceIds.isEmpty()) {
-            treenodelist = Tree.CreateTree(resourceIds, (ITree<SysResourceDto>) o -> {
-                TreeNode treeNode = new TreeNode();
-                treeNode.setId(o.getId());
-                treeNode.setParentId(o.getParentId());
-                treeNode.setNodeValue(o);
-                return treeNode;
-            });
-        }
-        return treenodelist;
+        List<SysResourceDTO> resourceIds = sysPerMap.resourceIdByRoleId(roleId);
+        List<ConcurrentHashMap<String, Object>> list = MapTree.CreateTree(resourceIds);
+        return list;
     }
-
-    @Override
-    public boolean add(SysPermission sysPer) {
-        boolean flags = sysPerMap.add(sysPer);
-        return flags;
-    }
-
-    @Override
-    public SysPermission getById(String id) {
-        SysPermission sysPer = sysPerMap.getById(id);
-        return sysPer;
-    }
-
-    @Override
-    public void deleteByRoleId(String roleId) {
-        sysPerMap.deleteByRoleId(roleId);
-    }
-
 }

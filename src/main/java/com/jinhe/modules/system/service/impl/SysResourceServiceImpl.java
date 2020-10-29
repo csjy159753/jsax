@@ -1,7 +1,6 @@
 package com.jinhe.modules.system.service.impl;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinhe.common.util.ListSub;
@@ -11,7 +10,7 @@ import com.jinhe.common.util.Tree.Tree;
 import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.modules.system.dao.SysResourceMapper;
 import com.jinhe.modules.system.dao.SysUserMapper;
-import com.jinhe.modules.system.dto.SysResourceDto;
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.entity.*;
 import com.jinhe.modules.system.service.ISysResourceService;
@@ -41,7 +40,7 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
     @Override
     public ListSub selectSysResourcepage(String userid) {
         List<TreeNode> treenodelist = new ArrayList<>();
-        List<SysResourceDto> listtree = new ArrayList<>();
+        List<SysResourceDTO> listtree = new ArrayList<>();
         SysUser sysUser = sysUserMapper.selectById(userid);
         if (sysUser == null) {
             return null;
@@ -49,9 +48,9 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
         Integer type = sysUser.getType();
         if (type == 99) listtree = Sysresmapper.selectPageAll();
         else listtree = Sysresmapper.selectSysResourcepage(userid);
-        treenodelist = Tree.CreateTree(listtree, new ITree<SysResourceDto>() {
+        treenodelist = Tree.CreateTree(listtree, new ITree<SysResourceDTO>() {
             @Override
-            public TreeNode<SysResourceDto> modelTo(SysResourceDto o) {
+            public TreeNode<SysResourceDTO> modelTo(SysResourceDTO o) {
                 TreeNode treeNode = new TreeNode();
                 treeNode.setId(o.getId());
                 treeNode.setParentId(o.getParentId());
@@ -68,14 +67,14 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
 
 
     @Override
-    public SysResourceDto Select_SysRespagebyid(String ID) {
-        SysResourceDto sysresdto = new SysResourceDto();
+    public SysResourceDTO Select_SysRespagebyid(String ID) {
+        SysResourceDTO sysresdto = new SysResourceDTO();
         sysresdto = Sysresmapper.selectSysResourceOne(ID);
         return sysresdto;
     }
 
     @Override
-    public boolean sysresourcesave(SysResourceDto sysresdto) {
+    public boolean sysresourcesave(SysResourceDTO sysresdto) {
         boolean flags = false;
         SysResource sysres1 = new SysResource();
         Timestamp time = new Timestamp(System.currentTimeMillis());//获取系统当前时间
@@ -114,7 +113,7 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
     }
 
     @Override
-    public Integer UpdateOranByid(SysResourceDto dto) {
+    public Integer UpdateOranByid(SysResourceDTO dto) {
         SysResource sysresource = new SysResource();
         Mapper.MapToModel(dto, sysresource);
         Integer flags = Sysresmapper.updateById(sysresource);

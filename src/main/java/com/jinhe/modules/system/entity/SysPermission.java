@@ -74,9 +74,12 @@ public class SysPermission implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
     private Date updateTime;
 
-    @ApiModelProperty(value = "子权限id")
-    @TableField("ITEM_IDS")
-    private String itemIds;
+    /**
+     * 新版本删除字段以后不用在版本删除
+     */
+//    @ApiModelProperty(value = "子权限id")
+//    @TableField("ITEM_IDS")
+//    private String itemIds;
 
     @ApiModelProperty(value = "类型0web1手机")
     @TableField("TYPE")

@@ -21,9 +21,11 @@ import java.util.List;
 /**
  * author:xk
  * date:2020.04.15
- **/
+ *
+ * @author Administrator
+ */
 @Data
-public class SysResourceDto implements Serializable {
+public class SysResourceDTO implements Serializable {
 
 
     private static final long serialVersionUID = 1L;
@@ -98,14 +100,14 @@ public class SysResourceDto implements Serializable {
      * 创建时间
      */
     @TableField("CREATE_TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     /**
      * 更新
      */
     @TableField("UPDATE_TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
     /**
@@ -114,5 +116,5 @@ public class SysResourceDto implements Serializable {
     @TableField("DISPLAY_TYPE")
     private Integer displayType;
 
-    private String item;
+    private String resourceItemIds;
 }

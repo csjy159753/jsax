@@ -1,23 +1,19 @@
 package com.jinhe.modules.system.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.ListSub;
-import com.jinhe.common.util.PageFilter;
 import com.jinhe.common.util.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.util.Tree.TreeNode;
 import com.jinhe.common.util.Result;
-//import com.jinhe.common.vo.Result;
-import com.jinhe.modules.system.dto.SysResourceDto;
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.service.ISysResourceService;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,11 +29,10 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin
+@Slf4j
 @RequestMapping("/api/SysResource")
 @Api(description = "菜单管理", tags = {"system-SysResource"})
 public class SysResourceController {
-    //记录器
-    Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private ISysResourceService ISysResService;
 
@@ -45,12 +40,12 @@ public class SysResourceController {
      * 查询所有菜单（分页）
      **/
     @ApiOperation(value = "查询所有菜单（分页）", notes = "查询所有菜单")
-    @RequestMapping(value = "NormalList/{userid}", method = RequestMethod.GET)
-    @SysLog(value = "NormalList/{userid}")
-    public Result Select_SysRespage(@PathVariable String userid, Page page) {
+    @RequestMapping(value = "NormalList/{userId}", method = RequestMethod.GET)
+    @SysLog(value = "NormalList/{userId}")
+    public Result Select_SysResPage(@PathVariable String userId) {
         ListSub<SysResource> sysResource;
 
-        sysResource = ISysResService.selectSysResourcepage(userid);
+        sysResource = ISysResService.selectSysResourcepage(userId);
 
         return ResultUtil.success(sysResource);
     }
@@ -62,11 +57,11 @@ public class SysResourceController {
     @RequestMapping(value = "sysresourc/{id}", method = RequestMethod.GET)
     @SysLog(value = "sysresourc/{id}")
     public Result SelectSysResourcebyid(@PathVariable String id) {
-        SysResourceDto sysResourceDto;
+        SysResourceDTO sysResourceDto;
         try {
             sysResourceDto = ISysResService.Select_SysRespagebyid(id);
         } catch (Exception e) {
-            logger.error("sysresourc", e.getMessage());
+            log.error("sysresourc", e.getMessage());
             return ResultUtil.error(ResultEnum.RESOURCE_SELECT_NOT_FOUND);
         }
         return ResultUtil.success(sysResourceDto);
@@ -82,7 +77,7 @@ public class SysResourceController {
         try {
             ISysResService.saveOrUpdate(sysres);
         } catch (Exception e) {
-            logger.error("saveOrUpdate", e.getMessage());
+            log.error("saveOrUpdate", e.getMessage());
             return ResultUtil.error(ResultEnum.RESOURCE_INSERT_ERROR);
         }
         return ResultUtil.success();
@@ -99,7 +94,7 @@ public class SysResourceController {
         try {
             treeNodes = ISysResService.SysResourceTree(page);
         } catch (Exception e) {
-            logger.error("parentresource", e.getMessage());
+            log.error("parentresource", e.getMessage());
             return ResultUtil.error(ResultEnum.RESOURCE_SELECT_NOT_FOUND);
         }
         return ResultUtil.success(treeNodes);
@@ -113,7 +108,7 @@ public class SysResourceController {
         try {
             ISysResService.removeById(id);
         } catch (Exception e) {
-            logger.error("Delete", e.getMessage());
+            log.error("Delete", e.getMessage());
             return ResultUtil.error(ResultEnum.RESOURCE_DELETE_ERROR);
         }
         return ResultUtil.success();
@@ -127,23 +122,9 @@ public class SysResourceController {
         try {
             ISysResService.updateById(sysorgan);
         } catch (Exception e) {
-            logger.error("sysrecourcebyid", e.getMessage());
+            log.error("sysrecourcebyid", e.getMessage());
             return ResultUtil.error(ResultEnum.ORGAN_UPDATE_ERROR);
         }
         return ResultUtil.success();
     }
-
-
-  /*  @ApiOperation(value = "更新菜单", notes = "更新菜单")
-    @RequestMapping(value = "Modify", method = RequestMethod.PUT)
-    @SysLog(value = "Modify")
-    public Result modify(@RequestBody SysResource sysRes) {
-        try {
-            ISysResService.updateById(sysRes);
-        } catch (Exception e) {
-            logger.error("Modify", e.getMessage());
-            return ResultUtil.error(ResultEnum.RESOURCEITEM_UPDATE_ERROR);
-        }
-        return ResultUtil.success();
-    }*/
 }

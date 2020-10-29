@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.system.dao.SysResourceMapper">
-    <select id="selectSysResourcepage" resultType="com.jinhe.modules.system.dto.SysResourceDto">
+    <select id="selectSysResourcepage" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
         SELECT
             r.*,
             group_concat(
@@ -22,7 +22,7 @@
             r.id
     </select>
 
-    <select id="selectSysResourceOne" resultType="com.jinhe.modules.system.dto.SysResourceDto">
+    <select id="selectSysResourceOne" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
         SELECT * from sys_resource
         where
             id = #{ID,jdbcType=VARCHAR}
@@ -37,7 +37,7 @@
                 AND prior ID =  PARENT_ID
     </select>
 
-    <select id="selectPageAll" resultType="com.jinhe.modules.system.dto.SysResourceDto">
+    <select id="selectPageAll" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
        SELECT
         r.*,
         group_concat( DISTINCT CASE WHEN i.id IS NOT NULL THEN ( concat(i.id, '_', i.NAME, '_', i.display_name, '_', i.state ) ) ELSE '' END ) AS item

@@ -2,70 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.system.dao.SysPermissionMapper">
 
-
-    <insert id="addByOrganId">
-        insert into sys_permission (id, orgion_id, resource_id, ITEM_IDS)
-        <foreach collection="list" item="sysPer" separator="UNION">
-            select
-            #{sysPer.id},#{sysPer.orgionId}, #{sysPer.resourceId}, #{sysPer.itemIds}
-            from dual
-        </foreach>
-    </insert>
-    <insert id="addByRoleId">
-        insert into sys_permission (id, role_id, resource_id, ITEM_IDS)
-        <foreach collection="list" item="sysPer" separator="UNION ALL">
-            select
-            #{sysPer.id}, #{sysPer.roleId}, #{sysPer.resourceId}, #{sysPer.itemIds}
-            from dual
-        </foreach>
-    </insert>
-    <insert id="add">
-        insert into sys_permission (
-            id, PARENT_ID, CREATE_USER_ID, STATE, ORGION_ID, ROLE_ID, USER_ID, RESOURCE_ID
-            , CREATE_TIME, UPDATE_TIME, ITEM_IDS, TYPE
-        ) VALUES (#{sysPer.id},#{sysPer.parentId},#{sysPer.createUserId},#{sysPer.state},#{sysPer.orgionId}
-            ,#{sysPer.roleId},#{sysPer.userId},#{sysPer.resourceId},#{sysPer.createTime},#{sysPer.updateTime}
-            ,#{sysPer.itemIds},#{sysPer.type})
-    </insert>
-    <select id="resourceIdByOrganId" resultType="java.lang.String">
-        SELECT distinct r.ID FROM
-            sys_resource r LEFT JOIN SYS_PERMISSION p
-        ON r.ID = p.RESOURCE_ID WHERE p.ORGION_ID = #{orgionId}
-    </select>
-    <select id="listByRoleId" resultType="com.jinhe.modules.system.dto.SysResourceDto">
-        <foreach collection="list" item="item" separator="UNION ALL">
-            SELECT
+    <select id="resourceIdByRoleId" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
+        SELECT
             r.*,
-            group_concat( DISTINCT CASE WHEN i.id IS NOT NULL THEN ( concat(i.id, '_', i.NAME, '_', i.display_name, '_',
-            i.state ) ) ELSE '' END
-            ) AS item
-            FROM
-            sys_resource r
-            left join
-            sys_resource_item i on r.id = i.resource_id
-            WHERE
-            r.ID = '${item}'
-            GROUP BY r.ID
-        </foreach>
-    </select>
-    <select id="resourceIdByRoleId" resultType="com.jinhe.modules.system.dto.SysResourceDto">
-            SELECT
-                r.*,p.item_ids as item
-            FROM
-                sys_permission p
-                LEFT JOIN sys_resource r ON r.id = p.resource_id
-            WHERE
-                p.role_id = #{roleId}
-    </select>
-    <select id="getById" resultType="com.jinhe.modules.system.entity.SysPermission">
-        SELECT * FROM SYS_PERMISSION WHERE id = #{id}
-    </select>
-    <delete id="deleteByRoleId">
-        DELETE FROM
-            SYS_PERMISSION
+            (SELECT group_concat(resource_item_id) FROM sys_permission_item  pi WHERE pi.permission_id=p.id GROUP BY resource_item_id ) as resourceItemIds
+        FROM
+            sys_permission p
+            LEFT JOIN sys_resource r ON r.id = p.resource_id
         WHERE
-            ROLE_ID = #{roleId}
-    </delete>
-
-
+            p.role_id =#{roleId}
+    </select>
 </mapper>
