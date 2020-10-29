@@ -2,12 +2,10 @@ package com.jinhe.modules.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinhe.modules.system.dto.SysOrganDto;
+import com.jinhe.modules.system.dto.SysOrganDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jinhe.modules.system.entity.SysOrgan;
-import org.apache.ibatis.annotations.Param;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,7 +21,7 @@ public interface ISysOrganService extends IService<SysOrgan> {
 
 
 
-    IPage<SysOrganDto> SelectOrgan(Page<SysOrganDto> page, String userId, String organId);
+    IPage<SysOrganDTO> SelectOrgan(Page<SysOrganDTO> page, String userId, String organId);
 
     Integer DeleteOrganByOrganId(String userId, String organId);
 

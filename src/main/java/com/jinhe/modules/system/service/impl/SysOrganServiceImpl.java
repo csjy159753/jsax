@@ -2,7 +2,6 @@ package com.jinhe.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinhe.common.util.Mapper;
 import com.jinhe.modules.system.dao.SysRegionMapper;
 import com.jinhe.modules.system.dao.SysUserMapper;
 import com.jinhe.modules.system.dto.*;
@@ -13,13 +12,11 @@ import com.jinhe.modules.system.service.ISysOrganService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,7 +41,7 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public IPage<SysOrganDto> SelectOrgan(Page<SysOrganDto> page, String userId, String organId) {
+    public IPage<SysOrganDTO> SelectOrgan(Page<SysOrganDTO> page, String userId, String organId) {
         // 根据父机构查询子机构
         SysUser sysUser = sysUserMapper.selectById(userId);
         if (sysUser == null) {

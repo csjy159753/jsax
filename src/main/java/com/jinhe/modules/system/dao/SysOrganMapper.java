@@ -2,13 +2,12 @@ package com.jinhe.modules.system.dao;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinhe.modules.system.dto.SysOrganDto;
+import com.jinhe.modules.system.dto.SysOrganDTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.system.entity.SysOrganNew;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ public interface SysOrganMapper extends BaseMapper<SysOrgan> {
     //根据userId查询
     List<SysOrgan> SelectOrgansByUserId(String userId, Page page);
 
-    Integer updateCustom(@Param("sysOrgan") SysOrganDto sysOrgan);
+    Integer updateCustom(@Param("sysOrgan") SysOrganDTO sysOrgan);
 
     Integer deleteByPer(@Param("userId") String userId, @Param("organId") String organId);
 
@@ -34,13 +33,13 @@ public interface SysOrganMapper extends BaseMapper<SysOrgan> {
 
     List<SysOrganNew> selectOrganIdsByIds(@Param("organIds") List<String> organIds);
 
-    IPage<SysOrganDto> selectOrgan(Page<SysOrganDto> page, String code);
+    IPage<SysOrganDTO> selectOrgan(Page<SysOrganDTO> page, String code);
 
-    IPage<SysOrganDto> selectOrganByUserId(Page<SysOrganDto> page, @Param("userId") String userId);
+    IPage<SysOrganDTO> selectOrganByUserId(Page<SysOrganDTO> page, @Param("userId") String userId);
 
-    List<SysOrganDto> selectOrganByUserIdAndorganId(@Param("userId") String userId, @Param("organId") String organId);
+    List<SysOrganDTO> selectOrganByUserIdAndorganId(@Param("userId") String userId, @Param("organId") String organId);
 
-    List<SysOrganDto> selectOrganByorganId(String organId);
+    List<SysOrganDTO> selectOrganByorganId(String organId);
 
     Integer selectCountByPreantId(@Param("userId") String userId, @Param("organId") String organId);
 

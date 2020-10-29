@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
+/**
+ * @author Administrator
+ */
 @Data
 @ApiModel(value="Login对象",description="登录")
 public class SysLogin {

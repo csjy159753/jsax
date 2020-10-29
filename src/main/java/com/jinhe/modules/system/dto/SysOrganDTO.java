@@ -27,7 +27,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysOrganDto<T> implements Serializable {
+public class SysOrganDTO<T> implements Serializable {
 
     private static final long serialVersionUID=1L;
 

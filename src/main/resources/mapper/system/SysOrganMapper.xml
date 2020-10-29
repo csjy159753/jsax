@@ -88,7 +88,7 @@
         connect by prior ID = PARENT_ID
 
     </select>
-    <select id="selectOrgan" resultType="com.jinhe.modules.system.dto.SysOrganDto">
+    <select id="selectOrgan" resultType="com.jinhe.modules.system.dto.SysOrganDTO">
         SELECT
         o1.id,
         o1.parent_id as parentId,
@@ -132,7 +132,7 @@
         o1.create_time,
         o1.update_time
     </select>
-    <select id="selectOrganByUserId" resultType="com.jinhe.modules.system.dto.SysOrganDto">
+    <select id="selectOrganByUserId" resultType="com.jinhe.modules.system.dto.SysOrganDTO">
         SELECT
             o.*
         FROM
@@ -141,7 +141,7 @@
         WHERE
             u.user_id = #{userId}
     </select>
-    <select id="selectOrganByUserIdAndorganId" resultType="com.jinhe.modules.system.dto.SysOrganDto">
+    <select id="selectOrganByUserIdAndorganId" resultType="com.jinhe.modules.system.dto.SysOrganDTO">
         SELECT
             o.*
         FROM
@@ -150,7 +150,7 @@
         WHERE
             o.PARENT_ID = #{organId}
     </select>
-    <select id="selectOrganByorganId" resultType="com.jinhe.modules.system.dto.SysOrganDto">
+    <select id="selectOrganByorganId" resultType="com.jinhe.modules.system.dto.SysOrganDTO">
         SELECT
             o.*
         FROM

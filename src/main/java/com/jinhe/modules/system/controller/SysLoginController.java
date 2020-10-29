@@ -7,7 +7,7 @@ import com.jinhe.common.config.JwtConfig;
 import com.jinhe.common.util.*;
 
 import com.jinhe.modules.system.dto.SysLogin;
-import com.jinhe.modules.system.dto.SysLoginDto;
+import com.jinhe.modules.system.dto.SysLoginDTO;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.Api;
@@ -16,11 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.xml.crypto.Data;
-import java.net.URLDecoder;
-import java.security.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -76,7 +71,7 @@ public class SysLoginController {
             iSysUserService.updateById(SysUser);
         }
 
-        SysLoginDto sysLogin = Mapper.ModelToModel(SysUser, SysLoginDto.class);
+        SysLoginDTO sysLogin = Mapper.ModelToModel(SysUser, SysLoginDTO.class);
         if (sysLogin.getState() == 3 || sysLogin.getState() == 2) {
             return ResultUtil.error(ResultEnum.OBSOLETE);
         }
@@ -125,7 +120,7 @@ public class SysLoginController {
             iSysUserService.updateById(SysUser);
         }
 
-        SysLoginDto sysLogin = Mapper.ModelToModel(SysUser, SysLoginDto.class);
+        SysLoginDTO sysLogin = Mapper.ModelToModel(SysUser, SysLoginDTO.class);
         if (sysLogin.getState() == 3 || sysLogin.getState() == 2) {
             return ResultUtil.error(ResultEnum.OBSOLETE);
         }

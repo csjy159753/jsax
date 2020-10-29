@@ -7,8 +7,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 @Data
-public class SysLoginDto implements Serializable {
+public class SysLoginDTO implements Serializable {
     /**
      * 用户id
      */

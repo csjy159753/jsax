@@ -73,13 +73,13 @@ public class SysLogVo implements Serializable {
      * 创建时间
      */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-    @JsonSerialize(using = LocalDateTimeSerializer.class)//显示
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private Date createTime;
     /**
      * 更新时间
      */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//接收参数
-    @JsonSerialize(using = LocalDateTimeSerializer.class)//显示
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private Date updateTime;
 
     private String exception;
