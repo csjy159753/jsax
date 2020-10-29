@@ -6,7 +6,7 @@ import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.config.ConfigProperty;
-import com.jinhe.modules.system.dto.FileStoreDto;
+import com.jinhe.modules.system.dto.FileStoreDTO;
 import com.jinhe.modules.system.entity.FileStore;
 import com.jinhe.modules.system.entity.FileStoreType;
 import com.jinhe.modules.system.service.IFileStoreService;
@@ -75,7 +75,7 @@ public class FileStoreController {
             }
             listFileStoreTypefilter.add(fileStoreType);
         }
-        List<FileStoreDto> fileStoreDtos = fileStoreService.upLoadFiles(file, listFileStoreTypefilter);
+        List<FileStoreDTO> fileStoreDtos = fileStoreService.upLoadFiles(file, listFileStoreTypefilter);
         if (fileStoreDtos == null || fileStoreDtos.isEmpty()) {
             return ResultUtil.error(ResultEnum.FILE_UPLOAD_ERROR);
         } else {

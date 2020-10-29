@@ -5,12 +5,11 @@ import com.jinhe.common.util.ImageUtil;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.config.ConfigProperty;
 import com.jinhe.modules.system.dao.FileStoreMapper;
-import com.jinhe.modules.system.dto.FileStoreDto;
+import com.jinhe.modules.system.dto.FileStoreDTO;
 import com.jinhe.modules.system.entity.FileStore;
 import com.jinhe.modules.system.entity.FileStoreType;
 import com.jinhe.modules.system.service.IFileStoreService;
 import com.jinhe.modules.system.service.IFileStoreTypeService;
-import org.apache.commons.compress.utils.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -48,9 +47,9 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
     private IFileStoreTypeService iFileStoreTypeService;
 
     @Override
-    public List<FileStoreDto> upLoadFiles(MultipartFile[] files, List<FileStoreType> listFileStoreTypefilter) {
+    public List<FileStoreDTO> upLoadFiles(MultipartFile[] files, List<FileStoreType> listFileStoreTypefilter) {
 
-        List<FileStoreDto> list = new ArrayList<>();
+        List<FileStoreDTO> list = new ArrayList<>();
         for (MultipartFile file : files) {
             double size = file.getSize();
             String length = null;//文件大小
@@ -134,7 +133,7 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
                 fileStore.setMimeTypeType(fileStoreType.getType());
 
 
-                FileStoreDto fileStoreDto = new FileStoreDto();
+                FileStoreDTO fileStoreDto = new FileStoreDTO();
                 fileStoreDto.setFileId(fileId);
                 fileStoreDto.setFileName(originalFilename);
                 fileStoreDto.setMimeTypeExt(fileSuffix);
@@ -188,7 +187,7 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
      * @param fileStoreDto
      * @throws IOException
      */
-    private void imageCompress(String newFileName, String dirPath, String ogiginalPath, String modifiedPath, String lowPath, String thumbPath, File ogiginalFile, FileStore fileStore, FileStoreDto fileStoreDto) throws IOException {
+    private void imageCompress(String newFileName, String dirPath, String ogiginalPath, String modifiedPath, String lowPath, String thumbPath, File ogiginalFile, FileStore fileStore, FileStoreDTO fileStoreDto) throws IOException {
         File watermark = null;
         BufferedImage sourceImg = ImageIO.read(new FileInputStream(ogiginalFile));
         try {

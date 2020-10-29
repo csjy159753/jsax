@@ -17,7 +17,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel(value="FileStore对象", description="")
-public class FileStoreDto implements Serializable {
+public class FileStoreDTO implements Serializable {
 
     @ApiModelProperty(value = "fileId")
     private String fileId;
