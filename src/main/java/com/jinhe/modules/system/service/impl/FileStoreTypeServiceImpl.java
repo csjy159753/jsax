@@ -6,6 +6,8 @@ import com.jinhe.modules.system.service.IFileStoreTypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 文件存储类型 服务实现类
@@ -17,4 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class FileStoreTypeServiceImpl extends ServiceImpl<FileStoreTypeMapper, FileStoreType> implements IFileStoreTypeService {
 
+    @Override
+    public List<FileStoreType> getAllFileStoreType() {
+        return this.list();
+    }
+
+    @Override
+    public FileStoreType getFileStoreTypeById(Integer id) {
+        return this.getById(id);
+    }
 }
