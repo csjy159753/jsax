@@ -81,7 +81,7 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String datePath = sdf.format(date);
             FileStoreType fileStoreType = null;
-            if (file.getContentType().equals("multipart/form-data")) {
+            if ("multipart/form-data".equals(file.getContentType())) {
                 fileStoreType = listFileStoreTypeFilter.stream().filter(d -> d.getExt().equals("." + fileSuffix)).findFirst().get();
             } else {
                 fileStoreType = listFileStoreTypeFilter.stream().filter(d -> d.getExt().equals("." + fileSuffix) && d.getType().equals(file.getContentType())).findFirst().get();
