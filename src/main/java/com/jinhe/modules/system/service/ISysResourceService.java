@@ -1,7 +1,10 @@
 package com.jinhe.modules.system.service;
 
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysResource;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-10-29
  */
 public interface ISysResourceService extends IService<SysResource> {
-
+    /**
+     * 查询所有菜单只有超级管理员和管路员有此权限
+     * @return
+     */
+    List<SysResourceDTO> selectPageAll();
 }

@@ -86,11 +86,13 @@ public enum ResultEnum {
     /**
      * 菜单模块
      */
-    RESOURCE_INSERT_ERROR(1801, "新增菜单失败"),
+
+    RESOURCE_SAVE_UPDATE_ERROR(1801, "新增或者更新菜单失败"),
     RESOURCE_DELETE_ERROR(1802, "删除菜单失败"),
     RESOURCE_UPDATE_ERROR(1803, "更新菜单失败"),
     RESOURCE_SELECT_NOT_FOUND(1804, "未查询到菜单信息"),
     RESOURCE_EXIST_SUBSET_UNABLE_DEL(1805, "菜单存在子机构无法删除"),
+    RESOURCE_PERMISSION_DENIED(1086, "查询菜单权限不足"),
 
 
     /**

@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.system.dao.SysResourceMapper">
 
+    <select id="selectPageAll" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
+       SELECT
+        r.*,
+        group_concat( DISTINCT CASE WHEN i.id IS NOT NULL THEN ( concat(i.id, '_', i.NAME, '_', i.display_name, '_', i.state ) ) ELSE '' END ) AS item
+    FROM
+        sys_resource r
+        LEFT JOIN sys_resource_item i ON r.id = i.resource_id
+        GROUP BY  r.id
+    </select>
+
 </mapper>
