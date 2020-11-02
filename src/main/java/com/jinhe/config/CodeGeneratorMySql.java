@@ -94,9 +94,9 @@ public class CodeGeneratorMySql {
         };
 
         // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
+//        String templatePath = "/templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
-//        String templatePath = "/templates/mapper.xml.vm";
+        String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
@@ -150,7 +150,7 @@ public class CodeGeneratorMySql {
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+//        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
 

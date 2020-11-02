@@ -29,7 +29,7 @@ public enum ResultEnum {
     ROLE_ASSOCIATED_USERS(1101, "角色有关联用户无法删除"),
     ROLE_EXIST_SUBSET_UNABLE_DEL(1103, "角色存在子角色无法删除"),
     ROLE_UPDATE_ERROR(1103, "角色更新失败"),
-    ROLE_INSERT_PERMISSIONS(1104, "角色新增权限失败"),
+    ROLE_INSERT_PERMISSIONS(1104, "更新内容为空"),
     ROLE_TAG_REPEAT(1105, "角色表示重复"),
     ROLE_TYPE_REPEAT(1105, "角色类型重复"),
     /**
