@@ -136,6 +136,7 @@ public enum ResultEnum {
         this.msg = msg;
     }
 
+
     public Integer getCode() {
         return code;
     }
