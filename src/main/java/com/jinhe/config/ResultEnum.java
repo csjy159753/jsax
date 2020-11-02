@@ -1,12 +1,12 @@
-package com.jinhe.common.util;
+package com.jinhe.config;
 
 public enum ResultEnum {
     //这里是可以自己定义的，方便与前端交互即可
     /**
      * 0-1000系统模块
      */
-    UNKNOWN_ERROR(-1, "未知错误"),
-    TOKRN_ERROR(10,"Token验证失败"),
+    UNKNOWN_ERROR(-1, "程序内部出错请联系管理员！"),
+    TOKRN_ERROR(10, "Token验证失败"),
     SUCCESS(200, "成功"),
     ERROR(500, "程序异常错误"),
     NOT_FOUND(404, "未发现"),
@@ -30,6 +30,8 @@ public enum ResultEnum {
     ROLE_EXIST_SUBSET_UNABLE_DEL(1103, "角色存在子角色无法删除"),
     ROLE_UPDATE_ERROR(1103, "角色更新失败"),
     ROLE_INSERT_PERMISSIONS(1104, "角色新增权限失败"),
+    ROLE_TAG_REPEAT(1105, "角色表示重复"),
+    ROLE_TYPE_REPEAT(1105, "角色类型重复"),
     /**
      * 机构模块
      */

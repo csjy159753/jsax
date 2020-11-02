@@ -1,7 +1,7 @@
 package com.jinhe.common.exception;
 
 import com.jinhe.common.util.Result;
-import com.jinhe.common.util.ResultEnum;
+import com.jinhe.config.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import io.jsonwebtoken.SignatureException;
 import org.slf4j.Logger;

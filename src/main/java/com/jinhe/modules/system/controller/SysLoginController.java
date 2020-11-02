@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.config.JwtConfig;
 import com.jinhe.common.util.*;
+import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.system.dto.SysLogin;
 import com.jinhe.modules.system.dto.SysLoginDTO;
 import com.jinhe.modules.system.entity.SysUser;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.UUID;
 

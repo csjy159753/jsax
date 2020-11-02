@@ -3,7 +3,7 @@ package com.jinhe.modules.system.controller;
 
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.Result;
-import com.jinhe.common.util.ResultEnum;
+import com.jinhe.config.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.config.ConfigProperty;
 import com.jinhe.modules.system.dto.FileStoreDTO;

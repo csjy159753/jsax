@@ -2,7 +2,7 @@ package com.jinhe.common.aspect;
 
 import com.jinhe.common.annotation.DuplicateSubmitToken;
 import com.jinhe.common.exception.DuplicateSubmitException;
-import com.jinhe.common.util.ResultEnum;
+import com.jinhe.config.ResultEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

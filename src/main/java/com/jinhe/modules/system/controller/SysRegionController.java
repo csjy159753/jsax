@@ -1,11 +1,9 @@
 package com.jinhe.modules.system.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
-import com.jinhe.common.util.Query;
 import com.jinhe.common.util.Result;
-import com.jinhe.common.util.ResultEnum;
+import com.jinhe.config.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.modules.system.dao.SysRegionMapper;
 import com.jinhe.modules.system.dto.SysRegionDTO;
@@ -16,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

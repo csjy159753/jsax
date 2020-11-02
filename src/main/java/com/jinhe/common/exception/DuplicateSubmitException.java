@@ -1,6 +1,6 @@
 package com.jinhe.common.exception;
 
-import com.jinhe.common.util.ResultEnum;
+import com.jinhe.config.ResultEnum;
 
 /**
  * 重复提交异常
