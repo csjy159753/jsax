@@ -1,7 +1,11 @@
 package com.jinhe.modules.system.dao;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.jinhe.modules.system.dto.SysOrganDTO;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysOrganMapper extends BaseMapper<SysOrgan> {
 
+    /**
+     * 根据机构id查询子机构
+     * @param userId
+     * @return
+     */
+    List<SysOrganDTO> selectOrganByOrganId(String userId);
 }

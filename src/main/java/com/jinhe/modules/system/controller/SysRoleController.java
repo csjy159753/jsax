@@ -112,8 +112,8 @@ public class SysRoleController {
         if (sysRole.getTag() != null) {
             QueryWrapper<SysRegion> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("tag", sysRole.getTag());
-            List<SysRegion> regionList = iSysRegionService.list(queryWrapper);
-            if (regionList.size() > 0) {
+            int count = iSysRegionService.count(queryWrapper);
+            if (count > 0) {
                 return ResultUtil.error(ResultEnum.ROLE_TAG_REPEAT);
             }
         }
@@ -121,8 +121,8 @@ public class SysRoleController {
         if (sysRole.getType() != null) {
             QueryWrapper<SysRegion> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("type", sysRole.getTag());
-            List<SysRegion> regionList = iSysRegionService.list(queryWrapper);
-            if (regionList.size() > 0) {
+            int count = iSysRegionService.count(queryWrapper);
+            if (count > 0) {
                 return ResultUtil.error(ResultEnum.ROLE_TYPE_REPEAT);
             }
 

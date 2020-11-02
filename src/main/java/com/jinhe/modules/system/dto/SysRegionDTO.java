@@ -1,4 +1,5 @@
 package com.jinhe.modules.system.dto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -65,6 +66,7 @@ public class SysRegionDTO implements Serializable{
     private Boolean isVirtual;
 
     @ApiModelProperty(value = "创建时间")
+
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "经度")

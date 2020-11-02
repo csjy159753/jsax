@@ -91,14 +91,14 @@ public class SysResourceDTO implements Serializable {
      * 创建时间
      */
     @TableField("CREATE_TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+
     private Date createTime;
 
     /**
      * 更新
      */
     @TableField("UPDATE_TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+
     private Date updateTime;
 
     /**

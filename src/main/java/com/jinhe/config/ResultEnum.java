@@ -35,11 +35,14 @@ public enum ResultEnum {
     /**
      * 机构模块
      */
+
     ORGAN_ASSOCIATED_USERS(1201, "机构关联用户无法删除"),
     ORGAN_NOT_FOUND(1202, "机构未发现"),
     ORGAN_EXIST_SUBSET_UNABLE_DEL(1203, "机构存在子机构无法删除"),
     ORGAN_INSERT_PERMISSIONS(1204, "机构新增权限失败"),
     ORGAN_UPDATE_ERROR(1205, "更新机构失败"),
+    ORGAN_TYPE_ERROR(1206, "机构类型不正确"),
+    ORGAN_TAG_REPEAT(1207, "机构标识符字符串重复"),
     /**
      * 行政区
      */

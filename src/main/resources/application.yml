@@ -21,6 +21,9 @@ swagger:
   version: 1.0.0-SNAPSHOT
 # mysql
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   mvc:
   resources:
     #当前启动目录下相对路径
