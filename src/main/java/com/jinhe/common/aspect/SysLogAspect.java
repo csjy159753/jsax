@@ -97,7 +97,7 @@ public class SysLogAspect {
                 String key = redisHandel.value();
                 System.out.println("key = " + key);
             }
-            this.rabbitTemplate.convertAndSend("exchange", "topic.message", StringUtils.join(liststr, ","));
+//            this.rabbitTemplate.convertAndSend("exchange", "topic.message", StringUtils.join(liststr, ","));
         } catch (Exception e) {
             e.printStackTrace();
         }

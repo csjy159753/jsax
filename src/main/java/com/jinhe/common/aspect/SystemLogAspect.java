@@ -76,7 +76,7 @@ public class SystemLogAspect {
             }
             System.out.println("-------SystemLogAspect--------参数列表结束-------------------------");
             Class cla = method.getClass();
-            this.rabbitTemplate.convertAndSend("exchange", "topic.messages", StringUtils.join(liststr, ","));
+//            this.rabbitTemplate.convertAndSend("exchange", "topic.messages", StringUtils.join(liststr, ","));
 
             if (cla.isAnnotationPresent(SysLogTest.class)) {
                 SysLogTest redisHandel = (SysLogTest) cla.getAnnotation(SysLogTest.class);
