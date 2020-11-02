@@ -2,6 +2,7 @@ package com.jinhe.common.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.jinhe.common.annotation.SysLogTest;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -23,12 +24,13 @@ import java.util.List;
 
 /**
  * 系统日志，切面处理类
+ * @author Administrator
  */
 @Aspect
 @Component
+@Slf4j
 public class SysLogTestAspect {
-    //记录器
-    Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
@@ -42,7 +44,7 @@ public class SysLogTestAspect {
 
     @Around("logPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        logger.info("======================================================");
+        log.info("======================================================");
         long beginTime = System.currentTimeMillis();
         // 执行方法
         Object objs = point.getArgs();
@@ -52,7 +54,7 @@ public class SysLogTestAspect {
 
         // 保存日志
         saveSysLog(point, time);
-        logger.info("======================================================");
+        log.info("======================================================");
 
 
         return result;
@@ -70,7 +72,7 @@ public class SysLogTestAspect {
             String[] parameterNames = methodSignature.getParameterNames();
             Method method = methodSignature.getMethod();
             System.out.println("---------------参数列表开始-------------------------");
-            List<String> liststr=new ArrayList<>();
+            List<String> liststr = new ArrayList<>();
             liststr.add("测试消息队列");
             for (int i = 0, len = parameterNames.length; i < len; i++) {
                 System.out.println("参数名：" + parameterNames[i] + " = " + args[i]);
@@ -97,19 +99,22 @@ public class SysLogTestAspect {
         // 请求的方法名
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();
-        logger.info(className + "." + methodName + "()");
+        log.info(className + "." + methodName + "()");
 
         //请求地址
-        String remoteAddr = request.getRemoteAddr();//请求的IP
-        logger.info(remoteAddr);
-        String method = request.getMethod();        //请求的方法类型(post/get)
-        logger.info(method);
+        String remoteAddr = request.getRemoteAddr();
+        log.info(remoteAddr);
+        /**
+         * 请求的方法类型(post/get)
+         */
+        String method = request.getMethod();
+        log.info(method);
 
         // 请求的参数
         Object[] args = joinPoint.getArgs();
         try {
             String params = JSON.toJSONString(args);
-            logger.info(params);
+            log.info(params);
         } catch (Exception e) {
 
         }

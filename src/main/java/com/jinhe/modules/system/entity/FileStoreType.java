@@ -26,7 +26,7 @@ public class FileStoreType implements Serializable {
 
     @ApiModelProperty(value = "主键")
     @TableId("ID")
-    private BigDecimal id;
+    private Integer id;
 
     @ApiModelProperty(value = "后缀类型")
     @TableField("EXT")
@@ -38,7 +38,7 @@ public class FileStoreType implements Serializable {
 
     @ApiModelProperty(value = "是否使用")
     @TableField("IS_USE")
-    private BigDecimal isUse;
+    private Integer isUse;
 
 
 }

@@ -24,9 +24,9 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws SignatureException {
         /** 地址过滤 */
         String uri = request.getRequestURI();
-//        if(true){
-//            return true;
-//        }
+        if(true){
+            return true;
+        }
         if (!property.getSpringProfilesActive().equals("prod")) {
             if (property.getFilters().stream().filter(d -> uri.contains(d)).count() == 0
             ) {
