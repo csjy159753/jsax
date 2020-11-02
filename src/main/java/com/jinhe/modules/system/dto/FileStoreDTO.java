@@ -8,14 +8,14 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author rls
  * @since 2020-04-27
  */
 @Data
-@ApiModel(value="FileStore对象", description="")
+@ApiModel(value = "FileStore对象", description = "")
 public class FileStoreDTO implements Serializable {
 
     @ApiModelProperty(value = "fileId")
@@ -30,11 +30,10 @@ public class FileStoreDTO implements Serializable {
 
     @ApiModelProperty(value = "文件类型")
     private String mimeTypeType;
-
-    private String path;//前端所需路径
-
-    private String size;//文件大小
-
+    @ApiModelProperty(value = "前端访问文件路径")
+    private String path;
+    @ApiModelProperty(value = "文件大小")
+    private String size;
 
 
 }

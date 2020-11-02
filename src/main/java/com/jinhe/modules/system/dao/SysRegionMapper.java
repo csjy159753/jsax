@@ -1,7 +1,10 @@
 package com.jinhe.modules.system.dao;
 
+import com.jinhe.modules.system.dto.SysRegionDTO;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysRegionMapper extends BaseMapper<SysRegion> {
 
+    /**
+     * 根据行政区编码查询行政区划
+     *
+     * @param code
+     * @return
+     */
+    List<SysRegionDTO> listRegionCode(String code);
 }

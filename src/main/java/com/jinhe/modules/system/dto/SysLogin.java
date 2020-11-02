@@ -4,12 +4,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author Administrator
  */
 @Data
 @ApiModel(value="Login对象",description="登录")
-public class SysLogin {
+public class SysLogin implements Serializable {
     /**
      * 用户名
      */
