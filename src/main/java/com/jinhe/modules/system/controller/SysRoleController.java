@@ -10,8 +10,11 @@ import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.util.Tree.MapTree;
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysRole;
+import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysRoleService;
+import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +37,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SysRoleController {
     @Resource
     private ISysRoleService sysRoleService;
+    @Resource
+    private ISysUserService iSysUserService;
+    private Integer userType = 99;
 
     /**
      * 查询角色列表
@@ -43,6 +49,12 @@ public class SysRoleController {
     @ApiOperation(value = "查询角色列表", notes = "查询角色列表")
     @RequestMapping(value = "list/{userId}", method = RequestMethod.GET)
     public Result list(@PathVariable String userId) {
+
+        SysUser sysUser = iSysUserService.getById(userId);
+        if (sysUser == null || !userType.equals(sysUser.getType())) {
+            return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
+        }
+
         try {
             List<SysRole> listRole = sysRoleService.list();
             List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(listRole);
