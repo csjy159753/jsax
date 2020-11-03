@@ -2,21 +2,20 @@ package com.jinhe.modules.system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.*;
-import com.jinhe.common.util.Tree.MapTree;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.system.dto.SysOrganDTO;
 import com.jinhe.modules.system.entity.SysOrgan;
+import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysOrganService;
+import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
@@ -32,6 +31,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SysOrganController {
     @Resource
     private ISysOrganService iSysOrganService;
+    @Resource
+    private ISysUserService iSysUserService;
+    private Integer userType = 99;
 
     /**
      * 根据ID查询机构
@@ -84,22 +86,25 @@ public class SysOrganController {
         return ResultUtil.success(sysOrganIPage);
     }
 
-//    @ApiOperation(value = "根据ID删除机构", notes = "根据ID删除机构")
-//    @RequestMapping(value = "DeleteByOrganId/{userId}/{id}", method = RequestMethod.DELETE)
-//    public Result DeleteOrganByOrganId(@PathVariable String id, @PathVariable String userId) {
-//        SysOrgan sysOrgan;
-//        QueryWrapper<SysOrgan> sysOrganQueryWrapper = new QueryWrapper<>();
-//        sysOrganQueryWrapper.eq("PARENT_ID", id);
-//        sysOrgan = iSysOrganService.getBaseMapper().selectById(id);
-//        if (sysOrgan == null) {
-//            return ResultUtil.error(ResultEnum.ORGAN_NOT_FOUND);
-//        }
-//        if (iSysOrganService.getBaseMapper().selectCount(sysOrganQueryWrapper) > 0) {
-//            return ResultUtil.error(ResultEnum.ORGAN_EXIST_SUBSET_UNABLE_DEL);
-//        }
-//        iSysOrganService.DeleteOrganByOrganId(userId, id);
-//        return ResultUtil.success();
-//    }
+    @ApiOperation(value = "根据ID删除机构", notes = "根据ID删除机构")
+    @RequestMapping(value = "removeOrganByOrganId/{userId}/{id}", method = RequestMethod.DELETE)
+    public Result removeOrganByOrganId(@PathVariable String id, @PathVariable String userId) {
+        SysUser sysUser = iSysUserService.getById(userId);
+        if (sysUser == null || !userType.equals(sysUser.getType())) {
+            return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
+        }
+        QueryWrapper<SysOrgan> sysOrganQueryWrapper = new QueryWrapper<>();
+        sysOrganQueryWrapper.eq("PARENT_ID", id);
+        SysOrgan sysOrgan = iSysOrganService.getBaseMapper().selectById(id);
+        if (sysOrgan == null) {
+            return ResultUtil.error(ResultEnum.ORGAN_NOT_FOUND);
+        }
+        if (iSysOrganService.getBaseMapper().selectCount(sysOrganQueryWrapper) > 0) {
+            return ResultUtil.error(ResultEnum.ORGAN_EXIST_SUBSET_UNABLE_DEL);
+        }
+        iSysOrganService.removeById(id);
+        return ResultUtil.success();
+    }
 //
 //    @RequestMapping(value = "GetOrganSubset", method = RequestMethod.POST)
 //    @ApiOperation(value = "根据ID获取全部子集", notes = "根据ID获取全部子集")

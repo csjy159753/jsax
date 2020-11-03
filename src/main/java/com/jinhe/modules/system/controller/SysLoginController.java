@@ -126,7 +126,7 @@ public class SysLoginController {
         String token = jwtConfig.createToken(sysLogin.getId(), 1000 * 30000);
         sysLogin.setToken(token);
         sysLogin.setTokenExpireTime(1000 * 30000);
-        sysLogin.setRefreshToken(UUID.randomUUID().toString().replace("-", ""));
+        sysLogin.setRefreshToken(StringUtils.getGUID());
         return ResultUtil.success(sysLogin);
     }
 }

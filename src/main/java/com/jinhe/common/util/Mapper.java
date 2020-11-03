@@ -103,7 +103,7 @@ public class Mapper {
      * @param src
      * @param target
      */
-    public static <T, TT> Object MapToModel(T src, TT target) {
+    public static <T, TT> void MapToModel(T src, TT target) {
         Method[] srcMethods = src.getClass().getMethods();
         Method[] targetMethods = target.getClass().getMethods();
         for (Method m : srcMethods) {
@@ -122,7 +122,6 @@ public class Mapper {
                 }
             }
         }
-        return target;
     }
 
     /**

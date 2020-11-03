@@ -73,6 +73,10 @@ public enum ResultEnum {
     USER_INSERT_PERMISSION_ERROR(1511, "用户新增权限失败"),
     USER_DELETE_ERROR(1512, "删除用户失败"),
     USER_UPDATE_PASSWORD_ERROR(1513, "用户密码格式不正确"),
+    USER_NAME_LENGTH_ERROR(1514, "用户名长度不够"),
+    USER_NAME_CORRECT(1515, "用户名正确"),
+    USER_NOT_RELEVANCY_ORGAN(1516, "用户没有关联机构"),
+
 
     /**
      * 权限模块
