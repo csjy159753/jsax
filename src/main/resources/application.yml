@@ -12,6 +12,7 @@ server:
   servlet:
     context-path:
   max-http-header-size: 10240
+version: ${project.version}
 #   context-path: /cApi
 #http://localhost:8098/swagger-ui/
 swagger:
