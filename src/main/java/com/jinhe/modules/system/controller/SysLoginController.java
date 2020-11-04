@@ -8,6 +8,8 @@ import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.system.dto.SysLogin;
 import com.jinhe.modules.system.dto.SysLoginDTO;
 import com.jinhe.modules.system.entity.SysUser;
+import com.jinhe.modules.system.service.ISysLoginCountService;
+import com.jinhe.modules.system.service.ISysLoginLogService;
 import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -29,11 +33,18 @@ import java.util.UUID;
 @RequestMapping("/allowApi/SysLogin")
 @Api(description = "登录接口", tags = {"system-SysLogin"})
 public class SysLoginController {
+
+    @Autowired(required = false)
+    HttpServletRequest request;
     @Resource
     private JwtConfig jwtConfig;
     @Autowired
     ISysUserService iSysUserService;
     private int minutes;
+    @Autowired
+    private ISysLoginLogService iSysLoginLogService;
+    @Autowired
+    private ISysLoginCountService iSysLoginCountService;
 
     @ApiOperation(value = "登录获取token", notes = "登录获取token")
     @RequestMapping(value = "Login", method = RequestMethod.POST)
@@ -78,6 +89,13 @@ public class SysLoginController {
         sysLogin.setToken(token);
         sysLogin.setTokenExpireTime(7200000);
         sysLogin.setRefreshToken(UUID.randomUUID().toString().replace("-", ""));
+
+        /**
+         * 添加日志记录
+         */
+        String clientIp = HttpServletUtil.getIPAddress(request);
+        iSysLoginLogService.saveInfo(SysUser.getId(), SysUser.getNormalizedUsername(), 2, clientIp);
+        iSysLoginCountService.saveInfo(SysUser.getId(), SysUser.getNormalizedUsername(), 2);
         return ResultUtil.success(sysLogin);
     }
 
@@ -127,6 +145,15 @@ public class SysLoginController {
         sysLogin.setToken(token);
         sysLogin.setTokenExpireTime(1000 * 30000);
         sysLogin.setRefreshToken(StringUtils.getGUID());
+        /**
+         * 添加日志记录
+         */
+        /**
+         * 添加日志记录
+         */
+        String clientIp = HttpServletUtil.getIPAddress(request);
+        iSysLoginLogService.saveInfo(SysUser.getId(), SysUser.getNormalizedUsername(), 1, clientIp);
+        iSysLoginCountService.saveInfo(SysUser.getId(), SysUser.getNormalizedUsername(), 1);
         return ResultUtil.success(sysLogin);
     }
 }

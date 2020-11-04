@@ -4,7 +4,11 @@ import com.jinhe.modules.system.entity.SysLoginLog;
 import com.jinhe.modules.system.dao.SysLoginLogMapper;
 import com.jinhe.modules.system.service.ISysLoginLogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>
@@ -16,5 +20,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysLoginLogServiceImpl extends ServiceImpl<SysLoginLogMapper, SysLoginLog> implements ISysLoginLogService {
+
+    @Override
+    public void saveInfo(String userId, String userName, int type, String clientIp) {
+        SysLoginLog sysLoginLog = new SysLoginLog();
+        sysLoginLog.setUserId(userId);
+        sysLoginLog.setUserName(userName);
+        sysLoginLog.setType(type);
+        sysLoginLog.setClientIp(clientIp);
+        this.save(sysLoginLog);
+    }
 
 }

@@ -36,8 +36,8 @@ import java.util.List;
 public class SysUserController {
     @Autowired
     private ISysUserService iSysUserService;
-    @Autowired
-    private UserInfo userInfo;
+
+
     @Autowired
     private ISysUserOrganService iSysUserOrganService;
 
@@ -50,7 +50,7 @@ public class SysUserController {
     @RequestMapping(value = "saveUser", method = RequestMethod.POST)
     @SysLog(value = "测试注解日志切面新增用户saveUser")
     public Result saveUser(@RequestBody SysUserDTO sysUserDto) throws InstantiationException, IllegalAccessException {
-
+        UserInfo userInfo = new UserInfo();
         // 密码复杂度 10位4选3
         String passwordHash = sysUserDto.getPasswordHash();
 
@@ -86,6 +86,7 @@ public class SysUserController {
     @RequestMapping(value = "ModifyByOrganRole", method = RequestMethod.PUT)
     @SysLog(value = "测试注解日志切面重置密码updatePassword")
     public Result updatePassword(@RequestBody SysPasswordDTO from) {
+        UserInfo userInfo = new UserInfo();
         // 密码复杂度 10位4选3
         if (!userInfo.CheckPassword(from.getPassWordHash())) {
             return ResultUtil.error(ResultEnum.USER_UPDATE_PASSWORD_ERROR);
