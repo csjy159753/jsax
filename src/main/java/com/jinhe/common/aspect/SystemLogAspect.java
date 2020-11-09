@@ -2,6 +2,11 @@ package com.jinhe.common.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.jinhe.common.annotation.SysLogTest;
+import com.jinhe.common.config.JwtConfig;
+import com.jinhe.common.config.SystemType;
+import com.jinhe.modules.system.entity.SysOperatorLog;
+import com.jinhe.modules.system.service.ISysOperatorLogService;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -34,6 +39,10 @@ public class SystemLogAspect {
     private AmqpTemplate rabbitTemplate;
     @Autowired(required = false)
     HttpServletRequest request;
+    @Resource
+    private JwtConfig jwtConfig;
+    @Autowired
+    private ISysOperatorLogService iSysOperatorLogService;
 
     /**
      *    * Controller层切点 注解拦截 （"execution（方法返回值类型   包名.类名.方法名（参数类型））"）
@@ -76,14 +85,16 @@ public class SystemLogAspect {
             }
             System.out.println("-------SystemLogAspect--------参数列表结束-------------------------");
             Class cla = method.getClass();
-
-
-
-            if (cla.isAnnotationPresent(SysLogTest.class)) {
-                SysLogTest redisHandel = (SysLogTest) cla.getAnnotation(SysLogTest.class);
-                String key = redisHandel.value();
-                System.out.println("key = " + key);
+            if (request != null && request.getAttribute(SystemType.USER_ID) != null) {
+                Class<?> classTarget=joinPoint.getTarget().getClass();
+                Api api= classTarget.getAnnotation(Api.class);
+                SysOperatorLog sysOperatorLog = new SysOperatorLog();
+                api.tags();
+                sysOperatorLog.setModuleName( api.description());
+//                iSysOperatorLogService.save(sysOperatorLog);
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

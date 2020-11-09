@@ -3,21 +3,26 @@ package com.jinhe.common.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * JWT的token，区分大小写
+ *
+ * @author Administrator
  */
 @ConfigurationProperties(prefix = "config.jwt")
 @Component
+@Data
 public class JwtConfig {
-
     private String secret;
-    private long expire = 1000;
+    private long expire = 3600;
     private String header;
+    private String tokenStartWith;
 
     /**
      * 生成token
@@ -25,7 +30,7 @@ public class JwtConfig {
      * @param subject
      * @return
      */
-    public String createToken(String subject) {
+    public String createToken(String subject, HashMap<String, Object> map) {
 
         Date nowDate = new Date();
         //过期时间
@@ -34,6 +39,7 @@ public class JwtConfig {
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject(subject)
+                .setClaims(map)
                 .setIssuedAt(nowDate)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, secret)
@@ -46,8 +52,7 @@ public class JwtConfig {
      * @param subject
      * @return
      */
-    public String createToken(String subject, Integer expireTime) {
-
+    public String createToken(String subject, HashMap<String, Object> map, Integer expireTime) {
         Date nowDate = new Date();
         //过期时间
         Date expireDate = new Date(nowDate.getTime() + expire * expireTime);
@@ -55,6 +60,7 @@ public class JwtConfig {
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject(subject)
+                .setClaims(map)
                 .setIssuedAt(nowDate)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, secret)

@@ -18,6 +18,8 @@ import java.util.List;
 
 /**
  * Swagger配置
+ *
+ * @author Administrator
  */
 @Configuration
 public class SwaggerConfig {
@@ -37,16 +39,27 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())    //apiInfo()用来创建该Api的基本信息（这些基本信息会展现在文档页面中）
+                // apiInfo()用来创建该Api的基本信息（这些基本信息会展现在文档页面中）
+                .apiInfo(apiInfo())
+                .tags(new Tag("system", "系统模块"), getTags())
                 .select()    //select()函数返回一个ApiSelectorBuilder实例用来控制哪些接口暴露给Swagger来展现
                 // 加了ApiOperation注解的类，生成接口文档
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                .apis(RequestHandlerSelectors.basePackage(basePackage))    //本例采用指定扫描的包路径来定义，Swagger会扫描该包下所有Controller定义的API，并产生文档内容（除了被@ApiIgnore指定的请求）
+                //本例采用指定扫描的包路径来定义，Swagger会扫描该包下所有Controller定义的API，并产生文档内容（除了被@ApiIgnore指定的请求）
+                .apis(RequestHandlerSelectors.basePackage(basePackage))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts())
                 ;
+    }
+
+    private Tag[] getTags() {
+        Tag[] tags = {
+                new Tag("book", "书相关的API"),
+                new Tag("dog", "狗相关")
+        };
+        return tags;
     }
 
     private ApiInfo apiInfo() {

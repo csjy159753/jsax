@@ -10,6 +10,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author Administrator
+ */
 @Component
 public class TokenInterceptor extends HandlerInterceptorAdapter {
 
@@ -24,10 +27,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws SignatureException {
         /** 地址过滤 */
         String uri = request.getRequestURI();
-        if(true){
-            return true;
-        }
-        if (!property.getSpringProfilesActive().equals("prod")) {
+
+        if (property.getSpringProfilesActive().equals(SystemType.prod)) {
             if (property.getFilters().stream().filter(d -> uri.contains(d)).count() == 0
             ) {
                 return true;
@@ -41,8 +42,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         if (token == null) {
             return false;
         }
-        if (token.startsWith("Bearer ")) {
-            token = token.replace("Bearer ", "");
+        if (token.startsWith(jwtConfig.getTokenStartWith())) {
+            token = token.replace(jwtConfig.getTokenStartWith(), "").trim();
         }
 
         Claims claims = null;
@@ -56,7 +57,9 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         }
 
         /** 设置 identityId 用户身份ID */
-        request.setAttribute("identityId", claims.getSubject());
+        request.setAttribute(SystemType.identityId, claims.getSubject());
+        request.setAttribute(SystemType.USER_ID, claims.get(SystemType.USER_ID));
+        request.setAttribute(SystemType.USER_NAME, claims.get(SystemType.USER_NAME));
         return true;
     }
 

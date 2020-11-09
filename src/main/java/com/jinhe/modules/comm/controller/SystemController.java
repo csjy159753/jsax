@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("System")
-@Api(description = "登录接口", tags = {"system-SysLogin"})
+@RequestMapping("system")
+@Api(tags = {"system"})
 public class SystemController {
     @Autowired
     private ConfigProperty configProperty;

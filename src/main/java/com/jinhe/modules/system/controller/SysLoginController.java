@@ -3,6 +3,7 @@ package com.jinhe.modules.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.config.JwtConfig;
+import com.jinhe.common.config.SystemType;
 import com.jinhe.common.util.*;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.system.dto.SysLogin;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -31,7 +33,7 @@ import java.util.UUID;
 @RestController
 @CrossOrigin
 @RequestMapping("/allowApi/SysLogin")
-@Api(description = "登录接口", tags = {"system-SysLogin"})
+@Api(value = "/allowApi/SysLogin",tags = {"system-SysLogin"},description = "文件上传接口")
 public class SysLoginController {
 
     @Autowired(required = false)
@@ -85,7 +87,11 @@ public class SysLoginController {
         if (sysLogin.getState() == 3 || sysLogin.getState() == 2) {
             return ResultUtil.error(ResultEnum.OBSOLETE);
         }
-        String token = jwtConfig.createToken(sysLogin.getId());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(SystemType.TYPE, SystemType.LoginType.USER);
+        map.put(SystemType.USER_ID, SysUser.getId());
+        map.put(SystemType.USER_NAME, SysUser.getNormalizedUsername());
+        String token = jwtConfig.createToken(SysUser.getId(), map);
         sysLogin.setToken(token);
         sysLogin.setTokenExpireTime(7200000);
         sysLogin.setRefreshToken(UUID.randomUUID().toString().replace("-", ""));
@@ -141,7 +147,11 @@ public class SysLoginController {
         if (sysLogin.getState() == 3 || sysLogin.getState() == 2) {
             return ResultUtil.error(ResultEnum.OBSOLETE);
         }
-        String token = jwtConfig.createToken(sysLogin.getId(), 1000 * 30000);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(SystemType.TYPE, SystemType.LoginType.USER);
+        map.put(SystemType.USER_ID, SysUser.getId());
+        map.put(SystemType.USER_NAME, SysUser.getNormalizedUsername());
+        String token = jwtConfig.createToken(sysLogin.getId(), map, 100000 * 30000);
         sysLogin.setToken(token);
         sysLogin.setTokenExpireTime(1000 * 30000);
         sysLogin.setRefreshToken(StringUtils.getGUID());

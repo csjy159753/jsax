@@ -2,6 +2,8 @@ package com.jinhe.common.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.jinhe.common.annotation.SysLog;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -9,12 +11,14 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.util.GenericSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -77,19 +81,31 @@ public class SysLogAspect {
             //1.获取到所有的参数值的数组
             Object[] args = joinPoint.getArgs();
             Signature signature = joinPoint.getSignature();
+
             MethodSignature methodSignature = (MethodSignature) signature;
             //2.获取到方法的所有参数名称的字符串数组
             String[] parameterNames = methodSignature.getParameterNames();
             Method method = methodSignature.getMethod();
             System.out.println("---------SysLog------参数列表开始-------------------------");
-            List<String> liststr=new ArrayList<>();
+            List<String> liststr = new ArrayList<>();
             liststr.add("测试消息队列");
             for (int i = 0, len = parameterNames.length; i < len; i++) {
                 System.out.println("参数名：" + parameterNames[i] + " = " + args[i]);
                 liststr.add("参数名：" + parameterNames[i] + " = " + args[i]);
             }
             System.out.println("---------SysLog------参数列表结束-------------------------");
+            String className=joinPoint.getTarget().getClass().getSimpleName();
+            String methodName=joinPoint.getSignature().getName();
+
+
+            Class<?> classTarget=joinPoint.getTarget().getClass();
+            Class<?>[] par=((MethodSignature) joinPoint.getSignature()).getParameterTypes();
+            Method objMethod=classTarget.getMethod(methodName, par);
+            Api api= classTarget.getAnnotation(Api.class);
+
             SysLog sysLog = (SysLog) method.getAnnotation(SysLog.class);
+            ApiOperation apiOperation = (ApiOperation) method.getAnnotation(ApiOperation.class);
+            RequestMapping requestMapping = (RequestMapping) method.getAnnotation(RequestMapping.class);
             System.out.println("自定义注解 key:" + sysLog.value());
             Class cla = method.getClass();
             if (cla.isAnnotationPresent(SysLog.class)) {
@@ -97,7 +113,6 @@ public class SysLogAspect {
                 String key = redisHandel.value();
                 System.out.println("key = " + key);
             }
-//            this.rabbitTemplate.convertAndSend("exchange", "topic.message", StringUtils.join(liststr, ","));
         } catch (Exception e) {
             e.printStackTrace();
         }

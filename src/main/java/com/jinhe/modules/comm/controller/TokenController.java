@@ -30,7 +30,7 @@ public class TokenController {
      * @param
      * @return
      */
-    @ApiOperation(value="登录获取token", notes="登录获取token")
+    @ApiOperation(value = "登录获取token", notes = "登录获取token")
     @PostMapping("/login/{id}")
     public Result login(@RequestBody Login Login) {
         /** 验证userName，passWord和数据库中是否一致，如不一致，直接return ResultUtil.errer(); 【这里省略该步骤】*/
@@ -38,7 +38,7 @@ public class TokenController {
         // 这里模拟通过用户名和密码，从数据库查询userId
         // 这里把userId转为String类型，实际开发中如果subject需要存userId，则可以JwtConfig的createToken方法的参数设置为Long类型
         String userId = 5 + "";
-        String token = jwtConfig.createToken(userId);
+        String token = jwtConfig.createToken(userId, null);
         SysUserDto sysUserDto = new SysUserDto();
         sysUserDto.setToken(token);
         ResultUtil.success(sysUserDto);
