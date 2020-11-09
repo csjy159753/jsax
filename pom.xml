@@ -430,7 +430,7 @@
                     <include>**/**</include>
                 </includes>
                 <!-- 开启过滤，用指定的参数替换directory下的文件中的参数 -->
-                <filtering>false</filtering>
+                <filtering>true</filtering>
             </resource>
             <resource>
                 <directory>src/main/webapp</directory>

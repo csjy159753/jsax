@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 
+/**
+ * @author Administrator
+ */
 @Component
 @Data
 public class ConfigProperty {
@@ -26,6 +29,8 @@ public class ConfigProperty {
 
     @Value("${file.root.pksFile}")
     private String pksFile;
+    @Value("${version}")
+    private String version;
 
     public String GetAbsolutelyUpload() {
         return System.getProperty("user.dir") + File.separator + upload;
