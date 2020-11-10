@@ -50,7 +50,6 @@ public class SysUserController {
      */
     @ApiOperation(value = "新增用户", notes = "新增用户")
     @RequestMapping(value = "saveUser", method = RequestMethod.POST)
-    @SysLog(value = "测试注解日志切面新增用户saveUser")
     public Result saveUser(@RequestBody SysUserDTO sysUserDto) throws InstantiationException, IllegalAccessException {
         UserInfo userInfo = new UserInfo();
         // 密码复杂度 10位4选3
@@ -86,7 +85,6 @@ public class SysUserController {
      */
     @ApiOperation(value = "重置密码", notes = "重置密码")
     @RequestMapping(value = "ModifyByOrganRole", method = RequestMethod.PUT)
-    @SysLog(value = "测试注解日志切面重置密码updatePassword")
     public Result updatePassword(@RequestBody SysPasswordDTO from) {
         UserInfo userInfo = new UserInfo();
         // 密码复杂度 10位4选3
@@ -119,7 +117,6 @@ public class SysUserController {
      */
     @ApiOperation(value = "禁用/恢复用户", notes = "禁用/恢复用户")
     @RequestMapping(value = "updateUserState/{userId}/{state}", method = RequestMethod.PUT)
-    @SysLog(value = "测试注解日志切面禁用/禁用/恢复用户updateUserState")
     public Result updateUserState(@PathVariable String userId, @PathVariable Integer state) {
         try {
             SysUser sysUser = iSysUserService.getById(userId);
@@ -143,7 +140,6 @@ public class SysUserController {
      */
     @ApiOperation(value = "更新信息", notes = "更新信息")
     @RequestMapping(value = "UpdateInfo", method = RequestMethod.PUT)
-    @SysLog(value = "UpdateInfo")
     public Result UpdateInfo(@RequestBody SysUserDTO sysUserDto) throws InstantiationException, IllegalAccessException {
         if (sysUserDto.getOrganIds() == null || sysUserDto.getOrganIds().size() == 0) {
             //用户没有关联机构
@@ -177,7 +173,6 @@ public class SysUserController {
      */
     @ApiOperation(value = "删除用户", notes = "删除账户")
     @RequestMapping(value = "/removeById/{id}", method = RequestMethod.DELETE)
-    @SysLog(value = "测试注解日志切面删除账户removeById")
     public Result removeById(@PathVariable String id) {
         iSysUserOrganService.removeById(id);
         return ResultUtil.success();

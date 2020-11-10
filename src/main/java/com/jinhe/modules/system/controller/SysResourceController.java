@@ -51,7 +51,6 @@ public class SysResourceController {
      **/
     @ApiOperation(value = "查询所有菜单（分页）", notes = "查询所有菜单")
     @RequestMapping(value = "List/{userId}", method = RequestMethod.GET)
-    @SysLog(value = "List/{userId}")
     public Result List(@PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser != null && userType.equals(sysUser.getType())) {
@@ -68,7 +67,6 @@ public class SysResourceController {
      **/
     @ApiOperation(value = "新增或更新菜单", notes = "新增或更新菜单")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
-    @SysLog(value = "saveOrUpdate")
     public Result saveOrUpdate(@RequestBody SysResource sysResource) {
         try {
             ISysResService.saveOrUpdate(sysResource);
@@ -84,7 +82,6 @@ public class SysResourceController {
      **/
     @ApiOperation(value = "根据Id查询子项菜单", notes = "根据Id查询子项菜单")
     @RequestMapping(value = "listSysResourceItemById/{id}", method = RequestMethod.GET)
-    @SysLog(value = "listSysResourceItemById/{id}")
     public Result listSysResourceItemById(@PathVariable String id) {
         try {
             QueryWrapper<SysResourceItem> queryWrapper = new QueryWrapper<>();
@@ -99,7 +96,6 @@ public class SysResourceController {
 
     @ApiOperation(value = "新增或更新资源子项菜单", notes = "新增或更新资源子项菜单")
     @RequestMapping(value = "saveOrUpdateSysResourceItem", method = RequestMethod.POST)
-    @SysLog(value = "saveOrUpdateSysResourceItem")
     public Result saveOrUpdateSysResourceItem(@RequestBody SysResourceItem sysRes) {
         try {
             iSysResourceItemService.saveOrUpdate(sysRes);
@@ -112,7 +108,6 @@ public class SysResourceController {
 
     @ApiOperation(value = "根据Id查询资源子项菜单", notes = "根据Id查询资源子项菜单")
     @RequestMapping(value = "GetSysResourceItem/{id}", method = RequestMethod.GET)
-    @SysLog(value = "GetSysResourceItem/{id}")
     public Result GetSysResourceItem(@PathVariable String id) {
         SysResourceItem sysResourceItem;
         try {
@@ -129,7 +124,6 @@ public class SysResourceController {
      **/
     @ApiOperation(value = "根据Id删除权限子项菜单", notes = "根据Id删除权限子项菜单")
     @RequestMapping(value = "deleteSysResourceItem/{id}", method = RequestMethod.DELETE)
-    @SysLog(value = "deleteSysResourceItem/{id}")
     public Result deleteSysResourceItem(@PathVariable String id) {
         try {
             iSysResourceItemService.removeById(id);

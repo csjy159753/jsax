@@ -34,6 +34,7 @@ public class SysRegionController {
     private ISysRegionService sysRegionService;
     @Autowired
     private SysRegionMapper sysRegionMapper;
+
     /**
      * 查询行政区列表
      *
@@ -41,7 +42,6 @@ public class SysRegionController {
      */
     @ApiOperation(value = "查询行政区列表", notes = "查询行政区列表")
     @RequestMapping(value = "ListRegion", method = RequestMethod.GET)
-    @SysLog(value = "ListRegion")
     public Result regionListTree(@RequestParam(required = false) String code) {
         List<SysRegionDTO> sysRegion;
         sysRegion = sysRegionMapper.listRegionCode(code);
@@ -54,7 +54,6 @@ public class SysRegionController {
      * @return
      */
     @ApiOperation(value = "新增或更新行政区", notes = "新增或更新行政区")
-    @SysLog(value = "测试注解日志切面新增行政区")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     public Result saveOrUpdate(@RequestBody SysRegion sysregion) {
         try {
@@ -72,7 +71,6 @@ public class SysRegionController {
      * @return
      */
     @ApiOperation(value = "删除行政区", notes = "删除行政区")
-    @SysLog(value = "测试注解日志切面删除行政区")
     @RequestMapping(value = "delRegion/{id}", method = RequestMethod.DELETE)
     public Result delRegion(@PathVariable String id) {
         try {

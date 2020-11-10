@@ -42,7 +42,6 @@ public class SysOrganController {
      **/
     @ApiOperation(value = "根据ID查询机构", notes = "根据ID查询机构")
     @RequestMapping(value = "selectSysOrganId/{id}", method = RequestMethod.GET)
-    @SysLog(value = "selectSysOrganId/{id}")
     public Result selectSysOrganId(@PathVariable String id) {
         SysOrgan sysOrgan;
         sysOrgan = iSysOrganService.getBaseMapper().selectById(id);
@@ -54,7 +53,6 @@ public class SysOrganController {
      **/
     @ApiOperation(value = "新增机构", notes = "新增机构")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
-    @SysLog(value = "saveOrUpdate")
     public Result saveOrUpdate(@RequestBody SysOrgan sysOrgan) {
         if (sysOrgan.getRegionCode() != null) {
             sysOrgan.setDepth(RegionUtil.maxLevel(sysOrgan.getRegionCode()));
@@ -82,7 +80,6 @@ public class SysOrganController {
      **/
     @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
     @RequestMapping(value = "selectOrganByOrganId", method = RequestMethod.GET)
-    @SysLog(value = "selectOrganByOrganId")
     public Result selectOrganByOrganId(String organId) {
         List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
         return ResultUtil.success(sysOrganIPage);

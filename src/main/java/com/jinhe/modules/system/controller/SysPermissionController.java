@@ -43,7 +43,6 @@ public class SysPermissionController {
      **/
     @ApiOperation(value = "角色新增权限", notes = "角色新增权限")
     @RequestMapping(value = "addByRoleId/{roleId}", method = RequestMethod.POST)
-    @SysLog(value = "addByRoleId")
     public Result addByRoleId(@PathVariable String roleId, @RequestBody List<PermissionItemDTO> permissionItem) {
         SysRole sysRole = iSysRoleService.getById(roleId);
         if (sysRole == null) {
@@ -62,7 +61,6 @@ public class SysPermissionController {
      **/
     @ApiOperation(value = "角色新增权限", notes = "角色新增权限")
     @RequestMapping(value = "remove/{roleId}", method = RequestMethod.POST)
-    @SysLog(value = "remove")
     public Result remove(@PathVariable String roleId) {
         SysRole sysRole = iSysRoleService.getById(roleId);
         if (sysRole == null) {

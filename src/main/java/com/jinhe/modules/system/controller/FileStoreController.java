@@ -54,7 +54,6 @@ public class FileStoreController {
      */
     @ApiOperation(value = "文件上传", notes = "文件上传")
     @RequestMapping(value = "uploadFile", method = RequestMethod.POST, consumes = "multipart/*", headers = "content-type=multipart/form-data")
-    @SysLog(value = "测试注解日志切面uploadFile")
     public Result uploadFile(@RequestParam("file") MultipartFile... file) {
         if (file == null || file.length == 0) {
             return ResultUtil.error(ResultEnum.FILE_NOT_FOUND);
@@ -84,6 +83,7 @@ public class FileStoreController {
             return ResultUtil.success(fileStoreDtos);
         }
     }
+
     /**
      * 文件上传
      *
@@ -91,15 +91,12 @@ public class FileStoreController {
      */
     @ApiOperation(value = "根据id获取文件对象", notes = "根据id获取文件对象")
     @RequestMapping(value = "getById", method = RequestMethod.GET)
-    @SysLog(value = "根据id获取文件对象")
     public Result getById(String id) {
         return ResultUtil.success(fileStoreService.getById(id));
     }
 
     @ApiOperation(value = "文件下载", notes = "文件下载")
     @RequestMapping(value = "/download/file", method = RequestMethod.GET)
-    @SysLog(value = "文件下载")
-    @CrossOrigin
     public void download(HttpServletResponse response, String id) {
         FileStore fileStore = fileStoreService.getBaseMapper().selectById(id);
         if (fileStore == null) {
@@ -139,6 +136,7 @@ public class FileStoreController {
             ex.printStackTrace();
         }
     }
+
     public static String encodingFileName(String fileName) {
         String returnFileName = "";
         try {
