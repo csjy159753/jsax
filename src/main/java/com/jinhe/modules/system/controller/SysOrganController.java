@@ -10,6 +10,7 @@ import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysOrganService;
 import com.jinhe.modules.system.service.ISysUserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/sys-organ")
+@Api(tags = "system")
 @Slf4j
 public class SysOrganController {
     @Resource

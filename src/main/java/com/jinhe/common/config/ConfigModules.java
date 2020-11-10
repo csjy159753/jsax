@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -13,5 +14,5 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "jinhe")
 @Component
 public class ConfigModules {
-    private Map<String, String> modules;
+    private LinkedHashMap<String, String> modules;
 }

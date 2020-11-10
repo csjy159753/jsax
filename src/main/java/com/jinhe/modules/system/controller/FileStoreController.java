@@ -36,7 +36,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/file-store")
-@Api(description = "文件上传接口", tags = "system-file-store")
+@Api(tags = "system")
 public class FileStoreController {
     @Resource
     private IFileStoreService fileStoreService;

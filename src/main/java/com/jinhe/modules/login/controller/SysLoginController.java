@@ -1,4 +1,4 @@
-package com.jinhe.modules.system.controller;
+package com.jinhe.modules.login.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
@@ -6,8 +6,8 @@ import com.jinhe.common.config.JwtConfig;
 import com.jinhe.common.config.SystemType;
 import com.jinhe.common.util.*;
 import com.jinhe.config.ResultEnum;
-import com.jinhe.modules.system.dto.SysLogin;
-import com.jinhe.modules.system.dto.SysLoginDTO;
+import com.jinhe.modules.login.dto.SysLogin;
+import com.jinhe.modules.login.dto.SysLoginDTO;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysLoginCountService;
 import com.jinhe.modules.system.service.ISysLoginLogService;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -32,8 +31,8 @@ import java.util.UUID;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/allowApi/SysLogin")
-@Api(value = "/allowApi/SysLogin",tags = {"system-SysLogin"},description = "文件上传接口")
+@RequestMapping("/login/SysLogin")
+@Api(tags = {"login"})
 public class SysLoginController {
 
     @Autowired(required = false)

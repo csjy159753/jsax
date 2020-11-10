@@ -12,6 +12,7 @@ import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.entity.SysUserOrgan;
 import com.jinhe.modules.system.service.ISysUserOrganService;
 import com.jinhe.modules.system.service.ISysUserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/sys-user")
+@Api(tags = "system")
 @Slf4j
 @Transactional(rollbackFor = Exception.class)
 public class SysUserController {

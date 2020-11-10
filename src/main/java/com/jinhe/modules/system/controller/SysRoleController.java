@@ -13,6 +13,7 @@ import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysRegionService;
 import com.jinhe.modules.system.service.ISysRoleService;
 import com.jinhe.modules.system.service.ISysUserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @RestController
 @RequestMapping("/system/sys-role")
+@Api(tags = "system")
 @Slf4j
 public class SysRoleController {
     @Resource

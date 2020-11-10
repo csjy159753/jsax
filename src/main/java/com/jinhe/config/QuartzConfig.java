@@ -2,7 +2,7 @@ package com.jinhe.config;
 
 
 
-import com.jinhe.modules.comm.service.DemoTimeJob;
+
 import org.quartz.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.jinhe.modules.system.dto;
+package com.jinhe.modules.login.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

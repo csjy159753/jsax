@@ -1,11 +1,12 @@
-package com.jinhe.modules.comm.controller;
+package com.jinhe.modules.demo.controller;
 
 
+import com.jinhe.common.config.JwtConfig;
 import com.jinhe.common.dto.SysUserDto;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultUtil;
-import com.jinhe.common.config.JwtConfig;
-import com.jinhe.modules.comm.dto.Login;
+import com.jinhe.modules.demo.dto.Login;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("Token")
+@Api(tags = {"demo"})
+@RequestMapping("/demo/Token")
 public class TokenController {
 
     @Resource

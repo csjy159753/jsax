@@ -1,4 +1,4 @@
-package com.jinhe.modules.comm.dto;
+package com.jinhe.modules.demo.dto;
 
 import lombok.Data;
 

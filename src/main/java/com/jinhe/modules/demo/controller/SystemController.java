@@ -1,4 +1,4 @@
-package com.jinhe.modules.comm.controller;
+package com.jinhe.modules.demo.controller;
 
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.config.ConfigProperty;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("system")
-@Api(tags = {"system"})
+@Api(tags = {"demo"})
+@RequestMapping("/demo/system")
 public class SystemController {
     @Autowired
     private ConfigProperty configProperty;

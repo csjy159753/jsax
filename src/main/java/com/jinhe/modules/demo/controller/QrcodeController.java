@@ -1,8 +1,9 @@
-package com.jinhe.modules.comm.controller;
+package com.jinhe.modules.demo.controller;
 
 import com.google.zxing.Result;
 import com.jinhe.common.config.QRCodeProperties;
 import com.jinhe.common.util.QRCodeUtil;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,11 @@ import java.util.List;
 /**
  * 二维码调用前端控制器
  */
-@RequestMapping("/Qrcode")
+
 @RestController
 @CrossOrigin
+@Api(tags = {"demo"})
+@RequestMapping("/demo/qrcode")
 public class QrcodeController {
     @Autowired
     QRCodeProperties qrCodeProperties;

@@ -1,4 +1,4 @@
-package com.jinhe.modules.comm.service;
+package com.jinhe.modules.demo.service;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
