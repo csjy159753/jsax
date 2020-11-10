@@ -23,14 +23,18 @@ public class Property {
     private List<String> filters;
     @Autowired
     private ConfigModules configModules;
+    private List<String> list;
 
     public List<String> getPermissionsModules() {
-        List<String> list = new ArrayList<>();
-        for (String key : configModules.getModules().keySet()) {
-            if (!filters.contains(configModules.getModules().get(key))) {
-                list.add(key);
+        if (list == null) {
+            list = new ArrayList<>();
+            for (String key : configModules.getModules().keySet()) {
+                if (!filters.contains(key)) {
+                    list.add(key);
+                }
             }
         }
         return list;
+
     }
 }

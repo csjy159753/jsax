@@ -19,7 +19,7 @@ swagger:
   basePackage: com.jinhe
   title: RESTful API 文档
   description:  RESTful API 文档
-  version: 1.0.0-SNAPSHOT
+  version: '@project.version@'
 jinhe:
   #排除需要权限验证的模块
   filter: demo,download,allowApi,login
@@ -59,10 +59,6 @@ spring:
     port: 6379
     # Redis服务器连接密码（默认为空）
     password: Mas@12345
-file:
-  root:
-    #存储路径
-    path: "C:\\mydata\\generator\\version06\\"
 config:
   jwt:
     # 加密密钥

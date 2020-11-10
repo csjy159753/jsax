@@ -28,10 +28,10 @@ public class SysLoginCountServiceImpl extends ServiceImpl<SysLoginCountMapper, S
             sysLoginCount.setUserName(userName);
             switch (type) {
                 case 1:
-                    sysLoginCount.setAppCount(sysLoginCount.getAppCount() + 1);
+                    sysLoginCount.setAppCount(sysLoginCount.getAppCount() == null ? 0 : sysLoginCount.getAppCount() + 1);
                     break;
                 case 2:
-                    sysLoginCount.setPcCount(sysLoginCount.getPcCount() + 1);
+                    sysLoginCount.setPcCount(sysLoginCount.getPcCount() == null ? 0 : sysLoginCount.getPcCount() + 1);
                     break;
                 default:
                     break;
