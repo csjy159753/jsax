@@ -56,16 +56,6 @@ spring:
     port: 5672
     username: admin
     password: Mas@12345
-jinhe:
-  filter: /system/
-  # /demo/,/Log/,/api/,/sys/,/system/,/download/
-  modules:
-    demo: '演示测试模块'
-    download: '自由下载模块'
-    allowApi: '自由访问模块'
-    system: '系统模块'
-    Logion: '登录模块'
-
 file:
   root:
     #水印

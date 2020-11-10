@@ -1,6 +1,7 @@
 package com.jinhe.common.config;
 
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,6 @@ import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +36,15 @@ public class SwaggerConfig {
     @Value("${swagger.version}")
     private String version;
 
+    @Autowired
+    private Property property;
+
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 // apiInfo()用来创建该Api的基本信息（这些基本信息会展现在文档页面中）
                 .apiInfo(apiInfo())
-                .tags(new Tag("system", "系统模块"), getTags())
+                .tags(new Tag("system", "系统模块"), getTags().toArray(new Tag[0]))
                 .select()    //select()函数返回一个ApiSelectorBuilder实例用来控制哪些接口暴露给Swagger来展现
                 // 加了ApiOperation注解的类，生成接口文档
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
@@ -54,11 +57,11 @@ public class SwaggerConfig {
                 ;
     }
 
-    private Tag[] getTags() {
-        Tag[] tags = {
-                new Tag("book", "书相关的API"),
-                new Tag("dog", "狗相关")
-        };
+    private List<Tag> getTags() {
+        List<Tag> tags = new ArrayList<>();
+        for (String key : property.getConfigModules().getModules().keySet()) {
+            tags.add(new Tag(key, property.getConfigModules().getModules().get(key)));
+        }
         return tags;
     }
 
