@@ -21,14 +21,15 @@ swagger:
   description:  RESTful API 文档
   version: 1.0.0-SNAPSHOT
 jinhe:
-  filter: /system/
-  # /demo/,/Log/,/api/,/sys/,/system/,/download/
+  #排除需要权限验证的模块
+  filter: demo,download,allowApi,Logion
+  #系统功能模块清单
   modules:
     demo: '演示测试模块'
     download: '自由下载模块'
     allowApi: '自由访问模块'
-    system: '系统模块'
     Logion: '登录模块'
+    system: '系统模块'
 # mysql
 spring:
   jackson:

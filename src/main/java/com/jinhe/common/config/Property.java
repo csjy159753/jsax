@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +23,14 @@ public class Property {
     private List<String> filters;
     @Autowired
     private ConfigModules configModules;
+
+    public List<String> getPermissionsModules() {
+        List<String> list = new ArrayList<>();
+        for (String key : configModules.getModules().keySet()) {
+            if (!filters.contains(configModules.getModules().get(key))) {
+                list.add(key);
+            }
+        }
+        return list;
+    }
 }
