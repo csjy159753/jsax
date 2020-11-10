@@ -33,8 +33,6 @@ public class SwaggerConfig {
     @Value("${swagger.description}")
     private String description;
 
-    @Value("${swagger.version}")
-    private String version;
 
     @Autowired
     private Property property;
@@ -69,7 +67,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title(title)
                 .description(description)
-                .version(version)
+                .version(property.getVersion())
                 .build();
     }
 

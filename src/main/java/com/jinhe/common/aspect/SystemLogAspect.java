@@ -1,12 +1,15 @@
 package com.jinhe.common.aspect;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.jinhe.common.annotation.SysLogTest;
 import com.jinhe.common.config.JwtConfig;
+import com.jinhe.common.config.Property;
 import com.jinhe.common.config.SystemType;
 import com.jinhe.modules.system.entity.SysOperatorLog;
 import com.jinhe.modules.system.service.ISysOperatorLogService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -19,10 +22,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +48,11 @@ public class SystemLogAspect {
     private JwtConfig jwtConfig;
     @Autowired
     private ISysOperatorLogService iSysOperatorLogService;
+    @Autowired
+    private Property property;
+    private List<String> listDeny = new ArrayList<String>() {{
+        add("[null]");
+    }};
 
     /**
      *    * Controller层切点 注解拦截 （"execution（方法返回值类型   包名.类名.方法名（参数类型））"）
@@ -86,12 +96,40 @@ public class SystemLogAspect {
             System.out.println("-------SystemLogAspect--------参数列表结束-------------------------");
             Class cla = method.getClass();
             if (request != null && request.getAttribute(SystemType.USER_ID) != null) {
-                Class<?> classTarget=joinPoint.getTarget().getClass();
-                Api api= classTarget.getAnnotation(Api.class);
-                SysOperatorLog sysOperatorLog = new SysOperatorLog();
-                api.tags();
-                sysOperatorLog.setModuleName( api.description());
-//                iSysOperatorLogService.save(sysOperatorLog);
+                Class<?> classTarget = joinPoint.getTarget().getClass();
+                Api api = classTarget.getAnnotation(Api.class);
+                if (api.tags() != null && api.tags().length > 0) {
+                    SysOperatorLog sysOperatorLog = new SysOperatorLog();
+                    String moduleName = property.getConfigModules().getModules().get(api.tags()[0]);
+                    sysOperatorLog.setModuleName(moduleName);
+                    String uri = request.getRequestURI();
+
+                    ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+                    sysOperatorLog.setModuleType(apiOperation.value());
+                    sysOperatorLog.setOperator(apiOperation.notes());
+                    sysOperatorLog.setOperatorUserId(request.getAttribute(SystemType.USER_ID).toString());
+                    sysOperatorLog.setOperatorUserName(request.getAttribute(SystemType.USER_NAME).toString());
+                    sysOperatorLog.setOperatorMethod(method.getName());
+                    if (args.length > 0) {
+                        String strArgs = JSON.toJSONString(args);
+                        if (!listDeny.contains(strArgs)) {
+                            sysOperatorLog.setOperatoraArgs(JSON.toJSONString(args));
+                        }
+
+                    }
+                    sysOperatorLog.setOperatorUrl(uri);
+                    sysOperatorLog.setOperatorIp(request.getRemoteAddr());
+                    sysOperatorLog.setSystemVersion(property.getVersion());
+                    sysOperatorLog.setOperatorTime(LocalDateTime.now());
+                    try {
+                        iSysOperatorLogService.save(sysOperatorLog);
+                    } catch (Exception ex) {
+                        log.error(getClass().getName(), ex);
+                    }
+
+
+                }
+
             }
 
 

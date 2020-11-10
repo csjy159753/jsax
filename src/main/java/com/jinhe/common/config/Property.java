@@ -21,6 +21,8 @@ public class Property {
     private String contextPath;
     @Value("#{'${jinhe.filter}'.empty ? null : '${jinhe.filter}'.split(',')}")
     private List<String> filters;
+    @Value("${swagger.version}")
+    private String version;
     @Autowired
     private ConfigModules configModules;
     private List<String> list;

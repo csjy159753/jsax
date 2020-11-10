@@ -4,6 +4,7 @@ import com.google.zxing.Result;
 import com.jinhe.common.config.QRCodeProperties;
 import com.jinhe.common.util.QRCodeUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,8 +43,8 @@ public class QrcodeController {
         Result result = QRCodeUtil.onlineCodeAnalyze("");
         System.err.println("二维码解析内容："+result.toString());
     }
-
-    @GetMapping("DownloadQrCode")
+    @ApiOperation(value="二维码下载", notes="下载二维码信息")
+    @GetMapping("downloadQrCode")
     public void downloadQrCode(List<String> contentList, HttpServletResponse response){
         String path = qrCodeProperties.getPath();
         String zipPath = qrCodeProperties.getZipPath();

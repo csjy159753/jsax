@@ -27,7 +27,6 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws SignatureException {
         /** 地址过滤 */
         String uri = request.getRequestURI();
-        String uria= request.getContextPath();
         if (property.getSpringProfilesActive().equals(SystemType.prod)) {
             if (property.getPermissionsModules().stream().filter(d -> uri.startsWith(d,1)).count() == 0
             ) {
