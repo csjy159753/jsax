@@ -14,6 +14,7 @@ import com.jinhe.modules.system.service.ISysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/system/sys-permission")
 @Api(tags = "system")
+@Transactional(rollbackFor = Exception.class)
 public class SysPermissionController {
 
     @Autowired
@@ -59,7 +61,7 @@ public class SysPermissionController {
     /**
      * 角色新增权限
      **/
-    @ApiOperation(value = "角色新增权限", notes = "角色新增权限")
+    @ApiOperation(value = "角色移除权限", notes = "角色移除权限")
     @RequestMapping(value = "remove/{roleId}", method = RequestMethod.POST)
     public Result remove(@PathVariable String roleId) {
         SysRole sysRole = iSysRoleService.getById(roleId);

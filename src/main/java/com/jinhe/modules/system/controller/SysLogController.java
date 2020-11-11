@@ -1,6 +1,7 @@
 package com.jinhe.modules.system.controller;
 
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/system/sys-log")
+@Transactional(rollbackFor = Exception.class)
 public class SysLogController {
 
 }

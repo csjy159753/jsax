@@ -1,10 +1,10 @@
 package com.jinhe.modules.system.service.impl;
 
-import com.jinhe.modules.system.entity.SysAppResource;
-import com.jinhe.modules.system.dao.SysAppResourceMapper;
-import com.jinhe.modules.system.service.ISysAppResourceService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+import com.jinhe.modules.system.dao.SysAppResourceMapper
+import com.jinhe.modules.system.entity.SysAppResource
+import com.jinhe.modules.system.service.ISysAppResourceService
+import org.springframework.stereotype.Service
 
 /**
  * <p>

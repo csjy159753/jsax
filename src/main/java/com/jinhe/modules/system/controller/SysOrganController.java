@@ -13,6 +13,7 @@ import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -30,6 +31,7 @@ import java.util.List;
 @RequestMapping("/system/sys-organ")
 @Api(tags = "system")
 @Slf4j
+@Transactional(rollbackFor = Exception.class)
 public class SysOrganController {
     @Resource
     private ISysOrganService iSysOrganService;
