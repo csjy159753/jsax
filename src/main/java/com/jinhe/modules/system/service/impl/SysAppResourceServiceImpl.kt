@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service
  * @since 2020-11-11
  */
 @Service
-open class SysAppResourseServiceImpl : ServiceImpl<SysAppResourceMapper, SysAppResource>(), ISysAppResourceService {
+class SysAppResourceServiceImpl : ServiceImpl<SysAppResourceMapper, SysAppResource>(), ISysAppResourceService {
 
 }
