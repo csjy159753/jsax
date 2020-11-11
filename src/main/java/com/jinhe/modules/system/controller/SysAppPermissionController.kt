@@ -38,7 +38,7 @@ class SysAppPermissionController {
     @ApiOperation(value = "手机角色新增权限", notes = "手机角色新增权限")
     @RequestMapping(value = ["addByRoleId/{roleId}"], method = [RequestMethod.POST])
     fun addByRoleId(@PathVariable roleId: String, @RequestBody sysAppPermissions: List<SysAppPermission>): Result<*> {
-        val sysRole = iSysRoleService!!.getById(roleId) ?: return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND)
+        iSysRoleService!!.getById(roleId) ?: return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND)
         if (sysAppPermissions != null && sysAppPermissions.isNotEmpty()) {
             iSysAppPermissionService.saveByRoleId(roleId, sysAppPermissions)
         } else {

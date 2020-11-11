@@ -2,7 +2,6 @@ package com.jinhe.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.*;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.system.domian.UserInfo;
