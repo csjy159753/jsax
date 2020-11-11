@@ -1,9 +1,9 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel
+import io.swagger.annotations.ApiModelProperty
+import java.io.Serializable
+import java.time.LocalDateTime
 /**
  * <p>
  * 
@@ -12,8 +12,8 @@ import io.swagger.annotations.ApiModelProperty;
  * @author rls
  * @since 2020-11-11
  */
-@ApiModel(value="SysAppResourse对象", description="")
-class SysAppResourse : Serializable {
+@ApiModel(value="SysAppResource对象", description="")
+class SysAppResource : Serializable {
 
     var id: String? = null
     @ApiModelProperty(value = "父建id")

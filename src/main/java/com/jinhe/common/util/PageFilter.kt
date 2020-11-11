@@ -1,16 +1,22 @@
-package com.jinhe.common.util;
+package com.jinhe.common.util
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import io.swagger.annotations.ApiModelProperty
+import lombok.Data
 
+/**
+ * @author Administrator
+ */
 @Data
-public class PageFilter {
+class PageFilter {
     @ApiModelProperty(value = "关键字查询", position = 0)
-    private String keyWord;
+    var keyWord: String? = null
+
     @ApiModelProperty(value = "第几页", example = "0", position = 1)
-    private int start;
+    var start: Int = 0
+
     @ApiModelProperty(value = "每页大小", example = "10", position = 2)
-    private int length;
+    var length: Int = 10
+
     @ApiModelProperty(value = "排序", example = "", position = 3)
-    private String order;
+    var order: String? = null
 }

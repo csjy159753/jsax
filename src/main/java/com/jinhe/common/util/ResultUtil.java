@@ -14,7 +14,7 @@ public class ResultUtil {
     /**
      * 成功且带数据
      **/
-    public static <T> Result success(IPage<T> page) {
+    public static <T> Result<ListSub<T>> success(IPage<T> page) {
         if (page == null) {
             return success();
         }
@@ -31,7 +31,7 @@ public class ResultUtil {
     /**
      * 成功且带数据
      **/
-    public static <T> Result success(List<T> list, Long total) {
+    public static <T> Result<ListSub<T>> success(List<T> list, Long total) {
         ListSub<T> listSub=new ListSub();
         listSub.setList(list);
         listSub.setTotal(total);

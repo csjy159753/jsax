@@ -1,8 +1,8 @@
 package com.jinhe.modules.system.service.impl;
 
-import com.jinhe.modules.system.entity.SysAppResourse;
-import com.jinhe.modules.system.dao.SysAppResourseMapper;
-import com.jinhe.modules.system.service.ISysAppResourseService;
+import com.jinhe.modules.system.entity.SysAppResource;
+import com.jinhe.modules.system.dao.SysAppResourceMapper;
+import com.jinhe.modules.system.service.ISysAppResourceService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-11-11
  */
 @Service
-open class SysAppResourseServiceImpl : ServiceImpl<SysAppResourseMapper, SysAppResourse>(), ISysAppResourseService {
+open class SysAppResourseServiceImpl : ServiceImpl<SysAppResourceMapper, SysAppResource>(), ISysAppResourceService {
 
 }
