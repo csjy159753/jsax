@@ -108,7 +108,7 @@ public class SysResourceController {
 
     @ApiOperation(value = "根据Id查询资源子项菜单", notes = "根据Id查询资源子项菜单")
     @RequestMapping(value = "GetSysResourceItem/{id}", method = RequestMethod.GET)
-    public Result GetSysResourceItem(@PathVariable String id) {
+    public Result<SysResourceItem> GetSysResourceItem(@PathVariable String id) {
         SysResourceItem sysResourceItem;
         try {
             sysResourceItem = iSysResourceItemService.getBaseMapper().selectById(id);

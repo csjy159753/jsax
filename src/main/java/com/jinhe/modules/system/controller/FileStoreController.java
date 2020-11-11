@@ -54,7 +54,7 @@ public class FileStoreController {
      */
     @ApiOperation(value = "文件上传", notes = "文件上传")
     @RequestMapping(value = "uploadFile", method = RequestMethod.POST, consumes = "multipart/*", headers = "content-type=multipart/form-data")
-    public Result uploadFile(@RequestParam("file") MultipartFile... file) {
+    public Result<List<FileStoreDTO>> uploadFile(@RequestParam("file") MultipartFile... file) {
         if (file == null || file.length == 0) {
             return ResultUtil.error(ResultEnum.FILE_NOT_FOUND);
         }
@@ -91,7 +91,7 @@ public class FileStoreController {
      */
     @ApiOperation(value = "根据id获取文件对象", notes = "根据id获取文件对象")
     @RequestMapping(value = "getById", method = RequestMethod.GET)
-    public Result getById(String id) {
+    public Result<FileStore> getById(String id) {
         return ResultUtil.success(fileStoreService.getById(id));
     }
 

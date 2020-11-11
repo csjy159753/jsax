@@ -6,7 +6,11 @@ import com.jinhe.config.ResultEnum;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 public class ResultUtil {
+
     /**
      * 成功且带数据
      **/
@@ -14,13 +18,13 @@ public class ResultUtil {
         if (page == null) {
             return success();
         }
-        Result result = new Result();
+        ListSub<T> listSub=new ListSub();
+        listSub.setList(page.getRecords());
+        listSub.setTotal(page.getTotal());
+        Result<ListSub<T>> result = new Result<>();
         result.setCode(ResultEnum.SUCCESS.getCode());
         result.setMsg(ResultEnum.SUCCESS.getMsg());
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("list", page.getRecords());
-        hashMap.put("total", page.getTotal());
-        result.setData(hashMap);
+        result.setData(listSub);
         return result;
     }
 
@@ -28,39 +32,23 @@ public class ResultUtil {
      * 成功且带数据
      **/
     public static <T> Result success(List<T> list, Long total) {
-        Result result = new Result();
+        ListSub<T> listSub=new ListSub();
+        listSub.setList(list);
+        listSub.setTotal(total);
+        Result<ListSub<T>> result = new Result<>();
         result.setCode(ResultEnum.SUCCESS.getCode());
         result.setMsg(ResultEnum.SUCCESS.getMsg());
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("list", list);
-        hashMap.put("total", total);
-        result.setData(hashMap);
+        result.setData(listSub);
         return result;
     }
-
     /**
      * 成功且带数据
      **/
-    public static <T> Result success(List<T> list, Long total, boolean tree) {
-        Result result = new Result();
+    public static <T> Result success(T t) {
+        Result<T> result = new Result<>();
         result.setCode(ResultEnum.SUCCESS.getCode());
         result.setMsg(ResultEnum.SUCCESS.getMsg());
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("list", list);
-        hashMap.put("total", total);
-        hashMap.put("tree", tree);
-        result.setData(hashMap);
-        return result;
-    }
-
-    /**
-     * 成功且带数据
-     **/
-    public static Result success(Object object) {
-        Result result = new Result();
-        result.setCode(ResultEnum.SUCCESS.getCode());
-        result.setMsg(ResultEnum.SUCCESS.getMsg());
-        result.setData(object);
+        result.setData(t);
         return result;
     }
 
@@ -103,6 +91,7 @@ public class ResultUtil {
         result.setMsg(ex.getMessage());
         return result;
     }
+
     /**
      * 默认未知错误
      **/

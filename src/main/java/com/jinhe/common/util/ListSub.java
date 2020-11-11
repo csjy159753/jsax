@@ -4,9 +4,11 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 @Data
-public class ListSub<T>{
-    private long total = 1;
+public class ListSub<T> {
+    private long total;
     private List<T> list;
-    private boolean tree = true;
 }

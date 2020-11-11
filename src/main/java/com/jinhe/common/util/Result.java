@@ -6,25 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * Description:
- * User:
- * Date: 2018-05-16
- * Time: 11:04
+ * @author Administrator
  */
-//@JsonInclude(JsonInclude.Include.NON_NULL)
-public class Result<T> {
+public class Result<T>    {
 
     private static final String CODE = "code";
     private static final Object MSG = "msg";
 
-    private Integer code=200;
-    private Object msg="操作成功";
-//    private String description;
-    private T data=null;
-
-    private HashMap<String,Object> exend;
-
+    private Integer code = 200;
+    private String msg = "操作成功";
+    private T data = null;
     public Integer getCode() {
         return code;
     }
@@ -33,11 +24,11 @@ public class Result<T> {
         this.code = code;
     }
 
-    public Object getMsg() {
+    public String getMsg() {
         return msg;
     }
 
-    public void setMsg(Object msg) {
+    public void setMsg(String msg) {
         this.msg = msg;
     }
 
@@ -47,55 +38,6 @@ public class Result<T> {
 
     public Result setData(T data) {
         this.data = data;
-        return this;
-    }
-
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-
-    @JsonIgnore
-    public HashMap<String, Object> getExend() {
-        return exend;
-    }
-
-    public void setExend(HashMap<String, Object> exend) {
-        this.exend = exend;
-    }
-
-    public Result() {
-        exend = new HashMap<>();
-    }
-
-    public static Result failure(int code, String msg) {
-        Result result = new Result();
-        result.setCode(code);
-        result.setMsg(msg);
-        return result;
-    }
-
-    public static Result ok(String msg) {
-        Result result = new Result();
-        result.put("msg", msg);
-        return result;
-    }
-
-    public static Result ok(Map<String, Object> map) {
-        Result result = new Result();
-        result.exend.putAll(map);
-        return result;
-    }
-
-    public static Result ok() {
-        return new Result();
-    }
-
-    public Result put(String key, Object value) {
-        exend.put(key, value);
         return this;
     }
 }

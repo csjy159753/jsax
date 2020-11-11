@@ -50,7 +50,7 @@ public class SysRoleController {
      */
     @ApiOperation(value = "查询全部角色列表管理员专用", notes = "查询全部角色列表管理员专用")
     @RequestMapping(value = "list/{userId}", method = RequestMethod.GET)
-    public Result list(@PathVariable String userId) {
+    public Result<List<SysRole>> list(@PathVariable String userId) {
 
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser == null || !userType.equals(sysUser.getType())) {
@@ -73,7 +73,7 @@ public class SysRoleController {
      */
     @ApiOperation(value = "查询角色列表根据type", notes = "查询角色列表根据type")
     @RequestMapping(value = "listByType/{type}", method = RequestMethod.GET)
-    public Result listByType(@PathVariable String type) {
+    public Result<List<SysRole>> listByType(@PathVariable String type) {
         try {
             QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("type", type);
@@ -91,7 +91,7 @@ public class SysRoleController {
      */
     @ApiOperation(value = "查询角色列表根据tag", notes = "查询角色列表根据tag")
     @RequestMapping(value = "listByTag/{tag}", method = RequestMethod.GET)
-    public Result listByTag(@PathVariable String tag) {
+    public Result<List<SysRole>> listByTag(@PathVariable String tag) {
         try {
             QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("tag", tag);

@@ -53,7 +53,7 @@ public class SysPermissionController {
         } else {
             return ResultUtil.error(ResultEnum.ROLE_INSERT_PERMISSIONS);
         }
-        return ResultUtil.success(true);
+        return ResultUtil.success();
     }
 
     /**
@@ -69,6 +69,6 @@ public class SysPermissionController {
         UpdateWrapper<SysPermission> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("role_id", roleId);
         iSysPermissionService.remove(updateWrapper);
-        return ResultUtil.success(true);
+        return ResultUtil.success();
     }
 }

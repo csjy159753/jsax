@@ -29,7 +29,7 @@ public class CodeGeneratorMySql {
         System.out.println(help.toString());
         if (scanner.hasNext()) {
             String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
+            if (StringUtils.isNotBlank(ipt)) {
                 return ipt;
             }
         }
@@ -45,10 +45,13 @@ public class CodeGeneratorMySql {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("rls");
+        //是否使用Kotlin进行代码生成默认不使用
+        gc.setKotlin(false);
+        //打开文件夹默认不使用
         gc.setOpen(false);
         gc.setSwagger2(true);// 实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);
-// 数据源配置
+        // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://124.70.212.38:4576/template?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false");
         // dsc.setSchemaName("public");
@@ -57,23 +60,6 @@ public class CodeGeneratorMySql {
         dsc.setPassword("aSj)3j71gTI&");
         mpg.setDataSource(dsc);
 
-       /* // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://124.70.212.38:3306/electronic_construction_archives?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false");
-        // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("000000");
-        mpg.setDataSource(dsc);*/
-
-        /*// 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://47.105.34.116:3306/hehai_passageway?useUnicode=true&useSSL=false&characterEncoding=utf8");
-        // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("Mas@12345");
-        mpg.setDataSource(dsc);*/
 
         // 包配置
         PackageConfig pc = new PackageConfig();

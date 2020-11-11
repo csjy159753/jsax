@@ -42,7 +42,7 @@ public class SysOrganController {
      **/
     @ApiOperation(value = "根据ID查询机构", notes = "根据ID查询机构")
     @RequestMapping(value = "selectSysOrganId/{id}", method = RequestMethod.GET)
-    public Result selectSysOrganId(@PathVariable String id) {
+    public Result<SysOrgan> selectSysOrganId(@PathVariable String id) {
         SysOrgan sysOrgan;
         sysOrgan = iSysOrganService.getBaseMapper().selectById(id);
         return ResultUtil.success(sysOrgan);
@@ -80,7 +80,7 @@ public class SysOrganController {
      **/
     @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
     @RequestMapping(value = "selectOrganByOrganId", method = RequestMethod.GET)
-    public Result selectOrganByOrganId(String organId) {
+    public Result<List<SysOrganDTO>> selectOrganByOrganId(String organId) {
         List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
         return ResultUtil.success(sysOrganIPage);
     }

@@ -34,7 +34,7 @@ public class TokenController {
      */
     @ApiOperation(value = "登录获取token", notes = "登录获取token")
     @PostMapping("/login/{id}")
-    public Result login(@RequestBody Login Login) {
+    public Result<SysUserDto> login(@RequestBody Login Login) {
         /** 验证userName，passWord和数据库中是否一致，如不一致，直接return ResultUtil.errer(); 【这里省略该步骤】*/
 
         // 这里模拟通过用户名和密码，从数据库查询userId

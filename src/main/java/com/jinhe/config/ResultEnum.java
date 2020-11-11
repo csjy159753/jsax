@@ -136,7 +136,7 @@ public enum ResultEnum {
     NOT_DELETE_SY_GROUP(100312, "此次移除的排水口中有产生数据的排水口,请核实排水口信息"),
     ;
     private Integer code;
-    private Object msg;
+    private String msg;
 
     ResultEnum(Integer code, String msg) {
         this.code = code;
@@ -148,7 +148,7 @@ public enum ResultEnum {
         return code;
     }
 
-    public Object getMsg() {
+    public String getMsg() {
         return msg;
     }
 
