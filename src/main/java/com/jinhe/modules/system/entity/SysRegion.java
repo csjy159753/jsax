@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * <p>
@@ -15,8 +13,6 @@ import lombok.EqualsAndHashCode;
  * @author rls
  * @since 2020-10-29
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysRegion对象", description="行政区编码")
 public class SysRegion implements Serializable {
 
@@ -92,5 +88,199 @@ public class SysRegion implements Serializable {
     @ApiModelProperty(value = "路径")
     private String path;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getParentCode() {
+        return parentCode;
+    }
+
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public Integer getLevelInfo() {
+        return levelInfo;
+    }
+
+    public void setLevelInfo(Integer levelInfo) {
+        this.levelInfo = levelInfo;
+    }
+
+    public Integer getCityType() {
+        return cityType;
+    }
+
+    public void setCityType(Integer cityType) {
+        this.cityType = cityType;
+    }
+
+    public Boolean getAutonomy() {
+        return isAutonomy;
+    }
+
+    public void setAutonomy(Boolean autonomy) {
+        isAutonomy = autonomy;
+    }
+
+    public Boolean getEconomic() {
+        return isEconomic;
+    }
+
+    public void setEconomic(Boolean economic) {
+        isEconomic = economic;
+    }
+
+    public Boolean getSar() {
+        return isSar;
+    }
+
+    public void setSar(Boolean sar) {
+        isSar = sar;
+    }
+
+    public Boolean getDistrict() {
+        return isDistrict;
+    }
+
+    public void setDistrict(Boolean district) {
+        isDistrict = district;
+    }
+
+    public Boolean getBanner() {
+        return isBanner;
+    }
+
+    public void setBanner(Boolean banner) {
+        isBanner = banner;
+    }
+
+    public Boolean getLeague() {
+        return isLeague;
+    }
+
+    public void setLeague(Boolean league) {
+        isLeague = league;
+    }
+
+    public Boolean getForestryArea() {
+        return isForestryArea;
+    }
+
+    public void setForestryArea(Boolean forestryArea) {
+        isForestryArea = forestryArea;
+    }
+
+    public Boolean getSumu() {
+        return isSumu;
+    }
+
+    public void setSumu(Boolean sumu) {
+        isSumu = sumu;
+    }
+
+    public Boolean getNaturalVillage() {
+        return isNaturalVillage;
+    }
+
+    public void setNaturalVillage(Boolean naturalVillage) {
+        isNaturalVillage = naturalVillage;
+    }
+
+    public Boolean getVirtual() {
+        return isVirtual;
+    }
+
+    public void setVirtual(Boolean virtual) {
+        isVirtual = virtual;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }

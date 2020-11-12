@@ -3,10 +3,11 @@ package com.jinhe.common.aspect;
 import com.jinhe.common.annotation.DuplicateSubmitToken;
 import com.jinhe.common.exception.DuplicateSubmitException;
 import com.jinhe.config.ResultEnum;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Aspect
 @Component
-@Slf4j
 public class DuplicateSubmitAspect {
     public static final String DUPLICATE_TOKEN_KEY = "duplicate_token_key";
     public static final long INTERVAL = 5000;
@@ -26,7 +26,7 @@ public class DuplicateSubmitAspect {
     HttpServletRequest request;
     @Autowired(required = false)
     HttpServletResponse response;
-
+    Logger log = LoggerFactory.getLogger(getClass());
     @Pointcut("execution(public * com.jinhe..*Controller.*(..))")
     public void webLog() {
     }

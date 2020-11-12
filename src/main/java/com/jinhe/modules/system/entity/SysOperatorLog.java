@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
  * <p>
  * 
@@ -15,8 +12,6 @@ import lombok.EqualsAndHashCode;
  * @author rls
  * @since 2020-11-09
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysOperatorLog对象", description="")
 public class SysOperatorLog implements Serializable {
 
@@ -63,5 +58,119 @@ public class SysOperatorLog implements Serializable {
     @ApiModelProperty(value = "操作时间")
     private LocalDateTime operatorTime;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
+    public String getModuleType() {
+        return moduleType;
+    }
+
+    public void setModuleType(String moduleType) {
+        this.moduleType = moduleType;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public String getOperatorUserId() {
+        return operatorUserId;
+    }
+
+    public void setOperatorUserId(String operatorUserId) {
+        this.operatorUserId = operatorUserId;
+    }
+
+    public String getOperatorUserName() {
+        return operatorUserName;
+    }
+
+    public void setOperatorUserName(String operatorUserName) {
+        this.operatorUserName = operatorUserName;
+    }
+
+    public String getOperatorMethod() {
+        return operatorMethod;
+    }
+
+    public void setOperatorMethod(String operatorMethod) {
+        this.operatorMethod = operatorMethod;
+    }
+
+    public String getOperatoraArgs() {
+        return operatoraArgs;
+    }
+
+    public void setOperatoraArgs(String operatoraArgs) {
+        this.operatoraArgs = operatoraArgs;
+    }
+
+    public String getOperatorUrl() {
+        return operatorUrl;
+    }
+
+    public void setOperatorUrl(String operatorUrl) {
+        this.operatorUrl = operatorUrl;
+    }
+
+    public String getOperatorIp() {
+        return operatorIp;
+    }
+
+    public void setOperatorIp(String operatorIp) {
+        this.operatorIp = operatorIp;
+    }
+
+    public String getSystemVersion() {
+        return systemVersion;
+    }
+
+    public void setSystemVersion(String systemVersion) {
+        this.systemVersion = systemVersion;
+    }
+
+    public LocalDateTime getOperatorTime() {
+        return operatorTime;
+    }
+
+    public void setOperatorTime(LocalDateTime operatorTime) {
+        this.operatorTime = operatorTime;
+    }
 }

@@ -2,7 +2,6 @@ package com.jinhe.modules.system.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 import java.io.Serializable;
 
@@ -14,7 +13,6 @@ import java.io.Serializable;
  * @author rls
  * @since 2020-04-27
  */
-@Data
 @ApiModel(value = "FileStore对象", description = "")
 public class FileStoreDTO implements Serializable {
 
@@ -35,5 +33,51 @@ public class FileStoreDTO implements Serializable {
     @ApiModelProperty(value = "文件大小")
     private String size;
 
+    public String getFileId() {
+        return fileId;
+    }
 
+    public void setFileId(String fileId) {
+        this.fileId = fileId;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getMimeTypeExt() {
+        return mimeTypeExt;
+    }
+
+    public void setMimeTypeExt(String mimeTypeExt) {
+        this.mimeTypeExt = mimeTypeExt;
+    }
+
+    public String getMimeTypeType() {
+        return mimeTypeType;
+    }
+
+    public void setMimeTypeType(String mimeTypeType) {
+        this.mimeTypeType = mimeTypeType;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 }

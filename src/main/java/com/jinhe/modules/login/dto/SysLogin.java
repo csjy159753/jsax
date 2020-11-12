@@ -2,14 +2,12 @@ package com.jinhe.modules.login.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * @author Administrator
  */
-@Data
 @ApiModel(value="Login对象",description="登录")
 public class SysLogin implements Serializable {
     /**
@@ -23,5 +21,19 @@ public class SysLogin implements Serializable {
     @ApiModelProperty(value="密码",name="passWord",example="MmViNjNlMmQ2MmZjMGU2NGRiNWIxMjA4ODViODI2MjE=")
     private String passWord;
 
+    public String getUserName() {
+        return userName;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
 }

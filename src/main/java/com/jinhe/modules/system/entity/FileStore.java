@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * <p>
@@ -17,8 +15,6 @@ import lombok.EqualsAndHashCode;
  * @author rls
  * @since 2020-10-29
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
 @ApiModel(value="FileStore对象", description="文件存储类")
 public class FileStore implements Serializable {
 
@@ -76,5 +72,111 @@ public class FileStore implements Serializable {
     @TableField("MIME_TYPE_TYPE")
     private String mimeTypeType;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(String fileId) {
+        this.fileId = fileId;
+    }
+
+    public String getOriginalFile() {
+        return originalFile;
+    }
+
+    public void setOriginalFile(String originalFile) {
+        this.originalFile = originalFile;
+    }
+
+    public String getModifiedImgae() {
+        return modifiedImgae;
+    }
+
+    public void setModifiedImgae(String modifiedImgae) {
+        this.modifiedImgae = modifiedImgae;
+    }
+
+    public String getLowImgae() {
+        return lowImgae;
+    }
+
+    public void setLowImgae(String lowImgae) {
+        this.lowImgae = lowImgae;
+    }
+
+    public String getThumbImgae() {
+        return thumbImgae;
+    }
+
+    public void setThumbImgae(String thumbImgae) {
+        this.thumbImgae = thumbImgae;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getTableId() {
+        return tableId;
+    }
+
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
+    }
+
+    public String getMimeTypeExt() {
+        return mimeTypeExt;
+    }
+
+    public void setMimeTypeExt(String mimeTypeExt) {
+        this.mimeTypeExt = mimeTypeExt;
+    }
+
+    public String getMimeTypeType() {
+        return mimeTypeType;
+    }
+
+    public void setMimeTypeType(String mimeTypeType) {
+        this.mimeTypeType = mimeTypeType;
+    }
 }

@@ -1,14 +1,12 @@
 package com.jinhe.modules.system.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * @author Administrator
  */
-@Data
 public class SysPasswordDTO implements Serializable {
     /**
      * 用户id
@@ -22,5 +20,19 @@ public class SysPasswordDTO implements Serializable {
     @ApiModelProperty(value="用户密码",name="",example="123")
     private String passWordHash;
 
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPassWordHash() {
+        return passWordHash;
+    }
+
+    public void setPassWordHash(String passWordHash) {
+        this.passWordHash = passWordHash;
+    }
 }

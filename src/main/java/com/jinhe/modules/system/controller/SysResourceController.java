@@ -15,7 +15,8 @@ import com.jinhe.modules.system.service.ISysResourceService;
 import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @RestController
 @RequestMapping("/system/sys-resource")
 @Api(tags = "system")
-@Slf4j
 @Transactional(rollbackFor = Exception.class)
 public class SysResourceController {
     @Resource
@@ -47,7 +47,7 @@ public class SysResourceController {
 
     @Autowired
     ISysResourceItemService iSysResourceItemService;
-
+    Logger log = LoggerFactory.getLogger(getClass());
     /**
      * 查询所有菜单（分页）
      **/

@@ -3,7 +3,6 @@ package com.jinhe.common.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,6 @@ import java.util.HashMap;
  */
 @ConfigurationProperties(prefix = "config.jwt")
 @Component
-@Data
 public class JwtConfig {
     private String secret;
     private long expire = 3600;
@@ -140,5 +138,13 @@ public class JwtConfig {
 
     public void setHeader(String header) {
         this.header = header;
+    }
+
+    public String getTokenStartWith() {
+        return tokenStartWith;
+    }
+
+    public void setTokenStartWith(String tokenStartWith) {
+        this.tokenStartWith = tokenStartWith;
     }
 }

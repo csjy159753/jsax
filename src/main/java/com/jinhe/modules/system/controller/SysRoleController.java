@@ -15,7 +15,8 @@ import com.jinhe.modules.system.service.ISysRoleService;
 import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @RestController
 @RequestMapping("/system/sys-role")
 @Api(tags = "system")
-@Slf4j
 @Transactional(rollbackFor = Exception.class)
 public class SysRoleController {
     @Resource
@@ -44,7 +44,7 @@ public class SysRoleController {
     @Resource
     private ISysRegionService iSysRegionService;
     private Integer userType = 99;
-
+    Logger log = LoggerFactory.getLogger(getClass());
     /**
      * 查询角色列表
      *

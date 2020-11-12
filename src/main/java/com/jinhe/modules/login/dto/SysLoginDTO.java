@@ -1,14 +1,12 @@
 package com.jinhe.modules.login.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * @author Administrator
  */
-@Data
 public class SysLoginDTO implements Serializable {
     /**
      * 用户id
@@ -39,4 +37,43 @@ public class SysLoginDTO implements Serializable {
     @ApiModelProperty(value="加密令牌",name="refreshToken",example="1")
     private String refreshToken;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public long getTokenExpireTime() {
+        return tokenExpireTime;
+    }
+
+    public void setTokenExpireTime(long tokenExpireTime) {
+        this.tokenExpireTime = tokenExpireTime;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 }

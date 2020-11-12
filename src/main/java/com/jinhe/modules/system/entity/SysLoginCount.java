@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
 
 /**
  * <p>
@@ -15,8 +14,6 @@ import lombok.EqualsAndHashCode;
  * @author rls
  * @since 2020-10-29
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
 @ApiModel(value="SysLoginCount对象", description="登录统计")
 public class SysLoginCount implements Serializable {
 
@@ -46,5 +43,71 @@ public class SysLoginCount implements Serializable {
     @ApiModelProperty(value = "app登录次数")
     private Integer appCount;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Integer getPcCount() {
+        return pcCount;
+    }
+
+    public void setPcCount(Integer pcCount) {
+        this.pcCount = pcCount;
+    }
+
+    public Integer getAppCount() {
+        return appCount;
+    }
+
+    public void setAppCount(Integer appCount) {
+        this.appCount = appCount;
+    }
 }

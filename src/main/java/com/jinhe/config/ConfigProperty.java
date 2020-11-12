@@ -1,6 +1,5 @@
 package com.jinhe.config;
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +9,6 @@ import java.io.File;
  * @author Administrator
  */
 @Component
-@Data
 public class ConfigProperty {
     @Value("${file.root.upload}")
     private String upload;
@@ -44,5 +42,77 @@ public class ConfigProperty {
 
     public String GetAbsolutelyWatermarkPath() {
         return System.getProperty("user.dir") + File.separator + watermarkPath;
+    }
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+    public String getUploadFile() {
+        return uploadFile;
+    }
+
+    public void setUploadFile(String uploadFile) {
+        this.uploadFile = uploadFile;
+    }
+
+    public String getWatermarkPath() {
+        return watermarkPath;
+    }
+
+    public void setWatermarkPath(String watermarkPath) {
+        this.watermarkPath = watermarkPath;
+    }
+
+    public Boolean getWatermarkEnabled() {
+        return watermarkEnabled;
+    }
+
+    public void setWatermarkEnabled(Boolean watermarkEnabled) {
+        this.watermarkEnabled = watermarkEnabled;
+    }
+
+    public double getImgCompressionModified() {
+        return imgCompressionModified;
+    }
+
+    public void setImgCompressionModified(double imgCompressionModified) {
+        this.imgCompressionModified = imgCompressionModified;
+    }
+
+    public double getImgCompressionLowFile() {
+        return imgCompressionLowFile;
+    }
+
+    public void setImgCompressionLowFile(double imgCompressionLowFile) {
+        this.imgCompressionLowFile = imgCompressionLowFile;
+    }
+
+    public double getImgCompressionThumb() {
+        return imgCompressionThumb;
+    }
+
+    public void setImgCompressionThumb(double imgCompressionThumb) {
+        this.imgCompressionThumb = imgCompressionThumb;
+    }
+
+    public String getPksFile() {
+        return pksFile;
+    }
+
+    public void setPksFile(String pksFile) {
+        this.pksFile = pksFile;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

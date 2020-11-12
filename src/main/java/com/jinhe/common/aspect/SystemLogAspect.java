@@ -10,7 +10,6 @@ import com.jinhe.modules.system.entity.SysOperatorLog;
 import com.jinhe.modules.system.service.ISysOperatorLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -38,7 +37,6 @@ import java.util.List;
  */
 @Aspect
 @Component
-@Slf4j
 public class SystemLogAspect {
     @Autowired
     private AmqpTemplate rabbitTemplate;
@@ -53,7 +51,7 @@ public class SystemLogAspect {
     private List<String> listDeny = new ArrayList<String>() {{
         add("[null]");
     }};
-
+    Logger log = LoggerFactory.getLogger(getClass());
     /**
      *    * Controller层切点 注解拦截 （"execution（方法返回值类型   包名.类名.方法名（参数类型））"）
      *   

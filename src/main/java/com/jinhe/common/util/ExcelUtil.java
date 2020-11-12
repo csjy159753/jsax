@@ -1,4 +1,5 @@
 package com.jinhe.common.util;
+
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
@@ -6,10 +7,8 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -25,9 +24,8 @@ import java.util.List;
  * @author:
  * @date:
  */
-@Slf4j
 public class ExcelUtil {
-
+    private static Logger log = LoggerFactory.getLogger(ExcelUtil.class);
     private static Sheet initSheet;
 
     static {
@@ -39,23 +37,24 @@ public class ExcelUtil {
 
     /**
      * 读取少于1000行数据
+     *
      * @param filePath 文件绝对路径
      * @return
      */
-    public static List<Object> readLessThan1000Row(String filePath){
-        return readLessThan1000RowBySheet(filePath,null);
+    public static List<Object> readLessThan1000Row(String filePath) {
+        return readLessThan1000RowBySheet(filePath, null);
     }
 
     /**
      * 读小于1000行数据, 带样式
      * filePath 文件绝对路径
      * initSheet ：
-     *      sheetNo: sheet页码，默认为1
-     *      headLineMun: 从第几行开始读取数据，默认为0, 表示从第一行开始读取
-     *      clazz: 返回数据List<Object> 中Object的类名
+     * sheetNo: sheet页码，默认为1
+     * headLineMun: 从第几行开始读取数据，默认为0, 表示从第一行开始读取
+     * clazz: 返回数据List<Object> 中Object的类名
      */
-    public static List<Object> readLessThan1000RowBySheet(String filePath, Sheet sheet){
-        if(!StringUtils.hasText(filePath)){
+    public static List<Object> readLessThan1000RowBySheet(String filePath, Sheet sheet) {
+        if (!StringUtils.hasText(filePath)) {
             return null;
         }
 
@@ -67,9 +66,9 @@ public class ExcelUtil {
             return EasyExcelFactory.read(fileStream, sheet);
         } catch (FileNotFoundException e) {
             log.info("找不到文件或文件路径错误, 文件：{}", filePath);
-        }finally {
+        } finally {
             try {
-                if(fileStream != null){
+                if (fileStream != null) {
                     fileStream.close();
                 }
             } catch (IOException e) {
@@ -81,20 +80,22 @@ public class ExcelUtil {
 
     /**
      * 读大于1000行数据
+     *
      * @param filePath 文件觉得路径
      * @return
      */
-    public static List<Object> readMoreThan1000Row(String filePath){
-        return readMoreThan1000RowBySheet(filePath,null);
+    public static List<Object> readMoreThan1000Row(String filePath) {
+        return readMoreThan1000RowBySheet(filePath, null);
     }
 
     /**
      * 读大于1000行数据, 带样式
+     *
      * @param filePath 文件觉得路径
      * @return
      */
-    public static List<Object> readMoreThan1000RowBySheet(String filePath, Sheet sheet){
-        if(!StringUtils.hasText(filePath)){
+    public static List<Object> readMoreThan1000RowBySheet(String filePath, Sheet sheet) {
+        if (!StringUtils.hasText(filePath)) {
             return null;
         }
 
@@ -108,9 +109,9 @@ public class ExcelUtil {
             return excelListener.getDatas();
         } catch (FileNotFoundException e) {
             log.error("找不到文件或文件路径错误, 文件：{}", filePath);
-        }finally {
+        } finally {
             try {
-                if(fileStream != null){
+                if (fileStream != null) {
                     fileStream.close();
                 }
             } catch (IOException e) {
@@ -122,25 +123,27 @@ public class ExcelUtil {
 
     /**
      * 生成excle
-     * @param filePath  绝对路径, 如：/home/chenmingjian/Downloads/aaa.xlsx
-     * @param data 数据源
-     * @param head 表头
+     *
+     * @param filePath 绝对路径, 如：/home/chenmingjian/Downloads/aaa.xlsx
+     * @param data     数据源
+     * @param head     表头
      */
-    public static void writeBySimple(String filePath, List<List<Object>> data, List<String> head){
-        writeSimpleBySheet(filePath,data,head,null);
+    public static void writeBySimple(String filePath, List<List<Object>> data, List<String> head) {
+        writeSimpleBySheet(filePath, data, head, null);
     }
 
     /**
      * 生成excle
+     *
      * @param filePath 绝对路径, 如：/home/chenmingjian/Downloads/aaa.xlsx
-     * @param data 数据源
-     * @param sheet excle页面样式
-     * @param head 表头
+     * @param data     数据源
+     * @param sheet    excle页面样式
+     * @param head     表头
      */
-    public static void writeSimpleBySheet(String filePath, List<List<Object>> data, List<String> head, Sheet sheet){
+    public static void writeSimpleBySheet(String filePath, List<List<Object>> data, List<String> head, Sheet sheet) {
         sheet = (sheet != null) ? sheet : initSheet;
 
-        if(head != null){
+        if (head != null) {
             List<List<String>> list = new ArrayList<>();
             head.forEach(h -> list.add(Collections.singletonList(h)));
             sheet.setHead(list);
@@ -151,16 +154,16 @@ public class ExcelUtil {
         try {
             outputStream = new FileOutputStream(filePath);
             writer = EasyExcelFactory.getWriter(outputStream);
-            writer.write1(data,sheet);
+            writer.write1(data, sheet);
         } catch (FileNotFoundException e) {
             log.error("找不到文件或文件路径错误, 文件：{}", filePath);
-        }finally {
+        } finally {
             try {
-                if(writer != null){
+                if (writer != null) {
                     writer.finish();
                 }
 
-                if(outputStream != null){
+                if (outputStream != null) {
                     outputStream.close();
                 }
 
@@ -173,21 +176,23 @@ public class ExcelUtil {
 
     /**
      * 生成excle
+     *
      * @param filePath 绝对路径, 如：/home/chenmingjian/Downloads/aaa.xlsx
-     * @param data 数据源
+     * @param data     数据源
      */
-    public static void writeWithTemplate(String filePath, List<? extends BaseRowModel> data){
-        writeWithTemplateAndSheet(filePath,data,null);
+    public static void writeWithTemplate(String filePath, List<? extends BaseRowModel> data) {
+        writeWithTemplateAndSheet(filePath, data, null);
     }
 
     /**
      * 生成excle
+     *
      * @param filePath 绝对路径, 如：/home/chenmingjian/Downloads/aaa.xlsx
-     * @param data 数据源
-     * @param sheet excle页面样式
+     * @param data     数据源
+     * @param sheet    excle页面样式
      */
-    public static void writeWithTemplateAndSheet(String filePath, List<? extends BaseRowModel> data, Sheet sheet){
-        if(CollectionUtils.isEmpty(data)){
+    public static void writeWithTemplateAndSheet(String filePath, List<? extends BaseRowModel> data, Sheet sheet) {
+        if (CollectionUtils.isEmpty(data)) {
             return;
         }
 
@@ -199,16 +204,16 @@ public class ExcelUtil {
         try {
             outputStream = new FileOutputStream(filePath);
             writer = EasyExcelFactory.getWriter(outputStream);
-            writer.write(data,sheet);
+            writer.write(data, sheet);
         } catch (FileNotFoundException e) {
             log.error("找不到文件或文件路径错误, 文件：{}", filePath);
-        }finally {
+        } finally {
             try {
-                if(writer != null){
+                if (writer != null) {
                     writer.finish();
                 }
 
-                if(outputStream != null){
+                if (outputStream != null) {
                     outputStream.close();
                 }
             } catch (IOException e) {
@@ -220,11 +225,12 @@ public class ExcelUtil {
 
     /**
      * 生成多Sheet的excle
-     * @param filePath 绝对路径, 如：/home/chenmingjian/Downloads/aaa.xlsx
+     *
+     * @param filePath              绝对路径, 如：/home/chenmingjian/Downloads/aaa.xlsx
      * @param multipleSheelPropetys
      */
-    public static void writeWithMultipleSheel(String filePath,List<MultipleSheelPropety> multipleSheelPropetys){
-        if(CollectionUtils.isEmpty(multipleSheelPropetys)){
+    public static void writeWithMultipleSheel(String filePath, List<MultipleSheelPropety> multipleSheelPropetys) {
+        if (CollectionUtils.isEmpty(multipleSheelPropetys)) {
             return;
         }
 
@@ -235,7 +241,7 @@ public class ExcelUtil {
             writer = EasyExcelFactory.getWriter(outputStream);
             for (MultipleSheelPropety multipleSheelPropety : multipleSheelPropetys) {
                 Sheet sheet = multipleSheelPropety.getSheet() != null ? multipleSheelPropety.getSheet() : initSheet;
-                if(!CollectionUtils.isEmpty(multipleSheelPropety.getData())){
+                if (!CollectionUtils.isEmpty(multipleSheelPropety.getData())) {
                     sheet.setClazz(multipleSheelPropety.getData().get(0).getClass());
                 }
                 writer.write(multipleSheelPropety.getData(), sheet);
@@ -243,13 +249,13 @@ public class ExcelUtil {
 
         } catch (FileNotFoundException e) {
             log.error("找不到文件或文件路径错误, 文件：{}", filePath);
-        }finally {
+        } finally {
             try {
-                if(writer != null){
+                if (writer != null) {
                     writer.finish();
                 }
 
-                if(outputStream != null){
+                if (outputStream != null) {
                     outputStream.close();
                 }
             } catch (IOException e) {
@@ -262,12 +268,28 @@ public class ExcelUtil {
 
     /*********************匿名内部类开始，可以提取出去******************************/
 
-    @Data
-    public static class MultipleSheelPropety{
+
+    public static class MultipleSheelPropety {
 
         private List<? extends BaseRowModel> data;
 
         private Sheet sheet;
+
+        public List<? extends BaseRowModel> getData() {
+            return data;
+        }
+
+        public void setData(List<? extends BaseRowModel> data) {
+            this.data = data;
+        }
+
+        public Sheet getSheet() {
+            return sheet;
+        }
+
+        public void setSheet(Sheet sheet) {
+            this.sheet = sheet;
+        }
     }
 
     /**
@@ -278,8 +300,6 @@ public class ExcelUtil {
      * @author: chenmingjian
      * @date: 19-4-3 14:11
      */
-    @Getter
-    @Setter
     public static class ExcelListener extends AnalysisEventListener {
 
         private List<Object> datas = new ArrayList<>();
@@ -306,20 +326,29 @@ public class ExcelUtil {
             //解析结束销毁不用的资源
         }
 
+        public List<Object> getDatas() {
+            return datas;
+        }
+
+        public void setDatas(List<Object> datas) {
+            this.datas = datas;
+        }
     }
 
     /************************匿名内部类结束，可以提取出去***************************/
-    /**2.*版本更新代码
+    /**
+     * 2.*版本更新代码
      * excel的 pojo 实体类取消了 继承BaseRowModel.
-     *
      */
-    public static <T> void writeExcel(HttpServletResponse response, List<?> list, String fileName, String sheetName,Class<T> tClass )throws Exception  {
-        EasyExcel.write(getOutputStream(fileName,response),tClass)
+    public static <T> void writeExcel(HttpServletResponse response, List<?> list, String fileName, String sheetName, Class<T> tClass) throws Exception {
+        EasyExcel.write(getOutputStream(fileName, response), tClass)
                 .sheet(sheetName)
                 .doWrite(list);
     }
+
     /**
      * 导出文件时为Writer生成OutputStream
+     *
      * @param fileName
      * @param response
      * @return

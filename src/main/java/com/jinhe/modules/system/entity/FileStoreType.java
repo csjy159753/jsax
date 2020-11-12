@@ -6,8 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
 
 /**
  * <p>
@@ -17,8 +16,6 @@ import lombok.EqualsAndHashCode;
  * @author rls
  * @since 2020-10-29
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
 @ApiModel(value="FileStoreType对象", description="文件存储类型")
 public class FileStoreType implements Serializable {
 
@@ -40,5 +37,39 @@ public class FileStoreType implements Serializable {
     @TableField("IS_USE")
     private Integer isUse;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getExt() {
+        return ext;
+    }
+
+    public void setExt(String ext) {
+        this.ext = ext;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getIsUse() {
+        return isUse;
+    }
+
+    public void setIsUse(Integer isUse) {
+        this.isUse = isUse;
+    }
 }

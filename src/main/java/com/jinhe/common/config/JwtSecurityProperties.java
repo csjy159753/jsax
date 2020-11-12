@@ -1,10 +1,11 @@
 package com.jinhe.common.config;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-@Data
+/**
+ * @author Administrator
+ */
 @Configuration
 @ConfigurationProperties(prefix = "jwt")
 public class JwtSecurityProperties {
@@ -24,5 +25,33 @@ public class JwtSecurityProperties {
     /**返回令牌前缀 */
     public String getTokenStartWith() {
         return tokenStartWith + " ";
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public void setTokenStartWith(String tokenStartWith) {
+        this.tokenStartWith = tokenStartWith;
+    }
+
+    public String getBase64Secret() {
+        return base64Secret;
+    }
+
+    public void setBase64Secret(String base64Secret) {
+        this.base64Secret = base64Secret;
+    }
+
+    public Long getTokenValidityInSeconds() {
+        return tokenValidityInSeconds;
+    }
+
+    public void setTokenValidityInSeconds(Long tokenValidityInSeconds) {
+        this.tokenValidityInSeconds = tokenValidityInSeconds;
     }
 }
