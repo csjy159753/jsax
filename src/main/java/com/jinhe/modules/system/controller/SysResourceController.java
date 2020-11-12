@@ -48,12 +48,13 @@ public class SysResourceController {
     @Autowired
     ISysResourceItemService iSysResourceItemService;
     Logger log = LoggerFactory.getLogger(getClass());
+
     /**
      * 查询所有菜单（分页）
      **/
     @ApiOperation(value = "查询所有菜单（分页）", notes = "查询所有菜单")
     @RequestMapping(value = "List/{userId}", method = RequestMethod.GET)
-    public Result List(@PathVariable String userId) {
+    public Result<List<SysResourceDTO>> List(@PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser != null && userType.equals(sysUser.getType())) {
             List<SysResourceDTO> List = ISysResService.selectPageAll();
