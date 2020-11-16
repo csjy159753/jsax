@@ -52,6 +52,7 @@ public class SystemLogAspect {
         add("[null]");
     }};
     Logger log = LoggerFactory.getLogger(getClass());
+
     /**
      *    * Controller层切点 注解拦截 （"execution（方法返回值类型   包名.类名.方法名（参数类型））"）
      *   
@@ -113,7 +114,6 @@ public class SystemLogAspect {
                         if (!listDeny.contains(strArgs)) {
                             sysOperatorLog.setOperatoraArgs(JSON.toJSONString(args));
                         }
-
                     }
                     sysOperatorLog.setOperatorUrl(uri);
                     sysOperatorLog.setOperatorIp(request.getRemoteAddr());
@@ -124,13 +124,8 @@ public class SystemLogAspect {
                     } catch (Exception ex) {
                         log.error(getClass().getName(), ex);
                     }
-
-
                 }
-
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
