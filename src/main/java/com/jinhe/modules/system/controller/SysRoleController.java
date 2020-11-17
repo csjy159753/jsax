@@ -63,15 +63,8 @@ public class SysRoleController {
             return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
         }
         List<SysRole> listRole = sysRoleService.list();
-
         List<SysRoleChDTO> lik = new TreeChildren().CreateTree(listRole, SysRoleChDTO.class);
-//            List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(listRole);
         return ResultUtil.success(lik);
-//        try {
-//
-//        } catch (Exception e) {
-//            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
-//        }
     }
 
     /**

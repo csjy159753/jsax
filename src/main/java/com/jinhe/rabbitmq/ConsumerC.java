@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Administrator
+ */
 @Component
 public class ConsumerC {
     Logger logger = LoggerFactory.getLogger(getClass());

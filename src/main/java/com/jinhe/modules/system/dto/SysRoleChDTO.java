@@ -6,6 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * @author Administrator
+ */
 public class SysRoleChDTO extends Children<SysRoleChDTO> implements Serializable {
 
     private static final long serialVersionUID = 1L;
