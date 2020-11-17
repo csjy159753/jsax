@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class SysUserController {
      */
     @ApiOperation(value = "新增用户", notes = "新增用户")
     @RequestMapping(value = "saveUser", method = RequestMethod.POST)
-    public Result saveUser(@RequestBody SysUserDTO sysUserDto) throws InstantiationException, IllegalAccessException {
+    public Result saveUser(@RequestBody SysUserDTO sysUserDto) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         UserInfo userInfo = new UserInfo();
         // 密码复杂度 10位4选3
         String passwordHash = sysUserDto.getPasswordHash();
@@ -139,7 +140,7 @@ public class SysUserController {
      */
     @ApiOperation(value = "更新信息", notes = "更新信息")
     @RequestMapping(value = "UpdateInfo", method = RequestMethod.PUT)
-    public Result UpdateInfo(@RequestBody SysUserDTO sysUserDto) throws InstantiationException, IllegalAccessException {
+    public Result UpdateInfo(@RequestBody SysUserDTO sysUserDto) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         if (sysUserDto.getOrganIds() == null || sysUserDto.getOrganIds().size() == 0) {
             //用户没有关联机构
             ResultUtil.error(ResultEnum.USER_NOT_RELEVANCY_ORGAN);
@@ -176,5 +177,13 @@ public class SysUserController {
         iSysUserOrganService.removeById(id);
         return ResultUtil.success();
     }
+    /**
+     * 角色新增权限
+     **/
+    @ApiOperation(value = "角色移除权限", notes = "角色移除权限")
+    @RequestMapping(value = "listByPc/{userId}", method = RequestMethod.GET)
+    public Result listByPc(@PathVariable String userId) {
 
+        return ResultUtil.success();
+    }
 }

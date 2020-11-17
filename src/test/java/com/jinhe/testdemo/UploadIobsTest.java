@@ -2,6 +2,10 @@ package com.jinhe.testdemo;
 
 import java.io.File;
 import java.util.UUID;
+
+import com.jinhe.common.util.Mapper;
+import com.jinhe.modules.system.dto.SysUserDTO;
+import com.jinhe.modules.system.entity.SysUser;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -13,6 +17,9 @@ import org.apache.http.util.EntityUtils;
 
 public class UploadIobsTest {
     public static void main(String[] args) throws Exception {
+        SysUser sysUser = new SysUser();
+        sysUser.setId("aaaa");
+        SysUserDTO sysUserDTO = Mapper.ModelToModel(sysUser, SysUserDTO.class);
 //        // 文件路径
 //        String path = "D://3016548173.jpg";
 //        File file = new File(path);

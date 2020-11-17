@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -50,7 +51,7 @@ public class SysLoginController {
     @ApiOperation(value = "登录获取token", notes = "登录获取token")
     @RequestMapping(value = "Login", method = RequestMethod.POST)
     @SysLog(value = "Login")
-    public Result<SysLoginDTO> login(@RequestBody SysLogin login) throws InstantiationException, IllegalAccessException {
+    public Result<SysLoginDTO> login(@RequestBody SysLogin login) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
         String password = EncryptUtil.getInstance().Base64Decode(login.getPassWord());
         QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>();
@@ -107,7 +108,7 @@ public class SysLoginController {
     @ApiOperation(value = "手机app登录", notes = "手机app登录")
     @RequestMapping(value = "loginApp", method = RequestMethod.POST)
     @SysLog(value = "loginApp")
-    public Result<SysLoginDTO> loginApp(@RequestBody SysLogin login) throws InstantiationException, IllegalAccessException {
+    public Result<SysLoginDTO> loginApp(@RequestBody SysLogin login) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
         String password = EncryptUtil.getInstance().Base64Decode(login.getPassWord());
         QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>();

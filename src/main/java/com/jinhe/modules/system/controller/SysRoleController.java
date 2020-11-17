@@ -4,9 +4,11 @@ package com.jinhe.modules.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.Result;
+import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.util.Tree.MapTree;
+import com.jinhe.modules.system.dto.SysRoleChDTO;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.entity.SysUser;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -45,6 +48,7 @@ public class SysRoleController {
     private ISysRegionService iSysRegionService;
     private Integer userType = 99;
     Logger log = LoggerFactory.getLogger(getClass());
+
     /**
      * 查询角色列表
      *
@@ -52,20 +56,22 @@ public class SysRoleController {
      */
     @ApiOperation(value = "查询全部角色列表管理员专用", notes = "查询全部角色列表管理员专用")
     @RequestMapping(value = "list/{userId}", method = RequestMethod.GET)
-    public Result<List<SysRole>> list(@PathVariable String userId) {
+    public Result<List<SysRoleChDTO>> list(@PathVariable String userId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser == null || !userType.equals(sysUser.getType())) {
             return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
         }
+        List<SysRole> listRole = sysRoleService.list();
 
-        try {
-            List<SysRole> listRole = sysRoleService.list();
-            List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(listRole);
-            return ResultUtil.success(listMap);
-        } catch (Exception e) {
-            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
-        }
+        List<SysRoleChDTO> lik = new TreeChildren().CreateTree(listRole, SysRoleChDTO.class);
+//            List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(listRole);
+        return ResultUtil.success(lik);
+//        try {
+//
+//        } catch (Exception e) {
+//            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
+//        }
     }
 
     /**

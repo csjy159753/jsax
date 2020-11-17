@@ -32,6 +32,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             ) {
                 return true;
             }
+        }else{
+            return true;
         }
         /** Token 验证 */
         String token = request.getHeader(jwtConfig.getHeader());

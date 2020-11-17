@@ -1,6 +1,7 @@
 package com.jinhe.common.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,8 +74,8 @@ public class Mapper {
      *
      * @param src
      */
-    public static <T, TT> TT ModelToModel(T src, Class<TT> clazz) throws IllegalAccessException, InstantiationException {
-        TT target = clazz.newInstance();
+    public static <T, TT> TT ModelToModel(T src, Class<TT> clazz) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+        TT target = clazz.getDeclaredConstructor().newInstance();
         Method[] srcMethods = src.getClass().getMethods();
         Method[] targetMethods = target.getClass().getMethods();
         for (Method m : srcMethods) {
