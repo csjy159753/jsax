@@ -54,7 +54,6 @@ public class SysUserController {
         UserInfo userInfo = new UserInfo();
         // 密码复杂度 10位4选3
         String passwordHash = sysUserDto.getPasswordHash();
-
         if (!userInfo.CheckPassword(passwordHash)) {
             return ResultUtil.error(ResultEnum.USER_UPDATE_PASSWORD_ERROR);
         }
@@ -62,7 +61,6 @@ public class SysUserController {
         if (resultEnum != ResultEnum.USER_NAME_CORRECT) {
             return ResultUtil.success(resultEnum);
         }
-
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("NORMALIZED_USERNAME", sysUserDto.getNormalizedUsername());
         SysUser sysUser = iSysUserService.getBaseMapper().selectOne(queryWrapper);
@@ -70,7 +68,6 @@ public class SysUserController {
             return ResultUtil.error(ResultEnum.USER_NAME_ALREADY_EXISTS);
         }
         sysUserDto.setPasswordHash(EncryptUtil.getInstance().MD5_32(sysUserDto.getPasswordHash()));
-
         sysUserDto.setId(StringUtils.getGUID());
         sysUser = Mapper.ModelToModel(sysUserDto, SysUser.class);
         iSysUserService.save(sysUser);
@@ -177,6 +174,7 @@ public class SysUserController {
         iSysUserOrganService.removeById(id);
         return ResultUtil.success();
     }
+
     /**
      * 角色新增权限
      **/

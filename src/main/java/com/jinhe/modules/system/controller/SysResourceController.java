@@ -2,13 +2,17 @@ package com.jinhe.modules.system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.MapTree;
+import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.system.dto.SysResourceDTO;
+import com.jinhe.modules.system.dto.SysRoleChDTO;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.entity.SysResourceItem;
+import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysResourceItemService;
 import com.jinhe.modules.system.service.ISysResourceService;
@@ -22,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -48,6 +53,19 @@ public class SysResourceController {
     @Autowired
     ISysResourceItemService iSysResourceItemService;
     Logger log = LoggerFactory.getLogger(getClass());
+
+    /**
+     * 查询所有菜单（分页）
+     **/
+    @ApiOperation(value = "查询所有菜单（分页）", notes = "查询所有菜单")
+    @RequestMapping(value = "listResource/{userid}", method = RequestMethod.GET)
+    @SysLog(value = "listResource/{userid}")
+    public Result<List<SysResourceDTO>> listResource(@PathVariable String userId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        List<SysResourceDTO> sysResource = ISysResService.listResource(userId);
+        List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(sysResource);
+        return ResultUtil.success(listMap);
+
+    }
 
     /**
      * 查询所有菜单（分页）

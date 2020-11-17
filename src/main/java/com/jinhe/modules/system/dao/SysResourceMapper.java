@@ -23,4 +23,11 @@ public interface SysResourceMapper extends BaseMapper<SysResource> {
      * @return
      */
     List<SysResourceDTO> selectPageAll();
+
+    /**
+     * 根据用户查询资源菜单
+     * @param userId
+     * @return
+     */
+    List<SysResourceDTO> listResource(String userId);
 }
