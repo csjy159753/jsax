@@ -14,3 +14,5 @@
 *.rar
 *.tar.gz
 /logs
+/upload
+/uploadFile
