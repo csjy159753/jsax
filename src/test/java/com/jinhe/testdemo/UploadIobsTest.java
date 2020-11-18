@@ -1,19 +1,8 @@
 package com.jinhe.testdemo;
 
-import java.io.File;
-import java.util.UUID;
-
 import com.jinhe.common.util.Mapper;
-import com.jinhe.modules.system.dto.SysUserDTO;
+import com.jinhe.modules.sys.dto.SysUserDTO;
 import com.jinhe.modules.system.entity.SysUser;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 
 public class UploadIobsTest {
     public static void main(String[] args) throws Exception {

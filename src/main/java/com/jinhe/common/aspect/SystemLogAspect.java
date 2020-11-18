@@ -1,16 +1,13 @@
 package com.jinhe.common.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.jinhe.common.annotation.SysLogTest;
 import com.jinhe.common.config.JwtConfig;
 import com.jinhe.common.config.Property;
 import com.jinhe.common.config.SystemType;
 import com.jinhe.modules.system.entity.SysOperatorLog;
-import com.jinhe.modules.system.service.ISysOperatorLogService;
+import com.jinhe.modules.sys.service.ISysOperatorLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -21,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

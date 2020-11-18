@@ -2,21 +2,17 @@ package com.jinhe.modules.system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.MapTree;
-import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.config.ResultEnum;
+import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysResourceDTO;
-import com.jinhe.modules.system.dto.SysRoleChDTO;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.entity.SysResourceItem;
-import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysResourceItemService;
 import com.jinhe.modules.system.service.ISysResourceService;
-import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -29,6 +25,7 @@ import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -48,6 +45,7 @@ public class SysResourceController {
 
     @Resource
     private ISysUserService iSysUserService;
+
     private Integer userType = 99;
 
     @Autowired
@@ -55,27 +53,27 @@ public class SysResourceController {
     Logger log = LoggerFactory.getLogger(getClass());
 
     /**
-     * 查询所有菜单（分页）
+     * 查询所有菜单
      **/
-    @ApiOperation(value = "查询所有菜单（分页）", notes = "查询所有菜单")
-    @RequestMapping(value = "listResource/{userid}", method = RequestMethod.GET)
-    @SysLog(value = "listResource/{userid}")
+    @ApiOperation(value = "查询所有菜单根据权限查询", notes = "查询所有菜单根据权限查询")
+    @RequestMapping(value = "listResource/{userId}", method = RequestMethod.GET)
+    @SysLog(value = "listResource/{userId}")
     public Result<List<SysResourceDTO>> listResource(@PathVariable String userId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<SysResourceDTO> sysResource = ISysResService.listResource(userId);
         List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(sysResource);
         return ResultUtil.success(listMap);
-
     }
 
     /**
-     * 查询所有菜单（分页）
+     * 查询所有菜单
      **/
-    @ApiOperation(value = "查询所有菜单（分页）", notes = "查询所有菜单")
-    @RequestMapping(value = "List/{userId}", method = RequestMethod.GET)
+    @ApiOperation(value = "查询所有菜单管理员专用", notes = "查询所有菜单管理员专用")
+    @RequestMapping(value = "list/{userId}", method = RequestMethod.GET)
     public Result<List<SysResourceDTO>> List(@PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser != null && userType.equals(sysUser.getType())) {
             List<SysResourceDTO> List = ISysResService.selectPageAll();
+            List = List.stream().filter(d -> d.getType() != 2).collect((Collectors.toList()));
             List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(List);
             return ResultUtil.success(listMap);
         } else {
@@ -102,11 +100,11 @@ public class SysResourceController {
      * 根据Id查询资源
      **/
     @ApiOperation(value = "根据Id查询子项菜单", notes = "根据Id查询子项菜单")
-    @RequestMapping(value = "listSysResourceItemById/{id}", method = RequestMethod.GET)
-    public Result listSysResourceItemById(@PathVariable String id) {
+    @RequestMapping(value = "listSysResourceItem/{resourceId}", method = RequestMethod.GET)
+    public Result<List<SysResourceItem>> listSysResourceItemById(@PathVariable String resourceId) {
         try {
             QueryWrapper<SysResourceItem> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("resource_id", id);
+            queryWrapper.eq("resource_id", resourceId);
             List<SysResourceItem> list = iSysResourceItemService.list(queryWrapper);
             return ResultUtil.success(list);
         } catch (Exception e) {
@@ -128,7 +126,7 @@ public class SysResourceController {
     }
 
     @ApiOperation(value = "根据Id查询资源子项菜单", notes = "根据Id查询资源子项菜单")
-    @RequestMapping(value = "GetSysResourceItem/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "getSysResourceItem/{id}", method = RequestMethod.GET)
     public Result<SysResourceItem> GetSysResourceItem(@PathVariable String id) {
         SysResourceItem sysResourceItem;
         try {
@@ -138,6 +136,13 @@ public class SysResourceController {
             return ResultUtil.error(ResultEnum.RESOURCEITEM_SELECT_NOT_FOUND);
         }
         return ResultUtil.success(sysResourceItem);
+    }
+
+    @ApiOperation(value = "删除资源菜单", notes = "删除资源菜单")
+    @RequestMapping(value = "remove/{id}", method = RequestMethod.DELETE)
+    public Result remove(@PathVariable String id) {
+        ISysResService.removeById(id);
+        return ResultUtil.success();
     }
 
     /**

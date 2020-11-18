@@ -8,10 +8,10 @@ import com.jinhe.common.util.*;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.login.dto.SysLogin;
 import com.jinhe.modules.login.dto.SysLoginDTO;
+import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.service.ISysLoginCountService;
 import com.jinhe.modules.system.service.ISysLoginLogService;
-import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ import java.util.UUID;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/login/SysLogin")
+@RequestMapping("/login/sysLogin")
 @Api(tags = {"login"})
 public class SysLoginController {
 
@@ -49,8 +49,8 @@ public class SysLoginController {
     private ISysLoginCountService iSysLoginCountService;
 
     @ApiOperation(value = "登录获取token", notes = "登录获取token")
-    @RequestMapping(value = "Login", method = RequestMethod.POST)
-    @SysLog(value = "Login")
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @SysLog(value = "login")
     public Result<SysLoginDTO> login(@RequestBody SysLogin login) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
         String password = EncryptUtil.getInstance().Base64Decode(login.getPassWord());

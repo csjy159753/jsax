@@ -1,11 +1,8 @@
 package com.jinhe.modules.system.service.impl;
 
-import com.jinhe.common.util.ListSub;
-import com.jinhe.common.util.Tree.ITree;
-import com.jinhe.common.util.Tree.MapTree;
-import com.jinhe.common.util.Tree.Tree;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.util.Tree.TreeNode;
-import com.jinhe.modules.system.dao.SysUserMapper;
+import com.jinhe.modules.sys.dao.SysUserMapper;
 import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysResource;
 import com.jinhe.modules.system.dao.SysResourceMapper;
@@ -33,6 +30,8 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
     private SysResourceMapper sysResourceMapper;
     @Autowired
     private SysUserMapper sysUserMapper;
+    private Integer userTypeSuperAdmin=99;
+    private Integer userTypeAdmin=98;
 
     @Override
     public List<SysResourceDTO> selectPageAll() {
@@ -48,8 +47,10 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
             return null;
         }
         Integer type = sysUser.getType();
-        if (type == 99) {
-            listtree = sysResourceMapper.selectPageAll();
+        if (type.equals(userTypeSuperAdmin)||type.equals(userTypeAdmin)) {
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.in("type", 2);
+            listtree = sysResourceMapper.selectList(queryWrapper);
         } else {
             listtree = sysResourceMapper.listResource(userId);
         }

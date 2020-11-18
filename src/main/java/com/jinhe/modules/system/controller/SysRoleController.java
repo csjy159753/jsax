@@ -7,14 +7,13 @@ import com.jinhe.common.util.Result;
 import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
-import com.jinhe.common.util.Tree.MapTree;
+import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysRoleChDTO;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.entity.SysUser;
-import com.jinhe.modules.system.service.ISysRegionService;
+import com.jinhe.modules.sys.service.ISysRegionService;
 import com.jinhe.modules.system.service.ISysRoleService;
-import com.jinhe.modules.system.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>

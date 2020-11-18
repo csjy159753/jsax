@@ -35,7 +35,7 @@ public class SysAppResourceController {
 
 
     @ApiOperation(value = "删除手机资源菜单", notes = "删除手机资源菜单")
-    @RequestMapping(value = "remove/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "remove/{id}", method = RequestMethod.DELETE)
     public Result remove(@PathVariable String id) {
         iSysAppResourceService.removeById(id);
         return ResultUtil.success();
