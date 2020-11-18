@@ -2,6 +2,7 @@ package com.jinhe.modules.sys.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
+import com.jinhe.common.util.Result
 import com.jinhe.common.util.ResultUtil
 import com.jinhe.modules.sys.entity.Dictionary
 import com.jinhe.modules.sys.service.IDictionaryService
