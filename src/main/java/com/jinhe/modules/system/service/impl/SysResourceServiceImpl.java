@@ -30,8 +30,8 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
     private SysResourceMapper sysResourceMapper;
     @Autowired
     private SysUserMapper sysUserMapper;
-    private Integer userTypeSuperAdmin=99;
-    private Integer userTypeAdmin=98;
+    private Integer userTypeSuperAdmin = 99;
+    private Integer userTypeAdmin = 98;
 
     @Override
     public List<SysResourceDTO> selectPageAll() {
@@ -40,29 +40,28 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
 
     @Override
     public List<SysResourceDTO> listResource(String userId) {
-        List<TreeNode> treenodelist = new ArrayList<>();
-        List<SysResourceDTO> listtree = new ArrayList<>();
+        List<SysResourceDTO> list = new ArrayList<>();
         SysUser sysUser = sysUserMapper.selectById(userId);
         if (sysUser == null) {
             return null;
         }
         Integer type = sysUser.getType();
-        if (type.equals(userTypeSuperAdmin)||type.equals(userTypeAdmin)) {
-            QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.in("type", 2);
-            listtree = sysResourceMapper.selectList(queryWrapper);
+        if (type.equals(userTypeSuperAdmin)) {
+            list = sysResourceMapper.listResourceAdmin(1);
+        } else if (type.equals(userTypeAdmin)) {
+            list = sysResourceMapper.listResourceAdmin(2);
         } else {
-            listtree = sysResourceMapper.listResource(userId);
+            list = sysResourceMapper.listResource(userId);
         }
 
 
-        return listtree;
+        return list;
     }
 
     @Override
     public List<SysResourceDTO> listResourceAdmin() {
         List<SysResourceDTO> listtree = new ArrayList<>();
-        listtree = sysResourceMapper.listResourceAdmin();
+        listtree = sysResourceMapper.listResourceAdmin(2);
         return listtree;
     }
 

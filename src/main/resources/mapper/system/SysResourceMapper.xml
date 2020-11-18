@@ -13,25 +13,27 @@
     </select>
     <select id="listResource" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
         SELECT
-            sr.*,
-            group_concat(
-            DISTINCT
-            CASE
+        sr.*,
+        group_concat(
+        DISTINCT
+        CASE
 
-                    WHEN sri.id IS NOT NULL THEN
-                    ( concat( sri.id, '_', sri.`name`, '_', sri.display_name, '_', sri.state ) ) ELSE ''
-                END
-                ) AS resourceItemIds
-            FROM
-                sys_permission sp
-                LEFT JOIN sys_permission_item spi ON spi.permission_id = sp.id
-                LEFT JOIN sys_resource sr ON sr.id = sp.resource_id and sr.type  <![CDATA[ <>  ]]> 2
-                LEFT JOIN sys_resource_item sri ON sri.id = spi.resource_item_id
-                LEFT JOIN sys_organ_role sor ON sor.role_id = sp.role_id
-                LEFT JOIN sys_user_organ suo ON suo.organ_id = sor.organ_id
-                WHERE suo.user_id=#{userId}
+        WHEN sri.id IS NOT NULL THEN
+        ( concat( sri.id, '_', sri.`name`, '_', sri.display_name, '_', sri.state ) ) ELSE ''
+        END
+        ) AS resourceItemIds
+        FROM
+        sys_permission sp
+        LEFT JOIN sys_permission_item spi ON spi.permission_id = sp.id
+        LEFT JOIN sys_resource sr ON sr.id = sp.resource_id and sr.type  <![CDATA[ <>  ]]> 2
+        LEFT JOIN sys_resource_item sri ON sri.id = spi.resource_item_id
+        LEFT JOIN sys_organ_role sor ON sor.role_id = sp.role_id
+        LEFT JOIN sys_user_organ suo ON suo.organ_id = sor.organ_id
+        <if test=" userId == null or userId ==''">
+            WHERE suo.user_id=#{userId}
+        </if>
         GROUP BY
-            sr.id
+        sr.id
     </select>
     <select id="listResourceAdmin" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
         SELECT
@@ -48,7 +50,12 @@
         sys_resource sr
         LEFT JOIN sys_resource_item sri ON sri.resource_id = sr.id
         WHERE
-        sr.type <![CDATA[ <> ]]> 2
+        <if test="type ==2">
+            sr.type <![CDATA[ <> ]]> 2
+        </if>
+        <if test="type ==1">
+            sr.type = 2
+        </if>
         GROUP BY
         sr.id
     </select>

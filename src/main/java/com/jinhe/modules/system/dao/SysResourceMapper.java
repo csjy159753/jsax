@@ -20,12 +20,14 @@ public interface SysResourceMapper extends BaseMapper<SysResource> {
 
     /**
      * 查询所有资源菜单
+     *
      * @return
      */
     List<SysResourceDTO> selectPageAll();
 
     /**
      * 根据用户查询资源菜单
+     *
      * @param userId
      * @return
      */
@@ -33,12 +35,15 @@ public interface SysResourceMapper extends BaseMapper<SysResource> {
 
     /**
      * 获取全部菜单权限
+     *
+     * @param type
      * @return
      */
-    List<SysResourceDTO> listResourceAdmin();
+    List<SysResourceDTO> listResourceAdmin(Integer type);
 
     /**
      * 根据角色id获取菜单
+     *
      * @param roleId
      * @return
      */
