@@ -44,44 +44,18 @@ public class SysPermissionController {
     /**
      * 角色新增权限
      **/
-    @ApiOperation(value = "角色新增权限", notes = "角色新增权限")
-    @RequestMapping(value = "addByRoleId/{roleId}", method = RequestMethod.POST)
-    public Result addByRoleId(@PathVariable String roleId, @RequestBody List<PermissionItemDTO> permissionItem) {
+    @ApiOperation(value = "角色新增或者修改权限", notes = "角色新增或者修改权限")
+    @RequestMapping(value = "saveOrUpdateByRoleId/{roleId}", method = RequestMethod.POST)
+    public Result saveOrUpdateByRoleId(@PathVariable String roleId, @RequestBody List<PermissionItemDTO> permissionItem) {
         SysRole sysRole = iSysRoleService.getById(roleId);
         if (sysRole == null) {
             return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
         }
-        if (permissionItem != null && permissionItem.size() != 0 && !permissionItem.isEmpty()) {
+        if (permissionItem != null) {
             iSysPermissionService.saveByRoleId(roleId, permissionItem);
         } else {
             return ResultUtil.error(ResultEnum.ROLE_INSERT_PERMISSIONS);
         }
-        return ResultUtil.success();
-    }
-
-    /**
-     * 根据用户id获取角色
-     **/
-    @ApiOperation(value = "根据用户id获取角色", notes = "根据用户id获取角色")
-    @RequestMapping(value = "listByRoleId/{roleId}", method = RequestMethod.GET)
-    public Result listByRoleId(@PathVariable String roleId) {
-        List<SysResourceDTO> list = iSysPermissionService.listByRoleId(roleId);
-        return ResultUtil.success();
-    }
-
-    /**
-     * 角色新增权限
-     **/
-    @ApiOperation(value = "角色移除权限", notes = "角色移除权限")
-    @RequestMapping(value = "remove/{roleId}", method = RequestMethod.POST)
-    public Result remove(@PathVariable String roleId) {
-        SysRole sysRole = iSysRoleService.getById(roleId);
-        if (sysRole == null) {
-            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
-        }
-        UpdateWrapper<SysPermission> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("role_id", roleId);
-        iSysPermissionService.remove(updateWrapper);
         return ResultUtil.success();
     }
 }

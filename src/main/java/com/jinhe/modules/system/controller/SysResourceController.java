@@ -79,7 +79,16 @@ public class SysResourceController {
             return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
         }
     }
-
+    /**
+     * 根据角色id获取菜单菜单管理员专用
+     **/
+    @ApiOperation(value = "根据角色id获取菜单菜单管理员专用", notes = "根据角色id获取菜单菜单管理员专用")
+    @RequestMapping(value = "listByRole/{roleId}", method = RequestMethod.GET)
+    public Result<List<SysResourceDTO>> listByRole(@PathVariable String roleId) {
+        List<SysResourceDTO> List = ISysResService.listByRole(roleId);
+        List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(List);
+        return ResultUtil.success(listMap);
+    }
     /**
      * 新增菜单
      **/

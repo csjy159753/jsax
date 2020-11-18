@@ -25,8 +25,8 @@
             FROM
                 sys_permission sp
                 LEFT JOIN sys_permission_item spi ON spi.permission_id = sp.id
-                INNER JOIN sys_resource sr ON sr.id = sp.resource_id and sr.type  <![CDATA[ <>  ]]> 2
-                INNER JOIN sys_resource_item sri ON sri.resource_id = spi.resource_item_id
+                LEFT JOIN sys_resource sr ON sr.id = sp.resource_id and sr.type  <![CDATA[ <>  ]]> 2
+                LEFT JOIN sys_resource_item sri ON sri.id = spi.resource_item_id
                 LEFT JOIN sys_organ_role sor ON sor.role_id = sp.role_id
                 LEFT JOIN sys_user_organ suo ON suo.organ_id = sor.organ_id
                 WHERE suo.user_id=#{userId}
@@ -49,6 +49,28 @@
         LEFT JOIN sys_resource_item sri ON sri.resource_id = sr.id
         WHERE
         sr.type <![CDATA[ <> ]]> 2
+        GROUP BY
+        sr.id
+    </select>
+    <select id="listByRole" resultType="com.jinhe.modules.system.dto.SysResourceDTO">
+        SELECT
+        sr.*,
+        group_concat(
+        DISTINCT
+        CASE
+
+        WHEN sri.id IS NOT NULL THEN
+        ( concat( sri.id, '_', sri.`name`, '_', sri.display_name, '_', sri.state ) ) ELSE ''
+        END
+        ) AS resourceItemIds
+        FROM
+        sys_permission sp
+        LEFT JOIN sys_permission_item spi ON spi.permission_id = sp.id
+        LEFT JOIN sys_resource sr ON sr.id = sp.resource_id
+        AND sr.type <![CDATA[ <>  ]]> 2
+        LEFT JOIN sys_resource_item sri ON sri.id = spi.resource_item_id
+        WHERE
+        sp.role_id = #{roleId}
         GROUP BY
         sr.id
     </select>

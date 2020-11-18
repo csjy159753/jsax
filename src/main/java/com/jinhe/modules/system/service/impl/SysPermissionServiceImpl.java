@@ -1,5 +1,6 @@
 package com.jinhe.modules.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.modules.system.dto.PermissionItemDTO;
 import com.jinhe.modules.system.dto.SysResourceDTO;
@@ -36,30 +37,34 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     @Override
     public void saveByRoleId(String roleId, List<PermissionItemDTO> permissionItem) {
         //----开始前先删除改角色菜单使用下面新的菜单设置了主外键级联删除 删除菜单授权item自定删除-----
-        this.removeByIds(permissionItem.stream().map(d -> d.getSysPermissionId()).collect(Collectors.toList()));
-        //----保存新菜单信息--------------------------
-        List<SysPermission> sysPers = new ArrayList<>();
-        List<SysPermissionItem> sysPermissionItemList = new ArrayList<>();
-        permissionItem.forEach(x -> {
-            SysPermission sysPer = new SysPermission();
-            String guid = StringUtils.getGUID();
-            sysPer.setId(guid);
-            sysPer.setRoleId(roleId);
-            sysPer.setResourceId(x.getSysPermissionId());
-            if (x.getItemIds() != null && x.getItemIds().size() > 0) {
-                x.getItemIds().forEach(d -> {
-                    SysPermissionItem sysPermissionItem = new SysPermissionItem();
-                    sysPermissionItem.setPermissionId(sysPer.getId());
-                    sysPermissionItem.setId(StringUtils.getGUID());
-                    sysPermissionItem.setResourceItemId(d);
-                    sysPermissionItemList.add(sysPermissionItem);
-                });
-            }
-            sysPers.add(sysPer);
-        });
+        QueryWrapper queryWrapper = new QueryWrapper();
+        this.remove(queryWrapper);
+        if (permissionItem.size() > 0) {
+            //----保存新菜单信息--------------------------
+            List<SysPermission> sysPers = new ArrayList<>();
+            List<SysPermissionItem> sysPermissionItemList = new ArrayList<>();
+            permissionItem.forEach(x -> {
+                SysPermission sysPer = new SysPermission();
+                String guid = StringUtils.getGUID();
+                sysPer.setId(guid);
+                sysPer.setRoleId(roleId);
+                sysPer.setResourceId(x.getSysPermissionId());
+                if (x.getItemIds() != null && x.getItemIds().size() > 0) {
+                    x.getItemIds().forEach(d -> {
+                        SysPermissionItem sysPermissionItem = new SysPermissionItem();
+                        sysPermissionItem.setPermissionId(sysPer.getId());
+                        sysPermissionItem.setId(StringUtils.getGUID());
+                        sysPermissionItem.setResourceItemId(d);
+                        sysPermissionItemList.add(sysPermissionItem);
+                    });
+                }
+                sysPers.add(sysPer);
+            });
 
-        this.saveOrUpdateBatch(sysPers);
-        iSysPermissionItemService.saveBatch(sysPermissionItemList);
+            this.saveOrUpdateBatch(sysPers);
+            iSysPermissionItemService.saveBatch(sysPermissionItemList);
+        }
+
 
     }
 

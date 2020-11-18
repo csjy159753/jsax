@@ -26,7 +26,7 @@ public class SysAppResourceController {
     @Autowired
     private ISysAppResourceService iSysAppResourceService;
 
-    @ApiOperation(value = "角色新增权限", notes = "角色新增权限")
+    @ApiOperation(value = "手机角色新增权限", notes = "角色新增权限")
     @RequestMapping(value = "saveOrUpdate/{roleId}", method = RequestMethod.POST)
     public Result saveOrUpdate(@PathVariable String roleId, @RequestBody SysAppResource sysAppResource) {
         iSysAppResourceService.saveOrUpdate(sysAppResource);

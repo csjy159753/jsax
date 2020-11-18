@@ -33,8 +33,14 @@ public interface SysResourceMapper extends BaseMapper<SysResource> {
 
     /**
      * 获取全部菜单权限
-     * @param o
      * @return
      */
-    List<SysResourceDTO> listResourceAdmin(Object o);
+    List<SysResourceDTO> listResourceAdmin();
+
+    /**
+     * 根据角色id获取菜单
+     * @param roleId
+     * @return
+     */
+    List<SysResourceDTO> listByRole(String roleId);
 }

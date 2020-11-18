@@ -36,4 +36,11 @@ public interface ISysResourceService extends IService<SysResource> {
      * @return
      */
     List<SysResourceDTO> listResourceAdmin();
+
+    /**
+     * 根据角色id获取菜单菜单
+     * @param roleId
+     * @return
+     */
+    List<SysResourceDTO> listByRole(String roleId);
 }

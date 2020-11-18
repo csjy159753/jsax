@@ -111,23 +111,14 @@ public class SysRoleController {
     @SysLog(value = "测试注解日志切面新增角色")
     public Result saveOrUpdate(@RequestBody SysRole sysRole) {
         if (sysRole.getTag() != null) {
-            QueryWrapper<SysRegion> queryWrapper = new QueryWrapper<>();
+            QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("tag", sysRole.getTag());
-            int count = iSysRegionService.count(queryWrapper);
+            int count = sysRoleService.count(queryWrapper);
             if (count > 0) {
                 return ResultUtil.error(ResultEnum.ROLE_TAG_REPEAT);
             }
         }
 
-        if (sysRole.getType() != null) {
-            QueryWrapper<SysRegion> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("type", sysRole.getTag());
-            int count = iSysRegionService.count(queryWrapper);
-            if (count > 0) {
-                return ResultUtil.error(ResultEnum.ROLE_TYPE_REPEAT);
-            }
-
-        }
         try {
             sysRoleService.saveOrUpdate(sysRole);
         } catch (Exception e) {
