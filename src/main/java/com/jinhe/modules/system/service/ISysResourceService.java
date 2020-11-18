@@ -30,4 +30,10 @@ public interface ISysResourceService extends IService<SysResource> {
      * @return
      */
     List<SysResourceDTO> listResource(String userId);
+
+    /**
+     * 获取全部的菜单权限信息
+     * @return
+     */
+    List<SysResourceDTO> listResourceAdmin();
 }

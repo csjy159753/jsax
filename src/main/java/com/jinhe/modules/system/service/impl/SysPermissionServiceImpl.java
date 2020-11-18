@@ -2,6 +2,7 @@ package com.jinhe.modules.system.service.impl;
 
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.modules.system.dto.PermissionItemDTO;
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysPermission;
 import com.jinhe.modules.system.dao.SysPermissionMapper;
 import com.jinhe.modules.system.entity.SysPermissionItem;
@@ -60,5 +61,10 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
         this.saveOrUpdateBatch(sysPers);
         iSysPermissionItemService.saveBatch(sysPermissionItemList);
 
+    }
+
+    @Override
+    public List<SysResourceDTO> listByRoleId(String roleId) {
+        return sysPerMap.listByRoleId(roleId);
     }
 }

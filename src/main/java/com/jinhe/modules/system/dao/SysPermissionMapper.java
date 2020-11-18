@@ -1,7 +1,10 @@
 package com.jinhe.modules.system.dao;
 
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysPermission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
+    List<SysResourceDTO> listByRoleId(String roleId);
 }

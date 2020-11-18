@@ -37,9 +37,15 @@ class DictionaryController {
         if (dictionary.type != null) {
             return ResultUtil.error()
         }
-       val queryWrapper = QueryWrapper<Dictionary>();
-        queryWrapper.groupBy()
-        iDictionaryService.saveOrUpdate(dictionary)
+        val queryWrapper = QueryWrapper<Dictionary>();
+        queryWrapper.eq("type", dictionary.type)
+        val list = iDictionaryService.list(queryWrapper)
+        if (list.size > 0) {
+
+        } else {
+            iDictionaryService.saveOrUpdate(dictionary)
+        }
+
         return ResultUtil.success()
     }
 }

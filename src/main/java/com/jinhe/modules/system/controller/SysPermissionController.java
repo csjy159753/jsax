@@ -7,6 +7,7 @@ import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.system.dto.PermissionItemDTO;
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysPermission;
 import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.service.ISysPermissionService;
@@ -55,6 +56,16 @@ public class SysPermissionController {
         } else {
             return ResultUtil.error(ResultEnum.ROLE_INSERT_PERMISSIONS);
         }
+        return ResultUtil.success();
+    }
+
+    /**
+     * 根据用户id获取角色
+     **/
+    @ApiOperation(value = "根据用户id获取角色", notes = "根据用户id获取角色")
+    @RequestMapping(value = "listByRoleId/{roleId}", method = RequestMethod.GET)
+    public Result listByRoleId(@PathVariable String roleId) {
+        List<SysResourceDTO> list = iSysPermissionService.listByRoleId(roleId);
         return ResultUtil.success();
     }
 

@@ -72,8 +72,7 @@ public class SysResourceController {
     public Result<List<SysResourceDTO>> List(@PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser != null && userType.equals(sysUser.getType())) {
-            List<SysResourceDTO> List = ISysResService.selectPageAll();
-            List = List.stream().filter(d -> d.getType() != 2).collect((Collectors.toList()));
+            List<SysResourceDTO> List = ISysResService.listResourceAdmin();
             List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(List);
             return ResultUtil.success(listMap);
         } else {

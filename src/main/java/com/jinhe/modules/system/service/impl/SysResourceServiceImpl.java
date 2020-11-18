@@ -58,4 +58,11 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
 
         return listtree;
     }
+
+    @Override
+    public List<SysResourceDTO> listResourceAdmin() {
+        List<SysResourceDTO> listtree = new ArrayList<>();
+        listtree = sysResourceMapper.listResourceAdmin(null);
+        return listtree;
+    }
 }

@@ -1,10 +1,13 @@
 package com.jinhe.modules.system.service.impl;
 
+import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysPermissionItem;
 import com.jinhe.modules.system.dao.SysPermissionItemMapper;
 import com.jinhe.modules.system.service.ISysPermissionItemService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +19,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysPermissionItemServiceImpl extends ServiceImpl<SysPermissionItemMapper, SysPermissionItem> implements ISysPermissionItemService {
-
 }
