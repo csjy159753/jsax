@@ -59,9 +59,9 @@ class DictionaryController {
      */
     @ApiOperation(value = "获取全部字典", notes = "获取全部字典")
     @RequestMapping(value = ["list"], method = [RequestMethod.GET])
-    fun list(id: String): Result<List<DictionaryDTO>> {
+    fun list(id: String?): Result<List<DictionaryDTO>> {
         return if (id != null) {
-            val list = iDictionaryService.list(QueryWrapper<Dictionary>().lambda().eq(Dictionary::parentId, id))
+            val list = iDictionaryService.list(QueryWrapper<Dictionary>().eq("parent_id", id))
             ResultUtil.success(list) as Result<List<DictionaryDTO>>
         } else {
             val list = iDictionaryService.list();
@@ -77,9 +77,8 @@ class DictionaryController {
     @ApiOperation(value = "根据id删除字典", notes = "根据id删除字典")
     @RequestMapping(value = ["remove/{id}"], method = [RequestMethod.DELETE])
     fun remove(@PathVariable id: String): Result<*> {
-        val queryWrapper = QueryWrapper<Dictionary>();
-        queryWrapper.lambda().eq(Dictionary::parentId, id);
-        return if (iDictionaryService.list(queryWrapper).size > 0) {
+        val count = iDictionaryService.list(QueryWrapper<Dictionary>().eq("parent_id", id))
+        return if (count.size > 0) {
             ResultUtil.error(ResultEnum.ORGAN_EXIST_SUBSET_UNABLE_DEL)
         } else {
             iDictionaryService.removeById(id)
