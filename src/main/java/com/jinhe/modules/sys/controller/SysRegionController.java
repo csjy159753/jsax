@@ -43,7 +43,7 @@ public class SysRegionController {
      */
     @ApiOperation(value = "查询行政区列表", notes = "查询行政区列表")
     @RequestMapping(value = "ListRegion", method = RequestMethod.GET)
-    public Result<List<SysRegionDTO>> regionListTree(@RequestParam(required = false) String code) {
+    public Result<List<SysRegionDTO>> ListRegion(@RequestParam(required = false) String code) {
         List<SysRegionDTO> sysRegion;
         sysRegion = sysRegionMapper.listRegionCode(code);
         return ResultUtil.success(sysRegion);

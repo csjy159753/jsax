@@ -45,11 +45,18 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
         if (sysUser == null) {
             return null;
         }
+
         Integer type = sysUser.getType();
+
         if (type.equals(userTypeSuperAdmin)) {
-            list = sysResourceMapper.listResourceAdmin(1);
+            List<Integer> li = new ArrayList<>();
+            li.add(2);
+            list = sysResourceMapper.listResourceAdmin(li);
         } else if (type.equals(userTypeAdmin)) {
-            list = sysResourceMapper.listResourceAdmin(2);
+            List<Integer> li = new ArrayList<>();
+            li.add(1);
+            li.add(3);
+            list = sysResourceMapper.listResourceAdmin(li);
         } else {
             list = sysResourceMapper.listResource(userId);
         }
@@ -61,7 +68,9 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
     @Override
     public List<SysResourceDTO> listResourceAdmin() {
         List<SysResourceDTO> listtree = new ArrayList<>();
-        listtree = sysResourceMapper.listResourceAdmin(2);
+        List<Integer> li = new ArrayList<>();
+        li.add(1);
+        listtree = sysResourceMapper.listResourceAdmin(li);
         return listtree;
     }
 

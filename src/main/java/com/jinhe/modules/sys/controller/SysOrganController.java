@@ -35,6 +35,7 @@ public class SysOrganController {
     @Resource
     private ISysUserService iSysUserService;
     private Integer userType = 99;
+    private Integer userTypeAdmin = 98;
 
     /**
      * 根据ID查询机构
@@ -78,8 +79,13 @@ public class SysOrganController {
      * 根据机构id查询下级组织机构 树形结构分级查询
      **/
     @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
-    @RequestMapping(value = "selectOrganByOrganId", method = RequestMethod.GET)
-    public Result<List<SysOrganDTO>> selectOrganByOrganId(String organId) {
+    @RequestMapping(value = "selectOrganByOrganId/{userId}", method = RequestMethod.GET)
+    public Result<List<SysOrganDTO>> selectOrganByOrganId(@PathVariable String userId, String organId) {
+        SysUser sysUser = iSysUserService.getById(userId);
+        if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(userTypeAdmin)) {
+            return ResultUtil.error();
+        }
+
         List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
         return ResultUtil.success(sysOrganIPage);
     }

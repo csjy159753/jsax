@@ -21,7 +21,7 @@ public class TreeChildren {
     private static String setChildren = "setChildren";
     private static String getParentId = "getParentId";
 
-    public <T, TT> List CreateTree(List<T> objs, Class<TT> clazz) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public <T, TT> List<TT> CreateTree(List<T> objs, Class<TT> clazz) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         List<TT> list = new ArrayList<>();
         List<TT> listParent = new ArrayList<>();
         for (T item : objs) {

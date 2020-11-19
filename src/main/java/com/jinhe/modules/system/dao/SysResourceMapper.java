@@ -36,10 +36,10 @@ public interface SysResourceMapper extends BaseMapper<SysResource> {
     /**
      * 获取全部菜单权限
      *
-     * @param type
+     * @param types
      * @return
      */
-    List<SysResourceDTO> listResourceAdmin(Integer type);
+    List<SysResourceDTO> listResourceAdmin(@Param("types")List<Integer> types);
 
     /**
      * 根据角色id获取菜单

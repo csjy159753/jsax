@@ -4,14 +4,14 @@ package com.jinhe.modules.sys.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import com.jinhe.common.util.Result
 import com.jinhe.common.util.ResultUtil
+import com.jinhe.common.util.Tree.TreeChildren
+import com.jinhe.modules.sys.dto.DictionaryDTO
 import com.jinhe.modules.sys.entity.Dictionary
 import com.jinhe.modules.sys.service.IDictionaryService
+import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 /**
  * <p>
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController
  */
 @RestController
 @RequestMapping("/sys/dictionary")
+@Api(tags = ["sys"])
 class DictionaryController {
 
     @Autowired
@@ -41,12 +42,37 @@ class DictionaryController {
         queryWrapper.eq("type", dictionary.type)
         val list = iDictionaryService.list(queryWrapper)
         if (list.size > 0) {
-
+            if (list[0].type.equals(dictionary.type) && list[0].parentId == dictionary.parentId) {
+                iDictionaryService.saveOrUpdate(dictionary)
+            } else {
+                return ResultUtil.error()
+            }
         } else {
             iDictionaryService.saveOrUpdate(dictionary)
         }
-
         return ResultUtil.success()
     }
+
+    /**
+     * 根据ID查询机构
+     */
+    @ApiOperation(value = "获取全部菜单", notes = "获取全部菜单")
+    @RequestMapping(value = ["list"], method = [RequestMethod.GET])
+    fun list(): Result<List<DictionaryDTO>> {
+        val list = iDictionaryService.list();
+        val listChildren = TreeChildren().CreateTree(list, DictionaryDTO::class.java)
+        return ResultUtil.success(listChildren) as Result<List<DictionaryDTO>>
+    }
+
+    /**
+     * 根据ID删除行政区划
+     */
+    @ApiOperation(value = "获取全部菜单", notes = "获取全部菜单")
+    @RequestMapping(value = ["remove/{id}"], method = [RequestMethod.DELETE])
+    fun remove(@PathVariable id: String): Result<*> {
+
+        return ResultUtil.success( )
+    }
+
 }
 

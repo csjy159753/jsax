@@ -11,7 +11,7 @@
         LEFT JOIN sys_region r ON r.parent_code = sr.id
         WHERE
         <if test=" code != null and code !=''">
-            sr.`code`=#{code}
+            sr.`parent_code`=#{code}
         </if>
         <if test=" code == null or code ==''">
             sr.parent_code IS NULL

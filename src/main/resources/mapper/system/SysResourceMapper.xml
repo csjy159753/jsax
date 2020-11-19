@@ -25,7 +25,7 @@
         FROM
         sys_permission sp
         LEFT JOIN sys_permission_item spi ON spi.permission_id = sp.id
-        LEFT JOIN sys_resource sr ON sr.id = sp.resource_id and sr.type  <![CDATA[ <>  ]]> 2
+        LEFT JOIN sys_resource sr ON sr.id = sp.resource_id and sr.type = 1
         LEFT JOIN sys_resource_item sri ON sri.id = spi.resource_item_id
         LEFT JOIN sys_organ_role sor ON sor.role_id = sp.role_id
         LEFT JOIN sys_user_organ suo ON suo.organ_id = sor.organ_id
@@ -49,13 +49,12 @@
         FROM
         sys_resource sr
         LEFT JOIN sys_resource_item sri ON sri.resource_id = sr.id
-        WHERE
-        <if test="type ==2">
-            sr.type <![CDATA[ <> ]]> 2
-        </if>
-        <if test="type ==1">
-            sr.type = 2
-        </if>
+        <where>
+            <foreach collection="types" item="type" separator=" or " open="(" close=")">
+                sr.type =#{type}
+            </foreach>
+        </where>
+
         GROUP BY
         sr.id
     </select>
