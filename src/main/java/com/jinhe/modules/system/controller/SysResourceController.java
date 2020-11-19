@@ -3,6 +3,7 @@ package com.jinhe.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
+import com.jinhe.config.LongSwingConstants;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.MapTree;
 import com.jinhe.config.ResultEnum;
@@ -25,7 +26,6 @@ import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -45,8 +45,6 @@ public class SysResourceController {
 
     @Resource
     private ISysUserService iSysUserService;
-
-    private Integer userType = 99;
 
     @Autowired
     ISysResourceItemService iSysResourceItemService;
@@ -71,7 +69,7 @@ public class SysResourceController {
     @RequestMapping(value = "list/{userId}", method = RequestMethod.GET)
     public Result<List<SysResourceDTO>> List(@PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);
-        if (sysUser != null && userType.equals(sysUser.getType())) {
+        if (sysUser != null && LongSwingConstants.USER_TYPE_ROOT_ADMIN.equals(sysUser.getType())) {
             List<SysResourceDTO> List = ISysResService.listResourceAdmin();
             List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(List);
             return ResultUtil.success(listMap);

@@ -1,7 +1,6 @@
 package com.jinhe.modules.system.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.jinhe.common.util.Tree.TreeNode;
+import com.jinhe.config.LongSwingConstants;
 import com.jinhe.modules.sys.dao.SysUserMapper;
 import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysResource;
@@ -30,8 +29,6 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
     private SysResourceMapper sysResourceMapper;
     @Autowired
     private SysUserMapper sysUserMapper;
-    private Integer userTypeSuperAdmin = 99;
-    private Integer userTypeAdmin = 98;
 
     @Override
     public List<SysResourceDTO> selectPageAll() {
@@ -48,11 +45,11 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
 
         Integer type = sysUser.getType();
 
-        if (type.equals(userTypeSuperAdmin)) {
+        if (type.equals(LongSwingConstants.USER_TYPE_ROOT_ADMIN)) {
             List<Integer> li = new ArrayList<>();
             li.add(2);
             list = sysResourceMapper.listResourceAdmin(li);
-        } else if (type.equals(userTypeAdmin)) {
+        } else if (type.equals(LongSwingConstants.USER_TYPE_ADMIN)) {
             List<Integer> li = new ArrayList<>();
             li.add(1);
             li.add(3);

@@ -3,13 +3,13 @@ package com.jinhe.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
+import com.jinhe.config.LongSwingConstants;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysRoleChDTO;
-import com.jinhe.modules.system.entity.SysRegion;
 import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.sys.service.ISysRegionService;
@@ -44,7 +44,7 @@ public class SysRoleController {
     private ISysUserService iSysUserService;
     @Resource
     private ISysRegionService iSysRegionService;
-    private Integer userType = 99;
+
     Logger log = LoggerFactory.getLogger(getClass());
 
     /**
@@ -57,7 +57,7 @@ public class SysRoleController {
     public Result<List<SysRoleChDTO>> list(@PathVariable String userId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         SysUser sysUser = iSysUserService.getById(userId);
-        if (sysUser == null || !userType.equals(sysUser.getType())) {
+        if (sysUser == null || !LongSwingConstants.USER_TYPE_ROOT_ADMIN.equals(sysUser.getType())) {
             return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
         }
         List<SysRole> listRole = sysRoleService.list();

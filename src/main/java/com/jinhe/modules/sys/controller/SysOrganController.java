@@ -2,6 +2,7 @@ package com.jinhe.modules.sys.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jinhe.config.LongSwingConstants;
 import com.jinhe.common.util.*;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.sys.service.ISysUserService;
@@ -34,8 +35,7 @@ public class SysOrganController {
     private ISysOrganService iSysOrganService;
     @Resource
     private ISysUserService iSysUserService;
-    private Integer userType = 99;
-    private Integer userTypeAdmin = 98;
+
 
     /**
      * 根据ID查询机构
@@ -82,7 +82,7 @@ public class SysOrganController {
     @RequestMapping(value = "selectOrganByOrganId/{userId}", method = RequestMethod.GET)
     public Result<List<SysOrganDTO>> selectOrganByOrganId(@PathVariable String userId, String organId) {
         SysUser sysUser = iSysUserService.getById(userId);
-        if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(userTypeAdmin)) {
+        if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
             return ResultUtil.error();
         }
 
@@ -94,7 +94,7 @@ public class SysOrganController {
     @RequestMapping(value = "removeOrganByOrganId/{userId}/{id}", method = RequestMethod.DELETE)
     public Result removeOrganByOrganId(@PathVariable String id, @PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);
-        if (sysUser == null || !userType.equals(sysUser.getType())) {
+        if (sysUser == null || !LongSwingConstants.USER_TYPE_ADMIN.equals(sysUser.getType())) {
             return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
         }
         QueryWrapper<SysOrgan> sysOrganQueryWrapper = new QueryWrapper<>();
