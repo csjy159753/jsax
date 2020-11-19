@@ -90,14 +90,20 @@ public class SystemLogAspect {
             }
             System.out.println("-------SystemLogAspect--------参数列表结束-------------------------");
             Class cla = method.getClass();
-            if (request != null && request.getAttribute(SystemType.USER_ID) != null) {
+            String uri = request.getRequestURI();
+            if (request != null && request.getAttribute(SystemType.USER_ID) != null
+                    && (uri.toLowerCase().contains(SystemType.SAVE)
+                    || uri.toLowerCase().contains(SystemType.UPDATE)
+                    || uri.toLowerCase().contains(SystemType.REMOVE))
+                    && !uri.toLowerCase().contains(SystemType.SYS_OPERATOR_LOG)
+            ) {
                 Class<?> classTarget = joinPoint.getTarget().getClass();
                 Api api = classTarget.getAnnotation(Api.class);
                 if (api.tags() != null && api.tags().length > 0) {
                     SysOperatorLog sysOperatorLog = new SysOperatorLog();
                     String moduleName = property.getConfigModules().getModules().get(api.tags()[0]);
                     sysOperatorLog.setModuleName(moduleName);
-                    String uri = request.getRequestURI();
+
 
                     ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
                     sysOperatorLog.setModuleType(apiOperation.value());

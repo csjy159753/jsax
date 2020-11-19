@@ -31,10 +31,10 @@ class DictionaryController {
     private lateinit var iDictionaryService: IDictionaryService
 
     /**
-     * 根据ID查询机构
+     * 保存及更新单个字典
      */
-    @ApiOperation(value = "根据ID查询机构", notes = "根据ID查询机构")
-    @RequestMapping(value = ["saveOrUpdate"], method = [RequestMethod.GET])
+    @ApiOperation(value = "保存及更新单个字典", notes = "保存及更新单个字典")
+    @RequestMapping(value = ["saveOrUpdate"], method = [RequestMethod.POST])
     fun saveOrUpdate(@RequestBody dictionary: Dictionary): Result<*>? {
         if (dictionary.type != null) {
             return ResultUtil.error()
@@ -55,20 +55,26 @@ class DictionaryController {
     }
 
     /**
-     * 根据ID查询机构
+     * 获取全部字典
      */
-    @ApiOperation(value = "获取全部菜单", notes = "获取全部菜单")
+    @ApiOperation(value = "获取全部字典", notes = "获取全部字典")
     @RequestMapping(value = ["list"], method = [RequestMethod.GET])
-    fun list(): Result<List<DictionaryDTO>> {
-        val list = iDictionaryService.list();
-        val listChildren = TreeChildren().CreateTree(list, DictionaryDTO::class.java)
-        return ResultUtil.success(listChildren) as Result<List<DictionaryDTO>>
+    fun list(id: String): Result<List<DictionaryDTO>> {
+        return if (id != null) {
+            val list = iDictionaryService.list(QueryWrapper<Dictionary>().lambda().eq(Dictionary::parentId, id))
+            ResultUtil.success(list) as Result<List<DictionaryDTO>>
+        } else {
+            val list = iDictionaryService.list();
+            val listChildren = TreeChildren().CreateTree(list, DictionaryDTO::class.java)
+            ResultUtil.success(listChildren) as Result<List<DictionaryDTO>>
+        }
+
     }
 
     /**
-     * 根据ID删除行政区划
+     * 根据id删除字典
      */
-    @ApiOperation(value = "获取全部菜单", notes = "获取全部菜单")
+    @ApiOperation(value = "根据id删除字典", notes = "根据id删除字典")
     @RequestMapping(value = ["remove/{id}"], method = [RequestMethod.DELETE])
     fun remove(@PathVariable id: String): Result<*> {
         val queryWrapper = QueryWrapper<Dictionary>();

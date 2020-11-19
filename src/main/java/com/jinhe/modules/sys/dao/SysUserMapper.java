@@ -1,7 +1,10 @@
 package com.jinhe.modules.sys.dao;
 
+import com.jinhe.modules.sys.dto.SysUserDTO;
 import com.jinhe.modules.system.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+    List<SysUserDTO> listByOrganId(String organId);
 }

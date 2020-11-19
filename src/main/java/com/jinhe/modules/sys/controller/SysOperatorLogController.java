@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,17 +43,29 @@ public class SysOperatorLogController {
      **/
     @ApiOperation(value = "操作日志列表", notes = "操作日志列表")
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public Result<ListSub<SysOperatorLog>> list(PageFilter pageFilter, String moduleName, String moduleType) {
+    public Result<ListSub<SysOperatorLog>> list(PageFilter pageFilter, String moduleName, String moduleType, Date startTime, Date endTime) {
+
         QueryWrapper<SysOperatorLog> queryWrapper = new QueryWrapper();
-        queryWrapper.lambda().eq(SysOperatorLog::getModuleName, moduleName).like(SysOperatorLog::getModuleType, moduleType);
+        if (!StringUtils.isEmpty(moduleName)) {
+            queryWrapper.lambda().eq(SysOperatorLog::getModuleName, moduleName);
+        }
+        if (!StringUtils.isEmpty(moduleType)) {
+            queryWrapper.lambda().like(SysOperatorLog::getModuleType, moduleType);
+        }
+        if (startTime != null) {
+            queryWrapper.lambda().ge(SysOperatorLog::getCreateTime, DateUtils.getDate(startTime, "yyyy-MM-dd HH:mm:ss"));
+        }
+        if (endTime != null) {
+            queryWrapper.lambda().le(SysOperatorLog::getCreateTime, DateUtils.getDate(endTime, "yyyy-MM-dd HH:mm:ss"));
+        }
         IPage<SysOperatorLog> iPage = iSysOperatorLogService.page(new Page(pageFilter.getStart(), pageFilter.getLength()), queryWrapper);
         return ResultUtil.success(iPage);
     }
 
     /**
-     * 操作日志列表
+     * 获取模块名称列表
      **/
-    @ApiOperation(value = "操作日志列表", notes = "操作日志列表")
+    @ApiOperation(value = "获取模块名称列表", notes = "获取模块名称列表")
     @RequestMapping(value = "listModuleName", method = RequestMethod.GET)
     public Result<List<String>> listModuleName(String moduleType) {
         QueryWrapper<SysOperatorLog> queryWrapper = new QueryWrapper();
@@ -64,9 +78,9 @@ public class SysOperatorLogController {
     }
 
     /**
-     * 操作日志列表
+     * 获取单个记录详情
      **/
-    @ApiOperation(value = "操作日志列表", notes = "操作日志列表")
+    @ApiOperation(value = "获取单个记录详情", notes = "获取单个记录详情")
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public Result<SysOperatorLog> get(@PathVariable String id) {
         SysOperatorLog sysOperatorLog = iSysOperatorLogService.getById(id);

@@ -184,6 +184,16 @@ public class SysUserController {
      * 根据用户id获取用户基本信息
      **/
     @ApiOperation(value = "根据用户id获取用户基本信息", notes = "根据用户id获取用户基本信息")
+    @RequestMapping(value = "list/{organId}", method = RequestMethod.GET)
+    public Result list(@PathVariable String organId) {
+        List<SysUserDTO> list = iSysUserService.listByOrganId(organId);
+        return ResultUtil.success(list);
+    }
+
+    /**
+     * 获取用户列表
+     **/
+    @ApiOperation(value = "获取用户列表", notes = "获取用户列表")
     @RequestMapping(value = "getUserInfo/{userId}", method = RequestMethod.GET)
     public Result getUserInfo(@PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);

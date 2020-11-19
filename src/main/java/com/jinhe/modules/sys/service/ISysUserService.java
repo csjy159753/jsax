@@ -1,7 +1,10 @@
 package com.jinhe.modules.sys.service;
 
+import com.jinhe.modules.sys.dto.SysUserDTO;
 import com.jinhe.modules.system.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysUserService extends IService<SysUser> {
 
+    /**
+     *根据机构查询用户信息
+     * @return
+     */
+    List<SysUserDTO> listByOrganId(String organId);
 }
