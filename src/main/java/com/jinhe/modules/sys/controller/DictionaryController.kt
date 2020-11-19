@@ -73,11 +73,11 @@ class DictionaryController {
     fun remove(@PathVariable id: String): Result<*> {
         val queryWrapper = QueryWrapper<Dictionary>();
         queryWrapper.lambda().eq(Dictionary::parentId, id);
-        if (iDictionaryService.list(queryWrapper).size > 0) {
-            return ResultUtil.error(ResultEnum.ORGAN_EXIST_SUBSET_UNABLE_DEL)
+        return if (iDictionaryService.list(queryWrapper).size > 0) {
+            ResultUtil.error(ResultEnum.ORGAN_EXIST_SUBSET_UNABLE_DEL)
         } else {
             iDictionaryService.removeById(id)
-            return ResultUtil.success()
+            ResultUtil.success()
         }
     }
 
