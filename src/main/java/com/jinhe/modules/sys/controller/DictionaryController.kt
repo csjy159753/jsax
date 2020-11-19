@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import com.jinhe.common.util.Result
 import com.jinhe.common.util.ResultUtil
 import com.jinhe.common.util.Tree.TreeChildren
+import com.jinhe.config.ResultEnum
 import com.jinhe.modules.sys.dto.DictionaryDTO
 import com.jinhe.modules.sys.entity.Dictionary
 import com.jinhe.modules.sys.service.IDictionaryService
@@ -45,7 +46,7 @@ class DictionaryController {
             if (list[0].type.equals(dictionary.type) && list[0].parentId == dictionary.parentId) {
                 iDictionaryService.saveOrUpdate(dictionary)
             } else {
-                return ResultUtil.error()
+                return ResultUtil.error(ResultEnum.ORGAN_TYPE_ERROR)
             }
         } else {
             iDictionaryService.saveOrUpdate(dictionary)
@@ -70,8 +71,14 @@ class DictionaryController {
     @ApiOperation(value = "获取全部菜单", notes = "获取全部菜单")
     @RequestMapping(value = ["remove/{id}"], method = [RequestMethod.DELETE])
     fun remove(@PathVariable id: String): Result<*> {
-
-        return ResultUtil.success( )
+        val queryWrapper = QueryWrapper<Dictionary>();
+        queryWrapper.lambda().eq(Dictionary::parentId, id);
+        if (iDictionaryService.list(queryWrapper).size > 0) {
+            return ResultUtil.error(ResultEnum.ORGAN_EXIST_SUBSET_UNABLE_DEL)
+        } else {
+            iDictionaryService.removeById(id)
+            return ResultUtil.success()
+        }
     }
 
 }
