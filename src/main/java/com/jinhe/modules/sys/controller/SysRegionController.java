@@ -46,6 +46,7 @@ public class SysRegionController {
     public Result<List<SysRegionDTO>> ListRegion(@RequestParam(required = false) String code) {
         List<SysRegionDTO> sysRegion;
         sysRegion = sysRegionMapper.listRegionCode(code);
+
         return ResultUtil.success(sysRegion);
     }
 

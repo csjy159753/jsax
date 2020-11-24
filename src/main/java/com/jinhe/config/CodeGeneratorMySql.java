@@ -46,7 +46,7 @@ public class CodeGeneratorMySql {
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("rls");
         //是否使用Kotlin进行代码生成默认不使用
-        gc.setKotlin(true);
+        gc.setKotlin(false);
         //打开文件夹默认不使用
         gc.setOpen(false);
         gc.setSwagger2(true);// 实体属性 Swagger2 注解

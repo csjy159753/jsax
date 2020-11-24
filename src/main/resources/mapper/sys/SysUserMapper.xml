@@ -3,21 +3,49 @@
 <mapper namespace="com.jinhe.modules.sys.dao.SysUserMapper">
 
     <select id="listByOrganId" resultType="com.jinhe.modules.sys.dto.SysUserDTO">
-            SELECT
+        SELECT
         su.*,
         group_concat(
         DISTINCT
         CASE
 
-                WHEN so.id IS NOT NULL THEN
-                ( concat( so.id, '_', so.`name` ) ) ELSE ''
-            END
-            ) AS organIds
+        WHEN so.id IS NOT NULL THEN
+        ( concat( so.id, '_', so.`name` ) ) ELSE ''
+        END
+        ) AS organIds
         FROM
-            sys_user su
-            LEFT JOIN sys_user_organ suo ON suo.user_id = su.id
-            LEFT JOIN sys_organ so ON so.id = suo.organ_id
-    GROUP BY
+        sys_user su
+        LEFT JOIN sys_user_organ suo ON suo.user_id = su.id
+        LEFT JOIN (
+        WITH RECURSIVE td AS (
+        SELECT
+        id,
+        `name`
+        FROM
+        sys_organ
+        WHERE
+        <if test="organId !=null and organId ！= ''">
+            parent_id =#{organId}
+        </if>
+        <if test="organId =null or organId = ''">
+            parent_id IS NULL
+        </if>
+
+        UNION ALL
+        SELECT
+        c.id,
+        c.`name`
+        FROM
+        sys_organ c,
+        td
+        WHERE
+        c.PARENT_ID = td.id
+        ) SELECT
+        *
+        FROM
+        td
+        ) so ON so.id = suo.organ_id
+        GROUP BY
         su.id
     </select>
 </mapper>

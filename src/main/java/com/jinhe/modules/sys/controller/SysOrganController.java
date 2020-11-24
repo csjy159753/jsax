@@ -41,8 +41,8 @@ public class SysOrganController {
      * 根据ID查询机构
      **/
     @ApiOperation(value = "根据ID查询机构", notes = "根据ID查询机构")
-    @RequestMapping(value = "selectSysOrganId/{id}", method = RequestMethod.GET)
-    public Result<SysOrgan> selectSysOrganId(@PathVariable String id) {
+    @RequestMapping(value = "getSysOrganId/{id}", method = RequestMethod.GET)
+    public Result<SysOrgan> getSysOrganId(@PathVariable String id) {
         SysOrgan sysOrgan;
         sysOrgan = iSysOrganService.getBaseMapper().selectById(id);
         return ResultUtil.success(sysOrgan);
@@ -86,10 +86,23 @@ public class SysOrganController {
             return ResultUtil.error();
         }
 
-        List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
-        return ResultUtil.success(sysOrganIPage);
+//        List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
+        return ResultUtil.success( );
     }
+    /**
+     * 根据机构id查询下级组织机构 树形结构分级查询
+     **/
+    @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
+    @RequestMapping(value = "listOrganByRole/{userId}", method = RequestMethod.GET)
+    public Result<List<SysOrganDTO>> listOrganByRole(@PathVariable String userId, String organId) {
+        SysUser sysUser = iSysUserService.getById(userId);
+        if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
+            return ResultUtil.error();
+        }
 
+//        List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
+        return ResultUtil.success( );
+    }
     @ApiOperation(value = "根据ID删除机构", notes = "根据ID删除机构")
     @RequestMapping(value = "removeOrganByOrganId/{userId}/{id}", method = RequestMethod.DELETE)
     public Result removeOrganByOrganId(@PathVariable String id, @PathVariable String userId) {

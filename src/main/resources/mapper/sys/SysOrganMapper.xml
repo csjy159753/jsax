@@ -8,10 +8,10 @@
         count( o.id ) AS childrenNum
         FROM
         sys_organ so
-        INNER JOIN sys_organ o ON o.parent_id = so.id
-        AND o.type = 0
+        LEFT JOIN sys_organ o ON o.parent_id = so.id
+        AND o.type = #{type}
         WHERE
-        so.type = 0
+        so.type = #{type}
         <if test="organId !=null and organId!='' ">
             and so.parent_id=#{organId}
         </if>

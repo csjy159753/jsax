@@ -22,5 +22,5 @@ public interface ISysOrganService extends IService<SysOrgan> {
      * @param organId
      * @return
      */
-    List<SysOrganDTO> selectOrganByOrganId(String organId);
+    List<SysOrganDTO> selectOrganByOrganId(String organId, Integer type);
 }

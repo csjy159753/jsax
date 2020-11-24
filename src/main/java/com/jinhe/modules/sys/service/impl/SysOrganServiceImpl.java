@@ -25,7 +25,7 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
     private SysOrganMapper sysOrganMapper;
 
     @Override
-    public List<SysOrganDTO> selectOrganByOrganId(String organId) {
-        return sysOrganMapper.selectOrganByOrganId(organId);
+    public List<SysOrganDTO> selectOrganByOrganId(String organId, Integer type) {
+        return sysOrganMapper.selectOrganByOrganId(organId, type);
     }
 }

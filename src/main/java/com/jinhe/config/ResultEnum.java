@@ -103,37 +103,15 @@ public enum ResultEnum {
     RESOURCE_EXIST_SUBSET_UNABLE_DEL(1805, "菜单存在子机构无法删除"),
     RESOURCE_PERMISSION_DENIED(1086, "查询菜单权限不足"),
 
-
+    /**
+     * 字典
+     */
+    DICTIONARY_EXIST_SUBSET_UNABLE_DEL(1901, "字典存在子属性无法删除"),
     /**
      * 10000以后是业务的
      */
-    /**
-     * 档案
-     */
-    TB_TABLE_LIST_IS_EMPTY(100101, "接收数组为空"),
-    TB_TABLE_FIELD_REPEAT(100102, "和原有数据字段重复"),
-    TB_FILE_REPETITION(100103, "表名称或者字段名称重复"),
-    ARCHIVES_IS_NOT_NULL(100104, "此档案类型下已有档案,无法删除"),
-    FILES_IS_NOT_NULL(100105, "此档案存在关联文件，无法删除"),
-    /**
-     * 目录
-     */
-    CATALOGUE_DIRECTORY_NOT_FOUND(100201, "未查询到该目录下的文件信息"),
-    /**
-     * 湾长制-溯源开展
-     */
-    DATA_INSERT_ERROR(100301, "新增数据失败"),
-    DATA_DELETE_ERROR(100302, "删除数据失败"),
-    DATA_PUT_ERROR(100302, "更新数据失败"),
-    NOT_DELETE_GROUP_SY(100304, "此小组下有溯源信息,如需删除此小组,请先删除溯源信息"),
-    NOT_DELETE_GROUP_HAVEPSK(100305, "此小组下有排水口,不可删除"),
-    NOT_DISTRIBUTION(100306, "排水口以分配小组,不可再次分配"),
-    NOT_DELETE_PSK_DATA(100307, "此排水口下有数据,不可删除"),
-    NOT_UPDATE_SY_INFO(100308, "如需更新溯源开展信息为\"是\"的数据,请在\"是\"的数据中进行修改"),
-    ERROR_AUDIT(100309, "审核失败"),
-    NOT_INSERT_SY_GROUP(100310, "此次添加的排水口中有已被分配到其他小组的排水口,请核实排水口信息"),
-    NOT_UPDATE_SAMPLING(100311, "是否采样不能由已采样变为未采样"),
-    NOT_DELETE_SY_GROUP(100312, "此次移除的排水口中有产生数据的排水口,请核实排水口信息"),
+
+
     ;
     private Integer code;
     private String msg;

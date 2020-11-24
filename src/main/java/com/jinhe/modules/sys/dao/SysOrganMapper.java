@@ -18,8 +18,9 @@ public interface SysOrganMapper extends BaseMapper<SysOrgan> {
 
     /**
      * 根据机构id查询子机构
+     *
      * @param userId
      * @return
      */
-    List<SysOrganDTO> selectOrganByOrganId(String userId);
+    List<SysOrganDTO> selectOrganByOrganId(String userId, Integer type);
 }
