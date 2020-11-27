@@ -1,6 +1,6 @@
 package com.jinhe.modules.sys.dao;
 
-import com.jinhe.modules.sys.entity.Dictionary;
+import com.jinhe.modules.system.entity.Dictionary;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

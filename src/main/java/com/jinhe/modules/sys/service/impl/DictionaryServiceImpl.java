@@ -1,11 +1,10 @@
 package com.jinhe.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.jinhe.common.util.EntityUtil;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.config.LongSwingConstants;
 import com.jinhe.config.ResultEnum;
-import com.jinhe.modules.sys.entity.Dictionary;
+import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.dao.DictionaryMapper;
 import com.jinhe.modules.sys.service.IDictionaryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -39,7 +38,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
         }
         //#更新数量
         QueryWrapper<Dictionary> queryWrapper = new QueryWrapper();
-        queryWrapper.lambda().eq(Dictionary::getParentId, id);
+        queryWrapper.lambda().eq(Dictionary::getParentId, dictionary.getId());
         Integer count = this.getBaseMapper().selectCount(queryWrapper);
         dictionary.setChildrenNum(count);
 
@@ -59,14 +58,24 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
     @Override
     public ResultEnum saveOrUpdateChildrenNumAndLevel(Dictionary from) {
         Dictionary dictionary = this.getById(from.getId());
-        if (from == null) {
+        if (dictionary == null) {
             return ResultEnum.NOT_FOUND;
         }
-        dictionary = EntityUtil.INSTANCE.copyValOnlyDestEmpty(dictionary, from);
+        //#更新数量
         QueryWrapper<Dictionary> queryWrapper = new QueryWrapper();
         queryWrapper.lambda().eq(Dictionary::getParentId, dictionary.getId());
         Integer count = this.getBaseMapper().selectCount(queryWrapper);
         dictionary.setChildrenNum(count);
+
+        //#更新层级
+        if (StringUtils.isEmpty(dictionary.getParentId())) {
+            dictionary.setLevelInfo(LongSwingConstants.Number.ONE);
+        } else {
+            QueryWrapper<Dictionary> queryWrapperLevel = new QueryWrapper();
+            queryWrapperLevel.lambda().eq(Dictionary::getId, dictionary.getParentId());
+            Integer Level = this.getBaseMapper().selectCount(queryWrapperLevel);
+            dictionary.setLevelInfo(Level + LongSwingConstants.Number.ONE);
+        }
         this.saveOrUpdate(dictionary);
         return ResultEnum.SUCCESS;
     }

@@ -2,6 +2,8 @@ package com.jinhe.modules.system.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -68,6 +70,10 @@ public class SysOrgan implements Serializable {
 
     @ApiModelProperty(value = "更新")
     private LocalDateTime updateTime;
+
+    @ApiModelProperty(value = "子对象数量")
+    @TableField("childrenNum")
+    private Integer childrenNum;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

@@ -1,4 +1,4 @@
-package com.jinhe.modules.sys.entity;
+package com.jinhe.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;

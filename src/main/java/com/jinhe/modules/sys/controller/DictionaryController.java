@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.*;
 import com.jinhe.config.ResultEnum;
-import com.jinhe.modules.sys.entity.Dictionary;
+import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.service.IDictionaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
