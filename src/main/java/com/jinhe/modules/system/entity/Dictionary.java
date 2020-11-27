@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author rls
- * @since 2020-11-26
+ * @since 2020-11-27
  */
 @ApiModel(value="Dictionary对象", description="数据字典")
 public class Dictionary implements Serializable {

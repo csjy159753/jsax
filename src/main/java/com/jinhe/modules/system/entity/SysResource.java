@@ -1,22 +1,24 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 资源菜单
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
-
 @ApiModel(value="SysResource对象", description="资源菜单")
 public class SysResource implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "主键id")
     private String id;
@@ -36,7 +38,7 @@ public class SysResource implements Serializable {
     @ApiModelProperty(value = "状态0正常1禁用")
     private Integer state;
 
-    @ApiModelProperty(value = "类型（预留）")
+    @ApiModelProperty(value = "类型（预留）1正常使用的2超级管理员3管理员")
     private Integer type;
 
     @ApiModelProperty(value = "排序")
@@ -60,9 +62,10 @@ public class SysResource implements Serializable {
     @ApiModelProperty(value = "0没有显示1左侧2上方")
     private Integer displayType;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @ApiModelProperty(value = "子对象数量")
+    @TableField("childrenNum")
+    private Integer childrenNum;
+
 
     public String getId() {
         return id;
@@ -174,5 +177,34 @@ public class SysResource implements Serializable {
 
     public void setDisplayType(Integer displayType) {
         this.displayType = displayType;
+    }
+
+    public Integer getChildrenNum() {
+        return childrenNum;
+    }
+
+    public void setChildrenNum(Integer childrenNum) {
+        this.childrenNum = childrenNum;
+    }
+
+    @Override
+    public String toString() {
+        return "SysResource{" +
+        "id=" + id +
+        ", parentId=" + parentId +
+        ", name=" + name +
+        ", displayName=" + displayName +
+        ", note=" + note +
+        ", state=" + state +
+        ", type=" + type +
+        ", sort=" + sort +
+        ", path=" + path +
+        ", icon=" + icon +
+        ", createUserId=" + createUserId +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", displayType=" + displayType +
+        ", childrenNum=" + childrenNum +
+        "}";
     }
 }

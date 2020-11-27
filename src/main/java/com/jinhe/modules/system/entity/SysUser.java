@@ -1,9 +1,10 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -11,12 +12,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="SysUser对象", description="用户")
 public class SysUser implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "用户id")
     private String id;
@@ -78,9 +79,6 @@ public class SysUser implements Serializable {
     @ApiModelProperty(value = "备注")
     private String note;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getId() {
         return id;
@@ -240,5 +238,31 @@ public class SysUser implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+        "id=" + id +
+        ", normalizedUsername=" + normalizedUsername +
+        ", passwordHash=" + passwordHash +
+        ", nickName=" + nickName +
+        ", avatarUrl=" + avatarUrl +
+        ", realName=" + realName +
+        ", openId=" + openId +
+        ", sex=" + sex +
+        ", state=" + state +
+        ", phoneNumber=" + phoneNumber +
+        ", phoneNumberConfirmed=" + phoneNumberConfirmed +
+        ", normalizedEmail=" + normalizedEmail +
+        ", emailConfirmed=" + emailConfirmed +
+        ", lockOutTime=" + lockOutTime +
+        ", lockOutEnabled=" + lockOutEnabled +
+        ", accessFailedCount=" + accessFailedCount +
+        ", type=" + type +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", note=" + note +
+        "}";
     }
 }

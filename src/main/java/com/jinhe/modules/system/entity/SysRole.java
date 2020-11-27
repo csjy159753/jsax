@@ -1,9 +1,11 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -11,12 +13,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="SysRole对象", description="角色")
 public class SysRole implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     private String id;
 
@@ -56,9 +58,10 @@ public class SysRole implements Serializable {
     @ApiModelProperty(value = "更新")
     private LocalDateTime updateTime;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @ApiModelProperty(value = "子对象数量")
+    @TableField("childrenNum")
+    private Integer childrenNum;
+
 
     public String getId() {
         return id;
@@ -162,5 +165,33 @@ public class SysRole implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getChildrenNum() {
+        return childrenNum;
+    }
+
+    public void setChildrenNum(Integer childrenNum) {
+        this.childrenNum = childrenNum;
+    }
+
+    @Override
+    public String toString() {
+        return "SysRole{" +
+        "id=" + id +
+        ", parentId=" + parentId +
+        ", name=" + name +
+        ", tag=" + tag +
+        ", description=" + description +
+        ", type=" + type +
+        ", state=" + state +
+        ", sort=" + sort +
+        ", lockOutEnabled=" + lockOutEnabled +
+        ", lockOutTime=" + lockOutTime +
+        ", operatorId=" + operatorId +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", childrenNum=" + childrenNum +
+        "}";
     }
 }

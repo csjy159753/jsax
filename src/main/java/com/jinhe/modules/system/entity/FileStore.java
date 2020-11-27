@@ -1,11 +1,12 @@
 package com.jinhe.modules.system.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -13,12 +14,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="FileStore对象", description="文件存储类")
 public class FileStore implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "主键id")
     @TableId("ID")
@@ -72,9 +73,6 @@ public class FileStore implements Serializable {
     @TableField("MIME_TYPE_TYPE")
     private String mimeTypeType;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getId() {
         return id;
@@ -178,5 +176,24 @@ public class FileStore implements Serializable {
 
     public void setMimeTypeType(String mimeTypeType) {
         this.mimeTypeType = mimeTypeType;
+    }
+
+    @Override
+    public String toString() {
+        return "FileStore{" +
+        "id=" + id +
+        ", fileName=" + fileName +
+        ", fileId=" + fileId +
+        ", originalFile=" + originalFile +
+        ", modifiedImgae=" + modifiedImgae +
+        ", lowImgae=" + lowImgae +
+        ", thumbImgae=" + thumbImgae +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", tableName=" + tableName +
+        ", tableId=" + tableId +
+        ", mimeTypeExt=" + mimeTypeExt +
+        ", mimeTypeType=" + mimeTypeType +
+        "}";
     }
 }

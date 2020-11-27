@@ -1,10 +1,10 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -12,12 +12,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="SysLoginCount对象", description="登录统计")
 public class SysLoginCount implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "id")
     private String id;
@@ -43,9 +43,6 @@ public class SysLoginCount implements Serializable {
     @ApiModelProperty(value = "app登录次数")
     private Integer appCount;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getId() {
         return id;
@@ -109,5 +106,19 @@ public class SysLoginCount implements Serializable {
 
     public void setAppCount(Integer appCount) {
         this.appCount = appCount;
+    }
+
+    @Override
+    public String toString() {
+        return "SysLoginCount{" +
+        "id=" + id +
+        ", count=" + count +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", userName=" + userName +
+        ", userId=" + userId +
+        ", pcCount=" + pcCount +
+        ", appCount=" + appCount +
+        "}";
     }
 }

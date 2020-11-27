@@ -1,9 +1,10 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -11,12 +12,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="SysOrganRole对象", description="组织结构关联角色")
 public class SysOrganRole implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     private String id;
 
@@ -32,9 +33,6 @@ public class SysOrganRole implements Serializable {
     @ApiModelProperty(value = "角色id")
     private String roleId;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getId() {
         return id;
@@ -74,5 +72,16 @@ public class SysOrganRole implements Serializable {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
+    }
+
+    @Override
+    public String toString() {
+        return "SysOrganRole{" +
+        "id=" + id +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", organId=" + organId +
+        ", roleId=" + roleId +
+        "}";
     }
 }

@@ -1,12 +1,11 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -14,12 +13,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="SysOrgan对象", description="组织机构")
 public class SysOrgan implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     private String id;
 
@@ -75,9 +74,6 @@ public class SysOrgan implements Serializable {
     @TableField("childrenNum")
     private Integer childrenNum;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getId() {
         return id;
@@ -213,5 +209,37 @@ public class SysOrgan implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getChildrenNum() {
+        return childrenNum;
+    }
+
+    public void setChildrenNum(Integer childrenNum) {
+        this.childrenNum = childrenNum;
+    }
+
+    @Override
+    public String toString() {
+        return "SysOrgan{" +
+        "id=" + id +
+        ", parentId=" + parentId +
+        ", type=" + type +
+        ", code=" + code +
+        ", tag=" + tag +
+        ", name=" + name +
+        ", fullName=" + fullName +
+        ", regionCode=" + regionCode +
+        ", regionName=" + regionName +
+        ", description=" + description +
+        ", state=" + state +
+        ", sort=" + sort +
+        ", path=" + path +
+        ", depth=" + depth +
+        ", createUser=" + createUser +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", childrenNum=" + childrenNum +
+        "}";
     }
 }

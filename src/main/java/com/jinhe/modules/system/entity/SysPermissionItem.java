@@ -1,8 +1,9 @@
 package com.jinhe.modules.system.entity;
 
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -10,12 +11,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="SysPermissionItem对象", description="角色授权子项对应页面按钮操作权限")
 public class SysPermissionItem implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "主键")
     private String id;
@@ -23,12 +24,9 @@ public class SysPermissionItem implements Serializable {
     @ApiModelProperty(value = "授权permission_id")
     private String permissionId;
 
-    @ApiModelProperty(value = "资源菜单id")
+    @ApiModelProperty(value = "资源菜子项id")
     private String resourceItemId;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getId() {
         return id;
@@ -52,5 +50,14 @@ public class SysPermissionItem implements Serializable {
 
     public void setResourceItemId(String resourceItemId) {
         this.resourceItemId = resourceItemId;
+    }
+
+    @Override
+    public String toString() {
+        return "SysPermissionItem{" +
+        "id=" + id +
+        ", permissionId=" + permissionId +
+        ", resourceItemId=" + resourceItemId +
+        "}";
     }
 }

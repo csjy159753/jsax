@@ -1,9 +1,11 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -11,12 +13,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="SysRegion对象", description="行政区编码")
 public class SysRegion implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     private String id;
 
@@ -88,9 +90,10 @@ public class SysRegion implements Serializable {
     @ApiModelProperty(value = "路径")
     private String path;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @ApiModelProperty(value = "子对象数量")
+    @TableField("childrenNum")
+    private Integer childrenNum;
+
 
     public String getId() {
         return id;
@@ -160,80 +163,80 @@ public class SysRegion implements Serializable {
         return isAutonomy;
     }
 
-    public void setAutonomy(Boolean autonomy) {
-        isAutonomy = autonomy;
+    public void setAutonomy(Boolean isAutonomy) {
+        this.isAutonomy = isAutonomy;
     }
 
     public Boolean getEconomic() {
         return isEconomic;
     }
 
-    public void setEconomic(Boolean economic) {
-        isEconomic = economic;
+    public void setEconomic(Boolean isEconomic) {
+        this.isEconomic = isEconomic;
     }
 
     public Boolean getSar() {
         return isSar;
     }
 
-    public void setSar(Boolean sar) {
-        isSar = sar;
+    public void setSar(Boolean isSar) {
+        this.isSar = isSar;
     }
 
     public Boolean getDistrict() {
         return isDistrict;
     }
 
-    public void setDistrict(Boolean district) {
-        isDistrict = district;
+    public void setDistrict(Boolean isDistrict) {
+        this.isDistrict = isDistrict;
     }
 
     public Boolean getBanner() {
         return isBanner;
     }
 
-    public void setBanner(Boolean banner) {
-        isBanner = banner;
+    public void setBanner(Boolean isBanner) {
+        this.isBanner = isBanner;
     }
 
     public Boolean getLeague() {
         return isLeague;
     }
 
-    public void setLeague(Boolean league) {
-        isLeague = league;
+    public void setLeague(Boolean isLeague) {
+        this.isLeague = isLeague;
     }
 
     public Boolean getForestryArea() {
         return isForestryArea;
     }
 
-    public void setForestryArea(Boolean forestryArea) {
-        isForestryArea = forestryArea;
+    public void setForestryArea(Boolean isForestryArea) {
+        this.isForestryArea = isForestryArea;
     }
 
     public Boolean getSumu() {
         return isSumu;
     }
 
-    public void setSumu(Boolean sumu) {
-        isSumu = sumu;
+    public void setSumu(Boolean isSumu) {
+        this.isSumu = isSumu;
     }
 
     public Boolean getNaturalVillage() {
         return isNaturalVillage;
     }
 
-    public void setNaturalVillage(Boolean naturalVillage) {
-        isNaturalVillage = naturalVillage;
+    public void setNaturalVillage(Boolean isNaturalVillage) {
+        this.isNaturalVillage = isNaturalVillage;
     }
 
     public Boolean getVirtual() {
         return isVirtual;
     }
 
-    public void setVirtual(Boolean virtual) {
-        isVirtual = virtual;
+    public void setVirtual(Boolean isVirtual) {
+        this.isVirtual = isVirtual;
     }
 
     public LocalDateTime getCreateTime() {
@@ -282,5 +285,44 @@ public class SysRegion implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public Integer getChildrenNum() {
+        return childrenNum;
+    }
+
+    public void setChildrenNum(Integer childrenNum) {
+        this.childrenNum = childrenNum;
+    }
+
+    @Override
+    public String toString() {
+        return "SysRegion{" +
+        "id=" + id +
+        ", name=" + name +
+        ", fullName=" + fullName +
+        ", code=" + code +
+        ", parentCode=" + parentCode +
+        ", cityCode=" + cityCode +
+        ", levelInfo=" + levelInfo +
+        ", cityType=" + cityType +
+        ", isAutonomy=" + isAutonomy +
+        ", isEconomic=" + isEconomic +
+        ", isSar=" + isSar +
+        ", isDistrict=" + isDistrict +
+        ", isBanner=" + isBanner +
+        ", isLeague=" + isLeague +
+        ", isForestryArea=" + isForestryArea +
+        ", isSumu=" + isSumu +
+        ", isNaturalVillage=" + isNaturalVillage +
+        ", isVirtual=" + isVirtual +
+        ", createTime=" + createTime +
+        ", lng=" + lng +
+        ", lat=" + lat +
+        ", updateTime=" + updateTime +
+        ", url=" + url +
+        ", path=" + path +
+        ", childrenNum=" + childrenNum +
+        "}";
     }
 }

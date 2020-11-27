@@ -1,9 +1,10 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -11,12 +12,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="SysLoginLog对象", description="登录统计日志")
 public class SysLoginLog implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "id")
     private String id;
@@ -39,9 +40,6 @@ public class SysLoginLog implements Serializable {
     @ApiModelProperty(value = "客户端ip")
     private String clientIp;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getId() {
         return id;
@@ -97,5 +95,18 @@ public class SysLoginLog implements Serializable {
 
     public void setClientIp(String clientIp) {
         this.clientIp = clientIp;
+    }
+
+    @Override
+    public String toString() {
+        return "SysLoginLog{" +
+        "id=" + id +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        ", type=" + type +
+        ", userName=" + userName +
+        ", userId=" + userId +
+        ", clientIp=" + clientIp +
+        "}";
     }
 }

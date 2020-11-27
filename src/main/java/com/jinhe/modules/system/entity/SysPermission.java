@@ -1,10 +1,10 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -12,13 +12,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
-
 @ApiModel(value="SysPermission对象", description="角色授权")
 public class SysPermission implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "主键id")
     private String id;
@@ -44,9 +43,6 @@ public class SysPermission implements Serializable {
     @ApiModelProperty(value = "更新")
     private LocalDateTime updateTime;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getId() {
         return id;
@@ -110,5 +106,19 @@ public class SysPermission implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "SysPermission{" +
+        "id=" + id +
+        ", parentId=" + parentId +
+        ", createUserId=" + createUserId +
+        ", state=" + state +
+        ", roleId=" + roleId +
+        ", resourceId=" + resourceId +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        "}";
     }
 }

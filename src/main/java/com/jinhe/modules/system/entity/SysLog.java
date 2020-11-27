@@ -1,21 +1,23 @@
 package com.jinhe.modules.system.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 系统log暂时无用
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="SysLog对象", description="系统log暂时无用")
 public class SysLog implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     private String id;
 
@@ -61,9 +63,6 @@ public class SysLog implements Serializable {
     @ApiModelProperty(value = "更新")
     private LocalDateTime updateTime;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getId() {
         return id;
@@ -183,5 +182,26 @@ public class SysLog implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "SysLog{" +
+        "id=" + id +
+        ", application=" + application +
+        ", level=" + level +
+        ", logger=" + logger +
+        ", userName=" + userName +
+        ", serverName=" + serverName +
+        ", url=" + url +
+        ", content=" + content +
+        ", remoteAddress=" + remoteAddress +
+        ", callSite=" + callSite +
+        ", message=" + message +
+        ", exception=" + exception +
+        ", other=" + other +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        "}";
     }
 }

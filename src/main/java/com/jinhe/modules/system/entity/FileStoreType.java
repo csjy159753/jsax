@@ -1,12 +1,11 @@
 package com.jinhe.modules.system.entity;
 
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 
 /**
  * <p>
@@ -14,12 +13,12 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author rls
- * @since 2020-10-29
+ * @since 2020-11-27
  */
 @ApiModel(value="FileStoreType对象", description="文件存储类型")
 public class FileStoreType implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "主键")
     @TableId("ID")
@@ -37,9 +36,6 @@ public class FileStoreType implements Serializable {
     @TableField("IS_USE")
     private Integer isUse;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public Integer getId() {
         return id;
@@ -71,5 +67,15 @@ public class FileStoreType implements Serializable {
 
     public void setIsUse(Integer isUse) {
         this.isUse = isUse;
+    }
+
+    @Override
+    public String toString() {
+        return "FileStoreType{" +
+        "id=" + id +
+        ", ext=" + ext +
+        ", type=" + type +
+        ", isUse=" + isUse +
+        "}";
     }
 }

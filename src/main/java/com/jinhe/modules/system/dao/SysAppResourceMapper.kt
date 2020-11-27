@@ -1,7 +1,6 @@
 package com.jinhe.modules.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper
-import com.jinhe.modules.system.entity.SysAppResource
 
 /**
  * <p>

@@ -1,6 +1,5 @@
 package com.jinhe.modules.system.dao;
 
-import com.jinhe.modules.system.entity.SysAppPermission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
