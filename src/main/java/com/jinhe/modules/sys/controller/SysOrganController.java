@@ -44,7 +44,7 @@ public class SysOrganController {
     @RequestMapping(value = "getSysOrganId/{id}", method = RequestMethod.GET)
     public Result<SysOrgan> getSysOrganId(@PathVariable String id) {
         SysOrgan sysOrgan;
-        sysOrgan = iSysOrganService.getBaseMapper().selectById(id);
+        sysOrgan = iSysOrganService.getById(id);
         return ResultUtil.success(sysOrgan);
     }
 
@@ -54,18 +54,20 @@ public class SysOrganController {
     @ApiOperation(value = "新增机构", notes = "新增机构")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     public Result saveOrUpdate(@RequestBody SysOrgan sysOrgan) {
-        if (sysOrgan.getRegionCode() != null) {
-            sysOrgan.setDepth(RegionUtil.maxLevel(sysOrgan.getRegionCode()));
+        if (sysOrgan == null) {
+            return ResultUtil.error();
         }
-        if (sysOrgan.getType() != null && sysOrgan.getType() != 0 && sysOrgan.getType() != 1) {
+
+        if (sysOrgan.getType() != null && !sysOrgan.getType().equals(LongSwingConstants.Number.ONE)
+                && !sysOrgan.getType().equals(LongSwingConstants.Number.ZERO)) {
             return ResultUtil.error(ResultEnum.ORGAN_TYPE_ERROR);
         }
         if (sysOrgan.getType() == null) {
-            sysOrgan.setType(0);
+            sysOrgan.setType(LongSwingConstants.Number.ONE);
         }
         if (!StringUtils.isEmpty(sysOrgan.getTag())) {
             QueryWrapper<SysOrgan> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("tag", sysOrgan.getTag());
+            queryWrapper.lambda().eq(SysOrgan::getType, sysOrgan.getType());
             int count = iSysOrganService.count(queryWrapper);
             if (count > 0) {
                 return ResultUtil.error(ResultEnum.ORGAN_TAG_REPEAT);
@@ -87,8 +89,9 @@ public class SysOrganController {
         }
 
 //        List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
-        return ResultUtil.success( );
+        return ResultUtil.success();
     }
+
     /**
      * 根据机构id查询下级组织机构 树形结构分级查询
      **/
@@ -101,8 +104,9 @@ public class SysOrganController {
         }
 
 //        List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
-        return ResultUtil.success( );
+        return ResultUtil.success();
     }
+
     @ApiOperation(value = "根据ID删除机构", notes = "根据ID删除机构")
     @RequestMapping(value = "removeOrganByOrganId/{userId}/{id}", method = RequestMethod.DELETE)
     public Result removeOrganByOrganId(@PathVariable String id, @PathVariable String userId) {
@@ -122,12 +126,4 @@ public class SysOrganController {
         iSysOrganService.removeById(id);
         return ResultUtil.success();
     }
-//
-//    @RequestMapping(value = "GetOrganSubset", method = RequestMethod.POST)
-//    @ApiOperation(value = "根据ID获取全部子集", notes = "根据ID获取全部子集")
-//    public Result GetOrganSubset(@RequestBody List<String> organIds) {
-//        List<ConcurrentHashMap<String, Object>> concurrentHashMaps;
-//        concurrentHashMaps = MapTree.CreateTree(iSysOrganService.GetOrganSubset(organIds));
-//        return ResultUtil.success(concurrentHashMaps);
-//    }
 }
