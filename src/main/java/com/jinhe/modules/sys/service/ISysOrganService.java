@@ -18,13 +18,7 @@ import java.util.List;
  */
 public interface ISysOrganService extends IService<SysOrgan> {
 
-    /**
-     * 根据用户id查询机构子项
-     *
-     * @param organId
-     * @return
-     */
-    List<SysOrganDTO> selectOrganByOrganId(String organId, Integer type);
+
     /**
      * 根据id更新对象子项数量
      *
@@ -34,7 +28,8 @@ public interface ISysOrganService extends IService<SysOrgan> {
     Integer getChildrenNum(String id);
 
     /**
-     *  根据id更新对象子项数量和层级树
+     * 根据id更新对象子项数量和层级树
+     *
      * @param id
      * @return
      */
@@ -42,8 +37,9 @@ public interface ISysOrganService extends IService<SysOrgan> {
 
     /**
      * 根据对象更新对象子项数量和层级树
+     *
      * @param dictionary
      * @return
      */
-    ResultEnum saveOrUpdateChildrenNumAndLevel(Dictionary dictionary);
+    ResultEnum saveOrUpdateChildrenNumAndLevel(SysOrgan dictionary);
 }

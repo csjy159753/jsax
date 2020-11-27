@@ -94,8 +94,8 @@ public class DictionaryController {
             if (dictionary == null) {
                 ResultUtil.error(ResultEnum.NOT_FOUND);
             }
-            iDictionaryService.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
             iDictionaryService.removeById(id);
+            iDictionaryService.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
             return ResultUtil.success();
         }
     }

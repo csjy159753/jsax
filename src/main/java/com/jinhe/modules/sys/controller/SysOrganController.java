@@ -2,6 +2,8 @@ package com.jinhe.modules.sys.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.config.LongSwingConstants;
 import com.jinhe.common.util.*;
 import com.jinhe.config.ResultEnum;
@@ -74,6 +76,7 @@ public class SysOrganController {
             }
         }
         iSysOrganService.saveOrUpdate(sysOrgan);
+        iSysOrganService.saveOrUpdateChildrenNumAndLevel(sysOrgan);
         return ResultUtil.success();
     }
 
@@ -82,48 +85,40 @@ public class SysOrganController {
      **/
     @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
     @RequestMapping(value = "selectOrganByOrganId/{userId}", method = RequestMethod.GET)
-    public Result<List<SysOrganDTO>> selectOrganByOrganId(@PathVariable String userId, String organId) {
+    public Result<ListSub<SysOrgan>> selectOrganByOrganId(@PathVariable String userId, String organId, PageFilter pageFilter) {
         SysUser sysUser = iSysUserService.getById(userId);
         if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
             return ResultUtil.error();
         }
-
-//        List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
-        return ResultUtil.success();
-    }
-
-    /**
-     * 根据机构id查询下级组织机构 树形结构分级查询
-     **/
-    @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
-    @RequestMapping(value = "listOrganByRole/{userId}", method = RequestMethod.GET)
-    public Result<List<SysOrganDTO>> listOrganByRole(@PathVariable String userId, String organId) {
-        SysUser sysUser = iSysUserService.getById(userId);
-        if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
-            return ResultUtil.error();
+        QueryWrapper<SysOrgan> queryWrapper = new QueryWrapper();
+        if (organId == null) {
+            queryWrapper.lambda().isNull(SysOrgan::getParentId);
+        } else {
+            queryWrapper.lambda().eq(SysOrgan::getParentId, organId);
         }
-
-//        List<SysOrganDTO> sysOrganIPage = iSysOrganService.selectOrganByOrganId(organId);
-        return ResultUtil.success();
+        IPage<SysOrgan> iPage = iSysOrganService.page(new Page(pageFilter.getStart(), pageFilter.getLength()), queryWrapper);
+        return ResultUtil.success(iPage);
     }
+
 
     @ApiOperation(value = "根据ID删除机构", notes = "根据ID删除机构")
-    @RequestMapping(value = "removeOrganByOrganId/{userId}/{id}", method = RequestMethod.DELETE)
-    public Result removeOrganByOrganId(@PathVariable String id, @PathVariable String userId) {
+    @RequestMapping(value = "remove/{userId}/{id}", method = RequestMethod.DELETE)
+    public Result remove(@PathVariable String id, @PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser == null || !LongSwingConstants.USER_TYPE_ADMIN.equals(sysUser.getType())) {
             return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
         }
-        QueryWrapper<SysOrgan> sysOrganQueryWrapper = new QueryWrapper<>();
-        sysOrganQueryWrapper.eq("PARENT_ID", id);
-        SysOrgan sysOrgan = iSysOrganService.getBaseMapper().selectById(id);
+        SysOrgan sysOrgan = iSysOrganService.getById(id);
         if (sysOrgan == null) {
             return ResultUtil.error(ResultEnum.ORGAN_NOT_FOUND);
         }
-        if (iSysOrganService.getBaseMapper().selectCount(sysOrganQueryWrapper) > 0) {
+        QueryWrapper<SysOrgan> sysOrganQueryWrapper = new QueryWrapper<>();
+        sysOrganQueryWrapper.lambda().eq(SysOrgan::getParentId, id);
+        if (iSysOrganService.count(sysOrganQueryWrapper) > 0) {
             return ResultUtil.error(ResultEnum.ORGAN_EXIST_SUBSET_UNABLE_DEL);
         }
         iSysOrganService.removeById(id);
+        iSysOrganService.saveOrUpdateChildrenNumAndLevel(sysOrgan.getParentId());
         return ResultUtil.success();
     }
 }

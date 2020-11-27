@@ -7,6 +7,10 @@ package com.jinhe.config;
  */
 public interface LongSwingConstants {
     /**
+     * 常量规则：1是0否
+     */
+    
+    /**
      * 超级管理员类型
      */
     public static final Integer USER_TYPE_ROOT_ADMIN = 99;

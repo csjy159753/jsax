@@ -29,10 +29,6 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
     @Autowired
     private SysOrganMapper sysOrganMapper;
 
-    @Override
-    public List<SysOrganDTO> selectOrganByOrganId(String organId, Integer type) {
-        return sysOrganMapper.selectOrganByOrganId(organId, type);
-    }
 
     @Override
     public Integer getChildrenNum(String id) {
@@ -52,7 +48,7 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
 
 
     @Override
-    public ResultEnum saveOrUpdateChildrenNumAndLevel(Dictionary dictionary) {
+    public ResultEnum saveOrUpdateChildrenNumAndLevel(SysOrgan dictionary) {
         SysOrgan model = this.getById(dictionary.getId());
         if (saveOrUpdateNumLevel(model)) {
             return ResultEnum.NOT_FOUND;
