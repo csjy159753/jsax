@@ -31,7 +31,7 @@ springboot2.0、mybatis plus 、mysql redis缓存 rabbitMq druid
 
 ### 系统表名
 ``
-dictionary,file_store,file_store_type,sys_log,sys_login_count,sys_login_log,sys_organ,sys_organ_role,sys_permission,sys_permission_item,sys_region,sys_resource,sys_resource_item,sys_role,sys_user,sys_user_organ
+dictionary,file_store,file_store_type,sys_log,sys_login_count,sys_login_log,sys_organ,sys_organ_role,sys_permission,sys_permission_item,sys_region,sys_resource,sys_resource_item,sys_role,sys_user,sys_user_organ,sys_app_permission,sys_app_resource
 ``
 ## 0.0.1版本
 ###初始化一个mysql版本
