@@ -1,6 +1,5 @@
 package com.jinhe.modules.system.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,8 +14,8 @@ import java.time.LocalDateTime;
  * @author rls
  * @since 2020-11-27
  */
-@ApiModel(value="SysPermission对象", description="角色授权")
-public class SysPermission implements Serializable {
+@ApiModel(value="SysAppPermission对象", description="角色授权")
+public class SysAppPermission implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -43,10 +42,6 @@ public class SysPermission implements Serializable {
 
     @ApiModelProperty(value = "更新")
     private LocalDateTime updateTime;
-
-    @ApiModelProperty(value = "子对象数量")
-    @TableField("childrenNum")
-    private Integer childrenNum;
 
 
     public String getId() {
@@ -113,17 +108,9 @@ public class SysPermission implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getChildrenNum() {
-        return childrenNum;
-    }
-
-    public void setChildrenNum(Integer childrenNum) {
-        this.childrenNum = childrenNum;
-    }
-
     @Override
     public String toString() {
-        return "SysPermission{" +
+        return "SysAppPermission{" +
         "id=" + id +
         ", parentId=" + parentId +
         ", createUserId=" + createUserId +
@@ -132,7 +119,6 @@ public class SysPermission implements Serializable {
         ", resourceId=" + resourceId +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
-        ", childrenNum=" + childrenNum +
         "}";
     }
 }
