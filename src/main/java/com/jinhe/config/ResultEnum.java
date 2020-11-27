@@ -9,7 +9,7 @@ public enum ResultEnum {
     TOKRN_ERROR(10, "Token验证失败"),
     SUCCESS(200, "成功"),
     ERROR(500, "程序异常错误"),
-    NOT_FOUND(404, "未发现"),
+    NOT_FOUND(404, "对象不存在"),
     PARAMETER_ERROR(101, "参数不正确"),
     ABNORMAL_VALUE(102, "异常值"),
     PERMISSION_DENIED(103, "已废弃"),

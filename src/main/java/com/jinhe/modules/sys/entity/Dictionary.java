@@ -1,5 +1,6 @@
 package com.jinhe.modules.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author rls
- * @since 2020-11-19
+ * @since 2020-11-26
  */
 @ApiModel(value="Dictionary对象", description="数据字典")
 public class Dictionary implements Serializable {
@@ -48,6 +49,16 @@ public class Dictionary implements Serializable {
 
     @ApiModelProperty(value = "排序")
     private Integer sortOrder;
+
+    @ApiModelProperty(value = "0正常,1删除")
+    private Integer status;
+
+    @ApiModelProperty(value = "备注")
+    private String remark;
+
+    @ApiModelProperty(value = "子对象数量")
+    @TableField("childrenNum")
+    private Integer childrenNum;
 
 
     public String getId() {
@@ -130,6 +141,30 @@ public class Dictionary implements Serializable {
         this.sortOrder = sortOrder;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Integer getChildrenNum() {
+        return childrenNum;
+    }
+
+    public void setChildrenNum(Integer childrenNum) {
+        this.childrenNum = childrenNum;
+    }
+
     @Override
     public String toString() {
         return "Dictionary{" +
@@ -143,6 +178,9 @@ public class Dictionary implements Serializable {
         ", updateTime=" + updateTime +
         ", isSystem=" + isSystem +
         ", sortOrder=" + sortOrder +
+        ", status=" + status +
+        ", remark=" + remark +
+        ", childrenNum=" + childrenNum +
         "}";
     }
 }
