@@ -65,7 +65,7 @@ public class SysOrganController {
             return ResultUtil.error(ResultEnum.ORGAN_TYPE_ERROR);
         }
         SysOrgan sysOrgan = new SysOrgan();
-        sysOrgan = EntityUtil.INSTANCE.copyValOnlyDestEmpty(sysOrgan, sysOrganAddDTO);
+       EntityUtil.INSTANCE.copyValOnlyDestEmpty(sysOrgan, sysOrganAddDTO);
 
         if (sysOrgan.getType() == null) {
             sysOrgan.setType(LongSwingConstants.Number.ONE);
@@ -104,7 +104,7 @@ public class SysOrganController {
      **/
     @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
     @RequestMapping(value = "selectOrganByOrganId/{userId}", method = RequestMethod.GET)
-    public Result<ListSub<SysOrganAddDTO>> selectOrganByOrganId(@PathVariable String userId, Integer type, String organId, PageFilter pageFilter) {
+    public Result<ListSub<SysOrganRoleDTO>> selectOrganByOrganId(@PathVariable String userId, Integer type, String organId, PageFilter pageFilter) {
 
         SysUser sysUser = iSysUserService.getById(userId);
         if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
@@ -120,7 +120,7 @@ public class SysOrganController {
             type = LongSwingConstants.Number.ZERO;
         }
         Page page = new Page(pageFilter.getStart(), pageFilter.getLength());
-        IPage<SysOrganAddDTO> iPage = iSysOrganRoleService.selectOrganByOrganId(page, type, organId);
+        IPage<SysOrganRoleDTO> iPage = iSysOrganRoleService.selectOrganByOrganId(page, type, organId);
         return ResultUtil.success(iPage);
     }
 

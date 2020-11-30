@@ -57,7 +57,7 @@ public class SysRoleController {
     public Result<List<SysRoleChDTO>> list(@PathVariable String userId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         SysUser sysUser = iSysUserService.getById(userId);
-        if (sysUser == null || !LongSwingConstants.USER_TYPE_ROOT_ADMIN.equals(sysUser.getType())) {
+        if (sysUser == null || (!LongSwingConstants.USER_TYPE_ROOT_ADMIN.equals(sysUser.getType()) && !LongSwingConstants.USER_TYPE_ADMIN.equals(sysUser.getType()))) {
             return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
         }
         List<SysRole> listRole = sysRoleService.list();

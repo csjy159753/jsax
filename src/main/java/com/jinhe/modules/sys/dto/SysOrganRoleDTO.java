@@ -67,7 +67,7 @@ public class SysOrganRoleDTO implements Serializable {
     private Integer childrenNum;
 
     @ApiModelProperty(value = "角色列表")
-    private List<Pair> listRoles;
+    private String listRoles;
 
     public String getId() {
         return id;
@@ -213,11 +213,11 @@ public class SysOrganRoleDTO implements Serializable {
         this.childrenNum = childrenNum;
     }
 
-    public List<Pair> getListRoles() {
+    public String getListRoles() {
         return listRoles;
     }
 
-    public void setListRoles(List<Pair> listRoles) {
+    public void setListRoles(String listRoles) {
         this.listRoles = listRoles;
     }
 }

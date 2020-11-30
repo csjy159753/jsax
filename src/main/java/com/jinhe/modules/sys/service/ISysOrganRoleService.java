@@ -3,6 +3,7 @@ package com.jinhe.modules.sys.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.sys.dto.SysOrganAddDTO;
+import com.jinhe.modules.sys.dto.SysOrganRoleDTO;
 import com.jinhe.modules.system.entity.SysOrganRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -24,5 +25,5 @@ public interface ISysOrganRoleService extends IService<SysOrganRole> {
      * @param organId
      * @return
      */
-    IPage<SysOrganAddDTO> selectOrganByOrganId(Page page, Integer type, String organId);
+    IPage<SysOrganRoleDTO> selectOrganByOrganId(Page page, Integer type, String organId);
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.sys.dao.SysOrganMapper;
 import com.jinhe.modules.sys.dto.SysOrganAddDTO;
+import com.jinhe.modules.sys.dto.SysOrganRoleDTO;
 import com.jinhe.modules.system.entity.SysOrganRole;
 import com.jinhe.modules.sys.dao.SysOrganRoleMapper;
 import com.jinhe.modules.sys.service.ISysOrganRoleService;
@@ -25,7 +26,7 @@ public class SysOrganRoleServiceImpl extends ServiceImpl<SysOrganRoleMapper, Sys
     private SysOrganMapper sysOrganMapper;
 
     @Override
-    public IPage<SysOrganAddDTO> selectOrganByOrganId(Page page, Integer type, String organId) {
+    public IPage<SysOrganRoleDTO> selectOrganByOrganId(Page page, Integer type, String organId) {
         return sysOrganMapper.selectOrganByOrganId(page, type, organId);
     }
 }

@@ -3,6 +3,8 @@ package com.jinhe.common.util
 import java.lang.reflect.Field
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.isAccessible
+
 /**
  * 对象属性值拷贝工具类
  */
@@ -17,6 +19,7 @@ object EntityUtil {
             EntityUtil.copyValCommonOfDiffObj(dest, src, CopyType.ALL, excludeFields)
         }
     }
+
     /**
      * 复制同类型属性值操作, dest字段值 = src字段值  (仅当dest字段值为 <null> 时才拷贝)
      */
@@ -27,6 +30,7 @@ object EntityUtil {
             EntityUtil.copyValCommonOfDiffObj(dest, src, CopyType.ONLY_DEST_NULL, excludeFields)
         }
     }
+
     /**
      * 复制同类型属性值操作, dest字段值 = src字段值  (仅当dest字段值为 <null> 或 <空> 时才拷贝)
      */
@@ -37,6 +41,7 @@ object EntityUtil {
             EntityUtil.copyValCommonOfDiffObj(dest, src, CopyType.ONLY_DEST_EMPTY, excludeFields)
         }
     }
+
     /**
      * 同类型两对象复制属性值操作
      */
@@ -50,9 +55,10 @@ object EntityUtil {
         var kPropertyName: String?
         var destFieldMap: Map<String, Field>? = null
         for (kProperty in members) {
-            if ("PUBLIC" != kProperty.visibility.toString()) continue
+//            if ("PUBLIC" != kProperty.visibility.toString()) continue
             kPropertyName = kProperty.name
             if (excludeFields != null && excludeFields.contains(kPropertyName)) continue
+            kProperty.isAccessible = true
             destValTmp = kProperty.call(dest)
             srcValTmp = kProperty.call(src)
             if ((destValTmp == null && srcValTmp == null) || (destValTmp == srcValTmp)) continue
@@ -63,6 +69,7 @@ object EntityUtil {
                 if (destFieldMap == null) {
                     destFieldMap = declareFields(jClass)
                 }
+
                 val jField = destFieldMap[kPropertyName] ?: continue
                 val bakAccessible = jField.isAccessible
                 jField.isAccessible = true
@@ -72,6 +79,7 @@ object EntityUtil {
         }
         return dest
     }
+
     private fun <T1 : Any, T2 : Any> copyValCommonOfDiffObj(dest: T1, src: T2, copyType: CopyType, excludeFields: Array<out String>?): T1 {
         val kDestClass = dest::class
         val kSrcClass = src::class
@@ -84,13 +92,15 @@ object EntityUtil {
         var kPropertyName: String?
         var destFieldMap: Map<String, Field>? = null
         for (destKProperty in destMembers) {
-            if ("PUBLIC" != destKProperty.visibility.toString()) continue
+//            if ("PUBLIC" != destKProperty.visibility.toString()) continue
             kPropertyName = destKProperty.name
             if (excludeFields != null && excludeFields.contains(kPropertyName)) continue
             val srcKProperty = mapOfSrcProperties[kPropertyName] ?: continue
             if (srcKProperty.returnType != destKProperty.returnType) continue // 同名不同类型
-            destValTmp = destKProperty.call(dest)
-            srcValTmp = srcKProperty.call(src)
+            destKProperty.isAccessible = true
+            srcKProperty.isAccessible = true
+            destValTmp = destKProperty?.call(dest)
+            srcValTmp = srcKProperty?.call(src)
             if ((destValTmp == null && srcValTmp == null) || (destValTmp == srcValTmp)) continue
             if (copyType == CopyType.ALL ||
                     (copyType == CopyType.ONLY_DEST_NULL && destValTmp == null) ||
@@ -111,6 +121,7 @@ object EntityUtil {
         }
         return dest
     }
+
     private fun declareFields(cls: Class<*>): MutableMap<String, Field> {
         val fs = mutableMapOf<String, Field>()
         var clsTmp = cls
@@ -122,16 +133,20 @@ object EntityUtil {
         } while (clsTmp != objCls)
         return fs
     }
+
     private val objCls = Object::class.java
+
     private enum class CopyType {
         /**
          * 拷贝所有字段值
          */
         ALL,
+
         /**
          * 当目标类字段值为null时, 拷贝来源字段值
          */
         ONLY_DEST_NULL,
+
         /**
          * 当目标类字段值为null或""时, 拷贝来源字段值
          */

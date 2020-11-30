@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.sys.dto.SysOrganAddDTO;
 import com.jinhe.modules.sys.dto.SysOrganDTO;
+import com.jinhe.modules.sys.dto.SysOrganRoleDTO;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -19,5 +20,5 @@ import java.util.List;
  */
 public interface SysOrganMapper extends BaseMapper<SysOrgan> {
 
-    IPage<SysOrganAddDTO> selectOrganByOrganId(Page page, Integer type, String organId);
+    IPage<SysOrganRoleDTO> selectOrganByOrganId(Page page, Integer type, String organId);
 }
