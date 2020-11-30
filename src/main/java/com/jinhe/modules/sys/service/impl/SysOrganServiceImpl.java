@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.config.LongSwingConstants;
 import com.jinhe.config.ResultEnum;
-import com.jinhe.modules.sys.dto.SysOrganDTO;
-import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.sys.dao.SysOrganMapper;
 import com.jinhe.modules.sys.service.ISysOrganService;

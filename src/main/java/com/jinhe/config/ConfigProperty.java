@@ -25,8 +25,7 @@ public class ConfigProperty {
     @Value("${file.root.img-compression.thumb}")
     private double imgCompressionThumb;
 
-    @Value("${file.root.pksFile}")
-    private String pksFile;
+
     @Value("${version}")
     private String version;
 
@@ -100,13 +99,7 @@ public class ConfigProperty {
         this.imgCompressionThumb = imgCompressionThumb;
     }
 
-    public String getPksFile() {
-        return pksFile;
-    }
 
-    public void setPksFile(String pksFile) {
-        this.pksFile = pksFile;
-    }
 
     public String getVersion() {
         return version;

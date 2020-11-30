@@ -2,6 +2,7 @@ package com.jinhe.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
 import com.jinhe.modules.system.dao.SysAppPermissionMapper
+import com.jinhe.modules.system.entity.SysAppPermission
 import com.jinhe.modules.system.entity.SysPermission
 import com.jinhe.modules.system.entity.SysPermissionItem
 import com.jinhe.modules.system.service.ISysAppPermissionService

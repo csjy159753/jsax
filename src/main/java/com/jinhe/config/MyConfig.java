@@ -28,8 +28,7 @@ public class MyConfig implements WebMvcConfigurer {
         String upload = configProperty.GetAbsolutelyUpload();
         registry.addResourceHandler("/uploadFile/**").addResourceLocations("file:" + uploadFile + "/");
         registry.addResourceHandler("/upload/**").addResourceLocations("file:" + upload + "/");
-        registry.addResourceHandler("/pksFile/**").addResourceLocations("file:" + configProperty.getPksFile() + "/")
-                .setCachePeriod(31556926);
+
     }
 
     /**

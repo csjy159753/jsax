@@ -40,35 +40,35 @@ public class SysAppPermissionController {
     @Autowired
     private ISysRoleService iSysRoleService;
 
-    /**
-     * 角色新增权限
-     */
-    @ApiOperation(value = "手机角色新增权限", notes = "手机角色新增权限")
-    @RequestMapping(value = "addByRoleId/{roleId}", method = RequestMethod.POST)
-    public Result addByRoleId(@PathVariable String roleId, @RequestBody List<SysAppPermission> sysAppPermissions) {
-        if (iSysRoleService.getById(roleId) == null) {
-            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
-        }
-        if (sysAppPermissions != null && sysAppPermissions.size() > 0) {
-            iSysAppPermissionService.saveByRoleId(roleId, sysAppPermissions);
-        } else {
-            return ResultUtil.error(ResultEnum.ROLE_INSERT_PERMISSIONS);
-        }
-        return ResultUtil.success();
-    }
-
-    /**
-     * 角色新增权限
-     */
-    @ApiOperation(value = "手机角色移除权限", notes = "手机角色移除权限")
-    @RequestMapping(value = "remove/{roleId}", method = RequestMethod.POST)
-    public Result remove(@PathVariable String roleId) {
-        if (iSysRoleService.getById(roleId) == null) {
-            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
-        }
-        UpdateWrapper updateWrapper = new UpdateWrapper<SysAppPermission>();
-        updateWrapper.eq("role_id", roleId);
-        iSysAppPermissionService.remove(updateWrapper);
-        return ResultUtil.success();
-    }
+//    /**
+//     * 角色新增权限
+//     */
+//    @ApiOperation(value = "手机角色新增权限", notes = "手机角色新增权限")
+//    @RequestMapping(value = "addByRoleId/{roleId}", method = RequestMethod.POST)
+//    public Result addByRoleId(@PathVariable String roleId, @RequestBody List<SysAppPermission> sysAppPermissions) {
+//        if (iSysRoleService.getById(roleId) == null) {
+//            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
+//        }
+//        if (sysAppPermissions != null && sysAppPermissions.size() > 0) {
+//            iSysAppPermissionService.saveByRoleId(roleId, sysAppPermissions);
+//        } else {
+//            return ResultUtil.error(ResultEnum.ROLE_INSERT_PERMISSIONS);
+//        }
+//        return ResultUtil.success();
+//    }
+//
+//    /**
+//     * 角色新增权限
+//     */
+//    @ApiOperation(value = "手机角色移除权限", notes = "手机角色移除权限")
+//    @RequestMapping(value = "remove/{roleId}", method = RequestMethod.POST)
+//    public Result remove(@PathVariable String roleId) {
+//        if (iSysRoleService.getById(roleId) == null) {
+//            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
+//        }
+//        UpdateWrapper updateWrapper = new UpdateWrapper<SysAppPermission>();
+//        updateWrapper.eq("role_id", roleId);
+//        iSysAppPermissionService.remove(updateWrapper);
+//        return ResultUtil.success();
+//    }
 }

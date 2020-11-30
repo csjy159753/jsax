@@ -65,23 +65,23 @@ public class SysRoleController {
         return ResultUtil.success(lik);
     }
 
-    /**
-     * 查询角色列表根据type
-     *
-     * @return
-     */
-    @ApiOperation(value = "查询角色列表根据type", notes = "查询角色列表根据type")
-    @RequestMapping(value = "listByType/{type}", method = RequestMethod.GET)
-    public Result<List<SysRole>> listByType(@PathVariable String type) {
-        try {
-            QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("type", type);
-            List<SysRole> listRole = sysRoleService.list(queryWrapper);
-            return ResultUtil.success(listRole);
-        } catch (Exception e) {
-            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
-        }
-    }
+//    /**
+//     * 查询角色列表根据type--暂时不知道干嘛的注释掉
+//     *
+//     * @return
+//     */
+//    @ApiOperation(value = "查询角色列表根据type", notes = "查询角色列表根据type")
+//    @RequestMapping(value = "listByType/{type}", method = RequestMethod.GET)
+//    public Result<List<SysRole>> listByType(@PathVariable String type) {
+//        try {
+//            QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
+//            queryWrapper.eq("type", type);
+//            List<SysRole> listRole = sysRoleService.list(queryWrapper);
+//            return ResultUtil.success(listRole);
+//        } catch (Exception e) {
+//            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
+//        }
+//    }
 
     /**
      * 查询角色列表根据tag
