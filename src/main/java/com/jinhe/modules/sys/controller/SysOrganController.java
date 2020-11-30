@@ -85,7 +85,8 @@ public class SysOrganController {
      **/
     @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
     @RequestMapping(value = "selectOrganByOrganId/{userId}", method = RequestMethod.GET)
-    public Result<ListSub<SysOrgan>> selectOrganByOrganId(@PathVariable String userId, String organId, PageFilter pageFilter) {
+    public Result<ListSub<SysOrgan>> selectOrganByOrganId(@PathVariable String userId, Integer type, String organId, PageFilter pageFilter) {
+
         SysUser sysUser = iSysUserService.getById(userId);
         if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
             return ResultUtil.error();
@@ -96,7 +97,12 @@ public class SysOrganController {
         } else {
             queryWrapper.lambda().eq(SysOrgan::getParentId, organId);
         }
+        if (type == null) {
+            type = LongSwingConstants.Number.ZERO;
+        }
+        queryWrapper.lambda().eq(SysOrgan::getType, type);
         IPage<SysOrgan> iPage = iSysOrganService.page(new Page(pageFilter.getStart(), pageFilter.getLength()), queryWrapper);
+
         return ResultUtil.success(iPage);
     }
 

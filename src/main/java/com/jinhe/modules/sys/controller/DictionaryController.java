@@ -55,7 +55,7 @@ public class DictionaryController {
     }
 
     /**
-     * 获取全部字典
+     * 获取分页获取单类型字典
      *
      * @return
      */
