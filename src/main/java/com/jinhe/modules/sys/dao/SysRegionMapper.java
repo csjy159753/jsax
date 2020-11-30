@@ -16,11 +16,5 @@ import java.util.List;
  */
 public interface SysRegionMapper extends BaseMapper<SysRegion> {
 
-    /**
-     * 根据行政区编码查询行政区划
-     *
-     * @param code
-     * @return
-     */
-    List<SysRegionDTO> listRegionCode(String code);
+
 }
