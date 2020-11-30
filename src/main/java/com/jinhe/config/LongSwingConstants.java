@@ -9,7 +9,7 @@ public interface LongSwingConstants {
     /**
      * 常量规则：1是0否
      */
-    
+
     /**
      * 超级管理员类型
      */
@@ -33,4 +33,12 @@ public interface LongSwingConstants {
         public static final Integer TEN = 10;
     }
 
+    /**
+     * 资源菜单type类型
+     */
+    public class SysResource {
+        public static final Integer TYPE_NORMAL = 1;
+        public static final Integer TYPE_ROOT_ADMIN = 2;
+        public static final Integer TYPE_ADMIN = 3;
+    }
 }

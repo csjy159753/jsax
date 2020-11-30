@@ -56,7 +56,7 @@ public class SysResourceController {
     @ApiOperation(value = "查询所有菜单根据权限查询", notes = "查询所有菜单根据权限查询")
     @RequestMapping(value = "listResource/{userId}", method = RequestMethod.GET)
     @SysLog(value = "listResource/{userId}")
-    public Result<List<SysResourceDTO>> listResource(@PathVariable String userId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public Result<List<SysResourceDTO>> listResource(@PathVariable String userId) {
         List<SysResourceDTO> sysResource = ISysResService.listResource(userId);
         List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(sysResource);
         return ResultUtil.success(listMap);
@@ -77,6 +77,7 @@ public class SysResourceController {
             return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
         }
     }
+
     /**
      * 根据角色id获取菜单菜单管理员专用
      **/
@@ -87,6 +88,7 @@ public class SysResourceController {
         List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(List);
         return ResultUtil.success(listMap);
     }
+
     /**
      * 新增菜单
      **/

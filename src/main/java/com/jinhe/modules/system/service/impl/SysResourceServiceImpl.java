@@ -37,7 +37,7 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
 
     @Override
     public List<SysResourceDTO> listResource(String userId) {
-        List<SysResourceDTO> list = new ArrayList<>();
+        List<SysResourceDTO> list;
         SysUser sysUser = sysUserMapper.selectById(userId);
         if (sysUser == null) {
             return null;
@@ -47,12 +47,12 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
 
         if (type.equals(LongSwingConstants.USER_TYPE_ROOT_ADMIN)) {
             List<Integer> li = new ArrayList<>();
-            li.add(2);
+            li.add(LongSwingConstants.SysResource.TYPE_ROOT_ADMIN);
             list = sysResourceMapper.listResourceAdmin(li);
         } else if (type.equals(LongSwingConstants.USER_TYPE_ADMIN)) {
             List<Integer> li = new ArrayList<>();
-            li.add(1);
-            li.add(3);
+            li.add(LongSwingConstants.SysResource.TYPE_NORMAL);
+            li.add(LongSwingConstants.SysResource.TYPE_ADMIN);
             list = sysResourceMapper.listResourceAdmin(li);
         } else {
             list = sysResourceMapper.listResource(userId);
@@ -64,7 +64,7 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
 
     @Override
     public List<SysResourceDTO> listResourceAdmin() {
-        List<SysResourceDTO> listtree = new ArrayList<>();
+        List<SysResourceDTO> listtree;
         List<Integer> li = new ArrayList<>();
         li.add(1);
         listtree = sysResourceMapper.listResourceAdmin(li);
@@ -73,7 +73,7 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
 
     @Override
     public List<SysResourceDTO> listByRole(String roleId) {
-        List<SysResourceDTO> list = new ArrayList<>();
+        List<SysResourceDTO> list;
         list = sysResourceMapper.listByRole(roleId);
         return list;
     }
