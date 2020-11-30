@@ -4,14 +4,13 @@ package com.jinhe.modules.sys.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinhe.common.util.ListSub;
-import com.jinhe.common.util.PageFilter;
-import com.jinhe.common.util.Result;
+import com.jinhe.common.util.*;
+import com.jinhe.config.LongSwingConstants;
 import com.jinhe.config.ResultEnum;
-import com.jinhe.common.util.ResultUtil;
 import com.jinhe.modules.sys.dao.SysRegionMapper;
 import com.jinhe.modules.sys.dto.SysRegionDTO;
 import com.jinhe.modules.system.entity.Dictionary;
+import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.jinhe.modules.sys.service.ISysRegionService;
 import io.swagger.annotations.Api;
@@ -72,9 +71,13 @@ public class SysRegionController {
     @ApiOperation(value = "新增或更新行政区", notes = "新增或更新行政区")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     public Result saveOrUpdate(@RequestBody SysRegion sysregion) {
+        if (sysregion == null) {
+            ResultUtil.error();
+        }
         try {
             sysRegionService.saveOrUpdate(sysregion);
-        } catch (Exception e) {
+            sysRegionService.saveOrUpdateChildrenNumAndLevel(sysregion);
+         } catch (Exception e) {
             log.error("saveOrUpdate", e.getMessage());
             return ResultUtil.error(ResultEnum.REGION_INSERT_ERROR);
         }
@@ -91,6 +94,7 @@ public class SysRegionController {
     public Result delRegion(@PathVariable String id) {
         try {
             sysRegionService.removeById(id);
+            sysRegionService.saveOrUpdateChildrenNumAndLevel(id);
         } catch (Exception e) {
             log.error("delRegion", e.getMessage());
             return ResultUtil.error(ResultEnum.REGION_EXIST_SUBSET_UNABLE_DEL);
