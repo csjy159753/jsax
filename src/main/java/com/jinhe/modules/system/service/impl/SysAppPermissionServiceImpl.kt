@@ -18,7 +18,7 @@ import java.util.*
  * @since 2020-11-11
  */
 @Service
-class SysAppPermissionServiceImpl : ServiceImpl<SysAppPermissionMapper, SysAppPermission>(), ISysAppPermissionService {
+open class SysAppPermissionServiceImpl : ServiceImpl<SysAppPermissionMapper, SysAppPermission>(), ISysAppPermissionService {
     override fun saveByRoleId(roleId: String, sysAppPermissions: List<SysAppPermission>) {
 
         //----开始前先删除改角色菜单使用下面新的菜单设置了主外键级联删除 删除菜单授权item自定删除-----
