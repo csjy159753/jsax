@@ -1,4 +1,4 @@
-package com.jinhe.modules.demo.dto;
+package com.jinhe.common.util.entity;
 
 
 /**

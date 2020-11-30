@@ -2,4 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jinhe.modules.sys.dao.SysOrganMapper">
 
+    <select id="selectOrganByOrganId" resultType="com.jinhe.modules.sys.dto.SysOrganAddDTO">
+        SELECT
+        so.*,
+        group_concat(
+        DISTINCT
+        CASE
+
+        WHEN sr.id IS NOT NULL THEN
+        ( concat( sr.id, '_', sr.`name` ) ) ELSE ''
+        END
+        ) AS listRoles
+        FROM
+        sys_organ so
+        LEFT JOIN sys_organ_role sor ON sor.organ_id = so.id
+        LEFT JOIN sys_role sr ON sr.id = sor.role_id
+        WHERE
+        so.type = #{type}
+        <if test="organId !=null and   organId !=''">
+            and so.id = #{organId}
+        </if>
+        GROUP BY
+        so.id
+    </select>
 </mapper>

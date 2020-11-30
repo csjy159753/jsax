@@ -2,23 +2,31 @@ package com.jinhe.modules.sys.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jinhe.common.util.entity.Pair;
 import com.jinhe.config.LongSwingConstants;
 import com.jinhe.common.util.*;
 import com.jinhe.config.ResultEnum;
+import com.jinhe.modules.sys.dto.SysOrganAddDTO;
+import com.jinhe.modules.sys.dto.SysOrganRoleDTO;
+import com.jinhe.modules.sys.service.ISysOrganRoleService;
 import com.jinhe.modules.sys.service.ISysUserService;
-import com.jinhe.modules.sys.dto.SysOrganDTO;
 import com.jinhe.modules.system.entity.SysOrgan;
+import com.jinhe.modules.system.entity.SysOrganRole;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.sys.service.ISysOrganService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -35,35 +43,30 @@ import java.util.List;
 public class SysOrganController {
     @Resource
     private ISysOrganService iSysOrganService;
+
     @Resource
     private ISysUserService iSysUserService;
 
-
-    /**
-     * 根据ID查询机构
-     **/
-    @ApiOperation(value = "根据ID查询机构", notes = "根据ID查询机构")
-    @RequestMapping(value = "getSysOrganId/{id}", method = RequestMethod.GET)
-    public Result<SysOrgan> getSysOrganId(@PathVariable String id) {
-        SysOrgan sysOrgan;
-        sysOrgan = iSysOrganService.getById(id);
-        return ResultUtil.success(sysOrgan);
-    }
+    @Autowired
+    private ISysOrganRoleService iSysOrganRoleService;
 
     /**
      * 新增机构
      **/
     @ApiOperation(value = "新增机构", notes = "新增机构")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
-    public Result saveOrUpdate(@RequestBody SysOrgan sysOrgan) {
-        if (sysOrgan == null) {
+    public Result saveOrUpdate(@RequestBody SysOrganAddDTO sysOrganAddDTO) {
+        if (sysOrganAddDTO == null) {
             return ResultUtil.error();
         }
 
-        if (sysOrgan.getType() != null && !sysOrgan.getType().equals(LongSwingConstants.Number.ONE)
-                && !sysOrgan.getType().equals(LongSwingConstants.Number.ZERO)) {
+        if (sysOrganAddDTO.getType() != null && !sysOrganAddDTO.getType().equals(LongSwingConstants.Number.ONE)
+                && !sysOrganAddDTO.getType().equals(LongSwingConstants.Number.ZERO)) {
             return ResultUtil.error(ResultEnum.ORGAN_TYPE_ERROR);
         }
+        SysOrgan sysOrgan = new SysOrgan();
+        sysOrgan = EntityUtil.INSTANCE.copyValOnlyDestEmpty(sysOrgan, sysOrganAddDTO);
+
         if (sysOrgan.getType() == null) {
             sysOrgan.setType(LongSwingConstants.Number.ONE);
         }
@@ -75,8 +78,24 @@ public class SysOrganController {
                 return ResultUtil.error(ResultEnum.ORGAN_TAG_REPEAT);
             }
         }
+
+        /**
+         * 删除之前的机构角色关联
+         */
+        UpdateWrapper<SysOrganRole> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.lambda().eq(SysOrganRole::getOrganId, sysOrgan.getId());
+        iSysOrganRoleService.remove(updateWrapper);
         iSysOrganService.saveOrUpdate(sysOrgan);
         iSysOrganService.saveOrUpdateChildrenNumAndLevel(sysOrgan);
+        List<SysOrganRole> l = new ArrayList<>();
+        SysOrgan finalSysOrgan = sysOrgan;
+        sysOrganAddDTO.getListRoles().forEach(d -> {
+            SysOrganRole sysOrganRole = new SysOrganRole();
+            sysOrganRole.setOrganId(finalSysOrgan.getId());
+            sysOrganRole.setRoleId(d);
+            l.add(sysOrganRole);
+        });
+        iSysOrganRoleService.saveBatch(l);
         return ResultUtil.success();
     }
 
@@ -85,7 +104,7 @@ public class SysOrganController {
      **/
     @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
     @RequestMapping(value = "selectOrganByOrganId/{userId}", method = RequestMethod.GET)
-    public Result<ListSub<SysOrgan>> selectOrganByOrganId(@PathVariable String userId, Integer type, String organId, PageFilter pageFilter) {
+    public Result<ListSub<SysOrganAddDTO>> selectOrganByOrganId(@PathVariable String userId, Integer type, String organId, PageFilter pageFilter) {
 
         SysUser sysUser = iSysUserService.getById(userId);
         if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
@@ -100,9 +119,8 @@ public class SysOrganController {
         if (type == null) {
             type = LongSwingConstants.Number.ZERO;
         }
-        queryWrapper.lambda().eq(SysOrgan::getType, type);
-        IPage<SysOrgan> iPage = iSysOrganService.page(new Page(pageFilter.getStart(), pageFilter.getLength()), queryWrapper);
-
+        Page page = new Page(pageFilter.getStart(), pageFilter.getLength());
+        IPage<SysOrganAddDTO> iPage = iSysOrganRoleService.selectOrganByOrganId(page, type, organId);
         return ResultUtil.success(iPage);
     }
 
