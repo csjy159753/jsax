@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author rls
- * @since 2020-11-27
+ * @since 2020-12-01
  */
 @ApiModel(value="Dictionary对象", description="数据字典")
 public class Dictionary implements Serializable {
@@ -29,7 +29,7 @@ public class Dictionary implements Serializable {
     @ApiModelProperty(value = "编码名称")
     private String name;
 
-    @ApiModelProperty(value = "标识信息")
+    @ApiModelProperty(value = "字典类型")
     private String type;
 
     @ApiModelProperty(value = "层级深度")
@@ -59,6 +59,9 @@ public class Dictionary implements Serializable {
     @ApiModelProperty(value = "子对象数量")
     @TableField("childrenNum")
     private Integer childrenNum;
+
+    @ApiModelProperty(value = "标识信息")
+    private String tag;
 
 
     public String getId() {
@@ -165,6 +168,14 @@ public class Dictionary implements Serializable {
         this.childrenNum = childrenNum;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     @Override
     public String toString() {
         return "Dictionary{" +
@@ -181,6 +192,7 @@ public class Dictionary implements Serializable {
         ", status=" + status +
         ", remark=" + remark +
         ", childrenNum=" + childrenNum +
+        ", tag=" + tag +
         "}";
     }
 }
