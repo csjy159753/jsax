@@ -36,20 +36,10 @@ public class DictionaryController {
     @ApiOperation(value = "保存及更新单个字典", notes = "保存及更新单个字典")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     public Result saveOrUpdate(@RequestBody Dictionary dictionary) {
-        if (dictionary.getType() != null) {
-            return ResultUtil.error();
-        }
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("type", dictionary.getType());
-        List<Dictionary> list = iDictionaryService.list(queryWrapper);
-        if (list.size() > 0) {
-            if (list.get(0).getType().equals(dictionary.getType()) && list.get(0).getParentId() == dictionary.getParentId()) {
-                iDictionaryService.saveOrUpdateChildrenNumAndLevel(dictionary);
-            } else {
-                return ResultUtil.error(ResultEnum.ORGAN_TYPE_ERROR);
-            }
-        } else {
-            iDictionaryService.saveOrUpdateChildrenNumAndLevel(dictionary);
+
+        iDictionaryService.saveOrUpdate(dictionary);
+        if (dictionary.getParentId() != null) {
+            iDictionaryService.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
         }
         return ResultUtil.success();
     }

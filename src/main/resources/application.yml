@@ -8,7 +8,7 @@ server:
     threads:
       max: 500
       min-spare: 20
-  port: 8099
+  port: 8085
   servlet:
     context-path:
   max-http-header-size: 10240

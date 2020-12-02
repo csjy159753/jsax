@@ -65,7 +65,7 @@ public class SysOrganController {
             return ResultUtil.error(ResultEnum.ORGAN_TYPE_ERROR);
         }
         SysOrgan sysOrgan = new SysOrgan();
-       EntityUtil.INSTANCE.copyValOnlyDestEmpty(sysOrgan, sysOrganAddDTO);
+        EntityUtil.INSTANCE.copyValOnlyDestEmpty(sysOrgan, sysOrganAddDTO);
 
         if (sysOrgan.getType() == null) {
             sysOrgan.setType(LongSwingConstants.Number.ONE);
@@ -86,7 +86,9 @@ public class SysOrganController {
         updateWrapper.lambda().eq(SysOrganRole::getOrganId, sysOrgan.getId());
         iSysOrganRoleService.remove(updateWrapper);
         iSysOrganService.saveOrUpdate(sysOrgan);
-        iSysOrganService.saveOrUpdateChildrenNumAndLevel(sysOrgan);
+        if (sysOrgan.getParentId() != null) {
+            iSysOrganService.saveOrUpdateChildrenNumAndLevel(sysOrgan.getParentId());
+        }
         List<SysOrganRole> l = new ArrayList<>();
         SysOrgan finalSysOrgan = sysOrgan;
         sysOrganAddDTO.getListRoles().forEach(d -> {

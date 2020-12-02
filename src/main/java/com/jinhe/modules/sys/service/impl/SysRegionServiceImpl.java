@@ -11,6 +11,8 @@ import com.jinhe.modules.sys.service.ISysRegionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 行政区编码 服务实现类
@@ -30,15 +32,21 @@ public class SysRegionServiceImpl extends ServiceImpl<SysRegionMapper, SysRegion
     }
 
     @Override
-    public ResultEnum saveOrUpdateChildrenNumAndLevel(String id) {
+    public ResultEnum saveOrUpdateChildrenNumAndLevel(String code) {
 
-        SysRegion model = this.getById(id);
-        if (model == null) {
+        QueryWrapper<SysRegion> queryWrapperSysRegion = new QueryWrapper<>();
+        queryWrapperSysRegion.lambda().eq(SysRegion::getCode, code);
+        List<SysRegion> lis = this.list(queryWrapperSysRegion);
+        SysRegion model;
+        if (lis != null && lis.size() > 0) {
+            model = lis.get(0);
+        } else {
             return ResultEnum.NOT_FOUND;
         }
+
         //#更新数量
         QueryWrapper<SysRegion> queryWrapper = new QueryWrapper();
-        queryWrapper.lambda().eq(SysRegion::getParentCode, model.getParentCode());
+        queryWrapper.lambda().eq(SysRegion::getParentCode, model.getCode());
         Integer count = this.getBaseMapper().selectCount(queryWrapper);
         model.setChildrenNum(count);
 
@@ -48,8 +56,8 @@ public class SysRegionServiceImpl extends ServiceImpl<SysRegionMapper, SysRegion
         } else {
             QueryWrapper<SysRegion> queryWrapperLevel = new QueryWrapper();
             queryWrapperLevel.lambda().eq(SysRegion::getCode, model.getParentCode());
-            Integer Level = this.getBaseMapper().selectCount(queryWrapperLevel);
-            model.setLevelInfo(Level + LongSwingConstants.Number.ONE);
+            SysRegion sysRegion = this.getBaseMapper().selectOne(queryWrapperLevel);
+            model.setLevelInfo(sysRegion.getLevelInfo() + LongSwingConstants.Number.ONE);
         }
         this.saveOrUpdate(model);
         return ResultEnum.SUCCESS;
@@ -63,7 +71,7 @@ public class SysRegionServiceImpl extends ServiceImpl<SysRegionMapper, SysRegion
         }
         //#更新数量
         QueryWrapper<SysRegion> queryWrapper = new QueryWrapper();
-        queryWrapper.lambda().eq(SysRegion::getParentCode, model.getId());
+        queryWrapper.lambda().eq(SysRegion::getParentCode, model.getCode());
         Integer count = this.getBaseMapper().selectCount(queryWrapper);
         model.setChildrenNum(count);
 
@@ -73,8 +81,8 @@ public class SysRegionServiceImpl extends ServiceImpl<SysRegionMapper, SysRegion
         } else {
             QueryWrapper<SysRegion> queryWrapperLevel = new QueryWrapper();
             queryWrapperLevel.lambda().eq(SysRegion::getCode, model.getParentCode());
-            Integer Level = this.getBaseMapper().selectCount(queryWrapperLevel);
-            model.setLevelInfo(Level + LongSwingConstants.Number.ONE);
+            SysRegion sysRegion = this.getBaseMapper().selectOne(queryWrapperLevel);
+            model.setLevelInfo(sysRegion.getLevelInfo() + LongSwingConstants.Number.ONE);
         }
         this.saveOrUpdate(model);
         return ResultEnum.SUCCESS;

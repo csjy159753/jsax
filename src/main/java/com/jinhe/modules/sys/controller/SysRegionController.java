@@ -76,8 +76,10 @@ public class SysRegionController {
         }
         try {
             sysRegionService.saveOrUpdate(sysregion);
-            sysRegionService.saveOrUpdateChildrenNumAndLevel(sysregion);
-         } catch (Exception e) {
+            if (sysregion.getParentCode() != null) {
+                sysRegionService.saveOrUpdateChildrenNumAndLevel(sysregion.getParentCode());
+            }
+        } catch (Exception e) {
             log.error("saveOrUpdate", e.getMessage());
             return ResultUtil.error(ResultEnum.REGION_INSERT_ERROR);
         }

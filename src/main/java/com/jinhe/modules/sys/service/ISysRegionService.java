@@ -23,14 +23,16 @@ public interface ISysRegionService extends IService<SysRegion> {
     Integer getChildrenNum(String id);
 
     /**
-     *  根据id更新对象子项数量和层级树
-     * @param id
+     * 根据id更新对象子项数量和层级树
+     *
+     * @param code
      * @return
      */
-    ResultEnum saveOrUpdateChildrenNumAndLevel(String id);
+    ResultEnum saveOrUpdateChildrenNumAndLevel(String code);
 
     /**
      * 根据对象更新对象子项数量和层级树
+     *
      * @param dictionary
      * @return
      */

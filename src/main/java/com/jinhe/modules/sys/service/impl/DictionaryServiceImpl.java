@@ -46,10 +46,8 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
         if (StringUtils.isEmpty(dictionary.getParentId())) {
             dictionary.setLevelInfo(LongSwingConstants.Number.ONE);
         } else {
-            QueryWrapper<Dictionary> queryWrapperLevel = new QueryWrapper();
-            queryWrapperLevel.lambda().eq(Dictionary::getId, dictionary.getParentId());
-            Integer Level = this.getBaseMapper().selectCount(queryWrapperLevel);
-            dictionary.setLevelInfo(Level + LongSwingConstants.Number.ONE);
+            Dictionary dict = this.getBaseMapper().selectById(dictionary.getParentId());
+            dictionary.setLevelInfo(dict.getLevelInfo() + LongSwingConstants.Number.ONE);
         }
         this.saveOrUpdate(dictionary);
         return ResultEnum.SUCCESS;
@@ -71,10 +69,8 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
         if (StringUtils.isEmpty(dictionary.getParentId())) {
             dictionary.setLevelInfo(LongSwingConstants.Number.ONE);
         } else {
-            QueryWrapper<Dictionary> queryWrapperLevel = new QueryWrapper();
-            queryWrapperLevel.lambda().eq(Dictionary::getId, dictionary.getParentId());
-            Integer Level = this.getBaseMapper().selectCount(queryWrapperLevel);
-            dictionary.setLevelInfo(Level + LongSwingConstants.Number.ONE);
+            Dictionary dict = this.getBaseMapper().selectById(dictionary.getParentId());
+            dictionary.setLevelInfo(dict.getLevelInfo() + LongSwingConstants.Number.ONE);
         }
         this.saveOrUpdate(dictionary);
         return ResultEnum.SUCCESS;

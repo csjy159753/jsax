@@ -63,15 +63,12 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
         queryWrapper.lambda().eq(SysOrgan::getParentId, model.getId());
         Integer count = this.getBaseMapper().selectCount(queryWrapper);
         model.setChildrenNum(count);
-
         //#更新层级
         if (StringUtils.isEmpty(model.getParentId())) {
             model.setDepth(LongSwingConstants.Number.ONE);
         } else {
-            QueryWrapper<SysOrgan> queryWrapperLevel = new QueryWrapper();
-            queryWrapperLevel.lambda().eq(SysOrgan::getId, model.getParentId());
-            Integer Level = this.getBaseMapper().selectCount(queryWrapperLevel);
-            model.setDepth(Level + LongSwingConstants.Number.ONE);
+            SysOrgan sysOrgan = this.getBaseMapper().selectById(model.getParentId());
+            model.setDepth(sysOrgan.getDepth() + LongSwingConstants.Number.ONE);
         }
         this.saveOrUpdate(model);
         return false;
