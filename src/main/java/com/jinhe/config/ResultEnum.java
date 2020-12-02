@@ -107,6 +107,8 @@ public enum ResultEnum {
      * 字典
      */
     DICTIONARY_EXIST_SUBSET_UNABLE_DEL(1901, "字典存在子属性无法删除"),
+    DICTIONARY_EXIST_SAME_VALUE(1902, "字典存在相同值"),
+    DICTIONARY_EXIST_SAME_NAME(1903, "字典存在相同名称"),
     /**
      * 10000以后是业务的
      */

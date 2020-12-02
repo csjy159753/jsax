@@ -181,12 +181,15 @@ public class SysUserController {
     }
 
     /**
-     * 根据用户id获取用户基本信息
+     * 根据机构id获取用户基本信息
      **/
-    @ApiOperation(value = "根据用户id获取用户基本信息", notes = "根据用户id获取用户基本信息")
-    @RequestMapping(value = "list/{organId}", method = RequestMethod.GET)
-    public Result list(@PathVariable String organId) {
-        List<SysUserDTO> list = iSysUserService.listByOrganId(organId);
+    @ApiOperation(value = "根据机构id获取用户基本信息", notes = "根据机构id获取用户基本信息")
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public Result list(String organId, Integer state) {
+        if (state == null) {
+            state = 0;
+        }
+        List<SysUserDTO> list = iSysUserService.listByOrganId(organId, state);
         return ResultUtil.success(list);
     }
 

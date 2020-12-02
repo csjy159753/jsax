@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    List<SysUserDTO> listByOrganId(String organId);
+    List<SysUserDTO> listByOrganId(String organId, Integer state);
 }

@@ -13,6 +13,24 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-11-19
  */
 public interface IDictionaryService extends IService<Dictionary> {
+    public static String[] excludeFields = new String[]{"id", "parentId", "levelInfo", "createTime", "updateTime", "isSystem", "status", "remark", "childrenNum"};
+
+    /**
+     * 保存字典
+     *
+     * @param dictionary
+     * @return
+     */
+    ResultEnum saveDictionary(Dictionary dictionary);
+
+    /**
+     * 更新字典
+     *
+     * @param dictionary
+     * @return
+     */
+    ResultEnum updateDictionary(Dictionary dictionary);
+
     /**
      * 根据id更新对象子项数量
      *
@@ -22,16 +40,12 @@ public interface IDictionaryService extends IService<Dictionary> {
     Integer getChildrenNum(String id);
 
     /**
-     *  根据id更新对象子项数量和层级树
+     * 根据id更新对象子项数量和层级树
+     *
      * @param id
      * @return
      */
     ResultEnum saveOrUpdateChildrenNumAndLevel(String id);
 
-    /**
-     * 根据对象更新对象子项数量和层级树
-     * @param dictionary
-     * @return
-     */
-    ResultEnum saveOrUpdateChildrenNumAndLevel(Dictionary dictionary);
+
 }

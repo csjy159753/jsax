@@ -25,7 +25,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private SysUserMapper sysUserMapper;
 
     @Override
-    public List<SysUserDTO> listByOrganId(String organId) {
-        return sysUserMapper.listByOrganId(organId);
+    public List<SysUserDTO> listByOrganId(String organId, int state) {
+        return sysUserMapper.listByOrganId(organId, state);
     }
 }

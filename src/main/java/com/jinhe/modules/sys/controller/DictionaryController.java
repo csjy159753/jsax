@@ -10,6 +10,7 @@ import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.service.IDictionaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import kotlin.jvm.internal.Ref;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,10 +38,12 @@ public class DictionaryController {
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     public Result saveOrUpdate(@RequestBody Dictionary dictionary) {
 
-        iDictionaryService.saveOrUpdate(dictionary);
-        if (dictionary.getParentId() != null) {
-            iDictionaryService.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
+        if (dictionary.getId() == null) {
+            iDictionaryService.saveDictionary(dictionary);
+        }else{
+            iDictionaryService.updateDictionary(dictionary);
         }
+
         return ResultUtil.success();
     }
 

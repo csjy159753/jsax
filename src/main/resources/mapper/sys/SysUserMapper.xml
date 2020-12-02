@@ -15,22 +15,21 @@
         ) AS organIds
         FROM
         sys_user su
-        LEFT JOIN sys_user_organ suo ON suo.user_id = su.id
-        LEFT JOIN (
+        INNER JOIN sys_user_organ suo ON suo.user_id = su.id
+        INNER JOIN (
+        (
         WITH RECURSIVE td AS (
         SELECT
-        id,
-        `name`
+        sys_organ.id,
+        sys_organ.`name`
         FROM
         sys_organ
         WHERE
-        <if test="organId !=null and organId ！= ''">
-            parent_id =#{organId}
-        </if>
-        <if test="organId =null or organId = ''">
-            parent_id IS NULL
-        </if>
-
+        <choose>
+            <when test="organId != null and organId != '' ">sys_organ.parent_id = #{organId}</when>
+            <otherwise>sys_organ.parent_id IS NULL</otherwise>
+        </choose>
+        and sys_organ.state =#{state}
         UNION ALL
         SELECT
         c.id,
@@ -44,6 +43,7 @@
         *
         FROM
         td
+        )
         ) so ON so.id = suo.organ_id
         GROUP BY
         su.id

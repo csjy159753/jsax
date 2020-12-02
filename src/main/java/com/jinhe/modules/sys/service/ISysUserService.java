@@ -20,5 +20,5 @@ public interface ISysUserService extends IService<SysUser> {
      *根据机构查询用户信息
      * @return
      */
-    List<SysUserDTO> listByOrganId(String organId);
+    List<SysUserDTO> listByOrganId(String organId, int state);
 }
