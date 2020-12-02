@@ -181,7 +181,7 @@ public class SysUserController {
     }
 
     /**
-     * 根据机构id获取用户基本信息
+     * 获取用户列表
      **/
     @ApiOperation(value = "根据机构id获取用户基本信息", notes = "根据机构id获取用户基本信息")
     @RequestMapping(value = "list", method = RequestMethod.GET)
@@ -194,9 +194,9 @@ public class SysUserController {
     }
 
     /**
-     * 获取用户列表
+     * 根据用户id获取用户信息和机构信息
      **/
-    @ApiOperation(value = "获取用户列表", notes = "获取用户列表")
+    @ApiOperation(value = "根据用户id获取用户信息和机构信息", notes = "根据用户id获取用户信息和机构信息")
     @RequestMapping(value = "getUserInfo/{userId}", method = RequestMethod.GET)
     public Result getUserInfo(@PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);
