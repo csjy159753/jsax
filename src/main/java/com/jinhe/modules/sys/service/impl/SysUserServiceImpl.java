@@ -1,5 +1,7 @@
 package com.jinhe.modules.sys.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.sys.dto.SysUserDTO;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.entity.SysUser;
@@ -24,8 +26,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private SysUserMapper sysUserMapper;
 
+
     @Override
-    public List<SysUserDTO> listByOrganId(String organId, int state) {
-        return sysUserMapper.listByOrganId(organId, state);
+    public IPage<SysUserDTO> listByOrganId(Page<SysUserDTO> page, String organId, int state, String keyWord) {
+        return sysUserMapper.listByOrganId(page, organId, state, keyWord);
     }
 }

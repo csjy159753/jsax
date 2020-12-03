@@ -91,12 +91,14 @@ public class SysOrganController {
         }
         List<SysOrganRole> l = new ArrayList<>();
         SysOrgan finalSysOrgan = sysOrgan;
-        sysOrganAddDTO.getListRoles().forEach(d -> {
-            SysOrganRole sysOrganRole = new SysOrganRole();
-            sysOrganRole.setOrganId(finalSysOrgan.getId());
-            sysOrganRole.setRoleId(d);
-            l.add(sysOrganRole);
-        });
+        if (sysOrganAddDTO.getType() != 0) {
+            sysOrganAddDTO.getListRoles().forEach(d -> {
+                SysOrganRole sysOrganRole = new SysOrganRole();
+                sysOrganRole.setOrganId(finalSysOrgan.getId());
+                sysOrganRole.setRoleId(d);
+                l.add(sysOrganRole);
+            });
+        }
         iSysOrganRoleService.saveBatch(l);
         return ResultUtil.success();
     }

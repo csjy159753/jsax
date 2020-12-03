@@ -2,7 +2,10 @@ package com.jinhe.modules.sys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.*;
+import com.jinhe.config.LongSwingConstants;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.sys.dto.UserInfoDTO;
 import com.jinhe.modules.sys.service.ISysUserService;
@@ -184,13 +187,18 @@ public class SysUserController {
      * 获取用户列表
      **/
     @ApiOperation(value = "根据机构id获取用户基本信息", notes = "根据机构id获取用户基本信息")
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public Result list(String organId, Integer state) {
-        if (state == null) {
-            state = 0;
+    @RequestMapping(value = "list/{userId}", method = RequestMethod.GET)
+    public Result list(@PathVariable String userId, String organId, Integer state, PageFilter pageFilter) {
+        SysUser sysUser = iSysUserService.getById(userId);
+        if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
+            return ResultUtil.error();
         }
-        List<SysUserDTO> list = iSysUserService.listByOrganId(organId, state);
-        return ResultUtil.success(list);
+        if (state == null) {
+            state = 1;
+        }
+        Page<SysUserDTO> page = new Page<>(pageFilter.getStart(), pageFilter.getLength());
+        IPage<SysUserDTO> ipage = iSysUserService.listByOrganId(page, organId, state, pageFilter.getKeyWord());
+        return ResultUtil.success(ipage);
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.jinhe.modules.sys.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.modules.sys.dto.SysUserDTO;
 import com.jinhe.modules.system.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -17,8 +19,9 @@ import java.util.List;
 public interface ISysUserService extends IService<SysUser> {
 
     /**
-     *根据机构查询用户信息
+     * 根据机构查询用户信息
+     *
      * @return
      */
-    List<SysUserDTO> listByOrganId(String organId, int state);
+    IPage<SysUserDTO> listByOrganId(Page<SysUserDTO> page, String organId, int state, String keyWord);
 }

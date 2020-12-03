@@ -6,9 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
  * @author Administrator
  */
 public class PageFilter {
-    @ApiModelProperty(value = "关键字查询", position = 0)
+    @ApiModelProperty(value = "关键字查询", example = "关键字", position = 0)
     private String keyWord;
-    @ApiModelProperty(value = "第几页", example = "0", position = 1)
+    @ApiModelProperty(value = "第几页 默认1开始", example = "1", position = 1)
     private int start;
     @ApiModelProperty(value = "每页大小", example = "10", position = 2)
     private int length;

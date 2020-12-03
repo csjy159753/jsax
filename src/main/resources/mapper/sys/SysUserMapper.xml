@@ -29,7 +29,7 @@
             <when test="organId != null and organId != '' ">sys_organ.parent_id = #{organId}</when>
             <otherwise>sys_organ.parent_id IS NULL</otherwise>
         </choose>
-        and sys_organ.state =#{state}
+
         UNION ALL
         SELECT
         c.id,
@@ -45,6 +45,15 @@
         td
         )
         ) so ON so.id = suo.organ_id
+        <where>
+            <if test="keyWord != null ">
+                and su.normalized_username LIKE CONCAT('%',#{keyWord},'%') or su.NICK_NAME LIKE
+                CONCAT('%',#{keyWord},'%')
+            </if>
+            <if test="state !=null ">
+                and su.state =#{state}
+            </if>
+        </where>
         GROUP BY
         su.id
     </select>
