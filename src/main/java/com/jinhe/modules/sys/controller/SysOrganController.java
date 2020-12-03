@@ -112,7 +112,7 @@ public class SysOrganController {
     public Result<ListSub<SysOrganRoleDTO>> selectOrganByOrganId(@PathVariable String userId, Integer type, String organId, PageFilter pageFilter) {
 
         SysUser sysUser = iSysUserService.getById(userId);
-        if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
+        if (StringUtils.isEmpty(organId) && sysUser.getType() != null && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
             return ResultUtil.error();
         }
         QueryWrapper<SysOrgan> queryWrapper = new QueryWrapper();

@@ -1,6 +1,8 @@
 package com.jinhe.common.config;
 
 /**
+ * 框架系统常量配置
+ *
  * @author Administrator
  */
 
