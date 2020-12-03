@@ -87,6 +87,8 @@ public class SysOrganController {
         iSysOrganService.saveOrUpdate(sysOrgan);
         if (sysOrgan.getParentId() != null) {
             iSysOrganService.saveOrUpdateChildrenNumAndLevel(sysOrgan.getParentId());
+        } else if (sysOrgan.getParentId() == null) {
+            iSysOrganService.saveOrUpdateChildrenNumAndLevel(sysOrgan.getId());
         }
         List<SysOrganRole> l = new ArrayList<>();
         SysOrgan finalSysOrgan = sysOrgan;

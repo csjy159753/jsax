@@ -60,7 +60,7 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
         }
         //#更新数量
         QueryWrapper<SysOrgan> queryWrapper = new QueryWrapper();
-        queryWrapper.lambda().eq(SysOrgan::getParentId, model.getId());
+        queryWrapper.lambda().eq(SysOrgan::getParentId, model.getId()).eq(SysOrgan::getType, 0);
         Integer count = this.getBaseMapper().selectCount(queryWrapper);
         model.setChildrenNum(count);
         //#更新层级
