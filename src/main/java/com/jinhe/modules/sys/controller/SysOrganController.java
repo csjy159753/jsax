@@ -56,6 +56,9 @@ public class SysOrganController {
     @ApiOperation(value = "新增机构", notes = "新增机构")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     public Result saveOrUpdate(@RequestBody SysOrganAddDTO sysOrganAddDTO) {
+        if (sysOrganAddDTO.getId() == null && sysOrganAddDTO.getType() == null) {
+            sysOrganAddDTO.setType(LongSwingConstants.Number.ZERO);
+        }
         if (sysOrganAddDTO == null) {
             return ResultUtil.error();
         }
@@ -65,11 +68,7 @@ public class SysOrganController {
             return ResultUtil.error(ResultEnum.ORGAN_TYPE_ERROR);
         }
         SysOrgan sysOrgan = new SysOrgan();
-        EntityUtil.INSTANCE.copyValOnlyDestEmpty(sysOrgan, sysOrganAddDTO);
-
-        if (sysOrgan.getType() == null) {
-            sysOrgan.setType(LongSwingConstants.Number.ONE);
-        }
+        sysOrgan = EntityUtil.INSTANCE.copyValOnlyDestEmpty(sysOrgan, sysOrganAddDTO);
         if (!StringUtils.isEmpty(sysOrgan.getTag())) {
             QueryWrapper<SysOrgan> queryWrapper = new QueryWrapper<>();
             queryWrapper.lambda().eq(SysOrgan::getType, sysOrgan.getType());
@@ -91,7 +90,7 @@ public class SysOrganController {
         }
         List<SysOrganRole> l = new ArrayList<>();
         SysOrgan finalSysOrgan = sysOrgan;
-        if (sysOrganAddDTO.getType() != 0) {
+        if (sysOrganAddDTO.getType() != null && sysOrganAddDTO.getType() != 0) {
             sysOrganAddDTO.getListRoles().forEach(d -> {
                 SysOrganRole sysOrganRole = new SysOrganRole();
                 sysOrganRole.setOrganId(finalSysOrgan.getId());

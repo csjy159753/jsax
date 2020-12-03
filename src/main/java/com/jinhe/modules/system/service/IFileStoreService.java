@@ -4,6 +4,7 @@ import com.jinhe.modules.system.dto.FileStoreDTO;
 import com.jinhe.modules.system.entity.FileStore;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jinhe.modules.system.entity.FileStoreType;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -25,4 +26,13 @@ public interface IFileStoreService extends IService<FileStore> {
      * @return
      */
     List<FileStoreDTO> upLoadFiles(MultipartFile[] files, List<FileStoreType> listFileStoreTypeFilter);
+
+    /**
+     * 讲泛型T对象上传数据进行保存数据进行保存
+     *
+     * @param list
+     * @param t
+     * @return
+     */
+    boolean saveFile(List<FileStoreDTO> list, T t, String type);
 }

@@ -10,6 +10,7 @@ import com.jinhe.modules.system.entity.FileStoreType;
 import com.jinhe.modules.system.service.IFileStoreService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinhe.modules.system.service.IFileStoreTypeService;
+import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -156,6 +157,11 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
             }
         }
         return list;
+    }
+
+    @Override
+    public boolean saveFile(List<FileStoreDTO> list, T t, String type) {
+        return false;
     }
 
 
