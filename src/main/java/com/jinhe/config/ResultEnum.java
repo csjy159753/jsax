@@ -116,6 +116,9 @@ public enum ResultEnum {
     DICTIONARY_EXIST_SUBSET_UNABLE_DEL(1901, "字典存在子属性无法删除"),
     DICTIONARY_EXIST_SAME_VALUE(1902, "字典存在相同值"),
     DICTIONARY_EXIST_SAME_NAME(1903, "字典存在相同名称"),
+    DICTIONARY_NOT_TYPE(1904, "字典类型未填写"),
+    DICTIONARY_TYPE_NOT_REPETITION(1905, "字典类型不能重复"),
+    DICTIONARY_TYPE_SYSTEM_NOT_DEL(1906, "系统字典不允许删除"),
     /**
      * 10000以后是业务的
      */

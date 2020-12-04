@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.*;
+import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.config.ResultEnum;
+import com.jinhe.modules.sys.dto.DictionaryDTO;
 import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.service.IDictionaryService;
 import io.swagger.annotations.Api;
@@ -14,6 +16,7 @@ import kotlin.jvm.internal.Ref;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -31,6 +34,7 @@ public class DictionaryController {
     @Autowired
     private IDictionaryService iDictionaryService;
 
+
     /**
      * 保存及更新单个字典
      */
@@ -40,11 +44,24 @@ public class DictionaryController {
 
         if (dictionary.getId() == null) {
             iDictionaryService.saveDictionary(dictionary);
-        }else{
+        } else {
             iDictionaryService.updateDictionary(dictionary);
         }
 
         return ResultUtil.success();
+    }
+
+    /**
+     * 查询字典获取自己全部列表
+     */
+    @ApiOperation(value = "查询字典获取自己全部列表", notes = "查询字典获取自己全部列表")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public Result<List<DictionaryDTO>> listAll(String types) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        QueryWrapper<Dictionary> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().in(Dictionary::getType, types.split(","));
+        List<Dictionary> li = iDictionaryService.list(queryWrapper);
+        List<DictionaryDTO> listTree = new TreeChildren().CreateTree(li, DictionaryDTO.class);
+        return ResultUtil.success(listTree);
     }
 
     /**
@@ -79,18 +96,22 @@ public class DictionaryController {
     @ApiOperation(value = "根据id删除字典", notes = "根据id删除字典")
     @RequestMapping(value = "remove/{id}", method = RequestMethod.DELETE)
     public Result remove(@PathVariable String id) {
-        int count = iDictionaryService.count(new QueryWrapper<Dictionary>().lambda().eq(Dictionary::getParentId, id));
-        if (count > 0) {
-            return ResultUtil.error(ResultEnum.DICTIONARY_EXIST_SUBSET_UNABLE_DEL);
-        } else {
-            Dictionary dictionary = iDictionaryService.getById(id);
-            if (dictionary == null) {
-                ResultUtil.error(ResultEnum.NOT_FOUND);
-            }
-            iDictionaryService.removeById(id);
-            iDictionaryService.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
-            return ResultUtil.success();
+//        int count = iDictionaryService.count(new QueryWrapper<Dictionary>().lambda().eq(Dictionary::getParentId, id));
+//        if (count > 0) {
+//            return ResultUtil.error(ResultEnum.DICTIONARY_EXIST_SUBSET_UNABLE_DEL);
+//        } else {
+//
+//        }
+        Dictionary dictionary = iDictionaryService.getById(id);
+        if (dictionary.getSystem()) {
+            ResultUtil.error(ResultEnum.DICTIONARY_TYPE_SYSTEM_NOT_DEL);
         }
+        if (dictionary == null) {
+            ResultUtil.error(ResultEnum.NOT_FOUND);
+        }
+        iDictionaryService.removeById(id);
+        iDictionaryService.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
+        return ResultUtil.success();
     }
 }
 

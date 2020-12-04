@@ -30,6 +30,8 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
         Dictionary dict = EntityUtil.INSTANCE.copyValOnlyDestNull(new Dictionary(), dictionary, excludeFields);
         if (dict.getParentId() != null) {
             {
+                Dictionary DictionaryParent = this.getById(dict.getParentId());
+                dict.setType(DictionaryParent.getType());
                 QueryWrapper<Dictionary> queryWrapper = new QueryWrapper<>();
                 queryWrapper.lambda().eq(Dictionary::getParentId, dict.getParentId()).eq(Dictionary::getValue, dict.getValue());
                 int count = this.count(queryWrapper);
@@ -47,6 +49,19 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
             }
             this.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
         } else {
+            // 字典类型不能为空
+            if (dict.getType() == null) {
+                return ResultEnum.DICTIONARY_NOT_TYPE;
+            }
+            //字典type不能重复目前值顶级重复判断子级自动获取顶级type
+            {
+                QueryWrapper<Dictionary> queryWrapper = new QueryWrapper<>();
+                queryWrapper.lambda().isNull(Dictionary::getParentId).eq(Dictionary::getType, dict.getType());
+                int count = this.count(queryWrapper);
+                if (count > 0) {
+                    return ResultEnum.DICTIONARY_TYPE_NOT_REPETITION;
+                }
+            }
             {
                 QueryWrapper<Dictionary> queryWrapper = new QueryWrapper<>();
                 queryWrapper.lambda().isNull(Dictionary::getParentId).eq(Dictionary::getValue, dict.getValue());
@@ -64,7 +79,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 }
             }
         }
-        this.saveOrUpdate(dictionary);
+        this.saveOrUpdate(dict);
         return ResultEnum.SUCCESS;
     }
 
@@ -112,7 +127,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 }
             }
         }
-        this.saveOrUpdate(dictionary);
+        this.saveOrUpdate(dict);
 
         return ResultEnum.SUCCESS;
     }
