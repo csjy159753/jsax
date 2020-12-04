@@ -7,6 +7,7 @@ import com.jinhe.common.util.ResultUtil;
 import com.jinhe.config.ConfigProperty;
 import com.jinhe.modules.demo.entity.Data;
 import com.jinhe.modules.demo.service.IDataService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,8 @@ import java.util.List;
  * @since 2020-12-04
  */
 @RestController
-@RequestMapping("/demo/data")
+@Api(tags = {"demo"})
+@RequestMapping("/demo/dataMock")
 public class DataController {
     @Autowired
     private IDataService iDataService;
