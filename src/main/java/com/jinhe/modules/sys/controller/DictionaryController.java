@@ -41,14 +41,15 @@ public class DictionaryController {
     @ApiOperation(value = "保存及更新单个字典", notes = "保存及更新单个字典")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     public Result saveOrUpdate(@RequestBody Dictionary dictionary) {
-
+        ResultEnum resultEnum = null;
         if (dictionary.getId() == null) {
-            iDictionaryService.saveDictionary(dictionary);
+            resultEnum = iDictionaryService.saveDictionary(dictionary);
+
         } else {
-            iDictionaryService.updateDictionary(dictionary);
+            resultEnum = iDictionaryService.updateDictionary(dictionary);
         }
 
-        return ResultUtil.success();
+        return ResultUtil.Info(resultEnum);
     }
 
     /**

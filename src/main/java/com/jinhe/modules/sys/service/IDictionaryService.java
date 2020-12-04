@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-11-19
  */
 public interface IDictionaryService extends IService<Dictionary> {
-    public static String[] excludeFields = new String[]{"id", "parentId", "levelInfo", "createTime", "updateTime", "isSystem", "status", "remark", "childrenNum"};
+    public static String[] excludeFields = new String[]{"levelInfo", "createTime", "updateTime", "isSystem", "status", "remark", "childrenNum"};
 
     /**
      * 保存字典

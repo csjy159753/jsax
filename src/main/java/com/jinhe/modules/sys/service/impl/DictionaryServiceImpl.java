@@ -49,6 +49,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
             }
             this.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
         } else {
+            dict.setLevelInfo(1);
             // 字典类型不能为空
             if (dict.getType() == null) {
                 return ResultEnum.DICTIONARY_NOT_TYPE;
