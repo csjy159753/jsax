@@ -161,6 +161,7 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
 
     @Override
     public boolean saveFile(List<FileStoreDTO> list, T t, String type) {
+        t.getClass().getName();
         return false;
     }
 

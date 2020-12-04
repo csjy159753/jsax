@@ -74,6 +74,17 @@ public class SysRegionController {
         if (sysregion == null) {
             ResultUtil.error();
         }
+        if (sysregion.getCode() == null) {
+            return ResultUtil.error(ResultEnum.REGION_CODE_NOT_FOUND);
+        }
+        if (sysregion.getId() == null) {
+            QueryWrapper<SysRegion> queryWrapper = new QueryWrapper<>();
+            queryWrapper.lambda().eq(SysRegion::getCode, sysregion.getCode());
+            SysRegion sysRegion = sysRegionService.getBaseMapper().selectOne(queryWrapper);
+            if (sysRegion != null) {
+                return ResultUtil.error(ResultEnum.REGION_EXIST_CODE);
+            }
+        }
         try {
             sysRegionService.saveOrUpdate(sysregion);
             if (sysregion.getParentCode() != null) {

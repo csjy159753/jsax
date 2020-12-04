@@ -19,9 +19,10 @@
         LEFT JOIN sys_role sr ON sr.id = sor.role_id
         WHERE
         so.type = #{type}
-        <if test="organId !=null and   organId !=''">
-            and so.parent_id = #{organId}
-        </if>
+        <choose>
+            <when test="organId !=null and   organId !=''"> and so.parent_id = #{organId}</when>
+            <otherwise> and so.parent_id IS NULL</otherwise>
+        </choose>
         GROUP BY
         so.id
     </select>

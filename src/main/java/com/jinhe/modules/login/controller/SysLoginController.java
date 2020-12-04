@@ -84,8 +84,11 @@ public class SysLoginController {
         }
 
         SysLoginDTO sysLogin = Mapper.ModelToModel(SysUser, SysLoginDTO.class);
-        if (sysLogin.getState() == 3 || sysLogin.getState() == 2) {
-            return ResultUtil.error(ResultEnum.OBSOLETE);
+        if (sysLogin.getState() == 3) {
+            return ResultUtil.error(ResultEnum.USER_OBSOLETE);
+        }
+        if (sysLogin.getState() == 2) {
+            return ResultUtil.error(ResultEnum.USER_AUDIT);
         }
         HashMap<String, Object> map = new HashMap<>();
         map.put(SystemType.TYPE, SystemType.LoginType.USER);
@@ -144,8 +147,11 @@ public class SysLoginController {
         }
 
         SysLoginDTO sysLogin = Mapper.ModelToModel(SysUser, SysLoginDTO.class);
-        if (sysLogin.getState() == 3 || sysLogin.getState() == 2) {
-            return ResultUtil.error(ResultEnum.OBSOLETE);
+        if (sysLogin.getState() == 3) {
+            return ResultUtil.error(ResultEnum.USER_OBSOLETE);
+        }
+        if (sysLogin.getState() == 2) {
+            return ResultUtil.error(ResultEnum.USER_AUDIT);
         }
         HashMap<String, Object> map = new HashMap<>();
         map.put(SystemType.TYPE, SystemType.LoginType.USER);

@@ -10,7 +10,7 @@ public class UserInfo {
     private int NormalizedUsernameLength = 3;
 
     public boolean CheckPassword(String passwordHash) {
-        boolean flag = passwordHash != null
+        boolean flag = passwordHash == null
                 || "".equals(passwordHash.trim())
                 || passwordHash.contains("012")
                 || passwordHash.contains("123")
@@ -38,7 +38,7 @@ public class UserInfo {
         if ((NormalizedUsername == null || "".equals(NormalizedUsername.trim()))) {
             return ResultEnum.USER_ACCOUNT_OR_PASSWORD_ISNULL;
         }
-        if (NormalizedUsername.length() >= NormalizedUsernameLength) {
+        if (NormalizedUsername.length() <= NormalizedUsernameLength) {
             return ResultEnum.USER_NAME_LENGTH_ERROR;
         }
         return ResultEnum.USER_NAME_CORRECT;

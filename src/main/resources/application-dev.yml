@@ -61,7 +61,7 @@ file:
     #水印
     watermark:
       path: uploadFile/watermark/sytp.png
-      enabled: true
+      enabled: false
     #图片压缩
     img-compression:
       modified: 800

@@ -83,7 +83,6 @@ public class DuplicateSubmitAspect {
 
     public void doAfterReturning(JoinPoint joinPoint) {
         // 处理完请求，返回内容
-        log.info("出来方法：");
         String uri = request.getRequestURI();
         if (request != null && request.getAttribute(SystemType.USER_ID) != null
                 && (uri.toLowerCase().contains(SystemType.SAVE)
@@ -91,6 +90,7 @@ public class DuplicateSubmitAspect {
                 || uri.toLowerCase().contains(SystemType.REMOVE))
                 && !uri.toLowerCase().contains(SystemType.SYS_OPERATOR_LOG)
         ) {
+            log.info("进入重复提交验证：");
             Object[] args = joinPoint.getArgs();
             String key = getDuplicateTokenKey(joinPoint);
             Object t = request.getSession().getAttribute(key);

@@ -79,6 +79,17 @@ public class SysUserController {
         sysUserDto.setId(StringUtils.getGUID());
         sysUser = Mapper.ModelToModel(sysUserDto, SysUser.class);
         iSysUserService.save(sysUser);
+        if(sysUserDto.getOrganIds()==null||sysUserDto.getOrganIds().size()==0){
+            return ResultUtil.error(ResultEnum.INSERT_USER_ORGAN_ERROR);
+        }
+        List<SysUserOrgan> organList = new ArrayList<>();
+        for (String organId : sysUserDto.getOrganIds()) {
+            SysUserOrgan sysUserOrgan = new SysUserOrgan();
+            sysUserOrgan.setOrganId(organId);
+            sysUserOrgan.setUserId(sysUserDto.getId());
+            organList.add(sysUserOrgan);
+        }
+        iSysUserOrganService.saveBatch(organList);
         return ResultUtil.success();
     }
 
@@ -89,7 +100,7 @@ public class SysUserController {
      * @return
      */
     @ApiOperation(value = "重置密码", notes = "重置密码")
-    @RequestMapping(value = "ModifyByOrganRole", method = RequestMethod.PUT)
+    @RequestMapping(value = "updatePassword", method = RequestMethod.PUT)
     public Result updatePassword(@RequestBody SysPasswordDTO from) {
         UserInfo userInfo = new UserInfo();
         // 密码复杂度 10位4选3

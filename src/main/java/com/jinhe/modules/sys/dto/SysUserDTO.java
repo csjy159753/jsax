@@ -9,6 +9,17 @@ import java.util.List;
  * @author Administrator
  */
 public class SysUserDTO extends SysUser {
+    @ApiModelProperty(value = "id,value", name = "organId", example = "机构名称")
+    private String organs;
+
+    public String getOrgans() {
+        return organs;
+    }
+
+    public void setOrgans(String organs) {
+        this.organs = organs;
+    }
+
     /**
      * 机构集合
      */

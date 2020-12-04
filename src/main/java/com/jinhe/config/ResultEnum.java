@@ -21,6 +21,11 @@ public enum ResultEnum {
     DUPLICATE_SUBMIT(109, "表单重复提交"),
     NETWORK_ERROR(19, "新增失败,请检查网络是否正常"),
 
+    /**
+     * 用户模块
+     */
+    USER_OBSOLETE(1001, "用户被禁用"),
+    USER_AUDIT(1002, "用户审核中"),
 
     /**
      * 角色模块
@@ -51,6 +56,8 @@ public enum ResultEnum {
     REGION_EXIST_SUBSET_UNABLE_DEL(1303, "行政区存在子行政区无法删除"),
     REGION_UPDATE_ERROR(1304, "更新行政区失败"),
     REGION_INSERT_ERROR(1305, "新增行政区失败"),
+    REGION_EXIST_CODE(1306, "行政编码已存在不允许修改"),
+    REGION_CODE_NOT_FOUND(1306, "行政编码已存在不允许修改"),
     /**
      * 文件上传
      */

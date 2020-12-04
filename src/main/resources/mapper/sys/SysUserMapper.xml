@@ -12,7 +12,7 @@
         WHEN so.id IS NOT NULL THEN
         ( concat( so.id, '_', so.`name` ) ) ELSE ''
         END
-        ) AS organIds
+        ) AS organs
         FROM
         sys_user su
         INNER JOIN sys_user_organ suo ON suo.user_id = su.id
