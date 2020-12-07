@@ -128,6 +128,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 }
             }
         }
+
         this.saveOrUpdate(dict);
 
         return ResultEnum.SUCCESS;

@@ -42,7 +42,7 @@ spring:
     static-locations: file:./static/,file:./public/
   # 环境 dev|test|prod
   profiles:
-    active: dev
+    active: prod
   servlet:
     multipart:
       max-file-size: 100MB
@@ -108,7 +108,7 @@ com:
       enable-excel-file: true
       enable-sheet-info: true
       enable-response-excel: true
-#http://localhost:8080/actuator
+#http://localhost:8085/actuator
 management:
   endpoints:
     web:
