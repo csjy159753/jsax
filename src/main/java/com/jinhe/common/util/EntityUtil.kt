@@ -61,10 +61,10 @@ object EntityUtil {
             kProperty.isAccessible = true
             destValTmp = kProperty.call(dest)
             srcValTmp = kProperty.call(src)
-            if ((destValTmp == null && srcValTmp == null) || (destValTmp == srcValTmp)) continue
+            if ((srcValTmp == null) || (destValTmp == srcValTmp)) continue
             if (copyType == CopyType.ALL ||
-                    (copyType == CopyType.ONLY_DEST_NULL && destValTmp == null) ||
-                    (copyType == CopyType.ONLY_DEST_EMPTY && ((destValTmp == null) || (destValTmp is String && "" == destValTmp.trim())))
+                    (copyType == CopyType.ONLY_DEST_NULL) ||
+                    (copyType == CopyType.ONLY_DEST_EMPTY)
             ) {
                 if (destFieldMap == null) {
                     destFieldMap = declareFields(jClass)
@@ -101,10 +101,10 @@ object EntityUtil {
             srcKProperty.isAccessible = true
             destValTmp = destKProperty?.call(dest)
             srcValTmp = srcKProperty?.call(src)
-            if ((destValTmp == null && srcValTmp == null) || (destValTmp == srcValTmp)) continue
+            if ((srcValTmp == null) || (destValTmp == srcValTmp)) continue
             if (copyType == CopyType.ALL ||
-                    (copyType == CopyType.ONLY_DEST_NULL && destValTmp == null) ||
-                    (copyType == CopyType.ONLY_DEST_EMPTY && ((destValTmp == null) || (destValTmp is String && "" == destValTmp.trim())))
+                    (copyType == CopyType.ONLY_DEST_NULL) ||
+                    (copyType == CopyType.ONLY_DEST_EMPTY)
             ) {
                 /**
                  * 赋值

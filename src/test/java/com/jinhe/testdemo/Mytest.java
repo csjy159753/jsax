@@ -1,5 +1,6 @@
 package com.jinhe.testdemo;
 
+import com.jinhe.modules.system.dto.FileStoreDTO;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,17 +13,20 @@ public class Mytest {
 
     @Test
     public void test1() {
-        Integer weeknum = 4;
-        Date today = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(today);
-        int i = calendar.get(Calendar.DAY_OF_WEEK);
-        i=(i-1+7)%7;
-        //根据周期名字判断当天日期
-        int num = (weeknum - i+7) % 7;
-        calendar.add(Calendar.DATE,num);
-        Date time = calendar.getTime();
-        System.out.println(time);
+        FileStoreDTO fileStoreDTO = new FileStoreDTO();
+        String dd = fileStoreDTO.getClass().getName();
+        System.out.println(dd);
+//        Integer weeknum = 4;
+//        Date today = new Date();
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(today);
+//        int i = calendar.get(Calendar.DAY_OF_WEEK);
+//        i=(i-1+7)%7;
+//        //根据周期名字判断当天日期
+//        int num = (weeknum - i+7) % 7;
+//        calendar.add(Calendar.DATE,num);
+//        Date time = calendar.getTime();
+//        System.out.println(time);
     }
 
     @Test
@@ -32,7 +36,7 @@ public class Mytest {
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
         byte[] bytes = new byte[1024];
         int len = -1;
-        while ((len=bufferedInputStream.read(bytes))!=-1){
+        while ((len = bufferedInputStream.read(bytes)) != -1) {
             int length = bytes.length;
             fileOutputStream.write(bytes);
         }
@@ -44,7 +48,7 @@ public class Mytest {
     @Test
     public void integer() {
         Integer a = null;
-        int b =a-3;
+        int b = a - 3;
         System.out.println(b);
     }
 
