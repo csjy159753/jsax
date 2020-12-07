@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.*;
-import com.jinhe.config.LongSwingConstants;
+import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.sys.dto.UserInfoDTO;
 import com.jinhe.modules.sys.service.ISysUserService;

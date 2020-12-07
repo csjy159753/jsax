@@ -3,7 +3,7 @@ package com.jinhe.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
-import com.jinhe.config.LongSwingConstants;
+import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.config.ResultEnum;

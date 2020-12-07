@@ -3,7 +3,7 @@ package com.jinhe.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
-import com.jinhe.config.LongSwingConstants;
+import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.MapTree;
 import com.jinhe.config.ResultEnum;
@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 

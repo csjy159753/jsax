@@ -1,6 +1,6 @@
 package com.jinhe.modules.system.service.impl;
 
-import com.jinhe.config.LongSwingConstants;
+import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.modules.sys.dao.SysUserMapper;
 import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysResource;

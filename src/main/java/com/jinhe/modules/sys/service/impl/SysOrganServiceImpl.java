@@ -2,7 +2,7 @@ package com.jinhe.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.util.StringUtils;
-import com.jinhe.config.LongSwingConstants;
+import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.config.ResultEnum;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.sys.dao.SysOrganMapper;
@@ -10,8 +10,6 @@ import com.jinhe.modules.sys.service.ISysOrganService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
@@ -70,6 +68,16 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
             SysOrgan sysOrgan = this.getBaseMapper().selectById(model.getParentId());
             model.setDepth(sysOrgan.getDepth() + LongSwingConstants.Number.ONE);
         }
+        //更新path
+        QueryWrapper<SysOrgan> queryWrapperPath = new QueryWrapper();
+        queryWrapperPath.lambda().eq(SysOrgan::getParentId, model.getId());
+        SysOrgan SysOrganParent = this.getBaseMapper().selectOne(queryWrapper);
+        if (StringUtils.isEmpty(SysOrganParent.getPath())) {
+            model.setPath(SysOrganParent.getId());
+        } else {
+            model.setPath(SysOrganParent.getPath() + "," + SysOrganParent.getId());
+        }
+        model.setChildrenNum(count);
         this.saveOrUpdate(model);
         return false;
     }

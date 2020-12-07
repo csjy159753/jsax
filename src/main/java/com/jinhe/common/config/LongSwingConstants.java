@@ -1,4 +1,4 @@
-package com.jinhe.config;
+package com.jinhe.common.config;
 
 /**
  * java常量类
@@ -18,6 +18,7 @@ public interface LongSwingConstants {
      * 管理员类型
      */
     public static final Integer USER_TYPE_ADMIN = 98;
+    public static final String comma = ",";
 
     public class Number {
         public static final Integer ZERO = 0;

@@ -2,9 +2,8 @@ package com.jinhe.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.util.StringUtils;
-import com.jinhe.config.LongSwingConstants;
+import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.config.ResultEnum;
-import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.jinhe.modules.sys.dao.SysRegionMapper;
 import com.jinhe.modules.sys.service.ISysRegionService;
