@@ -41,7 +41,8 @@ public class WeChatController {
             SimpleClientHttpRequestFactory schr = new SimpleClientHttpRequestFactory();
             ClientHttpRequest chr = schr.createRequest(uri, HttpMethod.POST);
             ClientHttpResponse res = chr.execute();
-            InputStream is = res.getBody(); //获得返回数据,注意这里是个流
+            //获得返回数据,注意这里是个流
+            InputStream is = res.getBody();
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
             while ((str = br.readLine()) != null) {
