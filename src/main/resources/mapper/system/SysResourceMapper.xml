@@ -29,7 +29,7 @@
         LEFT JOIN sys_resource_item sri ON sri.id = spi.resource_item_id
         LEFT JOIN sys_organ_role sor ON sor.role_id = sp.role_id
         LEFT JOIN sys_user_organ suo ON suo.organ_id = sor.organ_id
-        <if test=" userId == null or userId ==''">
+        <if test=" userId != null and  userId !=''">
             WHERE suo.user_id=#{userId}
         </if>
         GROUP BY
