@@ -37,7 +37,8 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     @Override
     public void saveByRoleId(String roleId, List<PermissionItemDTO> permissionItem) {
         //----开始前先删除改角色菜单使用下面新的菜单设置了主外键级联删除 删除菜单授权item自定删除-----
-        QueryWrapper queryWrapper = new QueryWrapper();
+        QueryWrapper<SysPermission> queryWrapper = new QueryWrapper();
+        queryWrapper.lambda().eq(SysPermission::getRoleId, roleId);
         this.remove(queryWrapper);
         if (permissionItem.size() > 0) {
             //----保存新菜单信息--------------------------
