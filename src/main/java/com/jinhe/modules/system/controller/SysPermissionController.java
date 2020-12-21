@@ -1,14 +1,10 @@
 package com.jinhe.modules.system.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultUtil;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.system.dto.PermissionItemDTO;
-import com.jinhe.modules.system.dto.SysResourceDTO;
-import com.jinhe.modules.system.entity.SysPermission;
 import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.service.ISysPermissionService;
 import com.jinhe.modules.system.service.ISysRoleService;
@@ -19,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -49,12 +44,12 @@ public class SysPermissionController {
     public Result saveOrUpdateByRoleId(@PathVariable String roleId, @RequestBody List<PermissionItemDTO> permissionItem) {
         SysRole sysRole = iSysRoleService.getById(roleId);
         if (sysRole == null) {
-            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
+            return ResultUtil.error(SystemResultEnum.ROLE_NOT_FOUND);
         }
         if (permissionItem != null) {
             iSysPermissionService.saveByRoleId(roleId, permissionItem);
         } else {
-            return ResultUtil.error(ResultEnum.ROLE_INSERT_PERMISSIONS);
+            return ResultUtil.error(SystemResultEnum.ROLE_INSERT_PERMISSIONS);
         }
         return ResultUtil.success();
     }

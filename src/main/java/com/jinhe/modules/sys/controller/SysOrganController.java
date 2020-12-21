@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.*;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.sys.dto.SysOrganAddDTO;
 import com.jinhe.modules.sys.dto.SysOrganRoleDTO;
 import com.jinhe.modules.sys.service.ISysOrganRoleService;
@@ -63,7 +63,7 @@ public class SysOrganController {
 
         if (sysOrganAddDTO.getType() != null && !sysOrganAddDTO.getType().equals(LongSwingConstants.Number.ONE)
                 && !sysOrganAddDTO.getType().equals(LongSwingConstants.Number.ZERO)) {
-            return ResultUtil.error(ResultEnum.ORGAN_TYPE_ERROR);
+            return ResultUtil.error(SystemResultEnum.ORGAN_TYPE_ERROR);
         }
         SysOrgan sysOrgan = new SysOrgan();
         sysOrgan = EntityUtil.INSTANCE.copyValOnlyDestEmpty(sysOrgan, sysOrganAddDTO);
@@ -72,7 +72,7 @@ public class SysOrganController {
             queryWrapper.lambda().eq(SysOrgan::getType, sysOrgan.getType());
             int count = iSysOrganService.count(queryWrapper);
             if (count > 0) {
-                return ResultUtil.error(ResultEnum.ORGAN_TAG_REPEAT);
+                return ResultUtil.error(SystemResultEnum.ORGAN_TAG_REPEAT);
             }
         }
 
@@ -133,16 +133,16 @@ public class SysOrganController {
     public Result remove(@PathVariable String id, @PathVariable String userId) {
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser == null || !LongSwingConstants.USER_TYPE_ADMIN.equals(sysUser.getType())) {
-            return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
+            return ResultUtil.error(SystemResultEnum.RESOURCE_PERMISSION_DENIED);
         }
         SysOrgan sysOrgan = iSysOrganService.getById(id);
         if (sysOrgan == null) {
-            return ResultUtil.error(ResultEnum.ORGAN_NOT_FOUND);
+            return ResultUtil.error(SystemResultEnum.ORGAN_NOT_FOUND);
         }
         QueryWrapper<SysOrgan> sysOrganQueryWrapper = new QueryWrapper<>();
         sysOrganQueryWrapper.lambda().eq(SysOrgan::getParentId, id);
         if (iSysOrganService.count(sysOrganQueryWrapper) > 0) {
-            return ResultUtil.error(ResultEnum.ORGAN_EXIST_SUBSET_UNABLE_DEL);
+            return ResultUtil.error(SystemResultEnum.ORGAN_EXIST_SUBSET_UNABLE_DEL);
         }
         iSysOrganService.removeById(id);
         iSysOrganService.saveOrUpdateChildrenNumAndLevel(sysOrgan.getParentId());

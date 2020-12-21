@@ -1,9 +1,10 @@
 package com.jinhe.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.common.config.LongSwingConstants;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.jinhe.modules.sys.dao.SysRegionMapper;
 import com.jinhe.modules.sys.service.ISysRegionService;
@@ -40,7 +41,7 @@ public class SysRegionServiceImpl extends ServiceImpl<SysRegionMapper, SysRegion
         if (lis != null && lis.size() > 0) {
             model = lis.get(0);
         } else {
-            return ResultEnum.NOT_FOUND;
+            return SystemResultEnum.NOT_FOUND;
         }
 
         //#更新数量
@@ -59,14 +60,14 @@ public class SysRegionServiceImpl extends ServiceImpl<SysRegionMapper, SysRegion
             model.setLevelInfo(sysRegion.getLevelInfo() + LongSwingConstants.Number.ONE);
         }
         this.saveOrUpdate(model);
-        return ResultEnum.SUCCESS;
+        return SystemResultEnum.SUCCESS;
     }
 
     @Override
     public ResultEnum saveOrUpdateChildrenNumAndLevel(SysRegion from) {
         SysRegion model = this.getById(from.getId());
         if (model == null) {
-            return ResultEnum.NOT_FOUND;
+            return SystemResultEnum.NOT_FOUND;
         }
         //#更新数量
         QueryWrapper<SysRegion> queryWrapper = new QueryWrapper();
@@ -84,6 +85,6 @@ public class SysRegionServiceImpl extends ServiceImpl<SysRegionMapper, SysRegion
             model.setLevelInfo(sysRegion.getLevelInfo() + LongSwingConstants.Number.ONE);
         }
         this.saveOrUpdate(model);
-        return ResultEnum.SUCCESS;
+        return SystemResultEnum.SUCCESS;
     }
 }

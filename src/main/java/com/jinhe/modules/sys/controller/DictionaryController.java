@@ -4,15 +4,15 @@ package com.jinhe.modules.sys.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.TreeChildren;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.sys.dto.DictionaryDTO;
 import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.service.IDictionaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kotlin.jvm.internal.Ref;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -105,7 +105,7 @@ public class DictionaryController {
 //        }
         Dictionary dictionary = iDictionaryService.getById(id);
         if (dictionary.getSystem()) {
-            ResultUtil.error(ResultEnum.DICTIONARY_TYPE_SYSTEM_NOT_DEL);
+            ResultUtil.error(SystemResultEnum.DICTIONARY_TYPE_SYSTEM_NOT_DEL);
         }
         if (dictionary == null) {
             ResultUtil.error(ResultEnum.NOT_FOUND);

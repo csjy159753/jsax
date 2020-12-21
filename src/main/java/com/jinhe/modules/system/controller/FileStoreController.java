@@ -1,9 +1,8 @@
 package com.jinhe.modules.system.controller;
 
 
-import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.util.Result;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.config.ConfigProperty;
 import com.jinhe.modules.system.dto.FileStoreDTO;
@@ -58,7 +57,7 @@ public class FileStoreController {
     @RequestMapping(value = "uploadFile", method = RequestMethod.POST, consumes = "multipart/*", headers = "content-type=multipart/form-data")
     public Result<List<FileStoreDTO>> uploadFile(@RequestParam("file") MultipartFile... file) {
         if (file == null || file.length == 0) {
-            return ResultUtil.error(ResultEnum.FILE_NOT_FOUND);
+            return ResultUtil.error(SystemResultEnum.FILE_NOT_FOUND);
         }
         List<FileStoreType> listFileStoreTypefilter = new ArrayList<>();
         for (MultipartFile f : file) {
@@ -74,13 +73,13 @@ public class FileStoreController {
                     && d.getIsUse() == 1
                     && d.getExt().equals(fileSuffix)).findFirst().get();
             if (fileStoreType == null) {
-                return ResultUtil.error(ResultEnum.FILE_NOT_FOUND);
+                return ResultUtil.error(SystemResultEnum.FILE_NOT_FOUND);
             }
             listFileStoreTypefilter.add(fileStoreType);
         }
         List<FileStoreDTO> fileStoreDtos = fileStoreService.upLoadFiles(file, listFileStoreTypefilter);
         if (fileStoreDtos == null || fileStoreDtos.isEmpty()) {
-            return ResultUtil.error(ResultEnum.FILE_UPLOAD_ERROR);
+            return ResultUtil.error(SystemResultEnum.FILE_UPLOAD_ERROR);
         } else {
             return ResultUtil.success(fileStoreDtos);
         }

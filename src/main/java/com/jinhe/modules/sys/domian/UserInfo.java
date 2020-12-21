@@ -1,6 +1,7 @@
 package com.jinhe.modules.sys.domian;
 
-import com.jinhe.config.ResultEnum;
+import com.jinhe.common.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 
 /**
  * @author Administrator
@@ -36,11 +37,11 @@ public class UserInfo {
 
     public ResultEnum NormalizedUsername(String NormalizedUsername) {
         if ((NormalizedUsername == null || "".equals(NormalizedUsername.trim()))) {
-            return ResultEnum.USER_ACCOUNT_OR_PASSWORD_ISNULL;
+            return SystemResultEnum.USER_ACCOUNT_OR_PASSWORD_ISNULL;
         }
         if (NormalizedUsername.length() <= NormalizedUsernameLength) {
-            return ResultEnum.USER_NAME_LENGTH_ERROR;
+            return SystemResultEnum.USER_NAME_LENGTH_ERROR;
         }
-        return ResultEnum.USER_NAME_CORRECT;
+        return SystemResultEnum.USER_NAME_CORRECT;
     }
 }

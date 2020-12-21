@@ -1,9 +1,10 @@
 package com.jinhe.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.common.config.LongSwingConstants;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.sys.dao.SysOrganMapper;
 import com.jinhe.modules.sys.service.ISysOrganService;
@@ -37,9 +38,9 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
     public ResultEnum saveOrUpdateChildrenNumAndLevel(String id) {
         SysOrgan model = this.getById(id);
         if (saveOrUpdateNumLevel(model)) {
-            return ResultEnum.NOT_FOUND;
+            return SystemResultEnum.NOT_FOUND;
         }
-        return ResultEnum.SUCCESS;
+        return SystemResultEnum.SUCCESS;
     }
 
 
@@ -47,9 +48,9 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
     public ResultEnum saveOrUpdateChildrenNumAndLevel(SysOrgan dictionary) {
         SysOrgan model = this.getById(dictionary.getId());
         if (saveOrUpdateNumLevel(model)) {
-            return ResultEnum.NOT_FOUND;
+            return SystemResultEnum.NOT_FOUND;
         }
-        return ResultEnum.SUCCESS;
+        return SystemResultEnum.SUCCESS;
     }
 
     private boolean saveOrUpdateNumLevel(SysOrgan model) {

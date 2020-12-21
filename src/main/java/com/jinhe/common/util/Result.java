@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author Administrator
  */
-public class Result<T>    {
+public class Result<T extends Object> {
 
     private static final String CODE = "code";
     private static final Object MSG = "msg";
@@ -16,6 +16,7 @@ public class Result<T>    {
     private Integer code = 200;
     private String msg = "操作成功";
     private T data = null;
+
     public Integer getCode() {
         return code;
     }

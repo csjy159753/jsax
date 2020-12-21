@@ -6,7 +6,7 @@ import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.MapTree;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysResource;
@@ -73,7 +73,7 @@ public class SysResourceController {
             List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(List);
             return ResultUtil.success(listMap);
         } else {
-            return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
+            return ResultUtil.error(SystemResultEnum.RESOURCE_PERMISSION_DENIED);
         }
     }
 
@@ -98,7 +98,7 @@ public class SysResourceController {
             ISysResService.saveOrUpdate(sysResource);
         } catch (Exception e) {
             log.error("saveOrUpdate", e.getMessage());
-            return ResultUtil.error(ResultEnum.RESOURCE_SAVE_UPDATE_ERROR);
+            return ResultUtil.error(SystemResultEnum.RESOURCE_SAVE_UPDATE_ERROR);
         }
         return ResultUtil.success();
     }
@@ -116,7 +116,7 @@ public class SysResourceController {
             return ResultUtil.success(list);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResultUtil.error(ResultEnum.RESOURCEITEM_SELECT_NOT_FOUND);
+            return ResultUtil.error(SystemResultEnum.RESOURCEITEM_SELECT_NOT_FOUND);
         }
     }
 
@@ -127,7 +127,7 @@ public class SysResourceController {
             iSysResourceItemService.saveOrUpdate(sysRes);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResultUtil.error(ResultEnum.RESOURCEITEM_INSERT_ERROR);
+            return ResultUtil.error(SystemResultEnum.RESOURCEITEM_INSERT_ERROR);
         }
         return ResultUtil.success();
     }
@@ -140,7 +140,7 @@ public class SysResourceController {
             sysResourceItem = iSysResourceItemService.getBaseMapper().selectById(id);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResultUtil.error(ResultEnum.RESOURCEITEM_SELECT_NOT_FOUND);
+            return ResultUtil.error(SystemResultEnum.RESOURCEITEM_SELECT_NOT_FOUND);
         }
         return ResultUtil.success(sysResourceItem);
     }
@@ -162,7 +162,7 @@ public class SysResourceController {
             iSysResourceItemService.removeById(id);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResultUtil.error(ResultEnum.RESOURCEITEM_DELETE_ERROR);
+            return ResultUtil.error(SystemResultEnum.RESOURCEITEM_DELETE_ERROR);
         }
         return ResultUtil.success();
     }

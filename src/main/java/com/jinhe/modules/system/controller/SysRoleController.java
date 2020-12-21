@@ -6,7 +6,7 @@ import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.Tree.TreeChildren;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysRoleChDTO;
@@ -58,7 +58,7 @@ public class SysRoleController {
 
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser == null || (!LongSwingConstants.USER_TYPE_ROOT_ADMIN.equals(sysUser.getType()) && !LongSwingConstants.USER_TYPE_ADMIN.equals(sysUser.getType()))) {
-            return ResultUtil.error(ResultEnum.RESOURCE_PERMISSION_DENIED);
+            return ResultUtil.error(SystemResultEnum.RESOURCE_PERMISSION_DENIED);
         }
         List<SysRole> listRole = sysRoleService.list();
         List<SysRoleChDTO> lik = new TreeChildren().CreateTree(listRole, SysRoleChDTO.class);
@@ -97,7 +97,7 @@ public class SysRoleController {
             List<SysRole> listRole = sysRoleService.list(queryWrapper);
             return ResultUtil.success(listRole);
         } catch (Exception e) {
-            return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
+            return ResultUtil.error(SystemResultEnum.ROLE_NOT_FOUND);
         }
     }
 
@@ -115,7 +115,7 @@ public class SysRoleController {
             queryWrapper.eq("tag", sysRole.getTag());
             int count = sysRoleService.count(queryWrapper);
             if (count > 0) {
-                return ResultUtil.error(ResultEnum.ROLE_TAG_REPEAT);
+                return ResultUtil.error(SystemResultEnum.ROLE_TAG_REPEAT);
             }
         }
 
@@ -123,7 +123,7 @@ public class SysRoleController {
             sysRoleService.saveOrUpdate(sysRole);
         } catch (Exception e) {
 
-            return ResultUtil.error(ResultEnum.ROLE_UPDATE_ERROR);
+            return ResultUtil.error(SystemResultEnum.ROLE_UPDATE_ERROR);
         }
         return ResultUtil.success();
     }
@@ -143,15 +143,15 @@ public class SysRoleController {
         try {
             sysRole = sysRoleService.getBaseMapper().selectById(id);
             if (sysRole == null) {
-                return ResultUtil.error(ResultEnum.ROLE_NOT_FOUND);
+                return ResultUtil.error(SystemResultEnum.ROLE_NOT_FOUND);
             }
             if (sysRoleService.getBaseMapper().selectCount(sysRoleQueryWrapper) > 0) {
-                return ResultUtil.error(ResultEnum.ROLE_EXIST_SUBSET_UNABLE_DEL);
+                return ResultUtil.error(SystemResultEnum.ROLE_EXIST_SUBSET_UNABLE_DEL);
             }
             sysRoleService.removeById(id);
         } catch (Exception e) {
             log.error("DeleteRole", e.getMessage());
-            return ResultUtil.error(ResultEnum.ROLE_ASSOCIATED_USERS);
+            return ResultUtil.error(SystemResultEnum.ROLE_ASSOCIATED_USERS);
         }
         return ResultUtil.success();
     }

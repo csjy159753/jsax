@@ -5,7 +5,7 @@ import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.config.JwtConfig;
 import com.jinhe.common.config.SystemType;
 import com.jinhe.common.util.*;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.login.dto.SysLogin;
 import com.jinhe.modules.login.dto.SysLoginDTO;
 import com.jinhe.modules.sys.service.ISysUserService;
@@ -58,7 +58,7 @@ public class SysLoginController {
         userQueryWrapper.eq("NORMALIZED_USERNAME", login.getUserName());
         SysUser SysUser = iSysUserService.getBaseMapper().selectOne(userQueryWrapper);
         if (null == SysUser) {
-            return ResultUtil.error(ResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
+            return ResultUtil.error(SystemResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
         }
         if (SysUser.getLockOutTime() != null) {
             if (SysUser.getLockOutTime().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() > System.currentTimeMillis()) {
@@ -76,7 +76,7 @@ public class SysLoginController {
                 SysUser.setLockOutTime(LocalDateTime.now().withMinute(minutes));
             }
             iSysUserService.updateById(SysUser);
-            return ResultUtil.error(ResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
+            return ResultUtil.error(SystemResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
         } else {
             SysUser.setAccessFailedCount(0);
             SysUser.setLockOutTime(null);
@@ -85,10 +85,10 @@ public class SysLoginController {
 
         SysLoginDTO sysLogin = Mapper.ModelToModel(SysUser, SysLoginDTO.class);
         if (sysLogin.getState() == 3) {
-            return ResultUtil.error(ResultEnum.USER_OBSOLETE);
+            return ResultUtil.error(SystemResultEnum.USER_OBSOLETE);
         }
         if (sysLogin.getState() == 2) {
-            return ResultUtil.error(ResultEnum.USER_AUDIT);
+            return ResultUtil.error(SystemResultEnum.USER_AUDIT);
         }
         HashMap<String, Object> map = new HashMap<>();
         map.put(SystemType.TYPE, SystemType.LoginType.USER);
@@ -118,7 +118,7 @@ public class SysLoginController {
         userQueryWrapper.eq("NORMALIZED_USERNAME", login.getUserName());
         SysUser SysUser = iSysUserService.getBaseMapper().selectOne(userQueryWrapper);
         if (null == SysUser) {
-            return ResultUtil.error(ResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
+            return ResultUtil.error(SystemResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
         }
         if (SysUser.getLockOutTime() != null) {
             if (SysUser.getLockOutTime().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() > System.currentTimeMillis()) {
@@ -139,7 +139,7 @@ public class SysLoginController {
                 SysUser.setLockOutTime(LocalDateTime.now().withMinute(5));
             }
             iSysUserService.updateById(SysUser);
-            return ResultUtil.error(ResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
+            return ResultUtil.error(SystemResultEnum.ACCOUNT_OR_PASSWORD_ERROR);
         } else {
             SysUser.setAccessFailedCount(0);
             SysUser.setLockOutTime(null);
@@ -148,10 +148,10 @@ public class SysLoginController {
 
         SysLoginDTO sysLogin = Mapper.ModelToModel(SysUser, SysLoginDTO.class);
         if (sysLogin.getState() == 3) {
-            return ResultUtil.error(ResultEnum.USER_OBSOLETE);
+            return ResultUtil.error(SystemResultEnum.USER_OBSOLETE);
         }
         if (sysLogin.getState() == 2) {
-            return ResultUtil.error(ResultEnum.USER_AUDIT);
+            return ResultUtil.error(SystemResultEnum.USER_AUDIT);
         }
         HashMap<String, Object> map = new HashMap<>();
         map.put(SystemType.TYPE, SystemType.LoginType.USER);

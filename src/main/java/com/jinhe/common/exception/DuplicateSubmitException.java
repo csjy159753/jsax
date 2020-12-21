@@ -1,6 +1,7 @@
 package com.jinhe.common.exception;
 
-import com.jinhe.config.ResultEnum;
+import com.jinhe.common.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 
 /**
  * 重复提交异常
@@ -11,7 +12,7 @@ public class DuplicateSubmitException extends RuntimeException {
 
     private String msg;
     private int code = 500;
-    private ResultEnum resultEnum;
+    private ResultEnum ResultEnum;
 
     public DuplicateSubmitException(String msg) {
         super(msg);
@@ -27,9 +28,9 @@ public class DuplicateSubmitException extends RuntimeException {
         this.code = code;
     }
 
-    public DuplicateSubmitException(ResultEnum resultEnum) {
-        super((String) resultEnum.getMsg());
-        this.resultEnum = resultEnum;
+    public <T extends ResultEnum> DuplicateSubmitException(T systemResultEnum) {
+        super((String) systemResultEnum.getMsg());
+        this.ResultEnum = systemResultEnum;
     }
 
 }

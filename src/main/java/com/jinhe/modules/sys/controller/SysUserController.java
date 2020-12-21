@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.*;
 import com.jinhe.common.config.LongSwingConstants;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.sys.dto.UserInfoDTO;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysPasswordDTO;
@@ -63,24 +64,24 @@ public class SysUserController {
         // 密码复杂度 10位4选3
         String passwordHash = sysUserDto.getPasswordHash();
         if (!userInfo.CheckPassword(passwordHash)) {
-            return ResultUtil.error(ResultEnum.USER_UPDATE_PASSWORD_ERROR);
+            return ResultUtil.error(SystemResultEnum.USER_UPDATE_PASSWORD_ERROR);
         }
-        ResultEnum resultEnum = userInfo.NormalizedUsername(sysUserDto.getNormalizedUsername());
-        if (resultEnum != ResultEnum.USER_NAME_CORRECT) {
-            return ResultUtil.success(resultEnum);
+        ResultEnum systemResultEnum = userInfo.NormalizedUsername(sysUserDto.getNormalizedUsername());
+        if (systemResultEnum != SystemResultEnum.USER_NAME_CORRECT) {
+            return ResultUtil.success(systemResultEnum);
         }
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("NORMALIZED_USERNAME", sysUserDto.getNormalizedUsername());
         SysUser sysUser = iSysUserService.getBaseMapper().selectOne(queryWrapper);
         if (sysUser != null) {
-            return ResultUtil.error(ResultEnum.USER_NAME_ALREADY_EXISTS);
+            return ResultUtil.error(SystemResultEnum.USER_NAME_ALREADY_EXISTS);
         }
         sysUserDto.setPasswordHash(EncryptUtil.getInstance().MD5_32(sysUserDto.getPasswordHash()));
         sysUserDto.setId(StringUtils.getGUID());
         sysUser = Mapper.ModelToModel(sysUserDto, SysUser.class);
         iSysUserService.save(sysUser);
         if(sysUserDto.getOrganIds()==null||sysUserDto.getOrganIds().size()==0){
-            return ResultUtil.error(ResultEnum.INSERT_USER_ORGAN_ERROR);
+            return ResultUtil.error(SystemResultEnum.INSERT_USER_ORGAN_ERROR);
         }
         List<SysUserOrgan> organList = new ArrayList<>();
         for (String organId : sysUserDto.getOrganIds()) {
@@ -105,7 +106,7 @@ public class SysUserController {
         UserInfo userInfo = new UserInfo();
         // 密码复杂度 10位4选3
         if (!userInfo.CheckPassword(from.getPassWordHash())) {
-            return ResultUtil.error(ResultEnum.USER_UPDATE_PASSWORD_ERROR);
+            return ResultUtil.error(SystemResultEnum.USER_UPDATE_PASSWORD_ERROR);
         }
         try {
             SysUser sysUser = iSysUserService.getById(from.getUserId());
@@ -117,10 +118,10 @@ public class SysUserController {
                 iSysUserService.update(userUpdateWrapper);
                 return ResultUtil.success();
             } else {
-                return ResultUtil.error(ResultEnum.USER_NOT_FOUND);
+                return ResultUtil.error(SystemResultEnum.USER_NOT_FOUND);
             }
         } catch (Exception e) {
-            return ResultUtil.error(ResultEnum.PARAMETER_ERROR);
+            return ResultUtil.error(SystemResultEnum.PARAMETER_ERROR);
         }
 
     }
@@ -141,11 +142,11 @@ public class SysUserController {
                 iSysUserService.updateById(sysUser);
                 return ResultUtil.success();
             } else {
-                return ResultUtil.error(ResultEnum.USER_NOT_FOUND);
+                return ResultUtil.error(SystemResultEnum.USER_NOT_FOUND);
             }
         } catch (Exception e) {
             log.error("ableUserById", e.getMessage());
-            return ResultUtil.error(ResultEnum.PARAMETER_ERROR);
+            return ResultUtil.error(SystemResultEnum.PARAMETER_ERROR);
         }
     }
 
@@ -159,7 +160,7 @@ public class SysUserController {
     public Result UpdateInfo(@RequestBody SysUserDTO sysUserDto) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         if (sysUserDto.getOrganIds() == null || sysUserDto.getOrganIds().size() == 0) {
             //用户没有关联机构
-            ResultUtil.error(ResultEnum.USER_NOT_RELEVANCY_ORGAN);
+            ResultUtil.error(SystemResultEnum.USER_NOT_RELEVANCY_ORGAN);
         }
         SysUser sysUser = null;
         sysUser = Mapper.ModelToModel(sysUserDto, SysUser.class);

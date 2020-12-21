@@ -1,9 +1,8 @@
 package com.jinhe.common.aspect;
 
-import com.jinhe.common.annotation.DuplicateSubmitToken;
 import com.jinhe.common.config.SystemType;
 import com.jinhe.common.exception.DuplicateSubmitException;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -52,7 +51,7 @@ public class DuplicateSubmitAspect {
                 i = System.currentTimeMillis() - (long) t;
             }
             if (i < INTERVAL) {
-                throw new DuplicateSubmitException(ResultEnum.DUPLICATE_SUBMIT);
+                throw new DuplicateSubmitException(SystemResultEnum.DUPLICATE_SUBMIT);
             } else {
                 request.getSession().setAttribute(key.toString(), System.currentTimeMillis());
                 log.info("token-key=" + key);

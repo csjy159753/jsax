@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.*;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.sys.dao.SysRegionMapper;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.jinhe.modules.sys.service.ISysRegionService;
@@ -69,14 +69,14 @@ public class SysRegionController {
             ResultUtil.error();
         }
         if (sysregion.getCode() == null) {
-            return ResultUtil.error(ResultEnum.REGION_CODE_NOT_FOUND);
+            return ResultUtil.error(SystemResultEnum.REGION_CODE_NOT_FOUND);
         }
         if (sysregion.getId() == null) {
             QueryWrapper<SysRegion> queryWrapper = new QueryWrapper<>();
             queryWrapper.lambda().eq(SysRegion::getCode, sysregion.getCode());
             SysRegion sysRegion = sysRegionService.getBaseMapper().selectOne(queryWrapper);
             if (sysRegion != null) {
-                return ResultUtil.error(ResultEnum.REGION_EXIST_CODE);
+                return ResultUtil.error(SystemResultEnum.REGION_EXIST_CODE);
             }
         }
         try {
@@ -86,7 +86,7 @@ public class SysRegionController {
             }
         } catch (Exception e) {
             log.error("saveOrUpdate", e.getMessage());
-            return ResultUtil.error(ResultEnum.REGION_INSERT_ERROR);
+            return ResultUtil.error(SystemResultEnum.REGION_INSERT_ERROR);
         }
         return ResultUtil.success();
     }
@@ -104,7 +104,7 @@ public class SysRegionController {
             sysRegionService.saveOrUpdateChildrenNumAndLevel(id);
         } catch (Exception e) {
             log.error("delRegion", e.getMessage());
-            return ResultUtil.error(ResultEnum.REGION_EXIST_SUBSET_UNABLE_DEL);
+            return ResultUtil.error(SystemResultEnum.REGION_EXIST_SUBSET_UNABLE_DEL);
         }
         return ResultUtil.success();
     }

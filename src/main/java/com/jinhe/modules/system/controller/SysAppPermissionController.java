@@ -1,25 +1,12 @@
 package com.jinhe.modules.system.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinhe.common.util.ListSub;
-import com.jinhe.common.util.PageFilter;
-import com.jinhe.common.util.Result;
-import com.jinhe.common.util.ResultUtil;
-import com.jinhe.config.ResultEnum;
-import com.jinhe.modules.system.entity.SysAppPermission;
 import com.jinhe.modules.system.service.ISysAppPermissionService;
 import com.jinhe.modules.system.service.ISysRoleService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * <p>

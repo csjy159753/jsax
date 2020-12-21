@@ -1,10 +1,11 @@
 package com.jinhe.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.EntityUtil;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.common.config.LongSwingConstants;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.dao.DictionaryMapper;
 import com.jinhe.modules.sys.service.IDictionaryService;
@@ -35,7 +36,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 queryWrapper.lambda().eq(Dictionary::getParentId, dict.getParentId()).eq(Dictionary::getValue, dict.getValue());
                 int count = this.count(queryWrapper);
                 if (count > 0) {
-                    return ResultEnum.DICTIONARY_EXIST_SAME_VALUE;
+                    return SystemResultEnum.DICTIONARY_EXIST_SAME_VALUE;
                 }
             }
             {
@@ -43,7 +44,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 queryWrapperA.lambda().eq(Dictionary::getParentId, dict.getParentId()).eq(Dictionary::getName, dict.getName());
                 int countA = this.count(queryWrapperA);
                 if (countA > 0) {
-                    return ResultEnum.DICTIONARY_EXIST_SAME_NAME;
+                    return SystemResultEnum.DICTIONARY_EXIST_SAME_NAME;
                 }
             }
             this.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
@@ -51,7 +52,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
             dict.setLevelInfo(1);
             // 字典类型不能为空
             if (dict.getType() == null) {
-                return ResultEnum.DICTIONARY_NOT_TYPE;
+                return SystemResultEnum.DICTIONARY_NOT_TYPE;
             }
             //字典type不能重复目前值顶级重复判断子级自动获取顶级type
             {
@@ -59,7 +60,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 queryWrapper.lambda().isNull(Dictionary::getParentId).eq(Dictionary::getType, dict.getType());
                 int count = this.count(queryWrapper);
                 if (count > 0) {
-                    return ResultEnum.DICTIONARY_TYPE_NOT_REPETITION;
+                    return SystemResultEnum.DICTIONARY_TYPE_NOT_REPETITION;
                 }
             }
             {
@@ -67,7 +68,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 queryWrapper.lambda().isNull(Dictionary::getParentId).eq(Dictionary::getValue, dict.getValue());
                 int count = this.count(queryWrapper);
                 if (count > 0) {
-                    return ResultEnum.DICTIONARY_EXIST_SAME_VALUE;
+                    return SystemResultEnum.DICTIONARY_EXIST_SAME_VALUE;
                 }
             }
             {
@@ -75,19 +76,19 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 queryWrapperA.lambda().isNull(Dictionary::getParentId).eq(Dictionary::getName, dict.getName());
                 int countA = this.count(queryWrapperA);
                 if (countA > 0) {
-                    return ResultEnum.DICTIONARY_EXIST_SAME_NAME;
+                    return SystemResultEnum.DICTIONARY_EXIST_SAME_NAME;
                 }
             }
         }
         this.saveOrUpdate(dict);
-        return ResultEnum.SUCCESS;
+        return SystemResultEnum.SUCCESS;
     }
 
     @Override
     public ResultEnum updateDictionary(Dictionary dictionary) {
         Dictionary dict = this.getById(dictionary.getId());
         if (dict == null) {
-            return ResultEnum.NOT_FOUND;
+            return SystemResultEnum.NOT_FOUND;
         } else {
             dict = EntityUtil.INSTANCE.copyValOnlyDestNull(dict, dictionary, excludeFields);
         }
@@ -97,7 +98,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 queryWrapper.lambda().eq(Dictionary::getParentId, dict.getParentId()).eq(Dictionary::getValue, dict.getValue()).notIn(Dictionary::getId, dict.getId());
                 int count = this.count(queryWrapper);
                 if (count > 0) {
-                    return ResultEnum.DICTIONARY_EXIST_SAME_VALUE;
+                    return SystemResultEnum.DICTIONARY_EXIST_SAME_VALUE;
                 }
             }
             {
@@ -105,7 +106,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 queryWrapperA.lambda().eq(Dictionary::getParentId, dict.getParentId()).eq(Dictionary::getName, dict.getName()).notIn(Dictionary::getId, dict.getId());
                 int countA = this.count(queryWrapperA);
                 if (countA > 0) {
-                    return ResultEnum.DICTIONARY_EXIST_SAME_NAME;
+                    return SystemResultEnum.DICTIONARY_EXIST_SAME_NAME;
                 }
             }
             this.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
@@ -115,7 +116,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 queryWrapper.lambda().isNull(Dictionary::getParentId).eq(Dictionary::getValue, dict.getValue()).notIn(Dictionary::getId, dict.getId());
                 int count = this.count(queryWrapper);
                 if (count > 0) {
-                    return ResultEnum.DICTIONARY_EXIST_SAME_VALUE;
+                    return SystemResultEnum.DICTIONARY_EXIST_SAME_VALUE;
                 }
             }
             {
@@ -123,14 +124,14 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
                 queryWrapperA.lambda().isNull(Dictionary::getParentId).eq(Dictionary::getName, dict.getName()).notIn(Dictionary::getId, dict.getId());
                 int countA = this.count(queryWrapperA);
                 if (countA > 0) {
-                    return ResultEnum.DICTIONARY_EXIST_SAME_NAME;
+                    return SystemResultEnum.DICTIONARY_EXIST_SAME_NAME;
                 }
             }
         }
 
         this.saveOrUpdate(dict);
 
-        return ResultEnum.SUCCESS;
+        return SystemResultEnum.SUCCESS;
     }
 
     @Override
@@ -144,7 +145,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
     public ResultEnum saveOrUpdateChildrenNumAndLevel(String id) {
         Dictionary dictionary = this.getById(id);
         if (dictionary == null) {
-            return ResultEnum.NOT_FOUND;
+            return   ResultEnum.NOT_FOUND;
         }
         //#更新数量
         QueryWrapper<Dictionary> queryWrapper = new QueryWrapper();
@@ -160,6 +161,6 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
             dictionary.setLevelInfo(dict.getLevelInfo() + LongSwingConstants.Number.ONE);
         }
         this.saveOrUpdate(dictionary);
-        return ResultEnum.SUCCESS;
+        return SystemResultEnum.SUCCESS;
     }
 }

@@ -1,9 +1,8 @@
 package com.jinhe.common.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.jinhe.config.ResultEnum;
+import com.jinhe.common.config.ResultEnum;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public class ResultUtil {
         if (page == null) {
             return success();
         }
-        ListSub<T> listSub=new ListSub();
+        ListSub<T> listSub = new ListSub();
         listSub.setList(page.getRecords());
         listSub.setTotal(page.getTotal());
         Result<ListSub<T>> result = new Result<>();
@@ -32,7 +31,7 @@ public class ResultUtil {
      * 成功且带数据
      **/
     public static <T> Result<ListSub<T>> success(List<T> list, Long total) {
-        ListSub<T> listSub=new ListSub();
+        ListSub<T> listSub = new ListSub();
         listSub.setList(list);
         listSub.setTotal(total);
         Result<ListSub<T>> result = new Result<>();
@@ -41,6 +40,7 @@ public class ResultUtil {
         result.setData(listSub);
         return result;
     }
+
     /**
      * 成功且带数据
      **/
@@ -105,7 +105,7 @@ public class ResultUtil {
     /**
      * 默认info返回
      **/
-    public static Result Info(ResultEnum resultEnum) {
+    public static <T extends ResultEnum> Result Info(T resultEnum) {
         Result result = new Result();
         result.setCode(resultEnum.getCode());
         result.setMsg(resultEnum.getMsg());
@@ -115,7 +115,7 @@ public class ResultUtil {
     /**
      * 默认错误返回
      **/
-    public static Result error(ResultEnum resultEnum) {
+    public static <T extends ResultEnum> Result error(T resultEnum) {
         Result result = new Result();
         result.setCode(resultEnum.getCode());
         result.setMsg(resultEnum.getMsg());

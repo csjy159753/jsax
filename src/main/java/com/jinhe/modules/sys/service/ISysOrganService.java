@@ -1,12 +1,8 @@
 package com.jinhe.modules.sys.service;
 
-import com.jinhe.config.ResultEnum;
-import com.jinhe.modules.sys.dto.SysOrganDTO;
-import com.jinhe.modules.system.entity.Dictionary;
+import com.jinhe.common.config.ResultEnum;
 import com.jinhe.modules.system.entity.SysOrgan;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>
