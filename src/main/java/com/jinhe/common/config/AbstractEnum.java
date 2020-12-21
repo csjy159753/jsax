@@ -3,6 +3,11 @@ package com.jinhe.common.config;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 枚举类基类
+ *
+ * @author Administrator
+ */
 public class AbstractEnum {
 
     private static final Map<Integer, AbstractEnum> nameEnumMap = new ConcurrentHashMap<>();
