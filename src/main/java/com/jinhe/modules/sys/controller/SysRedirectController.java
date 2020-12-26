@@ -10,6 +10,7 @@ import org.apache.http.NameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
@@ -38,8 +39,11 @@ import java.util.ArrayList;
 @Transactional(rollbackFor = Exception.class)
 public class SysRedirectController {
     private static Logger log = LoggerFactory.getLogger(HttpUtil.class);
-    @Autowired
-    private HttpUtil httpUtil;
+
+    @Value("${redirect.config1.SERVER_HOST}")
+    private String SERVER_HOST;
+    @Value("${redirect.config1.SERVER_PORT}")
+    private Integer SERVER_PORT;
 
     @Autowired
     private IHttpClientService iHttpClient;
@@ -51,6 +55,7 @@ public class SysRedirectController {
     @ApiOperation(value = "通用地址配置转发重定向", notes = "通用地址配置转发重定向")
     @RequestMapping(value = "/general/**", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
     public void general(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpUtil httpUtil = new HttpUtil(SERVER_HOST, SERVER_PORT);
         String method = request.getMethod();
         String url = request.getRequestURI();
         String contentType = request.getContentType();

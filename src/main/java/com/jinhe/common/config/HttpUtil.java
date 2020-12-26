@@ -27,21 +27,58 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-@Service
-public class HttpUtil {
-    private static Logger log = LoggerFactory.getLogger(HttpUtil.class);
 
-    @Autowired
-    private RedirectUtil redirectUtil;
+public class HttpUtil {
+
+
+    private static Logger log = LoggerFactory.getLogger(HttpUtil.class);
+    public String SERVER_HOST = "localhost";
+    public int SERVER_PORT = 8085;
+    public String SERVER_PROTOCOL = "http";
+    public String SERVER_CHARSET = "UTF-8";
+
+    private HttpUtil() {
+    }
+
+    public HttpUtil(String SERVER_HOST, int SERVER_PORT) {
+        this.SERVER_HOST = SERVER_HOST;
+        this.SERVER_PORT = SERVER_PORT;
+    }
+
+    public HttpUtil(String SERVER_PROTOCOL, String SERVER_HOST, int SERVER_PORT) {
+        this.SERVER_HOST = SERVER_HOST;
+        this.SERVER_PORT = SERVER_PORT;
+        this.SERVER_PROTOCOL = SERVER_PROTOCOL;
+    }
+
+    public String getHost(String hostPrefix) {
+        return getHost(hostPrefix, "");
+    }
+
+    public String getHost(String hostPrefix, String url) {
+        String host = SERVER_HOST;
+        if (hostPrefix != null && !hostPrefix.isEmpty()) {
+            url = "/" + hostPrefix;//例如: / + image + /image/report/getReportList
+        }
+        try {
+            return new URL(SERVER_PROTOCOL, host, SERVER_PORT, url).toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return SERVER_PROTOCOL + "://" + host + ":" + SERVER_PORT + "url";
+        }
+    }
+
 
     public void httpGet(String url, HttpServletRequest request, HttpServletResponse response,
                         List<NameValuePair> additionalMap) {
         CloseableHttpClient httpClient = SSLUtils.createSSLClientDefault();
-        HttpGet httpGet = new HttpGet(redirectUtil.getHost(url));
+        HttpGet httpGet = new HttpGet(getHost(url));
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
@@ -94,7 +131,7 @@ public class HttpUtil {
     public void httpPost(String url, HttpServletRequest request, HttpServletResponse response,
                          List<NameValuePair> additionalMap) throws IOException {
         CloseableHttpClient httpClient = SSLUtils.createSSLClientDefault();
-        HttpPost httpPost = new HttpPost(redirectUtil.getHost(url));
+        HttpPost httpPost = new HttpPost(getHost(url));
 
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
@@ -167,7 +204,7 @@ public class HttpUtil {
                         List<NameValuePair> additionalMap) {
         CloseableHttpClient httpClient = SSLUtils.createSSLClientDefault();
 
-        HttpPut httpPut = new HttpPut(redirectUtil.getHost(url));
+        HttpPut httpPut = new HttpPut(getHost(url));
 
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
@@ -244,7 +281,7 @@ public class HttpUtil {
         String method = request.getMethod();
         CloseableHttpClient httpClient = SSLUtils.createSSLClientDefault();
 
-        HttpDelete httpDelete = new HttpDelete(redirectUtil.getHost(url));
+        HttpDelete httpDelete = new HttpDelete(getHost(url));
 
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
@@ -316,15 +353,15 @@ public class HttpUtil {
     public String httpRequest(String hostPrefix, String url, List<NameValuePair> params) {
         CloseableHttpClient httpClient = SSLUtils.createSSLClientDefault();
         log.info(url);
-        HttpPost httpPost = new HttpPost(redirectUtil.getHost(hostPrefix, url));
+        HttpPost httpPost = new HttpPost(getHost(hostPrefix, url));
         try {
-            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, redirectUtil.SERVER_CHARSET);
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, SERVER_CHARSET);
             httpPost.setEntity(entity);
             HttpResponse httpResponse = httpClient.execute(httpPost);
             if (httpResponse != null) {
                 HttpEntity responseEntity = httpResponse.getEntity();
                 if (responseEntity != null) {
-                    String result = EntityUtils.toString(responseEntity, redirectUtil.SERVER_CHARSET);
+                    String result = EntityUtils.toString(responseEntity, SERVER_CHARSET);
                     log.info(result);
                     return result;
                 }
