@@ -70,3 +70,9 @@ file:
     #存储路径
     upload: upload
     uploadFile: uploadFile
+redirect:
+  config:
+    SERVER_HOST: localhost
+    SERVER_PORT: 8085
+    SERVER_PROTOCOL: http
+    SERVER_CHARSET: utf8
