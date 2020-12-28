@@ -7,6 +7,7 @@ package com.jinhe.common.config;
  */
 
 public interface SystemType {
+    public static String TOKEN = "TOKEN";
     public static String TYPE = "LOGIN_TYPE";
     public static String USER_ID = "USER_ID";
     public static String USER_NAME = "USER_NAME";
@@ -16,8 +17,7 @@ public interface SystemType {
     public static String UPDATE = "update";
     public static String REMOVE = "remove";
     public static String SYS_OPERATOR_LOG = "sys-operator-log";
-
-
+ 
     public enum LoginType {
         USER("USER"),
         KEY_AUTHORIZATION("KEY_AUTHORIZATION"),

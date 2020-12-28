@@ -1,8 +1,8 @@
 package com.jinhe.common.exception;
 
 import com.jinhe.common.util.Result;
-import com.jinhe.config.SystemResultEnum;
 import com.jinhe.common.util.ResultUtil;
+import com.jinhe.config.SystemResultEnum;
 import io.jsonwebtoken.SignatureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class RRExceptionHandler {
     @ExceptionHandler(DuplicateKeyException.class)
     public Result handleDuplicateKeyException(DuplicateKeyException e) {
         logger.error(e.getMessage(), e);
-        return ResultUtil.Info(SystemResultEnum.UNKNOWN_ERROR);
+        return ResultUtil.Info(SystemResultEnum.DUPLICATE_KEY);
     }
 
     @ExceptionHandler(Exception.class)
@@ -44,5 +44,12 @@ public class RRExceptionHandler {
     public Result authorizationException(SignatureException e) {
 
         return ResultUtil.Info(SystemResultEnum.TOKRN_ERROR);
+    }
+
+    @ExceptionHandler(value = {DuplicateSubmitException.class})
+    @ResponseBody
+    public Result duplicateSubmitException(DuplicateSubmitException e) {
+
+        return ResultUtil.Info(SystemResultEnum.DUPLICATE_SUBMIT);
     }
 }

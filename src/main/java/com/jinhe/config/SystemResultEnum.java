@@ -8,7 +8,7 @@ public class SystemResultEnum extends ResultEnum {
     public SystemResultEnum(Integer code, String msg) {
         super(code, msg);
     }
-
+    public static final ResultEnum DUPLICATE_KEY = new ResultEnum(-1, "key值重复！");
     public static final ResultEnum UNKNOWN_ERROR = new ResultEnum(-1, "程序内部出错请联系管理员！");
     /**
      * 用户模块

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @description 防止表单重复提交拦截器
@@ -27,12 +28,12 @@ public class DuplicateSubmitAspect {
     @Autowired(required = false)
     HttpServletResponse response;
     Logger log = LoggerFactory.getLogger(getClass());
+    public static ConcurrentHashMap<String, Long> duplicateMap = new ConcurrentHashMap<>();
 
     @Pointcut("execution(public * com.jinhe..*Controller.*(..))")
     public void webLog() {
     }
 
-    //    @Around("webLog() && @annotation(token)")
     @Around("webLog()")
     public Object around(final ProceedingJoinPoint joinPoint) throws Throwable {
 
@@ -45,15 +46,15 @@ public class DuplicateSubmitAspect {
                 && !uri.toLowerCase().contains(SystemType.SYS_OPERATOR_LOG)
         ) {
             String key = getDuplicateTokenKey(joinPoint);
-            Object t = request.getSession().getAttribute(key);
-            long i = INTERVAL;
+            Long t = duplicateMap.get(key);
+            Long i = INTERVAL;
             if (null != t) {
                 i = System.currentTimeMillis() - (long) t;
             }
             if (i < INTERVAL) {
                 throw new DuplicateSubmitException(SystemResultEnum.DUPLICATE_SUBMIT);
             } else {
-                request.getSession().setAttribute(key.toString(), System.currentTimeMillis());
+                duplicateMap.put(key, System.currentTimeMillis());
                 log.info("token-key=" + key);
                 log.info("token-value=" + System.currentTimeMillis());
             }
@@ -92,10 +93,10 @@ public class DuplicateSubmitAspect {
             log.info("进入重复提交验证：");
             Object[] args = joinPoint.getArgs();
             String key = getDuplicateTokenKey(joinPoint);
-            Object t = request.getSession().getAttribute(key);
+            Long t = duplicateMap.get(key);
             if (null != t) {
                 //方法执行完毕移除请求重复标记
-                request.getSession(false).removeAttribute(key);
+                duplicateMap.remove(key);
                 log.info("方法执行完毕移除请求重复标记！");
             }
         }
@@ -107,7 +108,6 @@ public class DuplicateSubmitAspect {
      * @param joinPoint
      * @param e
      */
-//    @AfterThrowing(pointcut = "webLog()&& @annotation(token)", throwing = "e")
     @AfterThrowing(pointcut = "webLog()", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Throwable e) {
         if (e instanceof DuplicateSubmitException == false) {
@@ -121,10 +121,10 @@ public class DuplicateSubmitAspect {
                     && !uri.toLowerCase().contains(SystemType.SYS_OPERATOR_LOG)
             ) {
                 String key = getDuplicateTokenKey(joinPoint);
-                Object t = request.getSession().getAttribute(key);
+                Long t = duplicateMap.get(key);
                 if (null != t) {
                     //方法执行完毕移除请求重复标记
-                    request.getSession(false).removeAttribute(key);
+                    duplicateMap.remove(key);
                     log.info("异常情况--移除请求重复标记！");
                 }
             }

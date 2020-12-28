@@ -28,11 +28,11 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         /** 地址过滤 */
         String uri = request.getRequestURI();
         if (property.getSpringProfilesActive().equals(SystemType.prod)) {
-            if (property.getPermissionsModules().stream().filter(d -> uri.startsWith(d,1)).count() == 0
+            if (property.getPermissionsModules().stream().filter(d -> uri.startsWith(d, 1)).count() == 0
             ) {
                 return true;
             }
-        }else{
+        } else {
             return true;
         }
         /** Token 验证 */
@@ -61,6 +61,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         request.setAttribute(SystemType.identityId, claims.getSubject());
         request.setAttribute(SystemType.USER_ID, claims.get(SystemType.USER_ID));
         request.setAttribute(SystemType.USER_NAME, claims.get(SystemType.USER_NAME));
+        request.setAttribute(SystemType.TOKEN, token);
         return true;
     }
 
