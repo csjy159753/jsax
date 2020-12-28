@@ -11,7 +11,7 @@
 6. XSS，CSRF攻击的优雅防护机制
 7. redis缓存
 8. rabbitMq消息队列
-9.添加请求转发功能
+9. 添加请求转发功能
 #### 软件架构
 springboot2.0、mybatis plus 、mysql redis缓存 rabbitMq druid
 
