@@ -50,6 +50,10 @@ public class DataController {
     @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
     @SysLog(value = "saveOrUpdate")
     public Result saveOrUpdate(@RequestBody Data data) {
+
+        if (data.getData() == null) {
+            data.setData("");
+        }
         return ResultUtil.success(iDataService.saveOrUpdate(data));
     }
 }
