@@ -68,7 +68,7 @@ public class SysRedirectController {
                 MultipartHttpServletRequest multipartRequest =
                         WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
                 MultipartFile file = multipartRequest.getFile("file");
-                httpUtil.uploadFile(url, file, "file", request);
+                httpUtil.uploadFile(url, file, "file", request, response);
             } else {
                 httpUtil.httpPost(url, request, response, new ArrayList<NameValuePair>());
             }

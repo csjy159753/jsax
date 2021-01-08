@@ -72,8 +72,8 @@ file:
     uploadFile: uploadFile
 redirect:
   config1:
-    SERVER_HOST: localhost
-    SERVER_PORT: 8085
+    SERVER_HOST: 192.168.0.120
+    SERVER_PORT: 19005
     SERVER_PROTOCOL: http
     SERVER_CHARSET: utf8
   config2:
