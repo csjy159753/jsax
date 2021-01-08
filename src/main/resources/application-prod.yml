@@ -52,7 +52,7 @@ spring:
         exclusions: "/error*,*.html,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/v2/api-docs,/swagger*"
   rabbitmq:
     #http://124.70.222.76:15672/#/
-    host: 124.70.222.76
+    host: 47.105.34.116
     port: 5672
     username: admin
     password: Mas@12345

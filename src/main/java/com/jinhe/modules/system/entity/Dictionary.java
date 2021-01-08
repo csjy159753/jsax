@@ -57,7 +57,7 @@ public class Dictionary implements Serializable {
     private String remark;
 
     @ApiModelProperty(value = "子对象数量")
-    @TableField("childrenNum")
+    @TableField("children_num")
     private Integer childrenNum;
 
     @ApiModelProperty(value = "标识信息")

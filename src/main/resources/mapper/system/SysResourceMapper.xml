@@ -30,7 +30,7 @@
         LEFT JOIN sys_organ_role sor ON sor.role_id = sp.role_id
         LEFT JOIN sys_user_organ suo ON suo.organ_id = sor.organ_id
         <if test=" userId != null and  userId !=''">
-            WHERE suo.user_id=#{userId}
+            WHERE suo.user_id=#{userId} and sr.state=1
         </if>
         GROUP BY
         sr.id
@@ -50,6 +50,7 @@
         sys_resource sr
         LEFT JOIN sys_resource_item sri ON sri.resource_id = sr.id
         <where>
+            sr.STATE =1 and
             <foreach collection="types" item="type" separator=" or " open="(" close=")">
                 sr.type =#{type}
             </foreach>

@@ -73,10 +73,10 @@ public class SysOrganServiceImpl extends ServiceImpl<SysOrganMapper, SysOrgan> i
         QueryWrapper<SysOrgan> queryWrapperPath = new QueryWrapper();
         queryWrapperPath.lambda().eq(SysOrgan::getParentId, model.getId());
         SysOrgan SysOrganParent = this.getBaseMapper().selectOne(queryWrapper);
-        if (StringUtils.isEmpty(SysOrganParent.getPath())) {
-            model.setPath(SysOrganParent.getId());
+        if (SysOrganParent == null ) {
+            model.setPath(model.getId());
         } else {
-            model.setPath(SysOrganParent.getPath() + "," + SysOrganParent.getId());
+            model.setPath(SysOrganParent.getPath() + "," + model.getId());
         }
         model.setChildrenNum(count);
         this.saveOrUpdate(model);

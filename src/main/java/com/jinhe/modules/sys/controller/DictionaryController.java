@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -62,7 +63,8 @@ public class DictionaryController {
         queryWrapper.lambda().in(Dictionary::getType, types.split(","));
         List<Dictionary> li = iDictionaryService.list(queryWrapper);
         List<DictionaryDTO> listTree = new TreeChildren().CreateTree(li, DictionaryDTO.class);
-        return ResultUtil.success(listTree);
+        List<DictionaryDTO> resultList = listTree.stream().filter(s-> s.getParentId() == null).collect(Collectors.toList());
+        return ResultUtil.success(resultList);
     }
 
     /**
