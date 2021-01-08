@@ -48,12 +48,12 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
         if (type.equals(LongSwingConstants.USER_TYPE_ROOT_ADMIN)) {
             List<Integer> li = new ArrayList<>();
             li.add(LongSwingConstants.SysResource.TYPE_ROOT_ADMIN);
-            list = sysResourceMapper.listResourceAdmin(li);
+            list = sysResourceMapper.listResourceAdmin(li,null);
         } else if (type.equals(LongSwingConstants.USER_TYPE_ADMIN)) {
             List<Integer> li = new ArrayList<>();
             li.add(LongSwingConstants.SysResource.TYPE_NORMAL);
             li.add(LongSwingConstants.SysResource.TYPE_ADMIN);
-            list = sysResourceMapper.listResourceAdmin(li);
+            list = sysResourceMapper.listResourceAdmin(li, 1);
         } else {
             list = sysResourceMapper.listResource(userId);
         }
@@ -67,7 +67,7 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
         List<SysResourceDTO> listtree;
         List<Integer> li = new ArrayList<>();
         li.add(1);
-        listtree = sysResourceMapper.listResourceAdmin(li);
+        listtree = sysResourceMapper.listResourceAdmin(li,null);
         return listtree;
     }
 

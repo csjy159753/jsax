@@ -28,9 +28,18 @@
         LEFT JOIN sys_resource sr ON sr.id = sp.resource_id and sr.type = 1
         LEFT JOIN sys_resource_item sri ON sri.id = spi.resource_item_id
         LEFT JOIN sys_organ_role sor ON sor.role_id = sp.role_id
+        LEFT JOIN sys_role role ON role.id= sor.role_id
         LEFT JOIN sys_user_organ suo ON suo.organ_id = sor.organ_id
         <if test=" userId != null and  userId !=''">
-            WHERE suo.user_id=#{userId} and sr.state=1
+            WHERE suo.user_id=#{userId} and sr.state=1 and role.STATE=1
+            AND sr.id NOT IN (
+            WITH RECURSIVE td AS ( SELECT id FROM sys_resource WHERE state = 2 UNION ALL
+            SELECT c.id FROM sys_resource c, td WHERE c.PARENT_ID = td.id ) SELECT
+            *
+            FROM
+            td
+
+            )
         </if>
         GROUP BY
         sr.id
@@ -50,7 +59,9 @@
         sys_resource sr
         LEFT JOIN sys_resource_item sri ON sri.resource_id = sr.id
         <where>
-            sr.STATE =1 and
+            <if test=" state != null ">
+                sr.STATE =#{state} and
+            </if>
             <foreach collection="types" item="type" separator=" or " open="(" close=")">
                 sr.type =#{type}
             </foreach>
