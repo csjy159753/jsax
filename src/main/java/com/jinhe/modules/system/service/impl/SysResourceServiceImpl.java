@@ -53,7 +53,7 @@ public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysRe
             List<Integer> li = new ArrayList<>();
             li.add(LongSwingConstants.SysResource.TYPE_NORMAL);
             li.add(LongSwingConstants.SysResource.TYPE_ADMIN);
-            list = sysResourceMapper.listResourceAdmin(li, 1);
+            list = sysResourceMapper.listResourceAdminUser(li, 1);
         } else {
             list = sysResourceMapper.listResource(userId);
         }

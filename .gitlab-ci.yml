@@ -1,0 +1,16 @@
+stages:
+  - build
+build:
+  stage: build
+  script:
+    #mvn 打包
+    - mvn clean package -Dmaven.test.skip=true
+    - sh jar_deploy.sh Template-1.0-SNAPSHOT 8285
+    #将jar包拷贝到另外一台服务器
+    #    - scp /home/gitlab-runner/builds/f0e79179/0/root/demo/target/demo-0.0.1-SNAPSHOT.war root@192.168.3.167:/data/www/demo-0.0.1-SNAPSHOT.war
+    #连接tomcat的服务器，执行deploy.sh，将war包拷贝到webapps下面，重启tomcat
+    #    - ssh root@192.168.3.167"sh /apps/shell/deploy.sh"
+  only:
+    - oracle
+  tags:
+    - my-runner

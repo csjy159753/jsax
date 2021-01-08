@@ -69,15 +69,8 @@ public class FileStoreController {
             if (fileStoreTypeList == null) {
                 fileStoreTypeList = iFileStoreTypeService.list();
             }
-            FileStoreType fileStoreType = fileStoreTypeList.stream().filter(d -> d.getIsUse() != null
-                    && d.getIsUse() == 1
-                    && d.getExt().equals(fileSuffix)).findFirst().get();
-            if (fileStoreType == null) {
-                return ResultUtil.error(SystemResultEnum.FILE_NOT_FOUND);
-            }
-            listFileStoreTypefilter.add(fileStoreType);
         }
-        List<FileStoreDTO> fileStoreDtos = fileStoreService.upLoadFiles(file, listFileStoreTypefilter);
+        List<FileStoreDTO> fileStoreDtos = fileStoreService.upLoadFiles(file, fileStoreTypeList);
         if (fileStoreDtos == null || fileStoreDtos.isEmpty()) {
             return ResultUtil.error(SystemResultEnum.FILE_UPLOAD_ERROR);
         } else {

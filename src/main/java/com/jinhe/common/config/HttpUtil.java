@@ -111,14 +111,9 @@ public class HttpUtil {
                 HttpEntity responseEntity = httpResponse.getEntity();
                 if (responseEntity != null) {
                     log.info(responseEntity.toString());
-                    if (url.contains("api/file") || url.contains("api/economy/export") || url.contains("api/economyTarget/export") || url.contains("api/projects/export")) {
-                        response.setContentType("application/x-msdownload");
-                        response.setContentType("application/octet-stream");
-                        for (Header header : httpResponse.getAllHeaders()) {
-                            response.addHeader(header.getName(), header.getValue());
-                        }
-                        response.setHeader("Access-Control-Allow-Origin", "*");
-                        response.setHeader("Cache-Control", "no-cache");
+
+                    for (Header header : httpResponse.getAllHeaders()) {
+                        response.addHeader(header.getName(), header.getValue());
                     }
                     responseEntity.writeTo(response.getOutputStream());
                 }
@@ -128,12 +123,10 @@ public class HttpUtil {
         }
         if (httpResponse != null) {
             response.setStatus(httpResponse.getStatusLine().getStatusCode());
-            //logger.info(httpResponse.toString());
             HeaderIterator headerIterator = httpResponse.headerIterator();
             while (headerIterator.hasNext()) {
                 Header header = headerIterator.nextHeader();
                 if (header.getName().equals("Content-Type")) {
-                    //response.addHeader(header.getName(), header.getValue());
                     response.setHeader(header.getName(), header.getValue());//或许可以解决重定向乱码(好像没影响)
                 }
             }
@@ -171,8 +164,6 @@ public class HttpUtil {
             while ((inputStr = streamReader.readLine()) != null) {
                 responseStrBuilder.append(inputStr);
             }
-//            String sft = getBodyString(request);
-//            JSONObject jsonObject = JSONObject.parseObject(sft);
             if (responseStrBuilder.toString().trim().startsWith("[")) {
                 JSONArray jsonObject = JSONObject.parseArray(responseStrBuilder.toString());
                 param = jsonObject.toJSONString();
@@ -182,7 +173,6 @@ public class HttpUtil {
                 param = jsonObject.toJSONString();
                 System.out.println(param);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -193,7 +183,6 @@ public class HttpUtil {
         }
         HttpResponse httpResponse = null;
         try {
-//            httpPost.addHeader("Content-Type", "application/json");
             httpPost.setEntity(new StringEntity(param, Charset.forName("UTF-8")));
             httpPost.removeHeaders("Content-Length");
             httpResponse = httpClient.execute(httpPost);
@@ -214,7 +203,6 @@ public class HttpUtil {
             while (headerIterator.hasNext()) {
                 Header header = headerIterator.nextHeader();
                 if (header.getName().equals("Content-Type")) {
-                    //response.addHeader(header.getName(), header.getValue());
                     response.setHeader(header.getName(), header.getValue());//或许可以解决重定向乱码(好像没影响)
                 }
             }
