@@ -2,12 +2,13 @@ package com.jinhe.modules.system.dto;
 
 
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Administrator
  */
-public class PermissionItemDTO {
+public class PermissionItemDTO implements Serializable {
     private List<String> itemIds;
     private String sysPermissionId;
 
