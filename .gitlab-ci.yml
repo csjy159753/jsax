@@ -11,6 +11,6 @@ build:
     #连接tomcat的服务器，执行deploy.sh，将war包拷贝到webapps下面，重启tomcat
     #    - ssh root@192.168.3.167"sh /apps/shell/deploy.sh"
   only:
-    - oracle
+    - mysql8
   tags:
-    - my-runner
+    - template-tag
