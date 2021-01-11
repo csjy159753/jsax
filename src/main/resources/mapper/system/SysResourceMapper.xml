@@ -33,11 +33,11 @@
         <if test=" userId != null and  userId !=''">
             WHERE suo.user_id=#{userId} and sr.state=1 and role.STATE=1
             AND sr.id NOT IN (
-            WITH RECURSIVE td AS ( SELECT id FROM sys_resource WHERE state = 2 UNION ALL
+            select id from (WITH RECURSIVE td AS ( SELECT id FROM sys_resource WHERE state = 2 UNION ALL
             SELECT c.id FROM sys_resource c, td WHERE c.PARENT_ID = td.id ) SELECT
             *
             FROM
-            td
+            td) as d
 
             )
         </if>
@@ -86,16 +86,16 @@
         LEFT JOIN sys_resource_item sri ON sri.resource_id = sr.id
         <where>
             <if test=" state != null ">
-                sr.STATE =#{state} AND sr.id NOT IN (
-                WITH RECURSIVE td AS ( SELECT id FROM sys_resource WHERE state = 2 UNION ALL
+                sr.STATE =#{state}
+                AND sr.id NOT IN (
+                select id from (WITH RECURSIVE td AS ( SELECT id FROM sys_resource WHERE state = 2 UNION ALL
                 SELECT c.id FROM sys_resource c, td WHERE c.PARENT_ID = td.id ) SELECT
                 *
                 FROM
-                td
-
+                td) as d
                 )
             </if>
-            and 
+            and
             <foreach collection="types" item="type" separator=" or " open="(" close=")">
                 sr.type =#{type}
             </foreach>

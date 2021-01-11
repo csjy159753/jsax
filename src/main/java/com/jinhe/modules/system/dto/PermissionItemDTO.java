@@ -9,6 +9,7 @@ import java.util.List;
  * @author Administrator
  */
 public class PermissionItemDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<String> itemIds;
     private String sysPermissionId;
 
