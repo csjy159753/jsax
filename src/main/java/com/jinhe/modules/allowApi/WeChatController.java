@@ -31,7 +31,7 @@ import java.net.URISyntaxException;
 @Transactional(rollbackFor = Exception.class)
 public class WeChatController {
 
-    @ApiOperation(value = "获取openid111aa", notes = "获取openid")
+    @ApiOperation(value = "获取openid11111aa", notes = "获取openid")
     @GetMapping(value = "JsCode2Session")
     public Result JsCode2Session(String appid, String secret, String jsCode) {
         String str = "";
