@@ -38,6 +38,6 @@ public class Application extends SpringBootServletInitializer implements Command
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("启动！！！!11221");
+		System.out.println("启动！！！!11221333");
 	}
 }
