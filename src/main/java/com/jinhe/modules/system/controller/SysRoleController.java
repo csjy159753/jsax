@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.Result;
+import com.jinhe.common.util.StringUtils;
 import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.config.SystemResultEnum;
 import com.jinhe.common.util.ResultUtil;
@@ -114,7 +115,7 @@ public class SysRoleController {
             QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("tag", sysRole.getTag());
             int count = sysRoleService.count(queryWrapper);
-            if (count > 0) {
+            if (count > 0 && StringUtils.isEmpty(sysRole.getId())) {
                 return ResultUtil.error(SystemResultEnum.ROLE_TAG_REPEAT);
             }
         }
