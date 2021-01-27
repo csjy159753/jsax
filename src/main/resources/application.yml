@@ -33,6 +33,10 @@ jinhe:
     sys: '业务相关的系统模块'
 # mysql
 spring:
+  security:
+    user:
+      name: admin
+      password: Mas@1qaz2wsx
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
