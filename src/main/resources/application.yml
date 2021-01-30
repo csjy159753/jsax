@@ -25,6 +25,7 @@ jinhe:
   filter: demo,download,allowApi,login
   #系统功能模块清单
   modules:
+    workbench: '控制台模块'
     demo: '演示测试模块'
     download: '自由下载模块'
     allowApi: '自由访问模块'
