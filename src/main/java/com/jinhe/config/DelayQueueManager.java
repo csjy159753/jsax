@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Executors;
 /**
- * @author Administrator
+ * @author rls
  */
 @Component
 public class DelayQueueManager implements CommandLineRunner {
