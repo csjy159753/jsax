@@ -3,12 +3,9 @@ package com.jinhe.config;
 import java.util.Date;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
-
 /**
- * @author Administrator
+ * @author rls
  */
-
-
 public class DelayTask implements Delayed {
     final private TaskBase data;
     final private long expire;
