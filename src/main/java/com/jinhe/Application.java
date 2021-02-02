@@ -26,7 +26,7 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 //@Configuration
 @EnableTransactionManagement
 //@EnableWebMvc
-//@EnableScheduling
+@EnableScheduling
 public class Application extends SpringBootServletInitializer implements CommandLineRunner {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder){
