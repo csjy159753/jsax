@@ -27,19 +27,19 @@ public class DelayQueueTest {
     @Test
     public void test1() {
 
-        delayQueueManager.put(new DelayTask(new TaskBaseDomain("aa", sysLogService), 1000));
+        delayQueueManager.put(new DelayTask(new TaskBaseDomain("aa", sysLogService), 11000));
 
 
-        delayQueueManager.put(new DelayTask(new TaskBaseDomain("bb", sysLogService), 2000));
+        delayQueueManager.put(new DelayTask(new TaskBaseDomain("bb", sysLogService), 12000));
 
-        delayQueueManager.put(new DelayTask(new TaskBaseDomain("cc", sysLogService), 3000));
+        delayQueueManager.put(new DelayTask(new TaskBaseDomain("cc", sysLogService), 13000));
 
-        delayQueueManager.put(new DelayTask(new TaskBaseDomain("dd", sysLogService), 4000));
+        delayQueueManager.put(new DelayTask(new TaskBaseDomain("dd", sysLogService), 14000));
 
-        delayQueueManager.put(new DelayTask(new TaskBaseDomain("ee", sysLogService), 5000));
+        delayQueueManager.put(new DelayTask(new TaskBaseDomain("ee", sysLogService), 15000));
 
         delayQueueManager.remove("ee");
-        delayQueueManager.put(new DelayTask(new TaskBaseDomain("ff", sysLogService), 5000));
+        delayQueueManager.put(new DelayTask(new TaskBaseDomain("ff", sysLogService), 15000));
 
         try {
             sleep(90000000);
