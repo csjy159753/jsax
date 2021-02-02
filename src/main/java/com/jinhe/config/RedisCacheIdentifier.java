@@ -3,7 +3,7 @@ package com.jinhe.config;
 /**
  * @author Administrator
  */
-public class RedisCacheIdentifier {
+public interface RedisCacheIdentifier {
     public static final Long CACHE_SYS_CITY_LIST_EXPIRE_TIME = 10000L;
     /**
      * 所有省市区

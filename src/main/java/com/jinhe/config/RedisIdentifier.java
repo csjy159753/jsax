@@ -3,7 +3,7 @@ package com.jinhe.config;
 /**
  * @author Administrator
  */
-public class RedisIdentifier {
+public interface RedisIdentifier {
     /**
      * 短信类型
      */
