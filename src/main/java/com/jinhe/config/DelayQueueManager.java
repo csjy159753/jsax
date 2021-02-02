@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Executors;
+
 /**
  * @author rls
  */
@@ -23,6 +24,7 @@ public class DelayQueueManager implements CommandLineRunner {
 
     /**
      * 加入到延时队列中
+     *
      * @param task
      */
     public void put(DelayTask task) {
@@ -32,6 +34,7 @@ public class DelayQueueManager implements CommandLineRunner {
 
     /**
      * 取消延时任务
+     *
      * @param task
      * @return
      */
@@ -42,11 +45,12 @@ public class DelayQueueManager implements CommandLineRunner {
 
     /**
      * 取消延时任务
-     * @param taskid
+     *
+     * @param taskId
      * @return
      */
-    public boolean remove(String taskid) {
-        return remove(new DelayTask(new TaskBase(taskid), 0));
+    public boolean remove(String taskId) {
+        return remove(new DelayTask( new TaskBase(taskId), 0));
     }
 
     @Override
@@ -71,10 +75,13 @@ public class DelayQueueManager implements CommandLineRunner {
 
     /**
      * 内部执行延时任务
+     *
      * @param task
      */
+
     private void processTask(DelayTask task) {
-        logger.info("执行延时任务：{}", task);
+        logger.info("执行延时任务：{}", task.getData().getIdentifier());
+        task.process();
         //根据task中的data自定义数据来处理相关逻辑，例 if (task.getData() instanceof XXX) {}
     }
 }

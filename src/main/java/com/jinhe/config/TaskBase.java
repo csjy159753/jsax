@@ -24,4 +24,10 @@ public class TaskBase {
     public String toString() {
         return JSON.toJSONString(this);
     }
+
+    /**
+     * 抽象执行方法
+     */
+    public void process() {
+    }
 }
