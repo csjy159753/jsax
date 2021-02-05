@@ -67,15 +67,6 @@ public class SysOrganController {
         }
         SysOrgan sysOrgan = new SysOrgan();
         sysOrgan = EntityUtil.INSTANCE.copyValOnlyDestEmpty(sysOrgan, sysOrganAddDTO);
-        if (!StringUtils.isEmpty(sysOrgan.getTag())) {
-            QueryWrapper<SysOrgan> queryWrapper = new QueryWrapper<>();
-            queryWrapper.lambda().eq(SysOrgan::getType, sysOrgan.getType());
-            int count = iSysOrganService.count(queryWrapper);
-            if (count > 0) {
-                return ResultUtil.error(SystemResultEnum.ORGAN_TAG_REPEAT);
-            }
-        }
-
         /**
          * 删除之前的机构角色关联
          */

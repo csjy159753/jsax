@@ -14,7 +14,7 @@ public class AsyncService {
     Logger log = LoggerFactory.getLogger(getClass());
 
     // 指定使用beanname为doSomethingExecutor的线程池
-    @Async("doSomethingExecutor")
+    @Async(value = "doSomethingExecutor")
     public String doSomething(String message) {
         log.info("do something, message={}", message);
         try {
