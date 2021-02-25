@@ -12,6 +12,7 @@ import java.util.Map;
 
 /**
  * 配置多数据源
+ * @author Administrator
  */
 @Configuration
 public class DynamicDataSourceConfig {
