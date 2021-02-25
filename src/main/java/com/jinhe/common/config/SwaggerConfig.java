@@ -33,14 +33,21 @@ public class SwaggerConfig {
     @Value("${swagger.description}")
     private String description;
 
+    private boolean enableSwagger = true;
 
+    @Value("${spring.profiles.active}")
+    private String profilesActive;
     @Autowired
     private Property property;
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        if ("prod".equals(profilesActive)) {
+            enableSwagger = false;
+        }
+        return new Docket(DocumentationType.OAS_30)
                 // apiInfo()用来创建该Api的基本信息（这些基本信息会展现在文档页面中）
+                .enable(enableSwagger) //<--- Flag to enable or disable possibly loaded using a property file
                 .apiInfo(apiInfo())
                 .tags(new Tag("system", "系统模块"), getTags().toArray(new Tag[0]))
                 .select()    //select()函数返回一个ApiSelectorBuilder实例用来控制哪些接口暴露给Swagger来展现
