@@ -9,11 +9,9 @@ import com.jinhe.common.util.*;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.base.BaseController;
-import com.jinhe.modules.sys.dto.UserInfoDTO;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysPasswordDTO;
 import com.jinhe.modules.sys.dto.SysUserDTO;
-import com.jinhe.modules.system.entity.SysOrgan;
 import com.jinhe.modules.system.entity.SysUser;
 import com.jinhe.modules.system.entity.SysUserOrgan;
 import com.jinhe.modules.sys.service.ISysOrganService;
@@ -223,6 +221,6 @@ public class SysUserController extends BaseController {
     @ApiOperation(value = "根据用户id获取用户信息和机构信息", notes = "根据用户id获取用户信息和机构信息")
     @RequestMapping(value = "getUserInfo/{userId}", method = RequestMethod.GET)
     public Result getUserInfo(@PathVariable String userId) {
-        return ResultUtil.success(UserInfo());
+        return ResultUtil.success(userinfo());
     }
 }

@@ -49,7 +49,7 @@ public class BaseController {
      *
      * @return
      */
-    protected UserInfoDTO UserInfo() {
+    protected UserInfoDTO userinfo() {
         SysUser sysUser = iSysUserService.getById(getUserId());
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setSysUser(sysUser);
