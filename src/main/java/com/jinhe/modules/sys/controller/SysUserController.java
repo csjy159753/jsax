@@ -8,6 +8,7 @@ import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.*;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.config.SystemResultEnum;
+import com.jinhe.modules.base.BaseController;
 import com.jinhe.modules.sys.dto.UserInfoDTO;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysPasswordDTO;
@@ -42,7 +43,7 @@ import java.util.List;
 @RequestMapping("/sys/sys-user")
 @Api(tags = "sys")
 @Transactional(rollbackFor = Exception.class)
-public class SysUserController {
+public class SysUserController extends BaseController {
     @Autowired
     private ISysUserService iSysUserService;
     Logger log = LoggerFactory.getLogger(getClass());
@@ -80,7 +81,7 @@ public class SysUserController {
         sysUserDto.setId(StringUtils.getGUID());
         sysUser = Mapper.ModelToModel(sysUserDto, SysUser.class);
         iSysUserService.save(sysUser);
-        if(sysUserDto.getOrganIds()==null||sysUserDto.getOrganIds().size()==0){
+        if (sysUserDto.getOrganIds() == null || sysUserDto.getOrganIds().size() == 0) {
             return ResultUtil.error(SystemResultEnum.INSERT_USER_ORGAN_ERROR);
         }
         List<SysUserOrgan> organList = new ArrayList<>();
@@ -136,6 +137,7 @@ public class SysUserController {
     @RequestMapping(value = "updateUserState/{userId}/{state}", method = RequestMethod.PUT)
     public Result updateUserState(@PathVariable String userId, @PathVariable Integer state) {
         try {
+            userId = getUserId();
             SysUser sysUser = iSysUserService.getById(userId);
             if (sysUser != null) {
                 sysUser.setState(state);
@@ -191,6 +193,7 @@ public class SysUserController {
     @ApiOperation(value = "删除用户", notes = "删除账户")
     @RequestMapping(value = "/removeById/{id}", method = RequestMethod.DELETE)
     public Result removeById(@PathVariable String id) {
+        id = getUserId();
         iSysUserOrganService.removeById(id);
         return ResultUtil.success();
     }
@@ -201,6 +204,7 @@ public class SysUserController {
     @ApiOperation(value = "根据机构id获取用户基本信息", notes = "根据机构id获取用户基本信息")
     @RequestMapping(value = "list/{userId}", method = RequestMethod.GET)
     public Result list(@PathVariable String userId, String organId, Integer state, PageFilter pageFilter) {
+        userId = getUserId();
         SysUser sysUser = iSysUserService.getById(userId);
         if (StringUtils.isEmpty(organId) && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
             return ResultUtil.error();
@@ -219,19 +223,6 @@ public class SysUserController {
     @ApiOperation(value = "根据用户id获取用户信息和机构信息", notes = "根据用户id获取用户信息和机构信息")
     @RequestMapping(value = "getUserInfo/{userId}", method = RequestMethod.GET)
     public Result getUserInfo(@PathVariable String userId) {
-        SysUser sysUser = iSysUserService.getById(userId);
-        UserInfoDTO userInfoDTO = new UserInfoDTO();
-        userInfoDTO.setSysUser(sysUser);
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("user_id", userId);
-        queryWrapper.select("organ_id");
-        List<String> listOrganId = iSysUserOrganService.listObjs(queryWrapper);
-        if (listOrganId != null && listOrganId.size() > 0) {
-            QueryWrapper queryWrapperOrgan = new QueryWrapper();
-            queryWrapperOrgan.in("id", listOrganId);
-            List<SysOrgan> listOrgan = iSysOrganService.list(queryWrapperOrgan);
-            userInfoDTO.setListOrgan(listOrgan);
-        }
-        return ResultUtil.success(userInfoDTO);
+        return ResultUtil.success(UserInfo());
     }
 }

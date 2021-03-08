@@ -27,14 +27,19 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws SignatureException {
         /** 地址过滤 */
         String uri = request.getRequestURI();
-        if (property.getSpringProfilesActive().equals(SystemType.prod)) {
-            if (property.getPermissionsModules().stream().filter(d -> uri.startsWith(d, 1)).count() == 0
-            ) {
-                return true;
-            }
-        } else {
+        if (property.getPermissionsModules().stream().filter(d -> uri.startsWith(d, 1)).count() == 0
+        ) {
             return true;
         }
+
+//        if (property.getSpringProfilesActive().equals(SystemType.prod)) {
+//            if (property.getPermissionsModules().stream().filter(d -> uri.startsWith(d, 1)).count() == 0
+//            ) {
+//                return true;
+//            }
+//        } else {
+//            return true;
+//        }
         /** Token 验证 */
         String token = request.getHeader(jwtConfig.getHeader());
         if (StringUtils.isEmpty(token)) {
