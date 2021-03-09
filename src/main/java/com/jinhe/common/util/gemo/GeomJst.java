@@ -17,7 +17,7 @@ public class GeomJst {
      * @return: java.lang.Boolean
      * @description: 电子围栏多边形判断经纬度点是否在多边形内
      */
-    private static Boolean polygonJudgment(String xys, Double lng, Double lat) {
+    public static Boolean polygonJudgment(String xys, Double lng, Double lat) {
         String[] strings = xys.split(",");
         Coordinate[] coordinates = new Coordinate[strings.length / 2];
         try {
