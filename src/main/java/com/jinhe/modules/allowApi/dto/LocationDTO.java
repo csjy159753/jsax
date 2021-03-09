@@ -25,6 +25,12 @@ public class LocationDTO implements Serializable {
     private PointDTO pointP;
 
     /**
+     * 点
+     */
+    @ApiModelProperty(value="点",name="point",example="{x:1.0001, y:1.0001}")
+    private PointDTO point;
+
+    /**
      * 最短距离
      */
     @ApiModelProperty(value="最短距离",name="distance",example="1.0001")
@@ -57,11 +63,20 @@ public class LocationDTO implements Serializable {
         this.distance = distance;
     }
 
+    public PointDTO getPoint() {
+        return point;
+    }
+
+    public void setPoint(PointDTO point) {
+        this.point = point;
+    }
+
     @Override
     public String toString() {
         return "LocationDTO{" +
                 "insideFlag=" + insideFlag +
                 ", pointP=" + pointP +
+                ", point=" + point +
                 ", distance='" + distance + '\'' +
                 '}';
     }
