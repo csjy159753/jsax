@@ -1,4 +1,4 @@
-# Tomcat
+# Tomcat 配置
 server:
   tomcat:
     uri-encoding: UTF-8
@@ -12,13 +12,14 @@ server:
   servlet:
     context-path:
   max-http-header-size: 10240
+# 对应pom的版本
 version: '@project.version@'
 #   context-path: /cApi
 #http://localhost:8098/swagger-ui/
 swagger:
   basePackage: com.jinhe
-  title: RESTful API 文档
-  description:  RESTful API 文档
+  title: 框架 RESTful API 文档
+  description: 框架  RESTful API 文档
   version: '@project.version@'
 jinhe:
   #排除需要权限验证的模块
@@ -32,12 +33,14 @@ jinhe:
     login: '登录模块'
     system: '系统模块'
     sys: '业务相关的系统模块'
+    custom: '自定义业务'
 # mysql
 spring:
   security:
     user:
       name: admin
       password: Mas@1qaz2wsx
+  # 时间格式统一处理
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -109,7 +112,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: ['metrics']
+        include: [ 'metrics' ]
   endpoint:
     health:
       enabled: true

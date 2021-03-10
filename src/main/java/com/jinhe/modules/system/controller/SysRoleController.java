@@ -7,7 +7,7 @@ import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.common.util.Tree.TreeChildren;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysRoleChDTO;

@@ -3,7 +3,7 @@ package com.jinhe.modules.system.controller;
 
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultUtil;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.modules.system.dto.PermissionItemDTO;
 import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.service.ISysPermissionService;

@@ -46,10 +46,9 @@ public class BaseController {
 
     /**
      * 获取用户的基本信息
-     *
      * @return
      */
-    protected UserInfoDTO userinfo() {
+    protected UserInfoDTO baseUserinfo() {
         SysUser sysUser = iSysUserService.getById(getUserId());
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setSysUser(sysUser);

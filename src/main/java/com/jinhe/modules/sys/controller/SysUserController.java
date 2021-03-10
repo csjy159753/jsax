@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.*;
 import com.jinhe.common.config.LongSwingConstants;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.modules.base.BaseController;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysPasswordDTO;
@@ -221,6 +221,6 @@ public class SysUserController extends BaseController {
     @ApiOperation(value = "根据用户id获取用户信息和机构信息", notes = "根据用户id获取用户信息和机构信息")
     @RequestMapping(value = "getUserInfo/{userId}", method = RequestMethod.GET)
     public Result getUserInfo(@PathVariable String userId) {
-        return ResultUtil.success(userinfo());
+        return ResultUtil.success(baseUserinfo());
     }
 }

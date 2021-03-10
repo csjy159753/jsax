@@ -1,4 +1,4 @@
-package com.jinhe.config;
+package com.jinhe.common.config;
 
 import com.jinhe.common.config.AbstractEnum;
  import com.jinhe.common.config.ResultEnum;
@@ -22,7 +22,6 @@ public class SystemResultEnum extends ResultEnum {
     public static final ResultEnum ROLE_NOT_FOUND = new ResultEnum(1101, "角色信息未发现");
     public static final ResultEnum ROLE_ASSOCIATED_USERS = new ResultEnum(1101, "角色有关联用户无法删除");
     public static final ResultEnum ROLE_EXIST_SUBSET_UNABLE_DEL = new ResultEnum(1103, "角色存在子角色无法删除");
-    public static final ResultEnum ROLE_UPDATE_ERROR = new ResultEnum(1103, "角色更新失败");
     public static final ResultEnum ROLE_INSERT_PERMISSIONS = new ResultEnum(1104, "更新内容为空");
     public static final ResultEnum ROLE_TAG_REPEAT = new ResultEnum(1105, "角色表示重复");
     public static final ResultEnum ROLE_TYPE_REPEAT = new ResultEnum(1105, "角色类型重复");

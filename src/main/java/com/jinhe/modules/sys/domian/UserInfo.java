@@ -1,7 +1,7 @@
 package com.jinhe.modules.sys.domian;
 
 import com.jinhe.common.config.ResultEnum;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 
 /**
  * @author Administrator

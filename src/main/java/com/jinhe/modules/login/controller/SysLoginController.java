@@ -5,7 +5,7 @@ import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.config.JwtConfig;
 import com.jinhe.common.config.SystemType;
 import com.jinhe.common.util.*;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.modules.login.dto.SysLogin;
 import com.jinhe.modules.login.dto.SysLoginDTO;
 import com.jinhe.modules.sys.service.ISysUserService;

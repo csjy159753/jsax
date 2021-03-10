@@ -6,7 +6,7 @@ import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.MapTree;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysResource;

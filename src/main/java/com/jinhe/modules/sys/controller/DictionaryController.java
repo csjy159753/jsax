@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.TreeChildren;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.modules.sys.dto.DictionaryDTO;
 import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.service.IDictionaryService;

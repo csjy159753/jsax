@@ -1,7 +1,6 @@
 package com.jinhe.modules.sys.service;
 
 import com.jinhe.common.config.ResultEnum;
-import com.jinhe.config.SystemResultEnum;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.baomidou.mybatisplus.extension.service.IService;
 

@@ -5,7 +5,7 @@ import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.EntityUtil;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.common.config.LongSwingConstants;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.dao.DictionaryMapper;
 import com.jinhe.modules.sys.service.IDictionaryService;

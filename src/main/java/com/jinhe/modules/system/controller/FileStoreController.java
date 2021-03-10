@@ -2,7 +2,7 @@ package com.jinhe.modules.system.controller;
 
 
 import com.jinhe.common.util.Result;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.config.ConfigProperty;
 import com.jinhe.modules.system.dto.FileStoreDTO;

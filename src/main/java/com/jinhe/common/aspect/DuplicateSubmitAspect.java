@@ -2,7 +2,7 @@ package com.jinhe.common.aspect;
 
 import com.jinhe.common.config.SystemType;
 import com.jinhe.common.exception.DuplicateSubmitException;
-import com.jinhe.config.SystemResultEnum;
+import com.jinhe.common.config.SystemResultEnum;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
