@@ -2,13 +2,13 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      first:  #数据源1
+      first: #数据源1
         url: jdbc:mysql://124.70.212.38:4576/template?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
         password: "aSj)3j71gTI&"
         driverClassName: com.mysql.cj.jdbc.Driver
         filters: stat,slf4j,wall,config
-      second:  #数据源2
+      second: #数据源2
         url: jdbc:mysql://124.70.212.38:4576/template?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: root
         password: "aSj)3j71gTI&"
@@ -50,11 +50,22 @@ spring:
       web-stat-filter:
         enabled: true
         exclusions: "/error*,*.html,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/v2/api-docs,/swagger*"
+  #rabbitmq配置项
   rabbitmq:
     #http://124.70.222.76:15672/#/
     host: 47.105.34.116
     port: 5672
     username: admin
+    password: Mas@12345
+  #redis配置项
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 47.105.34.116
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
     password: Mas@12345
 file:
   root:
@@ -70,6 +81,7 @@ file:
     #存储路径
     upload: upload
     uploadFile: uploadFile
+# 请求转发配置项
 redirect:
   config1:
     SERVER_HOST: 192.168.0.120
