@@ -381,6 +381,11 @@
             <artifactId>jts</artifactId>
             <version>1.13</version>
         </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.5.3</version>
+        </dependency>
     </dependencies>
 
     <!-- 阿里云maven仓库 -->

@@ -107,10 +107,10 @@ public class DictionaryController {
 //        }
         Dictionary dictionary = iDictionaryService.getById(id);
         if (dictionary.getSystem()) {
-            ResultUtil.error(SystemResultEnum.DICTIONARY_TYPE_SYSTEM_NOT_DEL);
+            return  ResultUtil.error(SystemResultEnum.DICTIONARY_TYPE_SYSTEM_NOT_DEL);
         }
         if (dictionary == null) {
-            ResultUtil.error(ResultEnum.NOT_FOUND);
+            return  ResultUtil.error(ResultEnum.NOT_FOUND);
         }
         iDictionaryService.removeById(id);
         iDictionaryService.saveOrUpdateChildrenNumAndLevel(dictionary.getParentId());
