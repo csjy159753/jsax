@@ -85,6 +85,7 @@ public class LocationController {
         Point.PointF pPoint = new Point.PointF();
         Point.getProjectivePoint(minPoint1, minPoint2, pointDTO.toPointF(), pPoint);
         locationDTO.setPointP(new PointDTO(String.valueOf(pPoint.getY()), String.valueOf(pPoint.getX())));
+        locationDTO.setPoint(pointDTO);
 
         return ResultUtil.success(locationDTO);
     }
