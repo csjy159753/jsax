@@ -3,7 +3,7 @@ package com.jinhe.modules.sys.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.jinhe.common.config.HttpUtil;
-import com.jinhe.modules.base.UserController;
+import com.jinhe.common.module.controller.UserController;
 import com.jinhe.modules.sys.service.IHttpClientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

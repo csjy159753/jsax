@@ -8,7 +8,7 @@ import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.common.config.SystemResultEnum;
-import com.jinhe.modules.base.UserController;
+import com.jinhe.common.module.controller.UserController;
 import com.jinhe.modules.sys.dto.DictionaryDTO;
 import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.service.IDictionaryService;

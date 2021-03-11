@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.*;
 import com.jinhe.common.config.SystemResultEnum;
-import com.jinhe.modules.base.UserController;
+import com.jinhe.common.module.controller.UserController;
 import com.jinhe.modules.sys.dto.SysOrganAddDTO;
 import com.jinhe.modules.sys.dto.SysOrganRoleDTO;
 import com.jinhe.modules.sys.service.ISysOrganRoleService;
