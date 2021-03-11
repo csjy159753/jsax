@@ -1,9 +1,12 @@
 package com.jinhe.modules.system.controller;
 
 
+import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.Result;
 import com.jinhe.common.util.ResultUtil;
 import com.jinhe.common.config.SystemResultEnum;
+import com.jinhe.modules.base.BaseController;
+import com.jinhe.modules.base.UserController;
 import com.jinhe.modules.system.dto.PermissionItemDTO;
 import com.jinhe.modules.system.entity.SysRole;
 import com.jinhe.modules.system.service.ISysPermissionService;
@@ -28,7 +31,7 @@ import java.util.List;
 @RequestMapping("/system/sys-permission")
 @Api(tags = "system")
 @Transactional(rollbackFor = Exception.class)
-public class SysPermissionController {
+public class SysPermissionController extends UserController {
 
     @Autowired
     private ISysPermissionService iSysPermissionService;

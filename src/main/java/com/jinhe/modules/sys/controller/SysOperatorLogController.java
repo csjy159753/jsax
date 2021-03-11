@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.*;
+import com.jinhe.modules.base.UserController;
 import com.jinhe.modules.sys.service.ISysOperatorLogService;
 import com.jinhe.modules.system.entity.SysOperatorLog;
 import com.jinhe.modules.system.entity.SysOrgan;
@@ -34,7 +35,7 @@ import java.util.List;
 @RequestMapping("/sys/sys-operator-log")
 @Api(tags = "sys")
 @Transactional(rollbackFor = Exception.class)
-public class SysOperatorLogController {
+public class SysOperatorLogController extends UserController {
     @Autowired
     private ISysOperatorLogService iSysOperatorLogService;
 

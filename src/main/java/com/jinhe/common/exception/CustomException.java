@@ -1,28 +1,36 @@
 package com.jinhe.common.exception;
 
-public class ToolsException extends RuntimeException  {
+import com.jinhe.common.config.ResultEnum;
+
+/**
+ * 自定义异常
+ *
+ * @author rls
+ */
+public class CustomException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     private String msg;
-    private Integer code = 500;
+    private int code = 500;
+    private ResultEnum ResultEnum;
 
-    public ToolsException(String msg) {
+    public CustomException(String msg) {
         super(msg);
         this.msg = msg;
     }
 
-    public ToolsException(String msg, Throwable e) {
+    public CustomException(String msg, Throwable e) {
         super(msg, e);
         this.msg = msg;
     }
 
-    public ToolsException(Integer code,String msg ) {
+    public CustomException(String msg, int code) {
         super(msg);
         this.msg = msg;
         this.code = code;
     }
 
-    public ToolsException(Integer code,String msg,  Throwable e) {
+    public CustomException(String msg, int code, Throwable e) {
         super(msg, e);
         this.msg = msg;
         this.code = code;
@@ -42,5 +50,10 @@ public class ToolsException extends RuntimeException  {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public <T extends ResultEnum> CustomException(T systemResultEnum) {
+        super((String) systemResultEnum.getMsg());
+        this.ResultEnum = systemResultEnum;
     }
 }

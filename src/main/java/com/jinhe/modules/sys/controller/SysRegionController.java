@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.util.*;
 import com.jinhe.common.config.SystemResultEnum;
+import com.jinhe.modules.base.UserController;
 import com.jinhe.modules.sys.dao.SysRegionMapper;
 import com.jinhe.modules.system.entity.SysRegion;
 import com.jinhe.modules.sys.service.ISysRegionService;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sys/sys-region")
 @Api(tags = "sys")
 @Transactional(rollbackFor = Exception.class)
-public class SysRegionController {
+public class SysRegionController extends UserController {
     @Autowired
     private ISysRegionService sysRegionService;
     @Autowired

@@ -165,6 +165,11 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
         return false;
     }
 
+    @Override
+    public boolean saveOrUpdate(Class<T> clazz, String tableId, String type) {
+        return false;
+    }
+
 
     /**
      * 图片压缩处理方法

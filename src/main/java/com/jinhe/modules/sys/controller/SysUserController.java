@@ -9,6 +9,7 @@ import com.jinhe.common.util.*;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.modules.base.BaseController;
+import com.jinhe.modules.base.UserController;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysPasswordDTO;
 import com.jinhe.modules.sys.dto.SysUserDTO;
@@ -41,7 +42,7 @@ import java.util.List;
 @RequestMapping("/sys/sys-user")
 @Api(tags = "sys")
 @Transactional(rollbackFor = Exception.class)
-public class SysUserController extends BaseController {
+public class SysUserController extends UserController {
     @Autowired
     private ISysUserService iSysUserService;
     Logger log = LoggerFactory.getLogger(getClass());
@@ -134,6 +135,7 @@ public class SysUserController extends BaseController {
     @ApiOperation(value = "禁用/恢复用户", notes = "禁用/恢复用户")
     @RequestMapping(value = "updateUserState/{userId}/{state}", method = RequestMethod.PUT)
     public Result updateUserState(@PathVariable String userId, @PathVariable Integer state) {
+        userId = getUserId();
         try {
             userId = getUserId();
             SysUser sysUser = iSysUserService.getById(userId);

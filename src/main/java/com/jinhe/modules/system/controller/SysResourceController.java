@@ -4,9 +4,12 @@ package com.jinhe.modules.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jinhe.common.annotation.SysLog;
 import com.jinhe.common.config.LongSwingConstants;
+import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.MapTree;
 import com.jinhe.common.config.SystemResultEnum;
+import com.jinhe.modules.base.BaseController;
+import com.jinhe.modules.base.UserController;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysResourceDTO;
 import com.jinhe.modules.system.entity.SysResource;
@@ -38,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequestMapping("/system/sys-resource")
 @Api(tags = "system")
 @Transactional(rollbackFor = Exception.class)
-public class SysResourceController {
+public class SysResourceController extends UserController {
     @Resource
     private ISysResourceService ISysResService;
 
@@ -56,6 +59,10 @@ public class SysResourceController {
     @RequestMapping(value = "listResource/{userId}", method = RequestMethod.GET)
     @SysLog(value = "listResource/{userId}")
     public Result<List<SysResourceDTO>> listResource(@PathVariable String userId) {
+        userId = getUserId();
+        if (userId == null) {
+            return ResultUtil.success(ResultEnum.PERMISSION_DENIED);
+        }
         List<SysResourceDTO> sysResource = ISysResService.listResource(userId);
         List<ConcurrentHashMap<String, Object>> listMap = MapTree.CreateTree(sysResource);
         return ResultUtil.success(listMap);
@@ -67,6 +74,7 @@ public class SysResourceController {
     @ApiOperation(value = "查询所有菜单管理员专用", notes = "查询所有菜单管理员专用")
     @RequestMapping(value = "list/{userId}", method = RequestMethod.GET)
     public Result<List<SysResourceDTO>> List(@PathVariable String userId) {
+        userId = getUserId();
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser != null && LongSwingConstants.USER_TYPE_ROOT_ADMIN.equals(sysUser.getType())) {
             List<SysResourceDTO> List = ISysResService.listResourceAdmin();
@@ -94,6 +102,7 @@ public class SysResourceController {
     @ApiOperation(value = "新增或更新菜单", notes = "新增或更新菜单")
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     public Result saveOrUpdate(@RequestBody SysResource sysResource) {
+
         try {
             ISysResService.saveOrUpdate(sysResource);
         } catch (Exception e) {
@@ -109,6 +118,7 @@ public class SysResourceController {
     @ApiOperation(value = "根据Id查询子项菜单", notes = "根据Id查询子项菜单")
     @RequestMapping(value = "listSysResourceItem/{resourceId}", method = RequestMethod.GET)
     public Result<List<SysResourceItem>> listSysResourceItemById(@PathVariable String resourceId) {
+
         try {
             QueryWrapper<SysResourceItem> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("resource_id", resourceId);
@@ -123,6 +133,7 @@ public class SysResourceController {
     @ApiOperation(value = "新增或更新资源子项菜单", notes = "新增或更新资源子项菜单")
     @RequestMapping(value = "saveOrUpdateSysResourceItem", method = RequestMethod.POST)
     public Result saveOrUpdateSysResourceItem(@RequestBody SysResourceItem sysRes) {
+
         try {
             iSysResourceItemService.saveOrUpdate(sysRes);
         } catch (Exception e) {
@@ -135,6 +146,7 @@ public class SysResourceController {
     @ApiOperation(value = "根据Id查询资源子项菜单", notes = "根据Id查询资源子项菜单")
     @RequestMapping(value = "getSysResourceItem/{id}", method = RequestMethod.GET)
     public Result<SysResourceItem> GetSysResourceItem(@PathVariable String id) {
+
         SysResourceItem sysResourceItem;
         try {
             sysResourceItem = iSysResourceItemService.getBaseMapper().selectById(id);
@@ -148,6 +160,7 @@ public class SysResourceController {
     @ApiOperation(value = "删除资源菜单", notes = "删除资源菜单")
     @RequestMapping(value = "remove/{id}", method = RequestMethod.DELETE)
     public Result remove(@PathVariable String id) {
+
         ISysResService.removeById(id);
         return ResultUtil.success();
     }

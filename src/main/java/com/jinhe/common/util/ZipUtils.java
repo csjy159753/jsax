@@ -1,4 +1,5 @@
 package com.jinhe.common.util;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -14,11 +15,10 @@ import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.jinhe.common.exception.ToolsException;
-import com.jinhe.common.exception.ToolsExceptionConstant;
+import com.jinhe.common.config.ResultEnum;
+import com.jinhe.common.exception.CustomException;
 import com.jinhe.common.util.entity.ZipStreamEntity;
 import org.springframework.stereotype.Component;
-
 
 
 /**
@@ -33,12 +33,9 @@ public class ZipUtils {
     /**
      * 将存放在sourceFilePath目录下的源文件，打包成fileName名称的zip文件，并存放到zipFilePath路径下
      *
-     * @param sourceFilePath
-     *            :待压缩的文件路径
-     * @param zipFilePath
-     *            :压缩后存放路径
-     * @param fileName
-     *            :压缩后文件的名称
+     * @param sourceFilePath :待压缩的文件路径
+     * @param zipFilePath    :压缩后存放路径
+     * @param fileName       :压缩后文件的名称
      * @return
      */
     public static boolean folderToZip(String sourceFilePath, String zipFilePath, String fileName) {
@@ -51,21 +48,18 @@ public class ZipUtils {
 
         if (sourceFile.exists() == false) {
             System.out.println("待压缩的文件目录：" + sourceFilePath + "不存在.");
-            throw new ToolsException(ToolsExceptionConstant.NOTEXSITERROR.getCode(),
-                    String.format(ToolsExceptionConstant.NOTEXSITERROR.getMsg(), sourceFilePath));
+            throw new CustomException(ResultEnum.TOOLS_EXCEPTION_CONSTANT);
         } else {
             try {
                 File zipFile = new File(zipFilePath + "/" + fileName + ".zip");
                 if (zipFile.exists()) {
                     System.out.println(zipFilePath + "目录下存在名字为:" + fileName + ".zip" + "打包文件.");
-                    throw new ToolsException(ToolsExceptionConstant.NOTEXSITERROR.getCode(),
-                            String.format(ToolsExceptionConstant.NOTEXSITERROR.getMsg(), zipFilePath, fileName + ".zip"));
+                    throw new CustomException(ResultEnum.TOOLS_EXCEPTION_CONSTANT);
                 } else {
                     File[] sourceFiles = sourceFile.listFiles();
                     if (null == sourceFiles || sourceFiles.length < 1) {
                         System.out.println("待压缩的文件目录：" + sourceFilePath + "里面不存在文件，无需压缩.");
-                        throw new ToolsException(ToolsExceptionConstant.NOTEXSITERROR.getCode(),
-                                String.format(ToolsExceptionConstant.NOTEXSITERROR.getMsg(), sourceFilePath));
+                        throw new CustomException(ResultEnum.TOOLS_EXCEPTION_CONSTANT);
                     } else {
                         fos = new FileOutputStream(zipFile);
                         zos = new ZipOutputStream(new BufferedOutputStream(fos));
@@ -94,10 +88,12 @@ public class ZipUtils {
             } finally {
                 // 关闭流
                 try {
-                    if (null != bis)
+                    if (null != bis) {
                         bis.close();
-                    if (null != zos)
+                    }
+                    if (null != zos) {
                         zos.close();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     throw new RuntimeException(e);
@@ -110,12 +106,9 @@ public class ZipUtils {
     /**
      * 将sourceFilePath文件，打包成fileName名称的zip文件，并存放到zipFilePath路径下
      *
-     * @param sourceFilePath
-     *            :待压缩的文件路径
-     * @param zipFilePath
-     *            :压缩后存放路径
-     * @param fileName
-     *            :压缩后文件的名称
+     * @param sourceFilePath :待压缩的文件路径
+     * @param zipFilePath    :压缩后存放路径
+     * @param fileName       :压缩后文件的名称
      * @return
      */
     public static boolean fileToZip(String sourceFilePath, String zipFilePath, String fileName) {
@@ -127,15 +120,13 @@ public class ZipUtils {
         ZipOutputStream zos = null;
         if (sourceFile.exists() == false) {
             System.out.println("待压缩的文件：" + sourceFilePath + "不存在.");
-            throw new ToolsException(ToolsExceptionConstant.NOTEXSITERROR.getCode(),
-                    String.format(ToolsExceptionConstant.NOTEXSITERROR.getMsg(), sourceFilePath));
+            throw new CustomException(ResultEnum.TOOLS_EXCEPTION_CONSTANT);
         } else {
             try {
                 File zipFile = new File(zipFilePath + "/" + fileName + ".zip");
                 if (zipFile.exists()) {
                     System.out.println(zipFilePath + "目录下存在名字为:" + fileName + ".zip" + "打包文件.");
-                    throw new ToolsException(ToolsExceptionConstant.NOTEXSITERROR.getCode(),
-                            String.format(ToolsExceptionConstant.NOTEXSITERROR.getMsg(), zipFilePath, fileName + ".zip"));
+                    throw new CustomException(ResultEnum.TOOLS_EXCEPTION_CONSTANT);
                 } else {
                     fos = new FileOutputStream(zipFile);
                     zos = new ZipOutputStream(new BufferedOutputStream(fos));
@@ -161,10 +152,12 @@ public class ZipUtils {
             } finally {
                 // 关闭流
                 try {
-                    if (null != bis)
+                    if (null != bis) {
                         bis.close();
-                    if (null != zos)
+                    }
+                    if (null != zos) {
                         zos.close();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     throw new RuntimeException(e);
@@ -177,12 +170,9 @@ public class ZipUtils {
     /**
      * 将流的内容打包成fileName名称的zip文件，并存放到zipFilePath路径下
      *
-     * @param fis
-     *            :待压缩的文件路径
-     * @param zipFilePath
-     *            :压缩后存放路径
-     * @param fileName
-     *            :压缩后文件的名称
+     * @param fis         :待压缩的文件路径
+     * @param zipFilePath :压缩后存放路径
+     * @param fileName    :压缩后文件的名称
      * @return
      */
     public static boolean streamToZip(InputStream fis, String streamfilename, String zipFilePath, String fileName) {
@@ -194,8 +184,7 @@ public class ZipUtils {
             File zipFile = new File(zipFilePath + "/" + fileName + ".zip");
             if (zipFile.exists()) {
                 System.out.println(zipFilePath + "目录下存在名字为:" + fileName + ".zip" + "打包文件.");
-                throw new ToolsException(ToolsExceptionConstant.NOTEXSITERROR.getCode(),
-                        String.format(ToolsExceptionConstant.NOTEXSITERROR.getMsg(), zipFilePath, fileName + ".zip"));
+                throw new CustomException(ResultEnum.TOOLS_EXCEPTION_CONSTANT);
             } else {
                 fos = new FileOutputStream(zipFile);
                 zos = new ZipOutputStream(new BufferedOutputStream(fos));
@@ -221,25 +210,26 @@ public class ZipUtils {
         } finally {
             // 关闭流
             try {
-                if (null != bis)
+                if (null != bis) {
                     bis.close();
-                if (null != zos)
+                }
+                if (null != zos) {
                     zos.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
             }
         }
-        return flag;
+        return true;
     }
 
     /**
      * 将流转成zip文件输出
-     * @param inputstream
-     *            文件流
-     * @param streamfilename
-     *            流文件的名称
-     * @param fileName zip包的名称
+     *
+     * @param inputstream    文件流
+     * @param streamfilename 流文件的名称
+     * @param fileName       zip包的名称
      * @param response
      * @return
      */
@@ -279,12 +269,15 @@ public class ZipUtils {
         } finally {
             // 关闭流
             try {
-                if (null != bis)
+                if (null != bis) {
                     bis.close();
-                if (null != zos)
+                }
+                if (null != zos) {
                     zos.close();
-                if (null != out)
+                }
+                if (null != out) {
                     out.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
@@ -295,9 +288,9 @@ public class ZipUtils {
 
     /**
      * 将多个流转成zip文件输出
-     * @param listStream
-     *            文件流实体类对象
-     * @param fileName zip包的名称
+     *
+     * @param listStream 文件流实体类对象
+     * @param fileName   zip包的名称
      * @param response
      * @return
      */
@@ -339,12 +332,15 @@ public class ZipUtils {
         } finally {
             // 关闭流
             try {
-                if (null != bis)
+                if (null != bis) {
                     bis.close();
-                if (null != zos)
+                }
+                if (null != zos) {
                     zos.close();
-                if (null != out)
+                }
+                if (null != out) {
                     out.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
@@ -354,15 +350,15 @@ public class ZipUtils {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        String sourceFilePath = "D:\\test\\ SYSUSER_1703_20180130.csv";
+        String sourceFilePath = "C:\\Users\\Administrator\\Desktop\\短信资料.txt";
 
         File file = new File(sourceFilePath);
         InputStream fileInputStream = new FileInputStream(file);
 
         System.out.println(file.exists());
-        String zipFilePath = "D:\\test";
+        String zipFilePath = "E:\\gs";
         String fileName = "232wdsadwada";
-        String streamfileName = "wwww.csv";
+        String streamfileName = "短信资料.txt";
         // boolean flag = ZipUtils.fileToZip(sourceFilePath, zipFilePath, fileName);
         boolean flag = ZipUtils.streamToZip(fileInputStream, streamfileName, zipFilePath, fileName);
         if (flag) {

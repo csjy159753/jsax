@@ -9,6 +9,8 @@ import com.jinhe.common.util.StringUtils;
 import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.common.config.SystemResultEnum;
 import com.jinhe.common.util.ResultUtil;
+import com.jinhe.modules.base.BaseController;
+import com.jinhe.modules.base.UserController;
 import com.jinhe.modules.sys.service.ISysUserService;
 import com.jinhe.modules.system.dto.SysRoleChDTO;
 import com.jinhe.modules.system.entity.SysRole;
@@ -38,7 +40,7 @@ import java.util.List;
 @RequestMapping("/system/sys-role")
 @Api(tags = "system")
 @Transactional(rollbackFor = Exception.class)
-public class SysRoleController {
+public class SysRoleController extends UserController {
     @Resource
     private ISysRoleService sysRoleService;
     @Resource
@@ -56,7 +58,7 @@ public class SysRoleController {
     @ApiOperation(value = "查询全部角色列表管理员专用", notes = "查询全部角色列表管理员专用")
     @RequestMapping(value = "list/{userId}", method = RequestMethod.GET)
     public Result<List<SysRoleChDTO>> list(@PathVariable String userId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-
+        userId = verificationUserId();
         SysUser sysUser = iSysUserService.getById(userId);
         if (sysUser == null || (!LongSwingConstants.USER_TYPE_ROOT_ADMIN.equals(sysUser.getType()) && !LongSwingConstants.USER_TYPE_ADMIN.equals(sysUser.getType()))) {
             return ResultUtil.error(SystemResultEnum.RESOURCE_PERMISSION_DENIED);
@@ -92,6 +94,7 @@ public class SysRoleController {
     @ApiOperation(value = "查询角色列表根据tag", notes = "查询角色列表根据tag")
     @RequestMapping(value = "listByTag/{tag}", method = RequestMethod.GET)
     public Result<List<SysRole>> listByTag(@PathVariable String tag) {
+        verificationUserId();
         try {
             QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("tag", tag);
@@ -111,6 +114,7 @@ public class SysRoleController {
     @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
     @SysLog(value = "测试注解日志切面新增角色")
     public Result saveOrUpdate(@RequestBody SysRole sysRole) {
+        verificationUserId();
         if (sysRole.getTag() != null) {
             QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("tag", sysRole.getTag());

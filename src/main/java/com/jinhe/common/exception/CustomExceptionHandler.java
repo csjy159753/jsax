@@ -13,32 +13,40 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * 异常处理器
+ *
+ * @author rls
  */
 @RestControllerAdvice
-public class RRExceptionHandler {
+public class CustomExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * 处理自定义异常
      */
-    @ExceptionHandler(RRException.class)
-    public Result handleRRException(RRException e) {
+    @ExceptionHandler(CustomException.class)
+    public Result handleRRException(CustomException e) {
         ResultUtil.error(e.getCode(), e.getMessage());
         return ResultUtil.error(e.getCode(), e.getMessage());
     }
 
-    @ExceptionHandler(DuplicateKeyException.class)
-    public Result handleDuplicateKeyException(DuplicateKeyException e) {
-        logger.error(e.getMessage(), e);
-        return ResultUtil.Info(SystemResultEnum.DUPLICATE_KEY);
-    }
-
+    /**
+     * 全部异常
+     *
+     * @param e
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     public Result handleException(Exception e) {
         logger.error(e.getMessage(), e);
         return ResultUtil.error();
     }
 
+    /**
+     * 网络异常
+     *
+     * @param e
+     * @return
+     */
     @ExceptionHandler(value = {SignatureException.class})
     @ResponseBody
     public Result authorizationException(SignatureException e) {
@@ -46,10 +54,5 @@ public class RRExceptionHandler {
         return ResultUtil.Info(SystemResultEnum.TOKRN_ERROR);
     }
 
-    @ExceptionHandler(value = {DuplicateSubmitException.class})
-    @ResponseBody
-    public Result duplicateSubmitException(DuplicateSubmitException e) {
 
-        return ResultUtil.Info(SystemResultEnum.DUPLICATE_SUBMIT);
-    }
 }

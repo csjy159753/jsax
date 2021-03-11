@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.*;
 import com.jinhe.common.config.SystemResultEnum;
+import com.jinhe.modules.base.UserController;
 import com.jinhe.modules.sys.dto.SysOrganAddDTO;
 import com.jinhe.modules.sys.dto.SysOrganRoleDTO;
 import com.jinhe.modules.sys.service.ISysOrganRoleService;
@@ -38,7 +39,7 @@ import java.util.List;
 @RequestMapping("/sys/sys-organ")
 @Api(tags = "sys")
 @Transactional(rollbackFor = Exception.class)
-public class SysOrganController {
+public class SysOrganController extends UserController {
     @Resource
     private ISysOrganService iSysOrganService;
 
@@ -99,7 +100,7 @@ public class SysOrganController {
     @ApiOperation(value = "根据机构id查询下级组织机构 树形结构分级查询", notes = "根据机构id查询下级组织机构 树形结构分级查询")
     @RequestMapping(value = "selectOrganByOrganId/{userId}", method = RequestMethod.GET)
     public Result<ListSub<SysOrganRoleDTO>> selectOrganByOrganId(@PathVariable String userId, Integer type, String organId, PageFilter pageFilter) {
-
+        userId = getUserId();
         SysUser sysUser = iSysUserService.getById(userId);
         if (StringUtils.isEmpty(organId) && sysUser.getType() != null && !sysUser.getType().equals(LongSwingConstants.USER_TYPE_ADMIN)) {
             return ResultUtil.error();

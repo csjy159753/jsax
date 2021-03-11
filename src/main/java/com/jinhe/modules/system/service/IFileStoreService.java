@@ -35,4 +35,13 @@ public interface IFileStoreService extends IService<FileStore> {
      * @return
      */
     boolean saveFile(List<FileStoreDTO> list, T t, String type);
+
+    /**
+     * 保存更新表
+     * @param clazz
+     * @param tableId
+     * @param type
+     * @return
+     */
+    boolean saveOrUpdate(Class<T> clazz,String tableId,String type);
 }

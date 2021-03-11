@@ -1,8 +1,8 @@
 package com.jinhe.common.aspect;
 
 import com.jinhe.common.config.SystemType;
-import com.jinhe.common.exception.DuplicateSubmitException;
 import com.jinhe.common.config.SystemResultEnum;
+import com.jinhe.common.exception.CustomException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -52,7 +52,7 @@ public class DuplicateSubmitAspect {
                 i = System.currentTimeMillis() - (long) t;
             }
             if (i < INTERVAL) {
-                throw new DuplicateSubmitException(SystemResultEnum.DUPLICATE_SUBMIT);
+                throw new CustomException(SystemResultEnum.DUPLICATE_SUBMIT);
             } else {
                 duplicateMap.put(key, System.currentTimeMillis());
                 log.info("token-key=" + key);
@@ -110,7 +110,7 @@ public class DuplicateSubmitAspect {
      */
     @AfterThrowing(pointcut = "webLog()", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        if (e instanceof DuplicateSubmitException == false) {
+        if (e instanceof CustomException == false) {
             //处理处理重复提交本身之外的异常
             Object[] args = joinPoint.getArgs();
             String uri = request.getRequestURI();

@@ -8,6 +8,7 @@ import com.jinhe.common.config.ResultEnum;
 import com.jinhe.common.util.*;
 import com.jinhe.common.util.Tree.TreeChildren;
 import com.jinhe.common.config.SystemResultEnum;
+import com.jinhe.modules.base.UserController;
 import com.jinhe.modules.sys.dto.DictionaryDTO;
 import com.jinhe.modules.system.entity.Dictionary;
 import com.jinhe.modules.sys.service.IDictionaryService;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/sys/dictionary")
 @Api(tags = "sys")
-public class DictionaryController {
+public class DictionaryController extends UserController {
     @Autowired
     private IDictionaryService iDictionaryService;
 

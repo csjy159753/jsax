@@ -3,6 +3,7 @@ package com.jinhe.modules.sys.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.jinhe.common.config.HttpUtil;
+import com.jinhe.modules.base.UserController;
 import com.jinhe.modules.sys.service.IHttpClientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 @RequestMapping("/sys/redirect")
 @Api(tags = "sys")
 @Transactional(rollbackFor = Exception.class)
-public class SysRedirectController {
+public class SysRedirectController extends UserController {
     private static Logger log = LoggerFactory.getLogger(HttpUtil.class);
 
     @Value("${redirect.config1.SERVER_HOST}")
