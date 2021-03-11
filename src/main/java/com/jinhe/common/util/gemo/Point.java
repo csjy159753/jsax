@@ -199,12 +199,12 @@ public class Point {
         PointF pointF1 = new PointF(point1.x.setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue(), point1.y.setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue());
         PointF pointF2 = new PointF(point2.x.setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue(), point2.y.setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue());
 
-        System.out.println(PointToXianDuanChuiYingPointjingdu(31.688956, 118.343611, pointF1.x, pointF1.y, pointF2.x, pointF2.y));
-        System.out.println(PointToXianDuanChuiYingPointweidu(31.688956, 118.343611, pointF1.x, pointF1.y, pointF2.x, pointF2.y));
+        System.out.println(PointToPointjingdu(31.688956, 118.343611, pointF1.x, pointF1.y, pointF2.x, pointF2.y));
+        System.out.println(PointToPointweidu(31.688956, 118.343611, pointF1.x, pointF1.y, pointF2.x, pointF2.y));
 
     }
 
-    public static double PointToXianDuanChuiYingPointjingdu(double m, double n, double x1, double y1, double x2, double y2) {//计算点到线垂影坐标
+    public static double PointToPointjingdu(double m, double n, double x1, double y1, double x2, double y2) {//计算点到线垂影坐标
         return
 
                 (m * (x2 - x1) * (x2 - x1) + n * (y2 - y1) * (x2 - x1) + (x1 * y2 - x2 * y1) * (y2 - y1))
@@ -213,7 +213,7 @@ public class Point {
 
     }
 
-    public static double PointToXianDuanChuiYingPointweidu(double m, double n, double x1, double y1, double x2, double y2) {//计算点到线垂影坐标
+    public static double PointToPointweidu(double m, double n, double x1, double y1, double x2, double y2) {//计算点到线垂影坐标
         return (m * (x2 - x1) * (y2 - y1) + n * (y2 - y1) * (y2 - y1) + (x2 * y1 - x1 * y2) * (x2 - x1))
                 / ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 

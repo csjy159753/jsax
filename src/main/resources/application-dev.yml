@@ -4,14 +4,14 @@ spring:
     druid:
       first: #数据源1
         url: jdbc:mysql://124.70.212.38:4576/template?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-        username: root
-        password: "aSj)3j71gTI&"
+        username: template
+        password: "Mas@12345"
         driverClassName: com.mysql.cj.jdbc.Driver
         filters: stat,slf4j,wall,config
       second: #数据源2
         url: jdbc:mysql://124.70.212.38:4576/template?serverTimezone=Asia/Shanghai&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-        username: root
-        password: "aSj)3j71gTI&"
+        username: template
+        password: "Mas@12345"
         driverClassName: com.mysql.cj.jdbc.Driver
         filters: stat,slf4j,wall,config
       initial-size: 10

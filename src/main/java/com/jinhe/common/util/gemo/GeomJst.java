@@ -6,7 +6,7 @@ import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 
 /**
- * @author Administrator
+ * @author rls
  */
 public class GeomJst {
     /**
