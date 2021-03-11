@@ -53,7 +53,8 @@ dictionary,file_store,file_store_type,sys_log,sys_login_count,sys_login_log,sys_
 
 ### 添加baseControl
 
-添加BaseController 获取用户id 以及获取用户基本信息 取消当前请求参数获取用户id的行为
+添加BaseController UserController  获取用户id 以及获取用户基本信息 取消当前请求参数获取用户id的行为
+取消在开发者模式下不需要token就可以访问接口功能
 
 
 
