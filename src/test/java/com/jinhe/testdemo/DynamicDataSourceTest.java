@@ -1,5 +1,6 @@
 package com.jinhe.testdemo;
 
+import com.jinhe.common.util.StringUtils;
 import com.jinhe.modules.system.entity.SysLog;
 import com.jinhe.modules.system.service.ISysLogService;
 import com.jinhe.service.DataSourceTestService;
@@ -9,11 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @RunWith(SpringRunner.class)
@@ -27,18 +24,18 @@ public class DynamicDataSourceTest {
     @Test
     public void test() throws Exception {
         //数据源1
-        SysLog log1 = dataSourceTestService.queryLog(1L);
+        SysLog log1 = dataSourceTestService.queryLog(111l);
         System.out.println("----------------------------------------------------------");
         System.out.println(ToStringBuilder.reflectionToString(log1));
         System.out.println("----------------------------------------------------------");
 
         //数据源2
-        SysLog log2 = dataSourceTestService.queryLog2(1L);
+        SysLog log2 = dataSourceTestService.queryLog2(1l);
         System.out.println("==========================================================");
         System.out.println(ToStringBuilder.reflectionToString(log2));
         System.out.println("==========================================================");
         //数据源1
-        SysLog log3 = dataSourceTestService.queryLog(1L);
+        SysLog log3 = dataSourceTestService.queryLog(111l);
         System.out.println(ToStringBuilder.reflectionToString(log3));
         System.out.println("----------------------------------------------------------");
 
@@ -83,7 +80,7 @@ public class DynamicDataSourceTest {
 
 
         SysLog log = new SysLog();
-        log.setId("111");
+        log.setId(StringUtils.getGUID());
         log.setApplication("测试");
         log.setUserName("ces");
 //        boolean b1 = dataSourceTestService.insertLog1(log);
