@@ -25,6 +25,7 @@ public class DynamicDataSourceTest {
     public void test() throws Exception {
         //数据源1
         SysLog log1 = dataSourceTestService.queryLog(111l);
+
         System.out.println("----------------------------------------------------------");
         System.out.println(ToStringBuilder.reflectionToString(log1));
         System.out.println("----------------------------------------------------------");

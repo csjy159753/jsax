@@ -328,7 +328,10 @@ public class EncryptUtil {
     }
 
     public static void main(String[] args) {
-        String sss = EncryptUtil.getInstance().MD5_32("000000");
-        System.out.println(sss);
+//        String sss = EncryptUtil.getInstance().MD5_32("000000");
+//        System.out.println(sss);
+
+        String ss = EncryptUtil.getInstance().AESdecode("5d5f2fa3e0b2f9481e4e79d7e6a147cb", "55a4fe58f389076be6970c59663a06ef");
+        System.out.println(ss);
     }
 }

@@ -91,7 +91,7 @@ public class SysRegion implements Serializable {
     private String path;
 
     @ApiModelProperty(value = "子对象数量")
-    @TableField("childrenNum")
+    @TableField("children_num")
     private Integer childrenNum;
 
 

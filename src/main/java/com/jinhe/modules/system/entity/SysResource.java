@@ -63,7 +63,7 @@ public class SysResource implements Serializable {
     private Integer displayType;
 
     @ApiModelProperty(value = "子对象数量")
-    @TableField("childrenNum")
+    @TableField("children_num")
     private Integer childrenNum;
 
 

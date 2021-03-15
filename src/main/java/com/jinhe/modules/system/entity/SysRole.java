@@ -59,7 +59,7 @@ public class SysRole implements Serializable {
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "子对象数量")
-    @TableField("childrenNum")
+    @TableField("children_num")
     private Integer childrenNum;
 
 
