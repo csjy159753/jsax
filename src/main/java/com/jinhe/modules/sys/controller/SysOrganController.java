@@ -21,11 +21,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -82,13 +84,15 @@ public class SysOrganController extends UserController {
         }
         List<SysOrganRole> l = new ArrayList<>();
         SysOrgan finalSysOrgan = sysOrgan;
-        if (sysOrganAddDTO.getType() != null && sysOrganAddDTO.getType() != 0) {
-            sysOrganAddDTO.getListRoles().forEach(d -> {
-                SysOrganRole sysOrganRole = new SysOrganRole();
-                sysOrganRole.setOrganId(finalSysOrgan.getId());
-                sysOrganRole.setRoleId(d);
-                l.add(sysOrganRole);
-            });
+        if (!Objects.equals(sysOrganAddDTO.getType(), 0)) {
+            if (!CollectionUtils.isEmpty(sysOrganAddDTO.getListRoles())) {
+                sysOrganAddDTO.getListRoles().forEach(d -> {
+                    SysOrganRole sysOrganRole = new SysOrganRole();
+                    sysOrganRole.setOrganId(finalSysOrgan.getId());
+                    sysOrganRole.setRoleId(d);
+                    l.add(sysOrganRole);
+                });
+            }
         }
         iSysOrganRoleService.saveBatch(l);
         return ResultUtil.success();
