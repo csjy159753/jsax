@@ -393,6 +393,29 @@
             <artifactId>jts-core</artifactId>
             <version>1.18.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.geotools/gt-opengis -->
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-opengis</artifactId>
+            <version>22-RC</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/jar/gt-opengis-22-RC.jar</systemPath>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.geotools/gt-opengis -->
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-opengis</artifactId>
+            <version>25-RC</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.geotools/gt-geometry -->
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-geometry</artifactId>
+            <version>24.2</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <!-- 阿里云maven仓库 -->
@@ -404,6 +427,20 @@
             <releases>
                 <enabled>true</enabled>
             </releases>
+        </repository>
+        <repository>
+            <id>osgeo</id>
+            <name>OSGeo Release Repository</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
+            <snapshots><enabled>false</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
+        </repository>
+        <repository>
+            <id>osgeo-snapshot</id>
+            <name>OSGeo Snapshot Repository</name>
+            <url>https://repo.osgeo.org/repository/snapshot/</url>
+            <snapshots><enabled>true</enabled></snapshots>
+            <releases><enabled>false</enabled></releases>
         </repository>
     </repositories>
     <pluginRepositories>

@@ -219,4 +219,20 @@ public class Point {
 
 
     }
+
+    public BigDecimal getX() {
+        return x;
+    }
+
+    public void setX(BigDecimal x) {
+        this.x = x;
+    }
+
+    public BigDecimal getY() {
+        return y;
+    }
+
+    public void setY(BigDecimal y) {
+        this.y = y;
+    }
 }
