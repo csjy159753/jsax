@@ -16,7 +16,9 @@ public class EqualDistance {
     /**
      * 这是可以修改的间距
      */
-    public static double distance = 1000/111194.92474777778;
+    public static double distance = 0;
+
+    public static final double constant = 111194.92474777778;
     /**
      * 高德地图多边形路径点的坐标
      */
@@ -81,7 +83,7 @@ public class EqualDistance {
         double length = this.vector_points.size();
         List<PointG> normal_vector = this.vector_points;
         List<Double> theta = this.points_sin_value;
-        double L = distance;
+        double L = distance/constant;
         for (int i = 0; i < length; i++) {
             PointG point = this.points.get((int) ((i + 1) % length));
             double x1 = normal_vector.get((int) ((i + 1) % length)).x;
@@ -95,6 +97,24 @@ public class EqualDistance {
             PointG new_point = new PointG(new_point_x, new_point_y);
             this.new_points.add(new_point);
         }
+    }
+
+    public void calculate() {
+        calc_Side_Vector();
+        calc_Angel();
+        calc_new_points();
+    }
+
+    public static EqualDistance getEqualDistance(List<PointG> pointPixelArr) {
+        double[] d1 = new double[2];
+        for (PointG pointG : pointPixelArr) {
+            d1[0] += pointG.x;
+            d1[1] += pointG.y;
+        }
+        d1[0] = d1[0] / pointPixelArr.size();
+        d1[1] = d1[1] / pointPixelArr.size();
+        PointG centerPixel = new PointG(d1[0], d1[1]);
+        return new EqualDistance(pointPixelArr, centerPixel);
     }
 
     public static void main(String[] args) {
