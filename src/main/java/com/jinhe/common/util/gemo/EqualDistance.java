@@ -13,11 +13,10 @@ import java.util.List;
  */
 public class EqualDistance {
 
-
     /**
      * 这是可以修改的间距
      */
-    private double distance = 1000/111194.92474777778;
+    public static double distance = 1000/111194.92474777778;
     /**
      * 高德地图多边形路径点的坐标
      */
@@ -25,7 +24,7 @@ public class EqualDistance {
     /**
      * 缩小或放大后的坐标
      */
-    private List<PointG> new_points = new ArrayList<PointG>();
+    public List<PointG> new_points = new ArrayList<PointG>();
     /**
      * 边向量的坐标
      */
@@ -82,7 +81,7 @@ public class EqualDistance {
         double length = this.vector_points.size();
         List<PointG> normal_vector = this.vector_points;
         List<Double> theta = this.points_sin_value;
-        double L = this.distance;
+        double L = distance;
         for (int i = 0; i < length; i++) {
             PointG point = this.points.get((int) ((i + 1) % length));
             double x1 = normal_vector.get((int) ((i + 1) % length)).x;
