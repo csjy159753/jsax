@@ -13,6 +13,7 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
@@ -27,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * redisTemplate封装
  *
- *  @author yinxp@dist.com.cn
+ *  @author
  */
 @Component
 public class RedisUtil {
@@ -607,8 +608,117 @@ public class RedisUtil {
         BoundListOperations<String, Object> boundValueOperations = redisTemplate.boundListOps(listKey);
         return boundValueOperations.rightPop();
     }
-
     //=========BoundListOperations 用法 End============
+    /**
+     * 添加一个元素, zset与set最大的区别就是每个元素都有一个score，因此有个排序的辅助功能;  addZSet
+     *
+     * @param key
+     * @param value
+     * @param score
+     */
+    public void addZSet(String key, String value, double score) {
+        redisTemplate.opsForZSet().add(key, value, score);
+    }
+    /**
+     * 删除元素 zrem
+     *
+     * @param key
+     * @param value
+     */
+    public void removeZSet(String key, String value) {
+        redisTemplate.opsForZSet().remove(key, value);
+    }
+    /**
+     * score的增加or减少
+     *
+     * @param key
+     * @param value
+     * @param score
+     */
+    public Double incrZSetScore(String key, String value, double score) {
+        return redisTemplate.opsForZSet().incrementScore(key, value, score);
+    }
+
+    /**
+     * 查询value对应的score   ZSetScore
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public Double ZSetScore(String key, String value) {
+        return redisTemplate.opsForZSet().score(key, value);
+    }
+    /**
+     * 判断value在zset中的排名  ZSetRank
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public Long ZSetRank(String key, String value) {
+        return redisTemplate.opsForZSet().rank(key, value);
+    }
+    /**
+     * 返回集合的长度
+     *
+     * @param key
+     * @return
+     */
+    public Long ZSetSize(String key) {
+        return redisTemplate.opsForZSet().zCard(key);
+    }
+    /**
+     * 查询集合中指定顺序的值， 0 -1 表示获取全部的集合内容  ZSetRange
+     *
+     * 返回有序的集合，score小的在前面
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public Set<Object> ZSetRange(String key, int start, int end) {
+        return redisTemplate.opsForZSet().range(key, start, end);
+    }
+
+    /**
+     * 查询集合中指定顺序的值和score，0, -1 表示获取全部的集合内容
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public Set<ZSetOperations.TypedTuple<Object>> ZSetRangeWithScore(String key, int start, int end) {
+        return redisTemplate.opsForZSet().rangeWithScores(key, start, end);
+    }
+
+    /**
+     * 查询集合中指定顺序的值  ZSetRevRange
+     *
+     * 返回有序的集合中，score大的在前面
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public Set<Object> ZSetRevRange(String key, int start, int end) {
+        return redisTemplate.opsForZSet().reverseRange(key, start, end);
+    }
+
+    /**
+     * 根据score的值，来获取满足条件的集合  ZSetSortRange
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return
+     */
+    public Set<Object> ZSetSortRange(String key, int min, int max) {
+        return redisTemplate.opsForZSet().rangeByScore(key, min, max);
+    }
 
     /**
      * 类扫描器（获取指定包下的指定类型）
