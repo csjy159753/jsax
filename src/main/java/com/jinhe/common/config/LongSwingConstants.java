@@ -20,6 +20,8 @@ public interface LongSwingConstants {
     public static final Integer USER_TYPE_ADMIN = 98;
     public static final String comma = ",";
 
+    public static final String id = "id";
+
     public class Number {
         public static final Integer ZERO = 0;
         public static final Integer ONE = 1;

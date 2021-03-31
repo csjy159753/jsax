@@ -1,6 +1,7 @@
 package com.jinhe.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.jinhe.common.config.LongSwingConstants;
 import com.jinhe.common.util.ImageUtil;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.config.ConfigProperty;
@@ -164,7 +165,7 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
         try {
             Class clazz = t.getClass();
             // 获取tableId值
-            Field id = clazz.getDeclaredField("id");
+            Field id = clazz.getDeclaredField(LongSwingConstants.id);
             id.setAccessible(true);
             String idValue = id.get(t).toString();
             // 获取表名tableName
@@ -187,7 +188,7 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
                 fileStore.setTableIdType(type);
                 fileStoreList.add(fileStore);
             });
-            saveBatch(fileStoreList);
+            updateBatchById(fileStoreList);
             return true;
         } catch (Exception e) {
             return false;
@@ -199,7 +200,7 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
         try {
             Class clazz = t.getClass();
             // 获取tableId值
-            Field idField = clazz.getDeclaredField("id");
+            Field idField = clazz.getDeclaredField(LongSwingConstants.id);
             idField.setAccessible(true);
             String idValue = idField.get(t).toString();
             // 获取表名tableName
