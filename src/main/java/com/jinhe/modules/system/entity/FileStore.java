@@ -65,6 +65,10 @@ public class FileStore implements Serializable {
     @TableField("TABLE_ID")
     private String tableId;
 
+    @ApiModelProperty(value = "表数据类型")
+    @TableField("TABLE_ID_TYPE")
+    private String tableIdType;
+
     @ApiModelProperty(value = "文件格式后缀")
     @TableField("MIME_TYPE_EXT")
     private String mimeTypeExt;
@@ -178,22 +182,31 @@ public class FileStore implements Serializable {
         this.mimeTypeType = mimeTypeType;
     }
 
+    public String getTableIdType() {
+        return tableIdType;
+    }
+
+    public void setTableIdType(String tableIdType) {
+        this.tableIdType = tableIdType;
+    }
+
     @Override
     public String toString() {
         return "FileStore{" +
-        "id=" + id +
-        ", fileName=" + fileName +
-        ", fileId=" + fileId +
-        ", originalFile=" + originalFile +
-        ", modifiedImgae=" + modifiedImgae +
-        ", lowImgae=" + lowImgae +
-        ", thumbImgae=" + thumbImgae +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        ", tableName=" + tableName +
-        ", tableId=" + tableId +
-        ", mimeTypeExt=" + mimeTypeExt +
-        ", mimeTypeType=" + mimeTypeType +
-        "}";
+                "id='" + id + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", fileId='" + fileId + '\'' +
+                ", originalFile='" + originalFile + '\'' +
+                ", modifiedImgae='" + modifiedImgae + '\'' +
+                ", lowImgae='" + lowImgae + '\'' +
+                ", thumbImgae='" + thumbImgae + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", tableName='" + tableName + '\'' +
+                ", tableId='" + tableId + '\'' +
+                ", tableIdType='" + tableIdType + '\'' +
+                ", mimeTypeExt='" + mimeTypeExt + '\'' +
+                ", mimeTypeType='" + mimeTypeType + '\'' +
+                '}';
     }
 }

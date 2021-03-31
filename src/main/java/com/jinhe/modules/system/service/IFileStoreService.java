@@ -32,9 +32,15 @@ public interface IFileStoreService extends IService<FileStore> {
      *
      * @param list
      * @param t
+     * @param type
+     * @param <T>
      * @return
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
      */
-    boolean saveFile(List<FileStoreDTO> list, T t, String type);
+    <T> boolean saveFile (List<FileStoreDTO> list, T t, String type);
+
+    <T> boolean updateFile(List<String> list, T t, String type);
 
     /**
      * 保存更新表

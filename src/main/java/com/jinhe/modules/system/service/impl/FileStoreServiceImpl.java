@@ -1,5 +1,6 @@
 package com.jinhe.modules.system.service.impl;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.jinhe.common.util.ImageUtil;
 import com.jinhe.common.util.StringUtils;
 import com.jinhe.config.ConfigProperty;
@@ -14,7 +15,7 @@ import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -23,11 +24,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>
@@ -160,9 +160,66 @@ public class FileStoreServiceImpl extends ServiceImpl<FileStoreMapper, FileStore
     }
 
     @Override
-    public boolean saveFile(List<FileStoreDTO> list, T t, String type) {
-        t.getClass().getName();
-        return false;
+    public <T> boolean saveFile(List<FileStoreDTO> list, T t, String type){
+        try {
+            Class clazz = t.getClass();
+            // 获取tableId值
+            Field id = clazz.getDeclaredField("id");
+            id.setAccessible(true);
+            String idValue = id.get(t).toString();
+            // 获取表名tableName
+            TableName annotation = (TableName) clazz.getAnnotation(TableName.class);
+            String value = annotation.value();
+
+            List<FileStore> fileStoreList = new ArrayList<>();
+            list.forEach(fileStoreDTO -> {
+                FileStore fileStore = new FileStore();
+                fileStore.setId(fileStoreDTO.getFileId());
+                //文件名
+                fileStore.setFileName(fileStoreDTO.getFileName());
+                fileStore.setFileId(fileStoreDTO.getFileId());
+                //文件路径
+                fileStore.setOriginalFile(fileStoreDTO.getPath());
+                fileStore.setMimeTypeExt(fileStoreDTO.getMimeTypeExt());
+                fileStore.setMimeTypeType(fileStoreDTO.getMimeTypeType());
+                fileStore.setTableId(idValue);
+                fileStore.setTableName(value);
+                fileStore.setTableIdType(type);
+                fileStoreList.add(fileStore);
+            });
+            saveBatch(fileStoreList);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public <T> boolean updateFile(List<String> list, T t, String type) {
+        try {
+            Class clazz = t.getClass();
+            // 获取tableId值
+            Field idField = clazz.getDeclaredField("id");
+            idField.setAccessible(true);
+            String idValue = idField.get(t).toString();
+            // 获取表名tableName
+            TableName annotation = (TableName) clazz.getAnnotation(TableName.class);
+            String value = annotation.value();
+
+            List<FileStore> fileStoreList = new ArrayList<>();
+            list.forEach(id -> {
+                FileStore fileStore = new FileStore();
+                fileStore.setId(id);
+                fileStore.setTableId(idValue);
+                fileStore.setTableName(value);
+                fileStore.setTableIdType(type);
+                fileStoreList.add(fileStore);
+            });
+            updateBatchById(fileStoreList);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
