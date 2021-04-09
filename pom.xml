@@ -414,7 +414,14 @@
             <version>24.2</version>
         </dependency>
 
-
+        <!-- https://mvnrepository.com/artifact/org.gdal/gdal -->
+        <dependency>
+            <groupId>org.gdal</groupId>
+            <artifactId>gdal</artifactId>
+            <version>3.2.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/jar/gdal.jar</systemPath>
+        </dependency>
 
     </dependencies>
 
