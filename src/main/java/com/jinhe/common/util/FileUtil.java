@@ -894,4 +894,29 @@ public class FileUtil {
             e.printStackTrace();
         }
     }
+    //读取json文件
+    public static String readJsonFile(String filePath) {
+        BufferedReader reader = null;
+        String readJson = "";
+        try {
+            FileInputStream fileInputStream = new FileInputStream(filePath);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream,"UTF-8");
+            reader = new BufferedReader(inputStreamReader);
+            String tempString = null;
+            while ((tempString = reader.readLine()) != null){
+                readJson += tempString;
+            }
+        }catch (IOException e){
+
+        }finally {
+            if (reader != null){
+                try {
+                    reader.close();
+                }catch (IOException e){
+
+                }
+            }
+        }
+        return readJson;
+    }
 }

@@ -23,7 +23,7 @@ swagger:
   version: '@project.version@'
 jinhe:
   #排除需要权限验证的模块
-  filter: demo,download,allowApi,login
+  filter: demo,download,allowApi,login,gadl
   #系统功能模块清单
   modules:
     workbench: '控制台模块'
@@ -34,6 +34,7 @@ jinhe:
     system: '系统模块'
     sys: '业务相关的系统模块'
     custom: '自定义业务'
+    gadl: '栅格空间数据转换库'
 # mysql
 spring:
   security:
