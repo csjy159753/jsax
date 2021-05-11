@@ -121,7 +121,7 @@ public class CjaxCityController {
         String  filepath ="d:\\item\\1.mdb";
         String table = "市";
         List<Map<String, Object>> select =
-                MdbfileUtils.select(filepath, "select  市 from " + table, null);
+                MdbfileUtils.select(filepath, "select  市,lon as 经度,lat as 纬度 from " + table, null);
         for (Map<String, Object> stringObjectMap : select) {
             System.out.println(stringObjectMap.toString());
         }
@@ -183,6 +183,24 @@ public class CjaxCityController {
         }
 
         return ResultUtil.success(res);
+    }
+
+    //港口岸线利用率统计
+    @ApiOperation(value = "港口岸线利用率统计")
+    @RequestMapping(value = "statisticsForSide", method = RequestMethod.GET)
+    public Result<ListSub<CjaxCity>> statisticsForSide() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
+        String  filepath ="d:\\item\\1.mdb";
+        String sql = "select DISTINCT 岸线功能区分区.所在辖区 as 城市名称 , Sum(岸线功能区分区.Shape_Length) as 岸线总长 , count(*) as 设施总数,Sum(岸线功能区分区.Shape_Length) as 利用总长 , " +
+                "Sum(岸线功能区分区.Shape_Length)/(SELECT Sum(岸线功能区分区.Shape_Length) FROM 岸线功能区分区)*100 &'%' as 岸线利用率 " +
+                "from 岸线功能区分区  " +
+                "where 岸线功能区分区.所在辖区 in (select  市 from 市 ) " +
+                "group by  岸线功能区分区.所在辖区";
+        List<Map<String, Object>> select =
+                MdbfileUtils.select(filepath, sql, null);
+        for (Map<String, Object> stringObjectMap : select) {
+            System.out.println(stringObjectMap.toString());
+        }
+        return ResultUtil.success(select);
     }
 
 }

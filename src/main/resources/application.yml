@@ -36,6 +36,7 @@ jinhe:
     custom: '自定义业务'
     gadl: '栅格空间数据转换库'
     axgntj: '岸线功能统计'
+    sanshenganxian: '三生岸线统计'
 # mysql
 spring:
   security:

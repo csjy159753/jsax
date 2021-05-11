@@ -422,6 +422,12 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/resources/jar/gdal.jar</systemPath>
         </dependency>
+        <!--ucanaccess操作mdbs数据库-->
+        <dependency>
+            <groupId>net.sf.ucanaccess</groupId>
+            <artifactId>ucanaccess</artifactId>
+            <version>5.0.0</version>
+        </dependency>
 
     </dependencies>
 
