@@ -90,7 +90,7 @@ public class CjaxCityController {
         String  filepath ="d:\\item\\1.mdb";
         //String table = "岸线功能区分区";
         List<Map<String, Object>> select =
-                MdbfileUtils.select(filepath, "SELECT DISTINCT 岸线功能区分区.功能区类型,Sum(岸线功能区分区.Shape_Length)/(SELECT Sum(岸线功能区分区.Shape_Length) FROM 岸线功能区分区)*100 &'%' as 占主江比例\n" +
+                MdbfileUtils.select(filepath, "SELECT DISTINCT 岸线功能区分区.功能区类型,round(Sum(岸线功能区分区.Shape_Length)/(SELECT Sum(岸线功能区分区.Shape_Length) FROM 岸线功能区分区)*100 ,2) as 占主江比例\n" +
                         "FROM 岸线功能区分区\n" +
                         "GROUP BY 岸线功能区分区.功能区类型;", null);
         for (Map<String, Object> stringObjectMap : select) {
@@ -191,7 +191,7 @@ public class CjaxCityController {
     public Result<ListSub<CjaxCity>> statisticsForSide() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
         String  filepath ="d:\\item\\1.mdb";
         String sql = "select DISTINCT 岸线功能区分区.所在辖区 as 城市名称 , Sum(岸线功能区分区.Shape_Length) as 岸线总长 , count(*) as 设施总数,Sum(岸线功能区分区.Shape_Length) as 利用总长 , " +
-                "Sum(岸线功能区分区.Shape_Length)/(SELECT Sum(岸线功能区分区.Shape_Length) FROM 岸线功能区分区)*100 &'%' as 岸线利用率 " +
+                "round(Sum(岸线功能区分区.Shape_Length)/(SELECT Sum(岸线功能区分区.Shape_Length) FROM 岸线功能区分区)*100,2)  as 岸线利用率 " +
                 "from 岸线功能区分区  " +
                 "where 岸线功能区分区.所在辖区 in (select  市 from 市 ) " +
                 "group by  岸线功能区分区.所在辖区";

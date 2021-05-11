@@ -52,7 +52,7 @@ public class SanShengAnXianController {
     @RequestMapping(value = "lenAndPerForType", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> lenAndPerForType() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
         String  filepath ="d:\\item\\1.mdb";
-        String sql="SELECT DISTINCT 三生岸线.岸线类型,Sum(三生岸线.Shape_Length) as 岸线长度,Sum(三生岸线.Shape_Length)/(SELECT Sum(三生岸线.Shape_Length) FROM 三生岸线)*100 &'%' as 比例\n" +
+        String sql="SELECT DISTINCT 三生岸线.岸线类型,Sum(三生岸线.Shape_Length) as 岸线长度,round(Sum(三生岸线.Shape_Length)/(SELECT Sum(三生岸线.Shape_Length) FROM 三生岸线)*100 ,2) as 比例\n" +
                 "FROM 三生岸线\n" +
                 "group by 岸线类型";
         List<Map<String, Object>> select =
