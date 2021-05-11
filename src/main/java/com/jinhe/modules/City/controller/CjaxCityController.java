@@ -203,5 +203,23 @@ public class CjaxCityController {
         return ResultUtil.success(select);
     }
 
+
+    @ApiOperation(value = "港口利用率统计")
+    @RequestMapping(value = "statisticsForPort", method = RequestMethod.GET)
+    public Result<ListSub<CjaxCity>> statisticsForPort() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
+        String  filepath ="d:\\item\\1.mdb";
+        String sql = "select DISTINCT 港区.名称 as 港口名称 ,Sum(港区.Shape_Length) as 岸线长度,\n" +
+                "round(Sum(港区.Shape_Length)/(SELECT Sum(港区.Shape_Length) FROM 港区)*100,2)  as 比例\n" +
+                "from 港区\n" +
+                "group by 港区.名称";
+        List<Map<String, Object>> select =
+                MdbfileUtils.select(filepath, sql, null);
+        for (Map<String, Object> stringObjectMap : select) {
+            System.out.println(stringObjectMap.toString());
+        }
+        return ResultUtil.success(select);
+    }
+
+
 }
 
