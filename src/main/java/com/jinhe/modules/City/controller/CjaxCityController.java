@@ -190,11 +190,11 @@ public class CjaxCityController {
     @RequestMapping(value = "statisticsForSide", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> statisticsForSide() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
         String  filepath ="d:\\item\\1.mdb";
-        String sql = "select DISTINCT 岸线功能区分区.所在辖区 as 城市名称 , Sum(岸线功能区分区.Shape_Length) as 岸线总长 , count(*) as 设施总数,Sum(岸线功能区分区.Shape_Length) as 利用总长 , " +
+        String sql = "select DISTINCT 岸线功能区分区.所属市 as 城市名称 , Sum(岸线功能区分区.Shape_Length) as 岸线总长 , count(*) as 设施总数,Sum(岸线功能区分区.Shape_Length) as 利用总长 , " +
                 "round(Sum(岸线功能区分区.Shape_Length)/(SELECT Sum(岸线功能区分区.Shape_Length) FROM 岸线功能区分区)*100,2)  as 岸线利用率 " +
                 "from 岸线功能区分区  " +
-                "where 岸线功能区分区.所在辖区 in (select  市 from 市 ) " +
-                "group by  岸线功能区分区.所在辖区";
+                "where 岸线功能区分区.所属市 in (select  市 from 市 ) " +
+                "group by  岸线功能区分区.所属市";
         List<Map<String, Object>> select =
                 MdbfileUtils.select(filepath, sql, null);
         for (Map<String, Object> stringObjectMap : select) {
