@@ -38,6 +38,8 @@ public class CjaxCityController {
     @Autowired
     ICjaxCityService iCjaxCityService;
 
+    private static String filepath = "\\\\192.168.1.8\\database\\江苏省长江岸线库.mdb";
+
 
 //    @ApiOperation(value = "查询所有市")
 //    @RequestMapping(value = "list", method = RequestMethod.GET)
@@ -61,7 +63,7 @@ public class CjaxCityController {
     @ApiOperation(value = "查询所有信息")
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> list() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         String table = "岸线功能区分区";
         List<Map<String, Object>> select =
                 MdbfileUtils.select(filepath, "select  * from " + table, null);
@@ -74,7 +76,7 @@ public class CjaxCityController {
     @ApiOperation(value = "岸线功能分划")
     @RequestMapping(value = "listForSideFunc", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> listForSideFunc() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         //String table = "岸线功能区分区";
         List<Map<String, Object>> select =
                 MdbfileUtils.select(filepath, "SELECT 岸线功能区分区.[功能区类型]\n" +
@@ -87,7 +89,7 @@ public class CjaxCityController {
     @ApiOperation(value = "各功能区类型占主江比例" )
     @RequestMapping(value = "proForFun", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> proForFun() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         //String table = "岸线功能区分区";
         List<Map<String, Object>> select =
                 MdbfileUtils.select(filepath, "SELECT DISTINCT 岸线功能区分区.功能区类型,round(Sum(岸线功能区分区.Shape_Length)/(SELECT Sum(岸线功能区分区.Shape_Length) FROM 岸线功能区分区)*100 ,2) as 占主江比例\n" +
@@ -103,7 +105,7 @@ public class CjaxCityController {
     @ApiOperation(value = "分区岸线长度")
     @RequestMapping(value = "lengthForSide", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> lengthForSide() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         //String table = "岸线功能区分区";
         List<Map<String, Object>> select =
                 MdbfileUtils.select(filepath, "SELECT DISTINCTROW 岸线功能区分区.功能区类型, Sum(岸线功能区分区.Shape_Length) AS [Shape_Length 之 合计]\n" +
@@ -118,7 +120,7 @@ public class CjaxCityController {
     @ApiOperation(value = "查询所有市")
     @RequestMapping(value = "listForCity", method = RequestMethod.GET)
     public Result<ListSub<Object>> listForCity() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         String table = "市";
         List<Map<String, Object>> select =
                 MdbfileUtils.select(filepath, "select  市,lon as 经度,lat as 纬度 from " + table, null);
@@ -131,7 +133,7 @@ public class CjaxCityController {
     @ApiOperation(value = "查询所有水闸")
     @RequestMapping(value = "listForsluice", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> listForsluice() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         String table = "水闸";
         List<Map<String, Object>> select =
                 MdbfileUtils.select(filepath, "select   * from " + table, null);
@@ -144,7 +146,7 @@ public class CjaxCityController {
     @ApiOperation(value = "查询所有泵站")
     @RequestMapping(value = "listForBengZhan", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> listForBengZhan() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         String table = "泵站";
         List<Map<String, Object>> select =
                 MdbfileUtils.select(filepath, "select   * from " + table, null);
@@ -157,7 +159,7 @@ public class CjaxCityController {
     @ApiOperation(value = "显示框选任意图形内的点")
     @RequestMapping(value = "pointInShapes", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> pointInShapes(@RequestBody String xys) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         String table = "岸线项目位置";
         //得到所有的经纬度
         List<Map<String, Object>> select =
@@ -189,7 +191,7 @@ public class CjaxCityController {
     @ApiOperation(value = "港口岸线利用率统计")
     @RequestMapping(value = "statisticsForSide", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> statisticsForSide() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         String sql = "select DISTINCT 岸线功能区分区.所属市 as 城市名称 , Sum(岸线功能区分区.Shape_Length) as 岸线总长 , count(*) as 设施总数,Sum(岸线功能区分区.Shape_Length) as 利用总长 , " +
                 "round(Sum(岸线功能区分区.Shape_Length)/(SELECT Sum(岸线功能区分区.Shape_Length) FROM 岸线功能区分区)*100,2)  as 岸线利用率 " +
                 "from 岸线功能区分区  " +
@@ -207,7 +209,7 @@ public class CjaxCityController {
     @ApiOperation(value = "港口利用率统计")
     @RequestMapping(value = "statisticsForPort", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> statisticsForPort() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
-        String  filepath ="d:\\item\\1.mdb";
+        //String  filepath ="d:\\item\\1.mdb";
         String sql = "select DISTINCT 港区.名称 as 港口名称 ,Sum(港区.岸线长度) as 岸线长度,\n" +
                 "round(Sum(港区.岸线长度)/(SELECT Sum(港区.岸线长度) FROM 港区)*100,2)  as 比例\n" +
                 "from 港区\n" +
