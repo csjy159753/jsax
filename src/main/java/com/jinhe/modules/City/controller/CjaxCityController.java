@@ -88,7 +88,8 @@ public class CjaxCityController {
         else
         {
             System.out.print(dir.getName()+"文件夹下没有找到此文件,去数据库中查找");
-            filepath = "d:\\item\\1.mdb";
+//            filepath = "d:\\item\\1.mdb";
+            filepath = "c:\\item\\1.mdb";
             return;
         }
     }
