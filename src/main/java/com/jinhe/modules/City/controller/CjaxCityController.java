@@ -69,21 +69,25 @@ public class CjaxCityController {
     {
 
         File[]files=dir.listFiles();
-        for(File file:files)
-        {
-            if(file.isDirectory())                      //file是目录时，则重新调用function函数;
+        if(files!=null){
+            for(File file:files)
             {
-                function(filename,file.getAbsoluteFile(),flag);
-            }
-            if(file.isFile() && filename.equals(file.getName()))  //file时文件且文件名相同时，输出;
-            {
-                flag=true;
-                System.out.println("要查找的文件路径为："+file.getAbsolutePath());
-                filepath=file.getAbsolutePath();
-                break;
+
+                if(file.isDirectory())                      //file是目录时，则重新调用function函数;
+                {
+                    function(filename,file.getAbsoluteFile(),flag);
+                }
+                if(file.isFile() && filename.equals(file.getName()))  //file时文件且文件名相同时，输出;
+                {
+                    flag=true;
+                    System.out.println("要查找的文件路径为："+file.getAbsolutePath());
+                    filepath=file.getAbsolutePath();
+                    break;
+                }
             }
         }
-        if(flag==true)                                 //判断有没有找到过文件;
+
+        if(flag==true)
             return;
         else
         {
@@ -98,7 +102,9 @@ public class CjaxCityController {
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public Result<ListSub<CjaxCity>> list() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
         //String  filepath ="d:\\item\\1.mdb";
+
         getFilepath();
+        System.out.println(filepath+"..............");
         System.out.println(filepath);
         String table = "岸线功能区分区";
         List<Map<String, Object>> select =
