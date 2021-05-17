@@ -89,8 +89,7 @@ public class CjaxCityController {
 
         if(flag==true)
             return;
-        else
-        {
+        else {
             System.out.print(dir.getName()+"文件夹下没有找到此文件,去数据库中查找");
 //            filepath = "d:\\item\\1.mdb";
             filepath = "c:\\item\\1.mdb";
@@ -272,5 +271,22 @@ public class CjaxCityController {
         }
         return ResultUtil.success(select);
     }
+    @ApiOperation(value = "岸线项目类型现状")
+    @RequestMapping(value = "statusForSideProject", method = RequestMethod.GET)
+    public Result<ListSub<CjaxCity>> statusForSideProject(@RequestParam("cityName")String cityName) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
+        //String  filepath ="d:\\item\\1.mdb";
+        getFilepath();
+        String sql = "SELECT DISTINCT 岸线项目位置.项目类型0508 as 岸线项目类型,\n" +
+                "Sum(岸线项目位置.占用岸线总) as 岸线长度,\n" +
+                "round(Sum(岸线项目位置.占用岸线总)/(SELECT Sum(岸线项目位置.占用岸线总) FROM 岸线项目位置)*100,2)  as 占比 \n" +
+                "FROM 岸线项目位置\n" +
+                "where 岸线项目位置.市  like \"*"+cityName+"*\"" +
+                "GROUP BY 岸线项目位置.项目类型0508;";
+        List<Map<String, Object>> select =
+                MdbfileUtils.select(filepath, sql, null);
+        for (Map<String, Object> stringObjectMap : select) {
+            System.out.println(stringObjectMap.toString());
+        }
+        return ResultUtil.success(select);
+    }
 }
-
