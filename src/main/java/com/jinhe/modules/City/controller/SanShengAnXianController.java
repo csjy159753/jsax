@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
@@ -102,12 +103,14 @@ public class SanShengAnXianController {
 
     @ApiOperation(value = "查询三生岸线类型及长度和比例")
     @RequestMapping(value = "lenAndPerForType", method = RequestMethod.GET)
-    public Result<ListSub<CjaxCity>> lenAndPerForType() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
+    public Result<ListSub<CjaxCity>> lenAndPerForType(@RequestParam("cityName")String cityName) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, SQLException {
         //String  filepath ="d:\\item\\1.mdb";
         getFilepath();
-        String sql="SELECT DISTINCT 三生岸线.岸线类型,Sum(三生岸线.Shape_Length) as 岸线长度,round(Sum(三生岸线.Shape_Length)/(SELECT Sum(三生岸线.Shape_Length) FROM 三生岸线)*100 ,2) as 比例\n" +
-                "FROM 三生岸线\n" +
-                "group by 岸线类型";
+        String sql="SELECT DISTINCT 三生岸线.岸线类型,Sum(三生岸线.Shape_Length) as 岸线长度,round(Sum(三生岸线.Shape_Length)/(SELECT Sum(三生岸线.Shape_Length) FROM 三生岸线)*100 ,2) as 占已利用岸线比重,\n" +
+                "               round(Sum(三生岸线.Shape_Length)/(select 岸线长度.[岸线总长度（km）] from 岸线长度 where 岸线长度.市别  like \"*"+cityName+"*\"  )*100 ,2) as 占总岸线比重\n" +
+                "                FROM 三生岸线\n" +
+                "                where 三生岸线.市 like \"*"+cityName+"*\" " +
+                "                group by 岸线类型\n";
         List<Map<String, Object>> select =
                 MdbfileUtils.select(filepath,sql, null);
         for (Map<String, Object> stringObjectMap : select) {
