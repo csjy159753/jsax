@@ -54,7 +54,7 @@ public class CjaxCityController {
     public static  void getFilepath(){
         String dbPath = null;
         String filename="江苏省长江岸线库.mdb";                //读取要查找的文件名称filename;
-        File dir=new File("\\\\192.168.1.8\\database");      //确定要查找的目录dir;
+        File dir=new File("\\ ");      //确定要查找的目录dir;
         boolean flag=false;                              //flag来确定是否查到文件;
         function(filename,dir,flag);                     //function函数递归实现;
     }
